@@ -227,8 +227,9 @@ char *fread_string (FILE *fp, char *buf, size_t size) {
         /* Back off the char type lookup,
          * it was too dirty for portability.
          *   -- Furey */
+	int ich = getc(fp);
 
-        switch (*plast = getc (fp)) {
+        switch (ich) {
             case EOF:
                 /* temp fix */
                 bug ("fread_string: EOF", 0);
@@ -247,7 +248,7 @@ char *fread_string (FILE *fp, char *buf, size_t size) {
                 return buf;
 
             default:
-                plast++;
+                *plast++ = (char)ich;
                 break;
         }
     }
@@ -283,26 +284,30 @@ char *fread_string_eol (FILE *fp, char *buf, size_t size) {
     if (plast[-1] == '\n' || plast[-1] == '\r')
         return str_empty;
 
-    while (1) {
-        if (!char_special[(*plast++ = getc (fp)) - EOF])
-            continue;
+   while (1) {
+    int ich = getc(fp);
 
-        switch (plast[-1]) {
-            case EOF:
-                bug ("fread_string_eol: EOF", 0);
-                exit (1);
-                break;
-
-            case '\n':
-            case '\r':
-                plast--;
-                *plast = '\0';
-                return buf;
-
-            default:
-                break;
-        }
+    if (ich == EOF) {
+        bug("fread_string_eol: EOF", 0);
+        exit(1);
     }
+
+    *plast++ = (char)ich;
+
+    if (!char_special[(unsigned char)ich - EOF])
+        continue;
+
+    switch (ich) {
+        case '\n':
+        case '\r':
+            plast--;
+            *plast = '\0';
+            return buf;
+
+        default:
+            break;
+    }
+}
 }
 
 /* Read one word (into static buffer). */
