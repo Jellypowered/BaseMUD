@@ -53,6 +53,61 @@
     } \
     var = &(var ## _table[index]);
 
+DEFINE_JSON_READ_FUN (json_tblr_str_app) {
+    JSON_TBLR_START (STR_APP_T, str_app, ATTRIBUTE_HIGHEST + 2, str_app->stat < 0);
+    if (!json_import_expect ("str_app", json,
+            "stat", "hitroll_bonus", "damroll_bonus",
+            "carry_bonus", "max_wield_weight", NULL))
+        return NULL;
+    READ_PROP_INT (str_app->stat,  "stat");
+    READ_PROP_INT (str_app->tohit, "hitroll_bonus");
+    READ_PROP_INT (str_app->todam, "damroll_bonus");
+    READ_PROP_INT (str_app->carry, "carry_bonus");
+    READ_PROP_INT (str_app->wield, "max_wield_weight");
+    return str_app;
+}
+
+DEFINE_JSON_READ_FUN (json_tblr_int_app) {
+    JSON_TBLR_START (INT_APP_T, int_app, ATTRIBUTE_HIGHEST + 2, int_app->stat < 0);
+    if (!json_import_expect ("int_app", json,
+            "stat", "learn_rate", NULL))
+        return NULL;
+    READ_PROP_INT (int_app->stat,  "stat");
+    READ_PROP_INT (int_app->learn, "learn_rate");
+    return int_app;
+}
+
+DEFINE_JSON_READ_FUN (json_tblr_wis_app) {
+    JSON_TBLR_START (WIS_APP_T, wis_app, ATTRIBUTE_HIGHEST + 2, wis_app->stat < 0);
+    if (!json_import_expect ("wis_app", json,
+            "stat", "practices", NULL))
+        return NULL;
+    READ_PROP_INT (wis_app->stat,     "stat");
+    READ_PROP_INT (wis_app->practice, "practices");
+    return wis_app;
+}
+
+DEFINE_JSON_READ_FUN (json_tblr_dex_app) {
+    JSON_TBLR_START (DEX_APP_T, dex_app, ATTRIBUTE_HIGHEST + 2, dex_app->stat < 0);
+    if (!json_import_expect ("dex_app", json,
+            "stat", "defense_bonus", NULL))
+        return NULL;
+    READ_PROP_INT (dex_app->stat,      "stat");
+    READ_PROP_INT (dex_app->defensive, "defense_bonus");
+    return dex_app;
+}
+
+DEFINE_JSON_READ_FUN (json_tblr_con_app) {
+    JSON_TBLR_START (CON_APP_T, con_app, ATTRIBUTE_HIGHEST + 2, con_app->stat < 0);
+    if (!json_import_expect ("con_app", json,
+            "stat", "level_hp", "shock", NULL))
+        return NULL;
+    READ_PROP_INT (con_app->stat,  "stat");
+    READ_PROP_INT (con_app->hitp,  "level_hp");
+    READ_PROP_INT (con_app->shock, "shock");
+    return con_app;
+}
+
 DEFINE_JSON_READ_FUN (json_tblr_skill) {
     char buf[MAX_STRING_LENGTH];
     JSON_T *array, *sub, *sub2;

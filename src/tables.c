@@ -131,14 +131,14 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     TTABLE(class_table, "classes", "Classes and statistics.", "class", "config", json_tblw_class, json_tblr_class, class_dispose),
     TTABLE(colour_setting_table, "color_settings", "Configurable colours.", "color_setting", "config_unsupported", json_tblw_colour_setting, NULL, NULL),
     TTABLE(colour_table, "colors", "Colour values.", "color", "config_unsupported", json_tblw_colour, NULL, NULL),
-    TTABLE(con_app_table, "con_app", "Con apply table.", "con_app", "config_unsupported", json_tblw_con_app, NULL, NULL),
+    TTABLE(con_app_table, "con_app", "Con apply table.", "con_app", "config", json_tblw_con_app, json_tblr_con_app, NULL),
     TTABLE(cond_table, "conds", "Conditions like thirst/hunger.", "cond", "config_unsupported", json_tblw_cond, NULL, NULL),
     TTABLE(dam_table, "dam_types", "Damage types and properties.", "dam_type", "config_unsupported", json_tblw_dam, NULL, NULL),
     TTABLE(day_table, "days", "Days of the week.", "day", "config_unsupported", json_tblw_day, NULL, NULL),
-    TTABLE(dex_app_table, "dex_app", "Dex apply table.", "dex_app", "config_unsupported", json_tblw_dex_app, NULL, NULL),
+    TTABLE(dex_app_table, "dex_app", "Dex apply table.", "dex_app", "config", json_tblw_dex_app, json_tblr_dex_app, NULL),
     TTABLE(door_table, "doors", "Exit names.", "door", "config_unsupported", json_tblw_door, NULL, NULL),
     TTABLE(hp_cond_table, "hp_conds", "Messages based on % of hp.", "hp_cond", "config_unsupported", json_tblw_hp_cond, NULL, NULL),
-    TTABLE(int_app_table, "int_app", "Int apply table.", "int_app", "config_unsupported", json_tblw_int_app, NULL, NULL),
+    TTABLE(int_app_table, "int_app", "Int apply table.", "int_app", "config", json_tblw_int_app, json_tblr_int_app, NULL),
     TTABLE(item_table, "items", "Item types and properties.", "item", "config_unsupported", json_tblw_item, NULL, NULL),
     TTABLE(liq_table, "liquids", "Liquid types.", "liquid", "config_unsupported", json_tblw_liq, NULL, NULL),
     TTABLE(material_table, "materials", "Material properties", "material", "config_unsupported", json_tblw_material, NULL, NULL),
@@ -152,11 +152,11 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     TTABLE_POSTLOAD(skill_table, "skills", "Master skill table.", "skill", "config", json_tblw_skill, json_tblr_skill, skill_dispose, skill_reload_mapping),
     TTABLE(sky_table, "skies", "Skies based on the weather.", "sky", "config_unsupported", json_tblw_sky, NULL, NULL),
     TTABLE(spec_table, "specs", "Specialized mobile behavior.", "spec", "config_unsupported", json_tblw_spec, NULL, NULL),
-    TTABLE(str_app_table, "str_app", "Str apply table.", "str_app", "config_unsupported", json_tblw_str_app, NULL, NULL),
+    TTABLE(str_app_table, "str_app", "Str apply table.", "str_app", "config", json_tblw_str_app, json_tblr_str_app, NULL),
     TTABLE(sun_table, "suns", "Positions of the sun.", "sun", "config_unsupported", json_tblw_sun, NULL, NULL),
     TTABLE(weapon_table, "weapons", "Weapon types and properties.", "weapon", "config_unsupported", json_tblw_weapon, NULL, NULL),
     TTABLE(wear_loc_table, "wear_locs", "Wearable item table.", "wear_loc", "config_unsupported", json_tblw_wear_loc, NULL, NULL),
-    TTABLE(wis_app_table, "wis_app", "Wis apply table.", "wis_app", "config_unsupported", json_tblw_wis_app, NULL, NULL),
+    TTABLE(wis_app_table, "wis_app", "Wis apply table.", "wis_app", "config", json_tblw_wis_app, json_tblr_wis_app, NULL),
 
     /* constant tables that are internal only. */
     TTABLE_INTERNAL(affect_bit_table, "affect_bits", "Affect bit vector types."),
@@ -723,7 +723,7 @@ char *const title_table[CLASS_MAX][MAX_LEVEL + 1][2] = {
      {"Implementor", "Implementress"}}};
 
 /* Attribute bonus tables. */
-const STR_APP_T str_app_table[ATTRIBUTE_HIGHEST + 2] = {
+STR_APP_T str_app_table[ATTRIBUTE_HIGHEST + 2] = {
     /* stat, tohit, todam, carry, wield */
     {0, -5, -4, 0, 0}, /* 0 */
     {1, -4, -3, 3, 1},
@@ -755,7 +755,7 @@ const STR_APP_T str_app_table[ATTRIBUTE_HIGHEST + 2] = {
     {-999},
 };
 
-const INT_APP_T int_app_table[ATTRIBUTE_HIGHEST + 2] = {
+INT_APP_T int_app_table[ATTRIBUTE_HIGHEST + 2] = {
     /* stat, learn */
     {0, 3}, /* 0 */
     {1, 5},
@@ -786,7 +786,7 @@ const INT_APP_T int_app_table[ATTRIBUTE_HIGHEST + 2] = {
 
     {-999}};
 
-const WIS_APP_T wis_app_table[ATTRIBUTE_HIGHEST + 2] = {
+WIS_APP_T wis_app_table[ATTRIBUTE_HIGHEST + 2] = {
     /* stat, practice */
     {0, 0}, /* 0 */
     {1, 0},
@@ -817,7 +817,7 @@ const WIS_APP_T wis_app_table[ATTRIBUTE_HIGHEST + 2] = {
 
     {-999}};
 
-const DEX_APP_T dex_app_table[ATTRIBUTE_HIGHEST + 2] = {
+DEX_APP_T dex_app_table[ATTRIBUTE_HIGHEST + 2] = {
     /* stat, defensive */
     {0, 60}, /* 0 */
     {1, 50},
@@ -848,7 +848,7 @@ const DEX_APP_T dex_app_table[ATTRIBUTE_HIGHEST + 2] = {
 
     {-999}};
 
-const CON_APP_T con_app_table[ATTRIBUTE_HIGHEST + 2] = {
+CON_APP_T con_app_table[ATTRIBUTE_HIGHEST + 2] = {
     /* stat, hitp, shock */
     {0, -4, 20}, /* 0 */
     {1, -3, 25},

@@ -32,10 +32,15 @@
 
 /* dead-simple functions for reading JSON objects. */
 DECLARE_JSON_READ_FUN (json_tblr_class);
+DECLARE_JSON_READ_FUN (json_tblr_con_app);
+DECLARE_JSON_READ_FUN (json_tblr_dex_app);
+DECLARE_JSON_READ_FUN (json_tblr_int_app);
 DECLARE_JSON_READ_FUN (json_tblr_pc_race);
 DECLARE_JSON_READ_FUN (json_tblr_race);
 DECLARE_JSON_READ_FUN (json_tblr_skill);
 DECLARE_JSON_READ_FUN (json_tblr_skill_group);
 DECLARE_JSON_READ_FUN (json_tblr_song);
+DECLARE_JSON_READ_FUN (json_tblr_str_app);
+DECLARE_JSON_READ_FUN (json_tblr_wis_app);
 
 #endif
