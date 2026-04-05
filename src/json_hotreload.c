@@ -98,67 +98,73 @@ static time_t hotreload_scan_dir_mtime(const char *dir_path)
  * with the newly loaded AREA_T from json_import_area(). */
 static void hotreload_unload_area(AREA_T *area)
 {
-    ROOM_INDEX_T *room, *room_next;
+    ROOM_INDEX_T *room;
     CHAR_T *ch, *ch_next;
     OBJ_T *obj, *obj_next;
     EXIT_T *exit;
     ROOM_INDEX_T *safe_room;
     int dir;
 
-    /* Find the safe room to evacuate PCs to. */
+    /* Find a safe room to evacuate PCs to.
+     * CRITICAL: it must be outside the area being reloaded. */
     safe_room = room_get_index(ROOM_VNUM_TEMPLE);
-    if (safe_room == NULL)
+    if (safe_room == NULL || safe_room->area == area)
         safe_room = room_get_index(ROOM_VNUM_LIMBO);
+    if (safe_room != NULL && safe_room->area == area)
+        safe_room = NULL; /* nowhere safe we can find */
 
-    /* Step 1 + 2 + 3: for every room in the area, clear inhabitants and
-     * contents.  Snapshot room_next before the loop because area->room_first
-     * is modified by char_from_room / obj_extract. */
-    for (room = area->room_first; room != NULL; room = room_next)
+    /* Step 1: Extract ALL live NPC instances whose mob_index belongs to this
+     * area, regardless of which room they currently occupy.  This handles
+     * mobs that have wandered outside the area's vnum range. */
+    for (ch = char_first; ch != NULL; ch = ch_next)
     {
-        room_next = room->area_next;
+        ch_next = ch->global_next;
+        if (!IS_NPC(ch))
+            continue;
+        if (ch->mob_index == NULL || ch->mob_index->area != area)
+            continue;
+        stop_fighting(ch, TRUE);
+        char_extract(ch);
+    }
 
-        /* 1a: Extract every NPC — this also stops their fights. */
-        for (ch = room->people_first; ch != NULL; ch = ch_next)
+    /* Step 2: Evacuate all PCs from the area's rooms to the safe room. */
+    for (room = area->room_first; room != NULL; room = room->area_next)
+    {
+        CHAR_T *pc, *pc_next;
+        for (pc = room->people_first; pc != NULL; pc = pc_next)
         {
-            ch_next = ch->room_next;
-            if (!IS_NPC(ch))
-                continue;
-            stop_fighting(ch, TRUE);
-            char_extract(ch);
-        }
-
-        /* 1b: Move every PC to the safe room. */
-        for (ch = room->people_first; ch != NULL; ch = ch_next)
-        {
-            ch_next = ch->room_next;
-            /* IS_NPC check: any remaining character is a PC. */
-            stop_fighting(ch, TRUE);
-            char_from_room(ch);
+            pc_next = pc->room_next;
+            /* Any character still here after step 1 is a PC. */
+            stop_fighting(pc, TRUE);
+            char_from_room(pc);
             if (safe_room != NULL)
-                char_to_room(ch, safe_room);
+                char_to_room(pc, safe_room);
             send_to_char(
                 "\n\r{YNOTE{x: The area is being reloaded; stand by.\n\r",
-                ch);
-        }
-
-        /* 3: Extract all objects in the room. */
-        for (obj = room->content_first; obj != NULL; obj = obj_next)
-        {
-            obj_next = obj->content_next;
-            obj_extract(obj);
+                pc);
         }
     }
 
-    /* Step 4: Null 'to_room' on exits from areas outside this one that point
-     * INTO this area's vnum range.  Preserve to_vnum for re-link after
-     * reload. */
+    /* Step 3: Extract ALL live object instances whose obj_index belongs to
+     * this area, from anywhere in the world (carried by PCs, in containers
+     * outside the area, etc.). */
+    for (obj = object_first; obj != NULL; obj = obj_next)
+    {
+        obj_next = obj->global_next;
+        if (obj->obj_index == NULL || obj->obj_index->area != area)
+            continue;
+        obj_extract(obj);
+    }
+
+    /* Step 4: Null 'to_room' on exits from other areas pointing into this
+     * area's vnum range.  Preserves to_vnum for re-link after reload. */
     {
         ROOM_INDEX_T *r;
         for (r = room_index_get_first(); r != NULL;
              r = room_index_get_next(r))
         {
             if (r->area == area)
-                continue; /* own exits are freed with the area below */
+                continue;
             for (dir = 0; dir < DIR_MAX; dir++)
             {
                 exit = r->exit[dir];
@@ -167,7 +173,6 @@ static void hotreload_unload_area(AREA_T *area)
                 if (exit->to_vnum >= area->min_vnum &&
                     exit->to_vnum <= area->max_vnum)
                 {
-                    /* Null only the pointer; preserve to_vnum. */
                     exit->to_room = NULL;
                 }
             }
