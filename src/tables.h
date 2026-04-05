@@ -59,10 +59,10 @@ extern const SPEC_T           spec_table[SPEC_MAX + 1];
 extern const WEAR_LOC_T       wear_loc_table[WEAR_LOC_MAX + 2];
 extern const MATERIAL_T       material_table[MATERIAL_MAX + 1];
 extern const COLOUR_SETTING_T colour_setting_table[COLOUR_SETTING_MAX + 1];
-extern const DAY_T            day_table[DAY_MAX + 1];
-extern const MONTH_T          month_table[MONTH_MAX + 1];
-extern const SKY_T            sky_table[SKY_MAX + 1];
-extern const SUN_T            sun_table[SUN_MAX + 1];
+extern DAY_T                  day_table[DAY_MAX + 1];
+extern MONTH_T                month_table[MONTH_MAX + 1];
+extern SKY_T                  sky_table[SKY_MAX + 1];
+extern SUN_T                  sun_table[SUN_MAX + 1];
 extern const HP_COND_T        hp_cond_table[HP_COND_MAX + 1];
 extern const COLOUR_T         colour_table[COLOUR_MAX + 1];
 extern const POSE_T           pose_table[CLASS_MAX + 1];
@@ -96,10 +96,14 @@ void table_dispose (const TABLE_T *table);
 
 /* Init / disposal functions. */
 DECLARE_DISPOSE_FUN (class_dispose);
+DECLARE_DISPOSE_FUN (day_dispose);
+DECLARE_DISPOSE_FUN (month_dispose);
 DECLARE_DISPOSE_FUN (pc_race_dispose);
 DECLARE_DISPOSE_FUN (race_dispose);
 DECLARE_DISPOSE_FUN (skill_dispose);
 DECLARE_DISPOSE_FUN (skill_group_dispose);
+DECLARE_DISPOSE_FUN (sky_dispose);
 DECLARE_DISPOSE_FUN (song_dispose);
+DECLARE_DISPOSE_FUN (sun_dispose);
 
 #endif

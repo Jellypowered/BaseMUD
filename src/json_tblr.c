@@ -54,58 +54,147 @@
     var = &(var ## _table[index]);
 
 DEFINE_JSON_READ_FUN (json_tblr_str_app) {
-    JSON_TBLR_START (STR_APP_T, str_app, ATTRIBUTE_HIGHEST + 2, str_app->stat < 0);
+    int stat_val;
+    STR_APP_T *str_app;
+
     if (!json_import_expect ("str_app", json,
             "stat", "hitroll_bonus", "damroll_bonus",
             "carry_bonus", "max_wield_weight", NULL))
         return NULL;
-    READ_PROP_INT (str_app->stat,  "stat");
-    READ_PROP_INT (str_app->tohit, "hitroll_bonus");
-    READ_PROP_INT (str_app->todam, "damroll_bonus");
-    READ_PROP_INT (str_app->carry, "carry_bonus");
-    READ_PROP_INT (str_app->wield, "max_wield_weight");
+    stat_val = JGI("stat");
+    if (stat_val < 0 || stat_val > ATTRIBUTE_HIGHEST) {
+        json_logf (json, "str_app stat '%d' out of range.", stat_val);
+        return NULL;
+    }
+    str_app = &str_app_table[stat_val];
+    str_app->stat  = stat_val;
+    str_app->tohit = JGI("hitroll_bonus");
+    str_app->todam = JGI("damroll_bonus");
+    str_app->carry = JGI("carry_bonus");
+    str_app->wield = JGI("max_wield_weight");
     return str_app;
 }
 
 DEFINE_JSON_READ_FUN (json_tblr_int_app) {
-    JSON_TBLR_START (INT_APP_T, int_app, ATTRIBUTE_HIGHEST + 2, int_app->stat < 0);
+    int stat_val;
+    INT_APP_T *int_app;
+
     if (!json_import_expect ("int_app", json,
             "stat", "learn_rate", NULL))
         return NULL;
-    READ_PROP_INT (int_app->stat,  "stat");
-    READ_PROP_INT (int_app->learn, "learn_rate");
+    stat_val = JGI("stat");
+    if (stat_val < 0 || stat_val > ATTRIBUTE_HIGHEST) {
+        json_logf (json, "int_app stat '%d' out of range.", stat_val);
+        return NULL;
+    }
+    int_app = &int_app_table[stat_val];
+    int_app->stat  = stat_val;
+    int_app->learn = JGI("learn_rate");
     return int_app;
 }
 
 DEFINE_JSON_READ_FUN (json_tblr_wis_app) {
-    JSON_TBLR_START (WIS_APP_T, wis_app, ATTRIBUTE_HIGHEST + 2, wis_app->stat < 0);
+    int stat_val;
+    WIS_APP_T *wis_app;
+
     if (!json_import_expect ("wis_app", json,
             "stat", "practices", NULL))
         return NULL;
-    READ_PROP_INT (wis_app->stat,     "stat");
-    READ_PROP_INT (wis_app->practice, "practices");
+    stat_val = JGI("stat");
+    if (stat_val < 0 || stat_val > ATTRIBUTE_HIGHEST) {
+        json_logf (json, "wis_app stat '%d' out of range.", stat_val);
+        return NULL;
+    }
+    wis_app = &wis_app_table[stat_val];
+    wis_app->stat     = stat_val;
+    wis_app->practice = JGI("practices");
     return wis_app;
 }
 
 DEFINE_JSON_READ_FUN (json_tblr_dex_app) {
-    JSON_TBLR_START (DEX_APP_T, dex_app, ATTRIBUTE_HIGHEST + 2, dex_app->stat < 0);
+    int stat_val;
+    DEX_APP_T *dex_app;
+
     if (!json_import_expect ("dex_app", json,
             "stat", "defense_bonus", NULL))
         return NULL;
-    READ_PROP_INT (dex_app->stat,      "stat");
-    READ_PROP_INT (dex_app->defensive, "defense_bonus");
+    stat_val = JGI("stat");
+    if (stat_val < 0 || stat_val > ATTRIBUTE_HIGHEST) {
+        json_logf (json, "dex_app stat '%d' out of range.", stat_val);
+        return NULL;
+    }
+    dex_app = &dex_app_table[stat_val];
+    dex_app->stat      = stat_val;
+    dex_app->defensive = JGI("defense_bonus");
     return dex_app;
 }
 
 DEFINE_JSON_READ_FUN (json_tblr_con_app) {
-    JSON_TBLR_START (CON_APP_T, con_app, ATTRIBUTE_HIGHEST + 2, con_app->stat < 0);
+    int stat_val;
+    CON_APP_T *con_app;
+
     if (!json_import_expect ("con_app", json,
             "stat", "level_hp", "shock", NULL))
         return NULL;
-    READ_PROP_INT (con_app->stat,  "stat");
-    READ_PROP_INT (con_app->hitp,  "level_hp");
-    READ_PROP_INT (con_app->shock, "shock");
+    stat_val = JGI("stat");
+    if (stat_val < 0 || stat_val > ATTRIBUTE_HIGHEST) {
+        json_logf (json, "con_app stat '%d' out of range.", stat_val);
+        return NULL;
+    }
+    con_app = &con_app_table[stat_val];
+    con_app->stat  = stat_val;
+    con_app->hitp  = JGI("level_hp");
+    con_app->shock = JGI("shock");
     return con_app;
+}
+
+DEFINE_JSON_READ_FUN (json_tblr_day) {
+    char buf[MAX_STRING_LENGTH];
+    JSON_TBLR_START (DAY_T, day, DAY_MAX, day->name == NULL);
+    if (!json_import_expect ("day", json, "index", "name", NULL))
+        return NULL;
+    day->type = JGI("index");
+    READ_PROP_STRP (day->name, "name");
+    return day;
+}
+
+DEFINE_JSON_READ_FUN (json_tblr_month) {
+    char buf[MAX_STRING_LENGTH];
+    JSON_TBLR_START (MONTH_T, month, MONTH_MAX, month->name == NULL);
+    if (!json_import_expect ("month", json, "index", "name", NULL))
+        return NULL;
+    month->type = JGI("index");
+    READ_PROP_STRP (month->name, "name");
+    return month;
+}
+
+DEFINE_JSON_READ_FUN (json_tblr_sky) {
+    char buf[MAX_STRING_LENGTH];
+    JSON_TBLR_START (SKY_T, sky, SKY_MAX, sky->name == NULL);
+    if (!json_import_expect ("sky", json,
+            "index", "name", "description", "mmhg_min", "mmhg_max", NULL))
+        return NULL;
+    sky->type = JGI("index");
+    READ_PROP_STRP (sky->name,        "name");
+    READ_PROP_STRP (sky->description, "description");
+    sky->mmhg_min = JGI("mmhg_min");
+    sky->mmhg_max = JGI("mmhg_max");
+    return sky;
+}
+
+DEFINE_JSON_READ_FUN (json_tblr_sun) {
+    char buf[MAX_STRING_LENGTH];
+    JSON_TBLR_START (SUN_T, sun, SUN_MAX, sun->name == NULL);
+    if (!json_import_expect ("sun", json,
+            "index", "name", "is_dark", "hour_start", "hour_end", "message", NULL))
+        return NULL;
+    sun->type       = JGI("index");
+    READ_PROP_STRP (sun->name,    "name");
+    READ_PROP_BOOL (sun->is_dark, "is_dark");
+    sun->hour_start = JGI("hour_start");
+    sun->hour_end   = JGI("hour_end");
+    READ_PROP_STRP (sun->message, "message");
+    return sun;
 }
 
 DEFINE_JSON_READ_FUN (json_tblr_skill) {

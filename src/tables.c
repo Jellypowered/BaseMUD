@@ -134,7 +134,7 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     TTABLE(con_app_table, "con_app", "Con apply table.", "con_app", "config", json_tblw_con_app, json_tblr_con_app, NULL),
     TTABLE(cond_table, "conds", "Conditions like thirst/hunger.", "cond", "config_unsupported", json_tblw_cond, NULL, NULL),
     TTABLE(dam_table, "dam_types", "Damage types and properties.", "dam_type", "config_unsupported", json_tblw_dam, NULL, NULL),
-    TTABLE(day_table, "days", "Days of the week.", "day", "config_unsupported", json_tblw_day, NULL, NULL),
+    TTABLE(day_table, "days", "Days of the week.", "day", "config", json_tblw_day, json_tblr_day, day_dispose),
     TTABLE(dex_app_table, "dex_app", "Dex apply table.", "dex_app", "config", json_tblw_dex_app, json_tblr_dex_app, NULL),
     TTABLE(door_table, "doors", "Exit names.", "door", "config_unsupported", json_tblw_door, NULL, NULL),
     TTABLE(hp_cond_table, "hp_conds", "Messages based on % of hp.", "hp_cond", "config_unsupported", json_tblw_hp_cond, NULL, NULL),
@@ -142,7 +142,7 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     TTABLE(item_table, "items", "Item types and properties.", "item", "config_unsupported", json_tblw_item, NULL, NULL),
     TTABLE(liq_table, "liquids", "Liquid types.", "liquid", "config_unsupported", json_tblw_liq, NULL, NULL),
     TTABLE(material_table, "materials", "Material properties", "material", "config_unsupported", json_tblw_material, NULL, NULL),
-    TTABLE(month_table, "months", "Months of the year.", "month", "config_unsupported", json_tblw_month, NULL, NULL),
+    TTABLE(month_table, "months", "Months of the year.", "month", "config", json_tblw_month, json_tblr_month, month_dispose),
     TTABLE(pose_table, "pose", "Poses based on class and level", "pose", "config_unsupported", json_tblw_pose, NULL, NULL),
     TTABLE(position_table, "positions", "Character positions.", "position", "config_unsupported", json_tblw_position, NULL, NULL),
     TTABLE(sector_table, "sectors", "Sector/terrain properties.", "sector", "config_unsupported", json_tblw_sector, NULL, NULL),
@@ -150,10 +150,10 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     TTABLE(size_table, "sizes", "Character sizes.", "size", "config_unsupported", json_tblw_size, NULL, NULL),
     TTABLE(skill_group_table, "skill_groups", "Groups of skills table.", "skill_group", "config", json_tblw_skill_group, json_tblr_skill_group, skill_group_dispose),
     TTABLE_POSTLOAD(skill_table, "skills", "Master skill table.", "skill", "config", json_tblw_skill, json_tblr_skill, skill_dispose, skill_reload_mapping),
-    TTABLE(sky_table, "skies", "Skies based on the weather.", "sky", "config_unsupported", json_tblw_sky, NULL, NULL),
+    TTABLE(sky_table, "skies", "Skies based on the weather.", "sky", "config", json_tblw_sky, json_tblr_sky, sky_dispose),
     TTABLE(spec_table, "specs", "Specialized mobile behavior.", "spec", "config_unsupported", json_tblw_spec, NULL, NULL),
     TTABLE(str_app_table, "str_app", "Str apply table.", "str_app", "config", json_tblw_str_app, json_tblr_str_app, NULL),
-    TTABLE(sun_table, "suns", "Positions of the sun.", "sun", "config_unsupported", json_tblw_sun, NULL, NULL),
+    TTABLE(sun_table, "suns", "Positions of the sun.", "sun", "config", json_tblw_sun, json_tblr_sun, sun_dispose),
     TTABLE(weapon_table, "weapons", "Weapon types and properties.", "weapon", "config_unsupported", json_tblw_weapon, NULL, NULL),
     TTABLE(wear_loc_table, "wear_locs", "Wearable item table.", "wear_loc", "config_unsupported", json_tblw_wear_loc, NULL, NULL),
     TTABLE(wis_app_table, "wis_app", "Wis apply table.", "wis_app", "config", json_tblw_wis_app, json_tblr_wis_app, NULL),
@@ -1347,7 +1347,7 @@ BOARD_T board_table[BOARD_MAX + 1] = {
     {"Personal", "Personal messages", 0, 1, "all", DEF_EXCLUDE, 28, NULL, FALSE},
     {0}};
 
-const DAY_T day_table[DAY_MAX + 1] = {
+DAY_T day_table[DAY_MAX + 1] = {
     {DAY_MOON, "the Moon"},
     {DAY_BULL, "the Bull"},
     {DAY_DECEPTION, "Deception"},
@@ -1357,7 +1357,7 @@ const DAY_T day_table[DAY_MAX + 1] = {
     {DAY_SUN, "the Sun"},
     {-1, NULL}};
 
-const MONTH_T month_table[MONTH_MAX + 1] = {
+MONTH_T month_table[MONTH_MAX + 1] = {
     {MONTH_WINTER, "Winter"},
     {MONTH_WINTER_WOLF, "the Winter Wolf"},
     {MONTH_FROST_GIANT, "the Frost Giant"},
@@ -1377,7 +1377,7 @@ const MONTH_T month_table[MONTH_MAX + 1] = {
     {MONTH_GREAT_EVIL, "the Great Evil"},
     {-1, NULL}};
 
-const SKY_T sky_table[SKY_MAX + 1] = {
+SKY_T sky_table[SKY_MAX + 1] = {
     {SKY_CLOUDLESS, "cloudless", "cloudless", 1020, -1},
     {SKY_CLOUDY, "cloudy", "cloudy", 1000, 1020},
     {SKY_RAINING, "raining", "rainy", 980, 1000},
@@ -1385,7 +1385,7 @@ const SKY_T sky_table[SKY_MAX + 1] = {
     {-1, NULL, NULL},
 };
 
-const SUN_T sun_table[SUN_MAX + 1] = {
+SUN_T sun_table[SUN_MAX + 1] = {
     {SUN_DARK, "dark", TRUE, 0, 5, "The night has begun."},
     {SUN_RISE, "rise", FALSE, 5, 6, "The sun rises in the east."},
     {SUN_LIGHT, "light", FALSE, 6, 19, "The day has begun."},
@@ -1400,6 +1400,32 @@ const POSE_T pose_table[CLASS_MAX + 1] = {
     {0}};
 
 SONG_T song_table[MAX_SONGS + 1];
+
+DEFINE_DISPOSE_FUN(day_dispose)
+{
+    DAY_T *day = obj;
+    str_free(&(day->name));
+}
+
+DEFINE_DISPOSE_FUN(month_dispose)
+{
+    MONTH_T *month = obj;
+    str_free(&(month->name));
+}
+
+DEFINE_DISPOSE_FUN(sky_dispose)
+{
+    SKY_T *sky = obj;
+    str_free(&(sky->name));
+    str_free(&(sky->description));
+}
+
+DEFINE_DISPOSE_FUN(sun_dispose)
+{
+    SUN_T *sun = obj;
+    str_free(&(sun->name));
+    str_free(&(sun->message));
+}
 
 DEFINE_DISPOSE_FUN(class_dispose)
 {

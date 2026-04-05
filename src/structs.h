@@ -1266,20 +1266,20 @@ struct affect_bit_type
 struct day_type
 {
     int type;
-    const char *name;
+    char *name;
 };
 
 struct month_type
 {
     int type;
-    const char *name;
+    char *name;
 };
 
 struct sky_type
 {
     int type;
-    const char *name;
-    const char *description;
+    char *name;
+    char *description;
     int mmhg_min;
     int mmhg_max;
 };
@@ -1287,11 +1287,11 @@ struct sky_type
 struct sun_type
 {
     int type;
-    const char *name;
+    char *name;
     bool is_dark;
     int hour_start;
     int hour_end;
-    const char *message;
+    char *message;
 };
 
 struct mob_cmd_type
