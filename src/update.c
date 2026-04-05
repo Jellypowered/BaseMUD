@@ -33,6 +33,7 @@
 #include "fight.h"
 #include "globals.h"
 #include "items.h"
+#include "json_hotreload.h"
 #include "lookup.h"
 #include "mob_prog.h"
 #include "mobiles.h"
@@ -562,6 +563,11 @@ void pulse_update(void)
         if (dazed && ch->daze == 0 && ch->wait == 0)
             set_fighting_position_if_possible(ch);
     }
+
+#ifdef BASEMUD_JSON_HOTRELOAD
+    if (reload_immunity_pulses > 0)
+        --reload_immunity_pulses;
+#endif
 }
 
 /* Handle all kinds of updates.
@@ -619,4 +625,15 @@ void update_handler(void)
     pulse_update();
     tail_chain();
     quest_update();
+
+#ifdef BASEMUD_JSON_HOTRELOAD
+    {
+        static int pulse_hotreload = 0;
+        while (--pulse_hotreload <= 0)
+        {
+            pulse_hotreload += HOTRELOAD_SCAN_PULSES;
+            hotreload_scan();
+        }
+    }
+#endif
 }

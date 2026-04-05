@@ -207,6 +207,12 @@ void one_hit(CHAR_T *ch, CHAR_T *victim, int dt)
     if (victim->position == POS_DEAD || ch->in_room != victim->in_room)
         return;
 
+#ifdef BASEMUD_JSON_HOTRELOAD
+    /* Suppress all damage during the post-reload immunity window. */
+    if (reload_immunity_pulses > 0)
+        return;
+#endif
+
     /* Determine if there is a weapon in use. */
     wield = char_get_weapon(ch);
     fight_attack = (wield) ? wield->v.weapon.attack_type : ch->attack_type;
