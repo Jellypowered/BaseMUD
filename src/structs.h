@@ -362,7 +362,7 @@ struct type_type
 struct sector_type
 {
     int type;
-    const char *name;
+    char *name;
     int move_loss;
     char colour_char;
 };
@@ -405,11 +405,11 @@ struct size_type
 struct door_type
 {
     int dir;
-    const char *name;
-    const char *from_phrase;
-    const char *to_phrase;
+    char *name;
+    char *from_phrase;
+    char *to_phrase;
     int reverse;
-    const char *short_name;
+    char *short_name;
 };
 
 struct dice_type
@@ -1201,19 +1201,19 @@ struct board_data
 struct wear_loc_type
 {
     int type;
-    const char *name;
-    const char *phrase;
-    const char *look_msg;
+    char *name;
+    char *phrase;
+    char *look_msg;
     flag_t wear_flag;
     int ac_bonus;
-    const char *msg_wear_self, *msg_wear_room;
+    char *msg_wear_self, *msg_wear_room;
 };
 
 /* Material types - currently unused. */
 struct material_type
 {
     int type;
-    const char *name;
+    char *name;
     char color;
 };
 

@@ -27,6 +27,7 @@
 
 #include "json_tblr.h"
 
+#include "colour.h"
 #include "json.h"
 #include "json_import.h"
 #include "lookup.h"
@@ -364,6 +365,105 @@ DEFINE_JSON_READ_FUN(json_tblr_weapon)
     READ_PROP_STRP(weapon->skill, "skill");
     weapon->newbie_vnum = JGI("newbie_vnum");
     return weapon;
+}
+
+DEFINE_JSON_READ_FUN(json_tblr_colour)
+{
+    char buf[MAX_STRING_LENGTH];
+    JSON_TBLR_START(COLOUR_T, colour, COLOUR_MAX, colour->name == NULL);
+    if (!json_import_expect("color", json,
+                            "name", "group_mask", "code", NULL))
+        return NULL;
+    READ_PROP_STRP(colour->name, "name");
+    colour->mask = JGI("group_mask");
+    colour->code = JGI("code");
+    return colour;
+}
+
+DEFINE_JSON_READ_FUN(json_tblr_colour_setting)
+{
+    char buf[MAX_STRING_LENGTH];
+    const char *colour_name;
+    JSON_TBLR_START(COLOUR_SETTING_T, colour_setting, COLOUR_SETTING_MAX,
+                    colour_setting->name == NULL);
+    if (!json_import_expect("color_setting", json,
+                            "index", "name", "color_char", "default_color", NULL))
+        return NULL;
+    colour_setting->index = JGI("index");
+    READ_PROP_STRP(colour_setting->name, "name");
+    colour_name = JGS("color_char");
+    colour_setting->act_char = (colour_name != NULL) ? colour_name[0] : '\0';
+    colour_setting->default_colour = colour_from_full_name(JGS("default_color"));
+    return colour_setting;
+}
+
+DEFINE_JSON_READ_FUN(json_tblr_door)
+{
+    char buf[MAX_STRING_LENGTH];
+    JSON_TBLR_START(DOOR_T, door, DIR_MAX, door->name == NULL);
+    if (!json_import_expect("door", json,
+                            "dir", "reverse", "name", "short_name",
+                            "to_phrase", "from_phrase", NULL))
+        return NULL;
+    door->dir     = JGI("dir");
+    door->reverse = JGI("reverse");
+    READ_PROP_STRP(door->name,        "name");
+    READ_PROP_STRP(door->short_name,  "short_name");
+    READ_PROP_STRP(door->to_phrase,   "to_phrase");
+    READ_PROP_STRP(door->from_phrase, "from_phrase");
+    return door;
+}
+
+DEFINE_JSON_READ_FUN(json_tblr_material)
+{
+    char buf[MAX_STRING_LENGTH];
+    const char *color_str;
+    JSON_TBLR_START(MATERIAL_T, material, MATERIAL_MAX, material->name == NULL);
+    if (!json_import_expect("material", json,
+                            "type", "name", "color_char", NULL))
+        return NULL;
+    material->type = JGI("type");
+    READ_PROP_STRP(material->name, "name");
+    color_str = JGS("color_char");
+    material->color = (color_str != NULL) ? color_str[0] : '\0';
+    return material;
+}
+
+DEFINE_JSON_READ_FUN(json_tblr_sector)
+{
+    char buf[MAX_STRING_LENGTH];
+    const char *color_str;
+    JSON_TBLR_START(SECTOR_T, sector, SECT_MAX, sector->name == NULL);
+    if (!json_import_expect("sector", json,
+                            "type", "name", "move_loss", "color_char", NULL))
+        return NULL;
+    sector->type      = JGI("type");
+    READ_PROP_STRP(sector->name, "name");
+    sector->move_loss = JGI("move_loss");
+    color_str = JGS("color_char");
+    sector->colour_char = (color_str != NULL) ? color_str[0] : '\0';
+    return sector;
+}
+
+DEFINE_JSON_READ_FUN(json_tblr_wear_loc)
+{
+    char buf[MAX_STRING_LENGTH];
+    JSON_TBLR_START(WEAR_LOC_T, wear_loc, WEAR_LOC_MAX + 1,
+                    wear_loc->name == NULL);
+    if (!json_import_expect("wear_loc", json,
+                            "type", "name", "phrase", "look_msg",
+                            "*wear_flag", "ac_bonus",
+                            "wear_msg_self", "wear_msg_room", NULL))
+        return NULL;
+    wear_loc->type    = JGI("type");
+    READ_PROP_STRP(wear_loc->name,         "name");
+    READ_PROP_STRP(wear_loc->phrase,       "phrase");
+    READ_PROP_STRP(wear_loc->look_msg,     "look_msg");
+    READ_PROP_FLAGS(wear_loc->wear_flag,   "wear_flag", wear_flags);
+    wear_loc->ac_bonus = JGI("ac_bonus");
+    READ_PROP_STRP(wear_loc->msg_wear_self, "wear_msg_self");
+    READ_PROP_STRP(wear_loc->msg_wear_room, "wear_msg_room");
+    return wear_loc;
 }
 
 DEFINE_JSON_READ_FUN(json_tblr_skill)

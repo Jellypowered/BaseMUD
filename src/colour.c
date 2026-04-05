@@ -30,7 +30,9 @@
 #include "colour.h"
 
 #include "chars.h"
+#include "interp.h"
 #include "tables.h"
+#include "utils.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -294,6 +296,32 @@ int colour_to_full_name(flag_t colour, char *buf_out, size_t size)
         }
     }
     return len;
+}
+
+flag_t colour_from_full_name(const char *name)
+{
+    char word[MAX_INPUT_LENGTH];
+    flag_t result = 0;
+    int i;
+
+    if (name == NULL)
+        return 0;
+    while (1)
+    {
+        name = one_argument(name, word);
+        if (word[0] == '\0')
+            break;
+        for (i = 0; colour_table[i].name != NULL; i++)
+        {
+            if (!str_cmp(word, colour_table[i].name))
+            {
+                result &= ~(colour_table[i].mask);
+                result |= colour_table[i].code;
+                break;
+            }
+        }
+    }
+    return result;
 }
 
 const COLOUR_SETTING_T *colour_setting_get_by_char(char ch)

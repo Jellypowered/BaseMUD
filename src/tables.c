@@ -129,23 +129,23 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     TTABLE(board_table, "boards", "Discussion boards.", "board", "config_unsupported", json_tblw_board, NULL, NULL),
     TTABLE(clan_table, "clans", "Player clans.", "clan", "config", json_tblw_clan, json_tblr_clan, clan_dispose),
     TTABLE(class_table, "classes", "Classes and statistics.", "class", "config", json_tblw_class, json_tblr_class, class_dispose),
-    TTABLE(colour_setting_table, "color_settings", "Configurable colours.", "color_setting", "config_unsupported", json_tblw_colour_setting, NULL, NULL),
-    TTABLE(colour_table, "colors", "Colour values.", "color", "config_unsupported", json_tblw_colour, NULL, NULL),
+    TTABLE(colour_setting_table, "color_settings", "Configurable colours.", "color_setting", "config", json_tblw_colour_setting, json_tblr_colour_setting, colour_setting_dispose),
+    TTABLE(colour_table, "colors", "Colour values.", "color", "config", json_tblw_colour, json_tblr_colour, colour_dispose),
     TTABLE(con_app_table, "con_app", "Con apply table.", "con_app", "config", json_tblw_con_app, json_tblr_con_app, NULL),
     TTABLE(cond_table, "conds", "Conditions like thirst/hunger.", "cond", "config_unsupported", json_tblw_cond, NULL, NULL),
     TTABLE(dam_table, "dam_types", "Damage types and properties.", "dam_type", "config", json_tblw_dam, json_tblr_dam, dam_dispose),
     TTABLE(day_table, "days", "Days of the week.", "day", "config", json_tblw_day, json_tblr_day, day_dispose),
     TTABLE(dex_app_table, "dex_app", "Dex apply table.", "dex_app", "config", json_tblw_dex_app, json_tblr_dex_app, NULL),
-    TTABLE(door_table, "doors", "Exit names.", "door", "config_unsupported", json_tblw_door, NULL, NULL),
+    TTABLE(door_table, "doors", "Exit names.", "door", "config", json_tblw_door, json_tblr_door, door_dispose),
     TTABLE(hp_cond_table, "hp_conds", "Messages based on % of hp.", "hp_cond", "config", json_tblw_hp_cond, json_tblr_hp_cond, hp_cond_dispose),
     TTABLE(int_app_table, "int_app", "Int apply table.", "int_app", "config", json_tblw_int_app, json_tblr_int_app, NULL),
     TTABLE(item_table, "items", "Item types and properties.", "item", "config", json_tblw_item, json_tblr_item, item_dispose),
     TTABLE(liq_table, "liquids", "Liquid types.", "liquid", "config", json_tblw_liq, json_tblr_liq, liq_dispose),
-    TTABLE(material_table, "materials", "Material properties", "material", "config_unsupported", json_tblw_material, NULL, NULL),
+    TTABLE(material_table, "materials", "Material properties", "material", "config", json_tblw_material, json_tblr_material, material_dispose),
     TTABLE(month_table, "months", "Months of the year.", "month", "config", json_tblw_month, json_tblr_month, month_dispose),
     TTABLE(pose_table, "pose", "Poses based on class and level", "pose", "config_unsupported", json_tblw_pose, NULL, NULL),
     TTABLE(position_table, "positions", "Character positions.", "position", "config", json_tblw_position, json_tblr_position, position_dispose),
-    TTABLE(sector_table, "sectors", "Sector/terrain properties.", "sector", "config_unsupported", json_tblw_sector, NULL, NULL),
+    TTABLE(sector_table, "sectors", "Sector/terrain properties.", "sector", "config", json_tblw_sector, json_tblr_sector, sector_dispose),
     TTABLE(sex_table, "sexes", "Gender settings.", "sex", "config", json_tblw_sex, json_tblr_sex, sex_dispose),
     TTABLE(size_table, "sizes", "Character sizes.", "size", "config", json_tblw_size, json_tblr_size, size_dispose),
     TTABLE(skill_group_table, "skill_groups", "Groups of skills table.", "skill_group", "config", json_tblw_skill_group, json_tblr_skill_group, skill_group_dispose),
@@ -155,7 +155,7 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     TTABLE(str_app_table, "str_app", "Str apply table.", "str_app", "config", json_tblw_str_app, json_tblr_str_app, NULL),
     TTABLE(sun_table, "suns", "Positions of the sun.", "sun", "config", json_tblw_sun, json_tblr_sun, sun_dispose),
     TTABLE_POSTLOAD(weapon_table, "weapons", "Weapon types and properties.", "weapon", "config", json_tblw_weapon, json_tblr_weapon, weapon_dispose, skill_reload_mapping),
-    TTABLE(wear_loc_table, "wear_locs", "Wearable item table.", "wear_loc", "config_unsupported", json_tblw_wear_loc, NULL, NULL),
+    TTABLE(wear_loc_table, "wear_locs", "Wearable item table.", "wear_loc", "config", json_tblw_wear_loc, json_tblr_wear_loc, wear_loc_dispose),
     TTABLE(wis_app_table, "wis_app", "Wis apply table.", "wis_app", "config", json_tblw_wis_app, json_tblr_wis_app, NULL),
 
     /* constant tables that are internal only. */
@@ -1132,7 +1132,7 @@ SKILL_GROUP_T skill_group_table[SKILL_GROUP_MAX + 1] = {
     {"weather", {{4}, {4}, {8}, {8}}, {"call lightning", "control weather", "faerie fire", "faerie fog", "lightning bolt"}},
     {0}};
 
-const SECTOR_T sector_table[SECT_MAX + 1] = {
+SECTOR_T sector_table[SECT_MAX + 1] = {
     {SECT_INSIDE, "inside", 1, 'C'},
     {SECT_CITY, "city", 2, 'c'},
     {SECT_FIELD, "field", 2, 'G'},
@@ -1147,7 +1147,7 @@ const SECTOR_T sector_table[SECT_MAX + 1] = {
     {0}};
 
 /* for doors */
-const DOOR_T door_table[DIR_MAX + 1] = {
+DOOR_T door_table[DIR_MAX + 1] = {
     {DIR_NORTH, "north", "from the north", "to the north", DIR_SOUTH, "N"},
     {DIR_EAST, "east", "from the east", "to the east", DIR_WEST, "E"},
     {DIR_SOUTH, "south", "from the south", "to the south", DIR_NORTH, "S"},
@@ -1184,7 +1184,7 @@ const SPEC_T spec_table[SPEC_MAX + 1] = {
     {"spec_questmaster", spec_questmaster}, /* Vassago */
     {0}};
 
-const COLOUR_SETTING_T colour_setting_table[COLOUR_SETTING_MAX + 1] = {
+COLOUR_SETTING_T colour_setting_table[COLOUR_SETTING_MAX + 1] = {
     {COLOUR_TEXT, "text", 't', CC_BACK_DEFAULT | CC_WHITE},
     {COLOUR_AUCTION, "auction", 'a', CC_BACK_DEFAULT | CC_BRIGHT_YELLOW},
     {COLOUR_AUCTION_TEXT, "auction_text", 'A', CC_BACK_DEFAULT | CC_BRIGHT_WHITE},
@@ -1222,7 +1222,7 @@ const COLOUR_SETTING_T colour_setting_table[COLOUR_SETTING_MAX + 1] = {
     {COLOUR_FIGHT_SKILL, "fight_skill", '5', CC_BACK_DEFAULT | CC_BRIGHT_WHITE},
     {0}};
 
-const COLOUR_T colour_table[] = {
+COLOUR_T colour_table[] = {
     /* All forecolors */
     {CM_FORECOLOUR, CC_DEFAULT, "none"},
     {CM_FORECOLOUR, CC_BLACK, "black"},
@@ -1273,7 +1273,7 @@ const COLOUR_T colour_table[] = {
     {0}};
 
 /* We use WEAR_LOC_MAX+2 to account for 'none' and a blank wear location. */
-const WEAR_LOC_T wear_loc_table[WEAR_LOC_MAX + 2] = {
+WEAR_LOC_T wear_loc_table[WEAR_LOC_MAX + 2] = {
     {WEAR_LOC_NONE, "none", "in the inventory", "<in inventory>", 0, 0, "You wear $p nowhere (??).", "$n wears $p nowhere (??)."},
     {WEAR_LOC_LIGHT, "light", "as a light", "<used as light>", ITEM_WEAR_LIGHT, 0, "You light $p and hold it.", "$n lights $p and holds it."},
     {WEAR_LOC_FINGER_L, "lfinger", "on the left finger", "<worn on L-finger>", ITEM_WEAR_FINGER, 0, "You wear $p on your left finger.", "$n wears $p on $s left finger."},
@@ -1297,7 +1297,7 @@ const WEAR_LOC_T wear_loc_table[WEAR_LOC_MAX + 2] = {
     {0},
 };
 
-const MATERIAL_T material_table[MATERIAL_MAX + 1] = {
+MATERIAL_T material_table[MATERIAL_MAX + 1] = {
     {MATERIAL_GENERIC, "generic", 'x'},
     {MATERIAL_ADAMANTITE, "adamantite", 'D'},
     {MATERIAL_ALUMINUM, "aluminum", 'w'},
@@ -1492,6 +1492,49 @@ DEFINE_DISPOSE_FUN(weapon_dispose)
     WEAPON_T *weapon = obj;
     str_free(&(weapon->name));
     str_free(&(weapon->skill));
+}
+
+DEFINE_DISPOSE_FUN(colour_dispose)
+{
+    COLOUR_T *colour = obj;
+    str_free(&(colour->name));
+}
+
+DEFINE_DISPOSE_FUN(colour_setting_dispose)
+{
+    COLOUR_SETTING_T *cs = obj;
+    str_free(&(cs->name));
+}
+
+DEFINE_DISPOSE_FUN(door_dispose)
+{
+    DOOR_T *door = obj;
+    str_free(&(door->name));
+    str_free(&(door->short_name));
+    str_free(&(door->from_phrase));
+    str_free(&(door->to_phrase));
+}
+
+DEFINE_DISPOSE_FUN(material_dispose)
+{
+    MATERIAL_T *material = obj;
+    str_free(&(material->name));
+}
+
+DEFINE_DISPOSE_FUN(sector_dispose)
+{
+    SECTOR_T *sector = obj;
+    str_free(&(sector->name));
+}
+
+DEFINE_DISPOSE_FUN(wear_loc_dispose)
+{
+    WEAR_LOC_T *wear_loc = obj;
+    str_free(&(wear_loc->name));
+    str_free(&(wear_loc->phrase));
+    str_free(&(wear_loc->look_msg));
+    str_free(&(wear_loc->msg_wear_self));
+    str_free(&(wear_loc->msg_wear_room));
 }
 
 DEFINE_DISPOSE_FUN(class_dispose)
