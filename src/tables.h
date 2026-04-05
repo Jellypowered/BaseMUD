@@ -55,7 +55,7 @@ extern LIQ_T liq_table[LIQ_MAX + 1];
 extern SKILL_GROUP_T skill_group_table[SKILL_GROUP_MAX + 1];
 extern SECTOR_T sector_table[SECT_MAX + 1];
 extern DOOR_T door_table[DIR_MAX + 1];
-extern const SPEC_T spec_table[SPEC_MAX + 1];
+extern SPEC_T spec_table[SPEC_MAX + 1];
 extern WEAR_LOC_T wear_loc_table[WEAR_LOC_MAX + 2];
 extern MATERIAL_T material_table[MATERIAL_MAX + 1];
 extern COLOUR_SETTING_T colour_setting_table[COLOUR_SETTING_MAX + 1];
@@ -65,7 +65,7 @@ extern SKY_T sky_table[SKY_MAX + 1];
 extern SUN_T sun_table[SUN_MAX + 1];
 extern HP_COND_T hp_cond_table[HP_COND_MAX + 1];
 extern COLOUR_T colour_table[COLOUR_MAX + 1];
-extern const POSE_T pose_table[CLASS_MAX + 1];
+extern POSE_T pose_table[CLASS_MAX + 1];
 extern WEAPON_T weapon_table[WEAPON_MAX + 1];
 extern SKILL_T skill_table[SKILL_MAX + 1];
 extern BOARD_T board_table[BOARD_MAX + 1];
@@ -83,7 +83,7 @@ extern const OBJ_MAP_T obj_map_table[ITEM_MAX + 1];
 extern SKILL_MAP_T skill_map_table[SKILL_MAP_MAX + 1];
 extern RECYCLE_T recycle_table[RECYCLE_MAX + 1];
 extern const WIZNET_T wiznet_table[WIZNET_MAX + 1];
-extern const COND_T cond_table[COND_MAX + 1];
+extern COND_T cond_table[COND_MAX + 1];
 extern const TRAIN_STAT_T train_stat_table[TRAIN_STAT_MAX + 1];
 extern const HEAL_SPELL_T heal_spell_table[HEAL_SPELL_MAX + 1];
 
@@ -96,10 +96,12 @@ void table_dispose(const TABLE_T *table);
 
 /* Init / disposal functions. */
 DECLARE_DISPOSE_FUN(attack_dispose);
+DECLARE_DISPOSE_FUN(board_dispose);
 DECLARE_DISPOSE_FUN(clan_dispose);
 DECLARE_DISPOSE_FUN(class_dispose);
 DECLARE_DISPOSE_FUN(colour_dispose);
 DECLARE_DISPOSE_FUN(colour_setting_dispose);
+DECLARE_DISPOSE_FUN(cond_dispose);
 DECLARE_DISPOSE_FUN(dam_dispose);
 DECLARE_DISPOSE_FUN(day_dispose);
 DECLARE_DISPOSE_FUN(door_dispose);
@@ -109,17 +111,21 @@ DECLARE_DISPOSE_FUN(liq_dispose);
 DECLARE_DISPOSE_FUN(material_dispose);
 DECLARE_DISPOSE_FUN(month_dispose);
 DECLARE_DISPOSE_FUN(pc_race_dispose);
+DECLARE_DISPOSE_FUN(pose_dispose);
 DECLARE_DISPOSE_FUN(position_dispose);
 DECLARE_DISPOSE_FUN(race_dispose);
 DECLARE_DISPOSE_FUN(sector_dispose);
 DECLARE_DISPOSE_FUN(sex_dispose);
 DECLARE_DISPOSE_FUN(size_dispose);
 DECLARE_DISPOSE_FUN(skill_dispose);
-DECLARE_DISPOSE_FUN(skill_group_dispose);
+DECLARE_DISPOSE_FUN(skill_group_dispose);DECLARE_DISPOSE_FUN(spec_dispose);DECLARE_DISPOSE_FUN(spec_dispose);
 DECLARE_DISPOSE_FUN(sky_dispose);
 DECLARE_DISPOSE_FUN(song_dispose);
 DECLARE_DISPOSE_FUN(sun_dispose);
 DECLARE_DISPOSE_FUN(weapon_dispose);
 DECLARE_DISPOSE_FUN(wear_loc_dispose);
+
+DECLARE_POST_LOAD_FUN(cond_reload_mapping);
+DECLARE_POST_LOAD_FUN(spec_reload_mapping);
 
 #endif

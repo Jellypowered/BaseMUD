@@ -1337,8 +1337,8 @@ struct editor_cmd_type
 /* All the posing stuff. */
 struct pose_type
 {
-    const char *class_name;
-    const char *message[MAX_LEVEL * 2 + 2];
+    char *class_name;
+    char *message[MAX_LEVEL * 2 + 2];
 };
 
 /* Music stuff. */

@@ -754,3 +754,89 @@ DEFINE_JSON_READ_FUN(json_tblr_song)
 
     return song;
 }
+
+DEFINE_JSON_READ_FUN(json_tblr_board)
+{
+    char buf[MAX_STRING_LENGTH];
+
+    JSON_TBLR_START(BOARD_T, board, BOARD_MAX, board->name == NULL);
+
+    if (!json_import_expect("board", json,
+                            "name", "full_name", "read_level", "write_level",
+                            "recipients", "force_type", "purge_days", NULL))
+        return NULL;
+
+    READ_PROP_STRP(board->name, "name");
+    READ_PROP_STRP(board->long_name, "full_name");
+    board->read_level = JGI("read_level");
+    board->write_level = JGI("write_level");
+    READ_PROP_STRP(board->names, "recipients");
+    READ_PROP_TYPE(board->force_type, "force_type", board_def_types);
+    board->purge_days = JGI("purge_days");
+    return board;
+}
+
+DEFINE_JSON_READ_FUN(json_tblr_cond)
+{
+    char buf[MAX_STRING_LENGTH];
+
+    JSON_TBLR_START(COND_T, cond, COND_MAX, cond->name == NULL);
+
+    if (!json_import_expect("cond", json,
+                            "type", "name",
+                            "*msg_good", "*msg_bad", "*msg_better", "*msg_worse", NULL))
+        return NULL;
+
+    cond->type = JGI("type");
+    READ_PROP_STRP(cond->name, "name");
+    READ_PROP_STRP(cond->msg_good, "msg_good");
+    READ_PROP_STRP(cond->msg_bad, "msg_bad");
+    READ_PROP_STRP(cond->msg_better, "msg_better");
+    READ_PROP_STRP(cond->msg_worse, "msg_worse");
+    return cond;
+}
+
+DEFINE_JSON_READ_FUN(json_tblr_pose)
+{
+    char buf[MAX_STRING_LENGTH];
+    JSON_T *array, *sub;
+    int idx;
+
+    JSON_TBLR_START(POSE_T, pose, CLASS_MAX, pose->class_name == NULL);
+
+    if (!json_import_expect("pose", json, "class", "poses", NULL))
+        return NULL;
+
+    READ_PROP_STRP(pose->class_name, "class");
+
+    if ((array = json_get(json, "poses")) != NULL)
+    {
+        idx = 0;
+        for (sub = array->first_child;
+             sub != NULL && idx + 1 < MAX_LEVEL * 2 + 2;
+             sub = sub->next)
+        {
+            str_replace_dup(&pose->message[idx],
+                json_value_as_string(json_get(sub, "msg_self"), buf, sizeof(buf)));
+            str_replace_dup(&pose->message[idx + 1],
+                json_value_as_string(json_get(sub, "msg_others"), buf, sizeof(buf)));
+            idx += 2;
+        }
+        str_free(&pose->message[idx]);
+        pose->message[idx] = NULL;
+    }
+    return pose;
+}
+
+DEFINE_JSON_READ_FUN(json_tblr_spec)
+{
+    char buf[MAX_STRING_LENGTH];
+
+    JSON_TBLR_START(SPEC_T, spec, SPEC_MAX, spec->name == NULL);
+
+    if (!json_import_expect("spec", json, "name", NULL))
+        return NULL;
+
+    READ_PROP_STRP(spec->name, "name");
+    return spec;
+}

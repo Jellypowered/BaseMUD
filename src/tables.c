@@ -126,13 +126,13 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     /* tables that are written but not yet read. */
     /* TODO: read all of these! */
     TTABLE(attack_table, "attacks", "Attack types and properties.", "attack", "config", json_tblw_attack, json_tblr_attack, attack_dispose),
-    TTABLE(board_table, "boards", "Discussion boards.", "board", "config_unsupported", json_tblw_board, NULL, NULL),
+    TTABLE(board_table, "boards", "Discussion boards.", "board", "config", json_tblw_board, json_tblr_board, board_dispose),
     TTABLE(clan_table, "clans", "Player clans.", "clan", "config", json_tblw_clan, json_tblr_clan, clan_dispose),
     TTABLE(class_table, "classes", "Classes and statistics.", "class", "config", json_tblw_class, json_tblr_class, class_dispose),
     TTABLE(colour_setting_table, "color_settings", "Configurable colours.", "color_setting", "config", json_tblw_colour_setting, json_tblr_colour_setting, colour_setting_dispose),
     TTABLE(colour_table, "colors", "Colour values.", "color", "config", json_tblw_colour, json_tblr_colour, colour_dispose),
     TTABLE(con_app_table, "con_app", "Con apply table.", "con_app", "config", json_tblw_con_app, json_tblr_con_app, NULL),
-    TTABLE(cond_table, "conds", "Conditions like thirst/hunger.", "cond", "config_unsupported", json_tblw_cond, NULL, NULL),
+    TTABLE_POSTLOAD(cond_table, "conds", "Conditions like thirst/hunger.", "cond", "config", json_tblw_cond, json_tblr_cond, cond_dispose, cond_reload_mapping),
     TTABLE(dam_table, "dam_types", "Damage types and properties.", "dam_type", "config", json_tblw_dam, json_tblr_dam, dam_dispose),
     TTABLE(day_table, "days", "Days of the week.", "day", "config", json_tblw_day, json_tblr_day, day_dispose),
     TTABLE(dex_app_table, "dex_app", "Dex apply table.", "dex_app", "config", json_tblw_dex_app, json_tblr_dex_app, NULL),
@@ -143,7 +143,7 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     TTABLE(liq_table, "liquids", "Liquid types.", "liquid", "config", json_tblw_liq, json_tblr_liq, liq_dispose),
     TTABLE(material_table, "materials", "Material properties", "material", "config", json_tblw_material, json_tblr_material, material_dispose),
     TTABLE(month_table, "months", "Months of the year.", "month", "config", json_tblw_month, json_tblr_month, month_dispose),
-    TTABLE(pose_table, "pose", "Poses based on class and level", "pose", "config_unsupported", json_tblw_pose, NULL, NULL),
+    TTABLE(pose_table, "pose", "Poses based on class and level", "pose", "config", json_tblw_pose, json_tblr_pose, pose_dispose),
     TTABLE(position_table, "positions", "Character positions.", "position", "config", json_tblw_position, json_tblr_position, position_dispose),
     TTABLE(sector_table, "sectors", "Sector/terrain properties.", "sector", "config", json_tblw_sector, json_tblr_sector, sector_dispose),
     TTABLE(sex_table, "sexes", "Gender settings.", "sex", "config", json_tblw_sex, json_tblr_sex, sex_dispose),
@@ -151,7 +151,7 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     TTABLE(skill_group_table, "skill_groups", "Groups of skills table.", "skill_group", "config", json_tblw_skill_group, json_tblr_skill_group, skill_group_dispose),
     TTABLE_POSTLOAD(skill_table, "skills", "Master skill table.", "skill", "config", json_tblw_skill, json_tblr_skill, skill_dispose, skill_reload_mapping),
     TTABLE(sky_table, "skies", "Skies based on the weather.", "sky", "config", json_tblw_sky, json_tblr_sky, sky_dispose),
-    TTABLE(spec_table, "specs", "Specialized mobile behavior.", "spec", "config_unsupported", json_tblw_spec, NULL, NULL),
+    TTABLE_POSTLOAD(spec_table, "specs", "Specialized mobile behavior.", "spec", "config", json_tblw_spec, json_tblr_spec, spec_dispose, spec_reload_mapping),
     TTABLE(str_app_table, "str_app", "Str apply table.", "str_app", "config", json_tblw_str_app, json_tblr_str_app, NULL),
     TTABLE(sun_table, "suns", "Positions of the sun.", "sun", "config", json_tblw_sun, json_tblr_sun, sun_dispose),
     TTABLE_POSTLOAD(weapon_table, "weapons", "Weapon types and properties.", "weapon", "config", json_tblw_weapon, json_tblr_weapon, weapon_dispose, skill_reload_mapping),
@@ -1158,7 +1158,7 @@ DOOR_T door_table[DIR_MAX + 1] = {
 };
 
 /* the function table */
-const SPEC_T spec_table[SPEC_MAX + 1] = {
+SPEC_T spec_table[SPEC_MAX + 1] = {
     {"spec_breath_any", spec_breath_any},
     {"spec_breath_acid", spec_breath_acid},
     {"spec_breath_fire", spec_breath_fire},
@@ -1392,7 +1392,7 @@ SUN_T sun_table[SUN_MAX + 1] = {
     {SUN_SET, "set", TRUE, 19, 20, "The sun slowly disappears in the west."},
     {-1, NULL, 0}};
 
-const POSE_T pose_table[CLASS_MAX + 1] = {
+POSE_T pose_table[CLASS_MAX + 1] = {
     {"mage", {"You sizzle with energy.", "$n sizzles with energy.", "You turn into a butterfly, then return to your normal shape.", "$n turns into a butterfly, then returns to $s normal shape.", "Blue sparks fly from your fingers.", "Blue sparks fly from $n's fingers.", "Little red lights dance in your eyes.", "Little red lights dance in $n's eyes.", "A slimy green monster appears before you and bows.", "A slimy green monster appears before $n and bows.", "You turn everybody into a little pink elephant.", "You are turned into a little pink elephant by $n.", "A small ball of light dances on your fingertips.", "A small ball of light dances on $n's fingertips.", "Smoke and fumes leak from your nostrils.", "Smoke and fumes leak from $n's nostrils.", "The light flickers as you rap in magical languages.", "The light flickers as $n raps in magical languages.", "Your head disappears.", "$n's head disappears.", "A fire elemental singes your hair.", "A fire elemental singes $n's hair.", "The sky changes colour to match your eyes.", "The sky changes colour to match $n's eyes.", "The stones dance to your command.", "The stones dance to $n's command.", "The heavens and grass change colour as you smile.", "The heavens and grass change colour as $n smiles.", "Everyone's clothes are transparent, and you are laughing.", "Your clothes are transparent, and $n is laughing.", "A black hole swallows you.", "A black hole swallows $n.", "The world shimmers in time with your whistling.", "The world shimmers in time with $n's whistling.", NULL}},
     {"cleric", {"You feel very holy.", "$n looks very holy.", "You nonchalantly turn wine into water.", "$n nonchalantly turns wine into water.", "A halo appears over your head.", "A halo appears over $n's head.", "You recite words of wisdom.", "$n recites words of wisdom.", "Deep in prayer, you levitate.", "Deep in prayer, $n levitates.", "An angel consults you.", "An angel consults $n.", "Your body glows with an unearthly light.", "$n's body glows with an unearthly light.", "A spot light hits you.", "A spot light hits $n.", "Everyone levitates as you pray.", "You levitate as $n prays.", "A cool breeze refreshes you.", "A cool breeze refreshes $n.", "The sun pierces through the clouds to illuminate you.", "The sun pierces through the clouds to illuminate $n.", "The ocean parts before you.", "The ocean parts before $n.", "A thunder cloud kneels to you.", "A thunder cloud kneels to $n.", "The Burning Man speaks to you.", "The Burning Man speaks to $n.", "An eye in a pyramid winks at you.", "An eye in a pyramid winks at $n.", "Valentine Michael Smith offers you a glass of water.", "Valentine Michael Smith offers $n a glass of water.", "The great god Mota gives you a staff.", "The great god Mota gives $n a staff.", NULL}},
     {"thief", {"You perform a small card trick.", "$n performs a small card trick.", "You wiggle your ears alternately.", "$n wiggles $s ears alternately.", "You nimbly tie yourself into a knot.", "$n nimbly ties $mself into a knot.", "You juggle with daggers, apples, and eyeballs.", "$n juggles with daggers, apples, and eyeballs.", "You steal the underwear off every person in the room.", "Your underwear is gone!  $n stole it!", "The dice roll ... and you win again.", "The dice roll ... and $n wins again.", "You count the money in everyone's pockets.", "Check your money, $n is counting it.", "You balance a pocket knife on your tongue.", "$n balances a pocket knife on your tongue.", "You produce a coin from everyone's ear.", "$n produces a coin from your ear.", "You step behind your shadow.", "$n steps behind $s shadow.", "Your eyes dance with greed.", "$n's eyes dance with greed.", "You deftly steal everyone's weapon.", "$n deftly steals your weapon.", "The Grey Mouser buys you a beer.", "The Grey Mouser buys $n a beer.", "Everyone's pocket explodes with your fireworks.", "Your pocket explodes with $n's fireworks.", "Everyone discovers your dagger a centimeter from their eye.", "You discover $n's dagger a centimeter from your eye.", "Where did you go?", "Where did $n go?", "Click.", "Click.", NULL}},
@@ -1592,6 +1592,124 @@ DEFINE_DISPOSE_FUN(song_dispose)
     for (i = 0; i < MAX_SONG_LINES; i++)
         str_free(&(song->lyrics[i]));
     song->lines = 0;
+}
+
+DEFINE_DISPOSE_FUN(board_dispose)
+{
+    BOARD_T *board = obj;
+    str_free(&(board->name));
+    str_free(&(board->long_name));
+    str_free(&(board->names));
+}
+
+DEFINE_DISPOSE_FUN(cond_dispose)
+{
+    COND_T *cond = obj;
+    str_free(&(cond->name));
+    str_free(&(cond->msg_good));
+    str_free(&(cond->msg_bad));
+    str_free(&(cond->msg_better));
+    str_free(&(cond->msg_worse));
+}
+
+DEFINE_DISPOSE_FUN(pose_dispose)
+{
+    POSE_T *pose = obj;
+    int i;
+    str_free(&(pose->class_name));
+    for (i = 0; i < MAX_LEVEL * 2 + 2; i++)
+        str_free(&(pose->message[i]));
+}
+
+DEFINE_DISPOSE_FUN(spec_dispose)
+{
+    SPEC_T *spec = obj;
+    str_free(&(spec->name));
+    spec->function = NULL;
+}
+
+static SPEC_FUN *spec_dispatch_lookup_static(const char *name)
+{
+    static const struct { const char *name; SPEC_FUN *fun; } dispatch[] = {
+        {"spec_breath_any",       spec_breath_any},
+        {"spec_breath_acid",      spec_breath_acid},
+        {"spec_breath_fire",      spec_breath_fire},
+        {"spec_breath_frost",     spec_breath_frost},
+        {"spec_breath_gas",       spec_breath_gas},
+        {"spec_breath_lightning", spec_breath_lightning},
+        {"spec_cast_adept",       spec_cast_adept},
+        {"spec_cast_cleric",      spec_cast_cleric},
+        {"spec_cast_judge",       spec_cast_judge},
+        {"spec_cast_mage",        spec_cast_mage},
+        {"spec_cast_undead",      spec_cast_undead},
+        {"spec_executioner",      spec_executioner},
+        {"spec_fido",             spec_fido},
+        {"spec_guard",            spec_guard},
+        {"spec_janitor",          spec_janitor},
+        {"spec_mayor",            spec_mayor},
+        {"spec_poison",           spec_poison},
+        {"spec_thief",            spec_thief},
+        {"spec_nasty",            spec_nasty},
+        {"spec_troll_member",     spec_troll_member},
+        {"spec_ogre_member",      spec_ogre_member},
+        {"spec_patrolman",        spec_patrolman},
+        {"spec_questmaster",      spec_questmaster},
+        {NULL, NULL}
+    };
+    int i;
+    if (name == NULL)
+        return NULL;
+    for (i = 0; dispatch[i].name != NULL; i++)
+        if (!str_cmp(dispatch[i].name, name))
+            return dispatch[i].fun;
+    return NULL;
+}
+
+void spec_reload_mapping(void)
+{
+    int i;
+    for (i = 0; i < SPEC_MAX; i++)
+    {
+        SPEC_T *spec = &spec_table[i];
+        if (spec->name == NULL)
+            break;
+        spec->function = spec_dispatch_lookup_static(spec->name);
+        if (spec->function == NULL)
+            bugf("spec_reload_mapping: Unknown spec '%s'", spec->name);
+    }
+}
+
+void cond_reload_mapping(void)
+{
+    int i;
+    for (i = 0; i < COND_MAX; i++)
+    {
+        COND_T *cond = &cond_table[i];
+        if (cond->name == NULL)
+            break;
+        switch (cond->type)
+        {
+            case COND_DRUNK:
+                cond->good_fun = char_is_sober;
+                cond->bad_fun  = char_is_drunk;
+                break;
+            case COND_FULL:
+                cond->good_fun = NULL;
+                cond->bad_fun  = char_is_full;
+                break;
+            case COND_THIRST:
+                cond->good_fun = char_is_quenched;
+                cond->bad_fun  = char_is_thirsty;
+                break;
+            case COND_HUNGER:
+                cond->good_fun = char_is_fed;
+                cond->bad_fun  = char_is_hungry;
+                break;
+            default:
+                bugf("cond_reload_mapping: Unknown cond type %d", cond->type);
+                break;
+        }
+    }
 }
 
 const AFFECT_BIT_T affect_bit_table[AFF_TO_MAX + 1] = {
@@ -1886,7 +2004,7 @@ const WIZNET_T wiznet_table[WIZNET_MAX + 1] = {
     {WIZ_SECURE, "secure", L1},
     {-1, NULL, 0}};
 
-const COND_T cond_table[COND_MAX + 1] = {
+COND_T cond_table[COND_MAX + 1] = {
     /* type,        name,     good_fun,         bad_fun,         msg_good,                       msg_bad,                msg_better,                       msg_worse */
     {COND_DRUNK, "drunk", char_is_sober, char_is_drunk, "You are sober.\n\r", "You feel drunk.\n\r", NULL, "You feel a little tispy...\n\r"},
     {COND_FULL, "full", NULL, char_is_full, NULL, "You are full.\n\r", NULL, NULL},
