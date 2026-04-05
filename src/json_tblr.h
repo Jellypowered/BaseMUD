@@ -31,14 +31,19 @@
 #include "merc.h"
 
 /* dead-simple functions for reading JSON objects. */
+DECLARE_JSON_READ_FUN (json_tblr_attack);
+DECLARE_JSON_READ_FUN (json_tblr_clan);
 DECLARE_JSON_READ_FUN (json_tblr_class);
 DECLARE_JSON_READ_FUN (json_tblr_con_app);
 DECLARE_JSON_READ_FUN (json_tblr_day);
 DECLARE_JSON_READ_FUN (json_tblr_dex_app);
 DECLARE_JSON_READ_FUN (json_tblr_int_app);
+DECLARE_JSON_READ_FUN (json_tblr_item);
 DECLARE_JSON_READ_FUN (json_tblr_month);
 DECLARE_JSON_READ_FUN (json_tblr_pc_race);
 DECLARE_JSON_READ_FUN (json_tblr_race);
+DECLARE_JSON_READ_FUN (json_tblr_sex);
+DECLARE_JSON_READ_FUN (json_tblr_size);
 DECLARE_JSON_READ_FUN (json_tblr_skill);
 DECLARE_JSON_READ_FUN (json_tblr_skill_group);
 DECLARE_JSON_READ_FUN (json_tblr_sky);

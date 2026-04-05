@@ -125,9 +125,9 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
 
     /* tables that are written but not yet read. */
     /* TODO: read all of these! */
-    TTABLE(attack_table, "attacks", "Attack types and properties.", "attack", "config_unsupported", json_tblw_attack, NULL, NULL),
+    TTABLE(attack_table, "attacks", "Attack types and properties.", "attack", "config", json_tblw_attack, json_tblr_attack, attack_dispose),
     TTABLE(board_table, "boards", "Discussion boards.", "board", "config_unsupported", json_tblw_board, NULL, NULL),
-    TTABLE(clan_table, "clans", "Player clans.", "clan", "config_unsupported", json_tblw_clan, NULL, NULL),
+    TTABLE(clan_table, "clans", "Player clans.", "clan", "config", json_tblw_clan, json_tblr_clan, clan_dispose),
     TTABLE(class_table, "classes", "Classes and statistics.", "class", "config", json_tblw_class, json_tblr_class, class_dispose),
     TTABLE(colour_setting_table, "color_settings", "Configurable colours.", "color_setting", "config_unsupported", json_tblw_colour_setting, NULL, NULL),
     TTABLE(colour_table, "colors", "Colour values.", "color", "config_unsupported", json_tblw_colour, NULL, NULL),
@@ -139,15 +139,15 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     TTABLE(door_table, "doors", "Exit names.", "door", "config_unsupported", json_tblw_door, NULL, NULL),
     TTABLE(hp_cond_table, "hp_conds", "Messages based on % of hp.", "hp_cond", "config_unsupported", json_tblw_hp_cond, NULL, NULL),
     TTABLE(int_app_table, "int_app", "Int apply table.", "int_app", "config", json_tblw_int_app, json_tblr_int_app, NULL),
-    TTABLE(item_table, "items", "Item types and properties.", "item", "config_unsupported", json_tblw_item, NULL, NULL),
+    TTABLE(item_table, "items", "Item types and properties.", "item", "config", json_tblw_item, json_tblr_item, item_dispose),
     TTABLE(liq_table, "liquids", "Liquid types.", "liquid", "config_unsupported", json_tblw_liq, NULL, NULL),
     TTABLE(material_table, "materials", "Material properties", "material", "config_unsupported", json_tblw_material, NULL, NULL),
     TTABLE(month_table, "months", "Months of the year.", "month", "config", json_tblw_month, json_tblr_month, month_dispose),
     TTABLE(pose_table, "pose", "Poses based on class and level", "pose", "config_unsupported", json_tblw_pose, NULL, NULL),
     TTABLE(position_table, "positions", "Character positions.", "position", "config_unsupported", json_tblw_position, NULL, NULL),
     TTABLE(sector_table, "sectors", "Sector/terrain properties.", "sector", "config_unsupported", json_tblw_sector, NULL, NULL),
-    TTABLE(sex_table, "sexes", "Gender settings.", "sex", "config_unsupported", json_tblw_sex, NULL, NULL),
-    TTABLE(size_table, "sizes", "Character sizes.", "size", "config_unsupported", json_tblw_size, NULL, NULL),
+    TTABLE(sex_table, "sexes", "Gender settings.", "sex", "config", json_tblw_sex, json_tblr_sex, sex_dispose),
+    TTABLE(size_table, "sizes", "Character sizes.", "size", "config", json_tblw_size, json_tblr_size, size_dispose),
     TTABLE(skill_group_table, "skill_groups", "Groups of skills table.", "skill_group", "config", json_tblw_skill_group, json_tblr_skill_group, skill_group_dispose),
     TTABLE_POSTLOAD(skill_table, "skills", "Master skill table.", "skill", "config", json_tblw_skill, json_tblr_skill, skill_dispose, skill_reload_mapping),
     TTABLE(sky_table, "skies", "Skies based on the weather.", "sky", "config", json_tblw_sky, json_tblr_sky, sky_dispose),
@@ -204,7 +204,7 @@ void table_dispose(const TABLE_T *table)
 };
 
 /* for clans */
-const CLAN_T clan_table[CLAN_MAX + 1] = {
+CLAN_T clan_table[CLAN_MAX + 1] = {
     /* name, who entry, death-transfer room, independent */
     /* independent should be FALSE if is a real clan */
     {"", "", ROOM_VNUM_ALTAR, TRUE},
@@ -253,7 +253,7 @@ const POSITION_T position_table[POS_MAX + 1] = {
 };
 
 /* for sex */
-const SEX_T sex_table[SEX_MAX + 1] = {
+SEX_T sex_table[SEX_MAX + 1] = {
     {SEX_NEUTRAL, "neutral"},
     {SEX_MALE, "male"},
     {SEX_FEMALE, "female"},
@@ -262,7 +262,7 @@ const SEX_T sex_table[SEX_MAX + 1] = {
 };
 
 /* for sizes */
-const SIZE_T size_table[SIZE_MAX_R + 1] = {
+SIZE_T size_table[SIZE_MAX_R + 1] = {
     {SIZE_TINY, "tiny"},
     {SIZE_SMALL, "small"},
     {SIZE_MEDIUM, "medium"},
@@ -276,7 +276,7 @@ const SIZE_T size_table[SIZE_MAX_R + 1] = {
 };
 
 /* item type list */
-const ITEM_T item_table[ITEM_MAX + 1] = {
+ITEM_T item_table[ITEM_MAX + 1] = {
     {ITEM_LIGHT, "light"},
     {ITEM_SCROLL, "scroll"},
     {ITEM_WAND, "wand"},
@@ -350,7 +350,7 @@ const DAM_T dam_table[DAM_MAX + 1] = {
     {0}};
 
 /* attack table  -- not very organized :( */
-const ATTACK_T attack_table[ATTACK_MAX + 1] = {
+ATTACK_T attack_table[ATTACK_MAX + 1] = {
     {"none", "hit", -1}, /*  0 */
     {"slice", "slice", DAM_SLASH},
     {"stab", "stab", DAM_PIERCE},
@@ -1400,6 +1400,38 @@ const POSE_T pose_table[CLASS_MAX + 1] = {
     {0}};
 
 SONG_T song_table[MAX_SONGS + 1];
+
+DEFINE_DISPOSE_FUN(attack_dispose)
+{
+    ATTACK_T *attack = obj;
+    str_free(&(attack->name));
+    str_free(&(attack->noun));
+}
+
+DEFINE_DISPOSE_FUN(clan_dispose)
+{
+    CLAN_T *clan = obj;
+    str_free(&(clan->name));
+    str_free(&(clan->who_name));
+}
+
+DEFINE_DISPOSE_FUN(item_dispose)
+{
+    ITEM_T *item = obj;
+    str_free(&(item->name));
+}
+
+DEFINE_DISPOSE_FUN(sex_dispose)
+{
+    SEX_T *sex = obj;
+    str_free(&(sex->name));
+}
+
+DEFINE_DISPOSE_FUN(size_dispose)
+{
+    SIZE_T *size = obj;
+    str_free(&(size->name));
+}
 
 DEFINE_DISPOSE_FUN(day_dispose)
 {

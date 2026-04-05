@@ -148,6 +148,67 @@ DEFINE_JSON_READ_FUN (json_tblr_con_app) {
     return con_app;
 }
 
+DEFINE_JSON_READ_FUN (json_tblr_attack) {
+    char buf[MAX_STRING_LENGTH];
+    const char *dam_name;
+    JSON_TBLR_START (ATTACK_T, attack, ATTACK_MAX, attack->name == NULL);
+    if (!json_import_expect ("attack", json,
+            "name", "noun", "*dam_type", NULL))
+        return NULL;
+    READ_PROP_STRP (attack->name, "name");
+    READ_PROP_STRP (attack->noun, "noun");
+    attack->dam_type = -1;
+    if ((dam_name = JGS ("dam_type")) != NULL)
+        attack->dam_type = dam_lookup_exact (dam_name);
+    return attack;
+}
+
+DEFINE_JSON_READ_FUN (json_tblr_clan) {
+    char buf[MAX_STRING_LENGTH];
+    const char *s;
+    JSON_TBLR_START (CLAN_T, clan, CLAN_MAX, clan->name == NULL);
+    if (!json_import_expect ("clan", json,
+            "name", "who_name", "hall", "independent", NULL))
+        return NULL;
+    s = JGS ("name");
+    str_replace_dup (&clan->name,     s != NULL ? s : "");
+    s = JGS ("who_name");
+    str_replace_dup (&clan->who_name, s != NULL ? s : "");
+    clan->hall        = JGI ("hall");
+    clan->independent = JGB ("independent");
+    return clan;
+}
+
+DEFINE_JSON_READ_FUN (json_tblr_item) {
+    char buf[MAX_STRING_LENGTH];
+    JSON_TBLR_START (ITEM_T, item, ITEM_MAX, item->name == NULL);
+    if (!json_import_expect ("item", json, "type", "name", NULL))
+        return NULL;
+    item->type = JGI ("type");
+    READ_PROP_STRP (item->name, "name");
+    return item;
+}
+
+DEFINE_JSON_READ_FUN (json_tblr_sex) {
+    char buf[MAX_STRING_LENGTH];
+    JSON_TBLR_START (SEX_T, sex, SEX_MAX, sex->name == NULL);
+    if (!json_import_expect ("sex", json, "sex", "name", NULL))
+        return NULL;
+    sex->sex = JGI ("sex");
+    READ_PROP_STRP (sex->name, "name");
+    return sex;
+}
+
+DEFINE_JSON_READ_FUN (json_tblr_size) {
+    char buf[MAX_STRING_LENGTH];
+    JSON_TBLR_START (SIZE_T, size, SIZE_MAX_R, size->name == NULL);
+    if (!json_import_expect ("size", json, "size", "name", NULL))
+        return NULL;
+    size->size = JGI ("size");
+    READ_PROP_STRP (size->name, "name");
+    return size;
+}
+
 DEFINE_JSON_READ_FUN (json_tblr_day) {
     char buf[MAX_STRING_LENGTH];
     JSON_TBLR_START (DAY_T, day, DAY_MAX, day->name == NULL);

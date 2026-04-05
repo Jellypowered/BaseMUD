@@ -37,13 +37,13 @@
 extern const TABLE_T          master_table[TABLE_MAX + 1];
 
 /* All tables. */
-extern const CLAN_T           clan_table[CLAN_MAX + 1];
+extern CLAN_T                 clan_table[CLAN_MAX + 1];
 extern const POSITION_T       position_table[POS_MAX + 1];
-extern const SEX_T            sex_table[SEX_MAX + 1];
-extern const SIZE_T           size_table[SIZE_MAX_R + 1];
-extern const ITEM_T           item_table[ITEM_MAX + 1];
+extern SEX_T                  sex_table[SEX_MAX + 1];
+extern SIZE_T                 size_table[SIZE_MAX_R + 1];
+extern ITEM_T                 item_table[ITEM_MAX + 1];
 extern const DAM_T            dam_table[DAM_MAX + 1];
-extern const ATTACK_T         attack_table[ATTACK_MAX + 1];
+extern ATTACK_T               attack_table[ATTACK_MAX + 1];
 extern PC_RACE_T              pc_race_table[PC_RACE_MAX + 1];
 extern CLASS_T                class_table[CLASS_MAX + 1];
 extern STR_APP_T              str_app_table[ATTRIBUTE_HIGHEST + 2];
@@ -95,11 +95,16 @@ void table_dispose_all (void);
 void table_dispose (const TABLE_T *table);
 
 /* Init / disposal functions. */
+DECLARE_DISPOSE_FUN (attack_dispose);
+DECLARE_DISPOSE_FUN (clan_dispose);
 DECLARE_DISPOSE_FUN (class_dispose);
 DECLARE_DISPOSE_FUN (day_dispose);
+DECLARE_DISPOSE_FUN (item_dispose);
 DECLARE_DISPOSE_FUN (month_dispose);
 DECLARE_DISPOSE_FUN (pc_race_dispose);
 DECLARE_DISPOSE_FUN (race_dispose);
+DECLARE_DISPOSE_FUN (sex_dispose);
+DECLARE_DISPOSE_FUN (size_dispose);
 DECLARE_DISPOSE_FUN (skill_dispose);
 DECLARE_DISPOSE_FUN (skill_group_dispose);
 DECLARE_DISPOSE_FUN (sky_dispose);
