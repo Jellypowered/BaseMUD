@@ -400,13 +400,13 @@ void hotreload_force_reload_area(const char *name, CHAR_T *ch)
         {
             if (ch != NULL)
                 printf_to_char(ch,
-                    "[jreload] Force-reloading area '%s'...\n\r",
-                    e->area_name);
+                               "[jreload] Force-reloading area '%s'...\n\r",
+                               e->area_name);
             hotreload_execute(e);
             if (ch != NULL)
                 printf_to_char(ch,
-                    "[jreload] Area '%s' reload complete.\n\r",
-                    e->area_name);
+                               "[jreload] Area '%s' reload complete.\n\r",
+                               e->area_name);
             return;
         }
     }

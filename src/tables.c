@@ -72,9 +72,9 @@
      sizeof(table[0]), sizeof(table) / sizeof(table[0]),              \
      obj_name, json_path, jwrite, jread, dispose, NULL}
 #define TTABLE_POSTLOAD(table, name, desc, obj_name, json_path, jwrite, jread, \
-               dispose, post_load)                                     \
-    {table, name, TABLE_UNIQUE, desc,                                 \
-     sizeof(table[0]), sizeof(table) / sizeof(table[0]),              \
+                        dispose, post_load)                                    \
+    {table, name, TABLE_UNIQUE, desc,                                          \
+     sizeof(table[0]), sizeof(table) / sizeof(table[0]),                       \
      obj_name, json_path, jwrite, jread, dispose, post_load}
 #define TTABLE_INTERNAL(table, name, desc) \
     {table, name, TABLE_INTERNAL, desc,    \

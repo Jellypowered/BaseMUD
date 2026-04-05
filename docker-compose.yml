@@ -8,5 +8,6 @@ services:
       - ./player:/opt/rom/player:rw
       - ./gods:/opt/rom/gods:rw
       - ./json/areas:/opt/rom/json/areas:rw
+      - ./json/config:/opt/rom/json/config:rw
     ports:
       - "4000:4000"

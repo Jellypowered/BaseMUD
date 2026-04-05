@@ -31,7 +31,7 @@
 #include "merc.h"
 
 /* Name-to-function and function-to-name lookups for spell functions. */
-SPELL_FUN      *spell_lookup_function  (const char *name);
-const char     *spell_function_name    (SPELL_FUN *fun);
+SPELL_FUN *spell_lookup_function(const char *name);
+const char *spell_function_name(SPELL_FUN *fun);
 
 #endif
