@@ -1630,32 +1630,35 @@ DEFINE_DISPOSE_FUN(spec_dispose)
 
 static SPEC_FUN *spec_dispatch_lookup_static(const char *name)
 {
-    static const struct { const char *name; SPEC_FUN *fun; } dispatch[] = {
-        {"spec_breath_any",       spec_breath_any},
-        {"spec_breath_acid",      spec_breath_acid},
-        {"spec_breath_fire",      spec_breath_fire},
-        {"spec_breath_frost",     spec_breath_frost},
-        {"spec_breath_gas",       spec_breath_gas},
+    static const struct
+    {
+        const char *name;
+        SPEC_FUN *fun;
+    } dispatch[] = {
+        {"spec_breath_any", spec_breath_any},
+        {"spec_breath_acid", spec_breath_acid},
+        {"spec_breath_fire", spec_breath_fire},
+        {"spec_breath_frost", spec_breath_frost},
+        {"spec_breath_gas", spec_breath_gas},
         {"spec_breath_lightning", spec_breath_lightning},
-        {"spec_cast_adept",       spec_cast_adept},
-        {"spec_cast_cleric",      spec_cast_cleric},
-        {"spec_cast_judge",       spec_cast_judge},
-        {"spec_cast_mage",        spec_cast_mage},
-        {"spec_cast_undead",      spec_cast_undead},
-        {"spec_executioner",      spec_executioner},
-        {"spec_fido",             spec_fido},
-        {"spec_guard",            spec_guard},
-        {"spec_janitor",          spec_janitor},
-        {"spec_mayor",            spec_mayor},
-        {"spec_poison",           spec_poison},
-        {"spec_thief",            spec_thief},
-        {"spec_nasty",            spec_nasty},
-        {"spec_troll_member",     spec_troll_member},
-        {"spec_ogre_member",      spec_ogre_member},
-        {"spec_patrolman",        spec_patrolman},
-        {"spec_questmaster",      spec_questmaster},
-        {NULL, NULL}
-    };
+        {"spec_cast_adept", spec_cast_adept},
+        {"spec_cast_cleric", spec_cast_cleric},
+        {"spec_cast_judge", spec_cast_judge},
+        {"spec_cast_mage", spec_cast_mage},
+        {"spec_cast_undead", spec_cast_undead},
+        {"spec_executioner", spec_executioner},
+        {"spec_fido", spec_fido},
+        {"spec_guard", spec_guard},
+        {"spec_janitor", spec_janitor},
+        {"spec_mayor", spec_mayor},
+        {"spec_poison", spec_poison},
+        {"spec_thief", spec_thief},
+        {"spec_nasty", spec_nasty},
+        {"spec_troll_member", spec_troll_member},
+        {"spec_ogre_member", spec_ogre_member},
+        {"spec_patrolman", spec_patrolman},
+        {"spec_questmaster", spec_questmaster},
+        {NULL, NULL}};
     int i;
     if (name == NULL)
         return NULL;
@@ -1689,25 +1692,25 @@ void cond_reload_mapping(void)
             break;
         switch (cond->type)
         {
-            case COND_DRUNK:
-                cond->good_fun = char_is_sober;
-                cond->bad_fun  = char_is_drunk;
-                break;
-            case COND_FULL:
-                cond->good_fun = NULL;
-                cond->bad_fun  = char_is_full;
-                break;
-            case COND_THIRST:
-                cond->good_fun = char_is_quenched;
-                cond->bad_fun  = char_is_thirsty;
-                break;
-            case COND_HUNGER:
-                cond->good_fun = char_is_fed;
-                cond->bad_fun  = char_is_hungry;
-                break;
-            default:
-                bugf("cond_reload_mapping: Unknown cond type %d", cond->type);
-                break;
+        case COND_DRUNK:
+            cond->good_fun = char_is_sober;
+            cond->bad_fun = char_is_drunk;
+            break;
+        case COND_FULL:
+            cond->good_fun = NULL;
+            cond->bad_fun = char_is_full;
+            break;
+        case COND_THIRST:
+            cond->good_fun = char_is_quenched;
+            cond->bad_fun = char_is_thirsty;
+            break;
+        case COND_HUNGER:
+            cond->good_fun = char_is_fed;
+            cond->bad_fun = char_is_hungry;
+            break;
+        default:
+            bugf("cond_reload_mapping: Unknown cond type %d", cond->type);
+            break;
         }
     }
 }

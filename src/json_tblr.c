@@ -405,11 +405,11 @@ DEFINE_JSON_READ_FUN(json_tblr_door)
                             "dir", "reverse", "name", "short_name",
                             "to_phrase", "from_phrase", NULL))
         return NULL;
-    door->dir     = JGI("dir");
+    door->dir = JGI("dir");
     door->reverse = JGI("reverse");
-    READ_PROP_STRP(door->name,        "name");
-    READ_PROP_STRP(door->short_name,  "short_name");
-    READ_PROP_STRP(door->to_phrase,   "to_phrase");
+    READ_PROP_STRP(door->name, "name");
+    READ_PROP_STRP(door->short_name, "short_name");
+    READ_PROP_STRP(door->to_phrase, "to_phrase");
     READ_PROP_STRP(door->from_phrase, "from_phrase");
     return door;
 }
@@ -437,7 +437,7 @@ DEFINE_JSON_READ_FUN(json_tblr_sector)
     if (!json_import_expect("sector", json,
                             "type", "name", "move_loss", "color_char", NULL))
         return NULL;
-    sector->type      = JGI("type");
+    sector->type = JGI("type");
     READ_PROP_STRP(sector->name, "name");
     sector->move_loss = JGI("move_loss");
     color_str = JGS("color_char");
@@ -455,11 +455,11 @@ DEFINE_JSON_READ_FUN(json_tblr_wear_loc)
                             "*wear_flag", "ac_bonus",
                             "wear_msg_self", "wear_msg_room", NULL))
         return NULL;
-    wear_loc->type    = JGI("type");
-    READ_PROP_STRP(wear_loc->name,         "name");
-    READ_PROP_STRP(wear_loc->phrase,       "phrase");
-    READ_PROP_STRP(wear_loc->look_msg,     "look_msg");
-    READ_PROP_FLAGS(wear_loc->wear_flag,   "wear_flag", wear_flags);
+    wear_loc->type = JGI("type");
+    READ_PROP_STRP(wear_loc->name, "name");
+    READ_PROP_STRP(wear_loc->phrase, "phrase");
+    READ_PROP_STRP(wear_loc->look_msg, "look_msg");
+    READ_PROP_FLAGS(wear_loc->wear_flag, "wear_flag", wear_flags);
     wear_loc->ac_bonus = JGI("ac_bonus");
     READ_PROP_STRP(wear_loc->msg_wear_self, "wear_msg_self");
     READ_PROP_STRP(wear_loc->msg_wear_room, "wear_msg_room");
@@ -817,9 +817,9 @@ DEFINE_JSON_READ_FUN(json_tblr_pose)
              sub = sub->next)
         {
             str_replace_dup(&pose->message[idx],
-                json_value_as_string(json_get(sub, "msg_self"), buf, sizeof(buf)));
+                            json_value_as_string(json_get(sub, "msg_self"), buf, sizeof(buf)));
             str_replace_dup(&pose->message[idx + 1],
-                json_value_as_string(json_get(sub, "msg_others"), buf, sizeof(buf)));
+                            json_value_as_string(json_get(sub, "msg_others"), buf, sizeof(buf)));
             idx += 2;
         }
         str_free(&pose->message[idx]);
