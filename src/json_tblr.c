@@ -30,8 +30,11 @@
 #include "json.h"
 #include "json_import.h"
 #include "lookup.h"
+#include "magic.h"
 #include "memory.h"
+#include "spell_dispatch.h"
 #include "tables.h"
+#include "types.h"
 
 #include <string.h>
 
@@ -49,6 +52,73 @@
         return NULL; \
     } \
     var = &(var ## _table[index]);
+
+DEFINE_JSON_READ_FUN (json_tblr_skill) {
+    char buf[MAX_STRING_LENGTH];
+    JSON_T *array, *sub, *sub2;
+
+    JSON_TBLR_START (SKILL_T, skill, SKILL_MAX, skill->name == NULL);
+
+    if (!json_import_expect ("skill", json,
+            "name", "*classes",
+            "target", "min_position",
+            "*slot", "*min_mana", "usage_beats",
+            "*damage_noun", "*off_msg_char", "*off_msg_obj",
+            "*spell_fun", NULL))
+        return NULL;
+
+    READ_PROP_STRP (skill->name, "name");
+
+    if ((array = json_get (json, "classes")) != NULL) {
+        for (sub = array->first_child; sub != NULL; sub = sub->next) {
+            int num;
+            if ((num = class_lookup_exact (sub->name)) < 0) {
+                json_logf (json, "Unknown class '%s'", sub->name);
+                continue;
+            }
+            if ((sub2 = json_get (sub, "level")) != NULL)
+                skill->classes[num].level = json_value_as_int (sub2);
+            if ((sub2 = json_get (sub, "effort")) != NULL)
+                skill->classes[num].effort = json_value_as_int (sub2);
+        }
+    }
+
+    READ_PROP_TYPE  (skill->target,           "target",       skill_target_types);
+    READ_PROP_TYPE  (skill->minimum_position, "min_position", position_types);
+    READ_PROP_INT   (skill->slot,             "slot");
+    READ_PROP_INT   (skill->min_mana,         "min_mana");
+    READ_PROP_INT   (skill->beats,            "usage_beats");
+
+    /* Optional string fields — only present for spells */
+    {
+        JSON_T *node;
+        if ((node = json_get (json, "damage_noun")) != NULL)
+            str_replace_dup (&(skill->noun_damage),
+                json_value_as_string (node, buf, sizeof (buf)));
+        if ((node = json_get (json, "off_msg_char")) != NULL)
+            str_replace_dup (&(skill->msg_off),
+                json_value_as_string (node, buf, sizeof (buf)));
+        if ((node = json_get (json, "off_msg_obj")) != NULL)
+            str_replace_dup (&(skill->msg_obj),
+                json_value_as_string (node, buf, sizeof (buf)));
+    }
+
+    /* Resolve spell function by name (NULL / absent → spell_null) */
+    {
+        JSON_T *node = json_get (json, "spell_fun");
+        if (node != NULL) {
+            json_value_as_string (node, buf, sizeof (buf));
+            skill->spell_fun = spell_lookup_function (buf);
+            if (skill->spell_fun == NULL)
+                json_logf (json, "Unknown spell_fun '%s' for skill '%s'",
+                    buf, skill->name);
+        }
+        if (skill->spell_fun == NULL)
+            skill->spell_fun = spell_null;
+    }
+
+    return skill;
+}
 
 DEFINE_JSON_READ_FUN (json_tblr_class) {
     char buf[MAX_STRING_LENGTH];

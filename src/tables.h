@@ -98,6 +98,7 @@ void table_dispose (const TABLE_T *table);
 DECLARE_DISPOSE_FUN (class_dispose);
 DECLARE_DISPOSE_FUN (pc_race_dispose);
 DECLARE_DISPOSE_FUN (race_dispose);
+DECLARE_DISPOSE_FUN (skill_dispose);
 DECLARE_DISPOSE_FUN (skill_group_dispose);
 DECLARE_DISPOSE_FUN (song_dispose);
 

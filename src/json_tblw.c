@@ -30,6 +30,7 @@
 #include "colour.h"
 #include "json.h"
 #include "lookup.h"
+#include "spell_dispatch.h"
 
 #include <string.h>
 
@@ -339,8 +340,11 @@ DEFINE_JSON_WRITE_FUN (json_tblw_skill) {
     if (skill->msg_obj && skill->msg_obj[0] != '\0')
         json_prop_string (new, "off_msg_obj", JSTR (skill->msg_obj));
 
-    /* TODO: pgsn?  this is internal, but should it be considered here? */
-    /* TODO: skill->spell_fun */
+    {
+        const char *fn = spell_function_name (skill->spell_fun);
+        if (fn != NULL)
+            json_prop_string (new, "spell_fun", fn);
+    }
 
     return new;
 }

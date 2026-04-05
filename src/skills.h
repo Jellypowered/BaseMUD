@@ -32,6 +32,5 @@
 
 /* Function prototypes. */
 void skill_clear_mapping (void);
-void skill_init_mapping (void);
-
+void skill_init_mapping (void);void skill_reload_mapping (void);
 #endif

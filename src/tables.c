@@ -38,7 +38,9 @@
 #include "memory.h"
 #include "nanny.h"
 #include "recycle.h"
+#include "skills.h"
 #include "special.h"
+#include "spell_dispatch.h"
 #include "spell_aff.h"
 #include "spell_create.h"
 #include "spell_cure.h"
@@ -68,7 +70,12 @@
                dispose)                                               \
     {table, name, TABLE_UNIQUE, desc,                                 \
      sizeof(table[0]), sizeof(table) / sizeof(table[0]),              \
-     obj_name, json_path, jwrite, jread, dispose}
+     obj_name, json_path, jwrite, jread, dispose, NULL}
+#define TTABLE_POSTLOAD(table, name, desc, obj_name, json_path, jwrite, jread, \
+               dispose, post_load)                                     \
+    {table, name, TABLE_UNIQUE, desc,                                 \
+     sizeof(table[0]), sizeof(table) / sizeof(table[0]),              \
+     obj_name, json_path, jwrite, jread, dispose, post_load}
 #define TTABLE_INTERNAL(table, name, desc) \
     {table, name, TABLE_INTERNAL, desc,    \
      sizeof(table[0]), sizeof(table) / sizeof(table[0])}
@@ -142,7 +149,7 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     TTABLE(sex_table, "sexes", "Gender settings.", "sex", "config_unsupported", json_tblw_sex, NULL, NULL),
     TTABLE(size_table, "sizes", "Character sizes.", "size", "config_unsupported", json_tblw_size, NULL, NULL),
     TTABLE(skill_group_table, "skill_groups", "Groups of skills table.", "skill_group", "config", json_tblw_skill_group, json_tblr_skill_group, skill_group_dispose),
-    TTABLE(skill_table, "skills", "Master skill table.", "skill", "config_unsupported", json_tblw_skill, NULL, NULL),
+    TTABLE_POSTLOAD(skill_table, "skills", "Master skill table.", "skill", "config", json_tblw_skill, json_tblr_skill, skill_dispose, skill_reload_mapping),
     TTABLE(sky_table, "skies", "Skies based on the weather.", "sky", "config_unsupported", json_tblw_sky, NULL, NULL),
     TTABLE(spec_table, "specs", "Specialized mobile behavior.", "spec", "config_unsupported", json_tblw_spec, NULL, NULL),
     TTABLE(str_app_table, "str_app", "Str apply table.", "str_app", "config_unsupported", json_tblw_str_app, NULL, NULL),
@@ -1417,6 +1424,16 @@ DEFINE_DISPOSE_FUN(race_dispose)
 {
     RACE_T *race = obj;
     str_free(&(race->name));
+}
+
+DEFINE_DISPOSE_FUN(skill_dispose)
+{
+    SKILL_T *skill = obj;
+
+    str_free(&(skill->name));
+    str_free(&(skill->noun_damage));
+    str_free(&(skill->msg_off));
+    str_free(&(skill->msg_obj));
 }
 
 DEFINE_DISPOSE_FUN(skill_group_dispose)
