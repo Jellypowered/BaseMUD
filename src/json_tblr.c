@@ -258,6 +258,85 @@ DEFINE_JSON_READ_FUN (json_tblr_sun) {
     return sun;
 }
 
+DEFINE_JSON_READ_FUN (json_tblr_dam) {
+    char buf[MAX_STRING_LENGTH];
+    const char *effect_name;
+    JSON_TBLR_START (DAM_T, dam, DAM_MAX, dam->name == NULL);
+    if (!json_import_expect ("dam_type", json,
+            "type", "name", "*res_flags", "*dam_flags", "*effect", NULL))
+        return NULL;
+    dam->type = JGI ("type");
+    READ_PROP_STRP  (dam->name,      "name");
+    READ_PROP_FLAGS (dam->res,       "res_flags", res_flags);
+    READ_PROP_FLAGS (dam->dam_flags, "dam_flags", dam_flags);
+    if ((effect_name = JGS ("effect")) != NULL)
+        dam->effect = effect_lookup_exact (effect_name);
+    return dam;
+}
+
+DEFINE_JSON_READ_FUN (json_tblr_hp_cond) {
+    char buf[MAX_STRING_LENGTH];
+    JSON_TBLR_START (HP_COND_T, hp_cond, HP_COND_MAX, hp_cond->hp_percent == 0);
+    if (!json_import_expect ("hp_cond", json,
+            "hp_percent", "message", NULL))
+        return NULL;
+    hp_cond->hp_percent = JGI ("hp_percent");
+    READ_PROP_STRP (hp_cond->message, "message");
+    return hp_cond;
+}
+
+DEFINE_JSON_READ_FUN (json_tblr_liq) {
+    char buf[MAX_STRING_LENGTH];
+    JSON_T *conds_node, *cond_node;
+    JSON_TBLR_START (LIQ_T, liq, LIQ_MAX, liq->name == NULL);
+    if (!json_import_expect ("liquid", json,
+            "name", "color_name", "conditions", "serving_size", NULL))
+        return NULL;
+    READ_PROP_STRP (liq->name,  "name");
+    READ_PROP_STRP (liq->color, "color_name");
+    if ((conds_node = json_get (json, "conditions")) != NULL) {
+        for (cond_node = conds_node->first_child; cond_node != NULL;
+                cond_node = cond_node->next) {
+            int cond_idx = cond_lookup_exact (cond_node->name);
+            if (cond_idx < 0) {
+                json_logf (json, "Unknown condition '%s'", cond_node->name);
+                continue;
+            }
+            liq->cond[cond_idx] = json_value_as_int (cond_node);
+        }
+    }
+    liq->serving_size = JGI ("serving_size");
+    return liq;
+}
+
+DEFINE_JSON_READ_FUN (json_tblr_position) {
+    char buf[MAX_STRING_LENGTH];
+    JSON_TBLR_START (POSITION_T, position, POS_MAX, position->name == NULL);
+    if (!json_import_expect ("position", json,
+            "position", "name", "long_name", "room_msg",
+            "*room_msg_furniture", NULL))
+        return NULL;
+    position->pos = JGI ("position");
+    READ_PROP_STRP (position->name,               "name");
+    READ_PROP_STRP (position->long_name,          "long_name");
+    READ_PROP_STRP (position->room_msg,           "room_msg");
+    READ_PROP_STRP (position->room_msg_furniture, "room_msg_furniture");
+    return position;
+}
+
+DEFINE_JSON_READ_FUN (json_tblr_weapon) {
+    char buf[MAX_STRING_LENGTH];
+    JSON_TBLR_START (WEAPON_T, weapon, WEAPON_MAX, weapon->name == NULL);
+    if (!json_import_expect ("weapon", json,
+            "type", "name", "skill", "newbie_vnum", NULL))
+        return NULL;
+    weapon->type       = JGI ("type");
+    READ_PROP_STRP (weapon->name,  "name");
+    READ_PROP_STRP (weapon->skill, "skill");
+    weapon->newbie_vnum = JGI ("newbie_vnum");
+    return weapon;
+}
+
 DEFINE_JSON_READ_FUN (json_tblr_skill) {
     char buf[MAX_STRING_LENGTH];
     JSON_T *array, *sub, *sub2;

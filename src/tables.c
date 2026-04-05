@@ -133,18 +133,18 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     TTABLE(colour_table, "colors", "Colour values.", "color", "config_unsupported", json_tblw_colour, NULL, NULL),
     TTABLE(con_app_table, "con_app", "Con apply table.", "con_app", "config", json_tblw_con_app, json_tblr_con_app, NULL),
     TTABLE(cond_table, "conds", "Conditions like thirst/hunger.", "cond", "config_unsupported", json_tblw_cond, NULL, NULL),
-    TTABLE(dam_table, "dam_types", "Damage types and properties.", "dam_type", "config_unsupported", json_tblw_dam, NULL, NULL),
+    TTABLE(dam_table, "dam_types", "Damage types and properties.", "dam_type", "config", json_tblw_dam, json_tblr_dam, dam_dispose),
     TTABLE(day_table, "days", "Days of the week.", "day", "config", json_tblw_day, json_tblr_day, day_dispose),
     TTABLE(dex_app_table, "dex_app", "Dex apply table.", "dex_app", "config", json_tblw_dex_app, json_tblr_dex_app, NULL),
     TTABLE(door_table, "doors", "Exit names.", "door", "config_unsupported", json_tblw_door, NULL, NULL),
-    TTABLE(hp_cond_table, "hp_conds", "Messages based on % of hp.", "hp_cond", "config_unsupported", json_tblw_hp_cond, NULL, NULL),
+    TTABLE(hp_cond_table, "hp_conds", "Messages based on % of hp.", "hp_cond", "config", json_tblw_hp_cond, json_tblr_hp_cond, hp_cond_dispose),
     TTABLE(int_app_table, "int_app", "Int apply table.", "int_app", "config", json_tblw_int_app, json_tblr_int_app, NULL),
     TTABLE(item_table, "items", "Item types and properties.", "item", "config", json_tblw_item, json_tblr_item, item_dispose),
-    TTABLE(liq_table, "liquids", "Liquid types.", "liquid", "config_unsupported", json_tblw_liq, NULL, NULL),
+    TTABLE(liq_table, "liquids", "Liquid types.", "liquid", "config", json_tblw_liq, json_tblr_liq, liq_dispose),
     TTABLE(material_table, "materials", "Material properties", "material", "config_unsupported", json_tblw_material, NULL, NULL),
     TTABLE(month_table, "months", "Months of the year.", "month", "config", json_tblw_month, json_tblr_month, month_dispose),
     TTABLE(pose_table, "pose", "Poses based on class and level", "pose", "config_unsupported", json_tblw_pose, NULL, NULL),
-    TTABLE(position_table, "positions", "Character positions.", "position", "config_unsupported", json_tblw_position, NULL, NULL),
+    TTABLE(position_table, "positions", "Character positions.", "position", "config", json_tblw_position, json_tblr_position, position_dispose),
     TTABLE(sector_table, "sectors", "Sector/terrain properties.", "sector", "config_unsupported", json_tblw_sector, NULL, NULL),
     TTABLE(sex_table, "sexes", "Gender settings.", "sex", "config", json_tblw_sex, json_tblr_sex, sex_dispose),
     TTABLE(size_table, "sizes", "Character sizes.", "size", "config", json_tblw_size, json_tblr_size, size_dispose),
@@ -154,7 +154,7 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     TTABLE(spec_table, "specs", "Specialized mobile behavior.", "spec", "config_unsupported", json_tblw_spec, NULL, NULL),
     TTABLE(str_app_table, "str_app", "Str apply table.", "str_app", "config", json_tblw_str_app, json_tblr_str_app, NULL),
     TTABLE(sun_table, "suns", "Positions of the sun.", "sun", "config", json_tblw_sun, json_tblr_sun, sun_dispose),
-    TTABLE(weapon_table, "weapons", "Weapon types and properties.", "weapon", "config_unsupported", json_tblw_weapon, NULL, NULL),
+    TTABLE_POSTLOAD(weapon_table, "weapons", "Weapon types and properties.", "weapon", "config", json_tblw_weapon, json_tblr_weapon, weapon_dispose, skill_reload_mapping),
     TTABLE(wear_loc_table, "wear_locs", "Wearable item table.", "wear_loc", "config_unsupported", json_tblw_wear_loc, NULL, NULL),
     TTABLE(wis_app_table, "wis_app", "Wis apply table.", "wis_app", "config", json_tblw_wis_app, json_tblr_wis_app, NULL),
 
@@ -213,7 +213,7 @@ CLAN_T clan_table[CLAN_MAX + 1] = {
     {0},
 };
 
-const HP_COND_T hp_cond_table[HP_COND_MAX + 1] = {
+HP_COND_T hp_cond_table[HP_COND_MAX + 1] = {
 #ifdef BASEMUD_MORE_PRECISE_CONDITIONS
     {100, "$1 is in excellent condition."},
     {90, "$1 has a few scratches."},
@@ -239,7 +239,7 @@ const HP_COND_T hp_cond_table[HP_COND_MAX + 1] = {
     {-999, NULL}};
 
 /* for position */
-const POSITION_T position_table[POS_MAX + 1] = {
+POSITION_T position_table[POS_MAX + 1] = {
     {POS_DEAD, "dead", "dead", "$1 is lying here, DEAD!!", NULL},
     {POS_MORTAL, "mortally wounded", "mort", "$1 is lying here, mortally wounded.", NULL},
     {POS_INCAP, "incapacitated", "incap", "$1 is lying here, incapacitated.", NULL},
@@ -325,7 +325,7 @@ WEAPON_T weapon_table[WEAPON_MAX + 1] = {
     {WEAPON_POLEARM, "polearm", "polearm", OBJ_VNUM_SCHOOL_POLEARM},
     {-1, NULL, 0}};
 
-const DAM_T dam_table[DAM_MAX + 1] = {
+DAM_T dam_table[DAM_MAX + 1] = {
     /* TODO: reference effects by index, not by function directly. */
     {DAM_NONE, "none", 0, EFFECT_NONE, 0},
     {DAM_BASH, "bash", RES_BASH, EFFECT_NONE, 0},
@@ -881,7 +881,7 @@ CON_APP_T con_app_table[ATTRIBUTE_HIGHEST + 2] = {
 };
 
 /* Liquid properties. */
-const LIQ_T liq_table[LIQ_MAX + 1] = {
+LIQ_T liq_table[LIQ_MAX + 1] = {
     /* name                   color         proof, full, thirst, food, serving_size */
     {"water", "clear", {0, 1, 10, 0}, 16},
     {"beer", "amber", {12, 1, 8, 1}, 12},
@@ -1457,6 +1457,41 @@ DEFINE_DISPOSE_FUN(sun_dispose)
     SUN_T *sun = obj;
     str_free(&(sun->name));
     str_free(&(sun->message));
+}
+
+DEFINE_DISPOSE_FUN(dam_dispose)
+{
+    DAM_T *dam = obj;
+    str_free(&(dam->name));
+}
+
+DEFINE_DISPOSE_FUN(hp_cond_dispose)
+{
+    HP_COND_T *cond = obj;
+    str_free(&(cond->message));
+}
+
+DEFINE_DISPOSE_FUN(liq_dispose)
+{
+    LIQ_T *liq = obj;
+    str_free(&(liq->name));
+    str_free(&(liq->color));
+}
+
+DEFINE_DISPOSE_FUN(position_dispose)
+{
+    POSITION_T *pos = obj;
+    str_free(&(pos->name));
+    str_free(&(pos->long_name));
+    str_free(&(pos->room_msg));
+    str_free(&(pos->room_msg_furniture));
+}
+
+DEFINE_DISPOSE_FUN(weapon_dispose)
+{
+    WEAPON_T *weapon = obj;
+    str_free(&(weapon->name));
+    str_free(&(weapon->skill));
 }
 
 DEFINE_DISPOSE_FUN(class_dispose)

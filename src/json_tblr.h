@@ -35,12 +35,16 @@ DECLARE_JSON_READ_FUN (json_tblr_attack);
 DECLARE_JSON_READ_FUN (json_tblr_clan);
 DECLARE_JSON_READ_FUN (json_tblr_class);
 DECLARE_JSON_READ_FUN (json_tblr_con_app);
+DECLARE_JSON_READ_FUN (json_tblr_dam);
 DECLARE_JSON_READ_FUN (json_tblr_day);
 DECLARE_JSON_READ_FUN (json_tblr_dex_app);
+DECLARE_JSON_READ_FUN (json_tblr_hp_cond);
 DECLARE_JSON_READ_FUN (json_tblr_int_app);
 DECLARE_JSON_READ_FUN (json_tblr_item);
+DECLARE_JSON_READ_FUN (json_tblr_liq);
 DECLARE_JSON_READ_FUN (json_tblr_month);
 DECLARE_JSON_READ_FUN (json_tblr_pc_race);
+DECLARE_JSON_READ_FUN (json_tblr_position);
 DECLARE_JSON_READ_FUN (json_tblr_race);
 DECLARE_JSON_READ_FUN (json_tblr_sex);
 DECLARE_JSON_READ_FUN (json_tblr_size);
@@ -50,6 +54,7 @@ DECLARE_JSON_READ_FUN (json_tblr_sky);
 DECLARE_JSON_READ_FUN (json_tblr_song);
 DECLARE_JSON_READ_FUN (json_tblr_str_app);
 DECLARE_JSON_READ_FUN (json_tblr_sun);
+DECLARE_JSON_READ_FUN (json_tblr_weapon);
 DECLARE_JSON_READ_FUN (json_tblr_wis_app);
 
 #endif
