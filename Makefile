@@ -26,15 +26,18 @@ OBJ_FILES = $(SRC_FILES:${SRC_PATH}/%.c=$(OBJ_PATH)/%.o)
 
 all: $(EXE)
 
-$(EXE): $(OBJ_FILES)
+$(EXE): $(OBJ_FILES) | $(BIN_PATH)
 	$(CC) $(L_FLAGS) -o $(EXE) $(OBJ_FILES) $(LIBS)
 
 depend:
 	makedepend -Y. $(SRC_PATH)/*.c 2>/dev/null
 	cat Makefile | sed -r "s/^$(SRC_PATH)\/(.*)\.o:/$(OBJ_PATH)\/\1.o:/" > Makefile.2 && mv Makefile.2 Makefile
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(OBJ_PATH)
 	$(CC) -c $(C_FLAGS) -c $< -o $@
+
+$(BIN_PATH) $(OBJ_PATH):
+	mkdir -p $@
 
 clean:
 	rm -f $(OBJ_FILES)

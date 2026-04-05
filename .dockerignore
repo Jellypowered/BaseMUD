@@ -1,0 +1,25 @@
+# Build artifacts - prevent Windows .o/.exe files contaminating Linux builds
+/obj
+/bin
+
+# Runtime data - bind-mounted by docker-compose anyway
+/player
+/log
+/json/areas
+/dump
+/notes
+/gods
+
+# Development tools
+/.vscode
+/.git
+/.kilo
+
+# Temp files
+/romtmp
+/area/shutdown.txt
+/area/*.dmp
+/area/orphaned_helps.txt
+/src/TODO_count.sh
+/src/TODO_edit.sh
+/src/affects.txt

@@ -19,8 +19,8 @@ RUN test -f /opt/rom/Makefile
 # Build using the repo-root Makefile
 RUN make -k
 
-# Ensure runtime dirs exist (compose bind-mounts will also create them on host)
-RUN mkdir -p /opt/rom/log /opt/rom/player /opt/rom/json/areas
+# Ensure build and runtime dirs exist
+RUN mkdir -p /opt/rom/obj /opt/rom/bin /opt/rom/log /opt/rom/player /opt/rom/json/areas
 
 EXPOSE 4000
 CMD ["bash", "-lc", "./run.sh"]

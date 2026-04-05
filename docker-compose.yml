@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   app:
     image: basemud:latest
@@ -7,6 +6,6 @@ services:
     volumes:
       - ./log:/opt/rom/log:rw
       - ./player:/opt/rom/player:rw
-      - ./json/area:/opt/rom/json/area:rw
+      - ./json/areas:/opt/rom/json/areas:rw
     ports:
       - "4000:4000"

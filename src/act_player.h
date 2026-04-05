@@ -34,12 +34,13 @@
 /* (none) */
 
 /* Commands. */
-DECLARE_DO_FUN (do_delet);
-DECLARE_DO_FUN (do_delete);
-DECLARE_DO_FUN (do_rent);
-DECLARE_DO_FUN (do_qui);
-DECLARE_DO_FUN (do_quit);
-DECLARE_DO_FUN (do_save);
-DECLARE_DO_FUN (do_password);
+DECLARE_DO_FUN(do_delet);
+DECLARE_DO_FUN(do_delete);
+DECLARE_DO_FUN(do_rent);
+DECLARE_DO_FUN(do_quest);
+DECLARE_DO_FUN(do_qui);
+DECLARE_DO_FUN(do_quit);
+DECLARE_DO_FUN(do_save);
+DECLARE_DO_FUN(do_password);
 
 #endif
