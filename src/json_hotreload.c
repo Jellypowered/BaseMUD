@@ -349,12 +349,13 @@ void hotreload_scan(void)
         {
             if (!e->reload_pending)
             {
-                e->mtime_first_changed = now;
                 e->reload_pending = TRUE;
                 log_f("[hotreload] Change detected in area '%s'.",
                       e->area_name);
             }
-            /* Update so we always track the latest change time. */
+            /* Reset the timer on every new change so we wait DEBOUNCE_SECS
+             * after the LAST edit, not the first. */
+            e->mtime_first_changed = now;
             e->last_mtime = new_mtime;
         }
 

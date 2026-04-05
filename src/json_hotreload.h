@@ -13,8 +13,8 @@
 
 /* Number of pulses between filesystem scans (20 pulses = 5 seconds). */
 #define HOTRELOAD_SCAN_PULSES 20
-/* Seconds a file must be stable before a reload is triggered (10 minutes). */
-#define HOTRELOAD_DEBOUNCE_SECS 600
+/* Seconds a file must be stable before a reload is triggered (5 seconds). */
+#define HOTRELOAD_DEBOUNCE_SECS 10
 /* Pulses of combat immunity granted after a reload (60 = 15 seconds). */
 #define HOTRELOAD_IMMUNITY_PULSES 60
 /* Maximum number of areas tracked simultaneously. */
