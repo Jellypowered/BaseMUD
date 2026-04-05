@@ -20,7 +20,7 @@ RUN test -f /opt/rom/Makefile
 RUN make -k
 
 # Ensure build and runtime dirs exist
-RUN mkdir -p /opt/rom/obj /opt/rom/bin /opt/rom/log /opt/rom/player /opt/rom/json/areas
+RUN mkdir -p /opt/rom/obj /opt/rom/bin /opt/rom/log /opt/rom/player /opt/rom/gods /opt/rom/json/areas
 
 EXPOSE 4000
 CMD ["bash", "-lc", "./run.sh"]

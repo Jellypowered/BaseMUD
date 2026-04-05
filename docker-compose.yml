@@ -6,6 +6,7 @@ services:
     volumes:
       - ./log:/opt/rom/log:rw
       - ./player:/opt/rom/player:rw
+      - ./gods:/opt/rom/gods:rw
       - ./json/areas:/opt/rom/json/areas:rw
     ports:
       - "4000:4000"
