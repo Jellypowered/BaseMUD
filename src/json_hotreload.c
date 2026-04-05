@@ -325,6 +325,8 @@ void hotreload_init(void)
         e->last_mtime = mtime;
         e->mtime_first_changed = 0;
         e->reload_pending = FALSE;
+        log_f("[hotreload] Watching '%s' (mtime=%ld)",
+              e->dir_path, (long)mtime);
         hotreload_count++;
     }
     log_f("[hotreload] Watching %d area director%s.",
@@ -333,9 +335,17 @@ void hotreload_init(void)
 
 void hotreload_scan(void)
 {
+    static long scan_count = 0;
     int i;
     time_t new_mtime;
     time_t now = (time_t)current_time;
+
+    scan_count++;
+
+    /* Periodic heartbeat every ~5 minutes so we can confirm scans run. */
+    if (scan_count % 60 == 1)
+        log_f("[hotreload] Scan #%ld running (%d areas watched).",
+              scan_count, hotreload_count);
 
     for (i = 0; i < hotreload_count; i++)
     {
@@ -344,6 +354,11 @@ void hotreload_scan(void)
             continue; /* area failed to reload previously */
 
         new_mtime = hotreload_scan_dir_mtime(e->dir_path);
+
+        if (new_mtime != e->last_mtime)
+            log_f("[hotreload] '%s': mtime %ld -> %ld%s",
+                  e->area_name, (long)e->last_mtime, (long)new_mtime,
+                  new_mtime > e->last_mtime ? " (changed)" : " (reverted?)");
 
         if (new_mtime > e->last_mtime)
         {
