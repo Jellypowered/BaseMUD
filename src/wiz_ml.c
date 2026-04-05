@@ -39,6 +39,8 @@
 #include "interp.h"
 #include "json.h"
 #include "json_export.h"
+#include "json_hotreload.h"
+#include "json_import.h"
 #include "lookup.h"
 #include "memory.h"
 #include "mobiles.h"
@@ -726,4 +728,76 @@ void do_jsave_table (CHAR_T *ch, const char *arg) {
     printf_to_char (ch, "Saving '%s%s/%s.json'.\n\r", JSON_DIR,
         table->json_path, table->name);
     json_export_table (table, JSON_EXPORT_MODE_SAVE);
+}
+
+#define DO_JRELOAD_SYNTAX \
+    "Syntax for 'jreload':\n\r" \
+    "    jreload list              -- show reloadable tables\n\r" \
+    "    jreload <table_name>      -- reload a config table\n\r" \
+    "    jreload areas <name>      -- force-reload an area\n\r"
+
+DEFINE_DO_FUN (do_jreload) {
+    char arg1[MSL];
+    char arg2[MSL];
+    const TABLE_T *table;
+    int count;
+
+    if (IS_NPC(ch))
+        return;
+
+    argument = one_argument (argument, arg1);
+    argument = one_argument (argument, arg2);
+
+    /* No args - list all reloadable tables. */
+    if (arg1[0] == '\0') {
+        int col = 0;
+        send_to_char ("Reloadable config tables:\n\r", ch);
+        for (table = master_get_first(); table; table = master_get_next (table)) {
+            if (table->type != TABLE_UNIQUE || table->json_read_func == NULL)
+                continue;
+            if (col % 4 == 0)
+                send_to_char ("  ", ch);
+            printf_to_char (ch, "%-19s", table->name);
+            if (++col % 4 == 0)
+                send_to_char ("\n\r", ch);
+        }
+        if (col % 4 != 0)
+            send_to_char ("\n\r", ch);
+        send_to_char (DO_JRELOAD_SYNTAX, ch);
+        return;
+    }
+
+    /* Force-reload an area. */
+    if (!str_prefix (arg1, "areas")) {
+#ifdef BASEMUD_JSON_HOTRELOAD
+        BAIL_IF (arg2[0] == '\0', DO_JRELOAD_SYNTAX, ch);
+        hotreload_force_reload_area (arg2, ch);
+#else
+        send_to_char ("Hotreload is not enabled in this build.\n\r", ch);
+#endif
+        return;
+    }
+
+    /* Reload a config table by name. */
+    table = master_table_get_by_name (arg1);
+    if (table == NULL) {
+        printf_to_char (ch, "Ambiguous or unknown table '%s'.\n\r", arg1);
+        return;
+    }
+    if (table->json_read_func == NULL) {
+        printf_to_char (ch,
+            "Table '%s' has no JSON reader - cannot reload.\n\r",
+            table->name);
+        return;
+    }
+
+    printf_to_char (ch, "[jreload] Reloading '%s'...\n\r", table->name);
+    wiznetf (ch, NULL, 0, 0, 0,
+        "[jreload] $N is reloading config table '%s'.", table->name);
+
+    count = json_reload_table (table);
+
+    printf_to_char (ch, "[jreload] Done - %d object(s) loaded.\n\r", count);
+    log_f ("[jreload] '%s' reloaded by %s (%d objects).",
+        table->name, ch->name, count);
 }

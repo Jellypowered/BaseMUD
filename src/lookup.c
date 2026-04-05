@@ -130,6 +130,21 @@ const TABLE_T *master_table_get_by_obj_name (const char *name) {
     return NULL;
 }
 
+const TABLE_T *master_table_get_by_name (const char *name) {
+    const TABLE_T *table;
+    const TABLE_T *found = NULL;
+    int i;
+    for (i = 0; master_table[i].name != NULL; i++) {
+        table = &(master_table[i]);
+        if (!str_prefix (name, table->name)) {
+            if (found != NULL)
+                return NULL; /* ambiguous */
+            found = table;
+        }
+    }
+    return found;
+}
+
 SPEC_FUN *spec_lookup_function (const char *name)
     { SIMPLE_LOOKUP_PROP (spec_table, function, name, NULL, SPEC_MAX); }
 

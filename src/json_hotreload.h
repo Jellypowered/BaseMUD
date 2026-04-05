@@ -34,6 +34,7 @@ typedef struct hotreload_entry
 /* Public API. */
 void hotreload_init(void);
 void hotreload_scan(void);
+void hotreload_force_reload_area(const char *name, CHAR_T *ch);
 
 #endif /* BASEMUD_JSON_HOTRELOAD */
 #endif /* __ROM_JSON_HOTRELOAD_H */

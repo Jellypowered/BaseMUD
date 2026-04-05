@@ -140,6 +140,47 @@ DEFINE_JSON_READ_FUN (json_tblr_race) {
     return race;
 }
 
+DEFINE_JSON_READ_FUN (json_tblr_skill_group) {
+    char buf[MAX_STRING_LENGTH];
+    JSON_T *array, *sub, *cost_node;
+    int i;
+
+    JSON_TBLR_START (SKILL_GROUP_T, skill_group, SKILL_GROUP_MAX, skill_group->name == NULL);
+
+    if (!json_import_expect ("skill_group", json,
+            "name", "*classes", "*skills", NULL))
+        return NULL;
+
+    READ_PROP_STRP (skill_group->name, "name");
+
+    /* initialize all class costs to -1 (unavailable) */
+    for (i = 0; class_get (i) != NULL; i++)
+        skill_group->classes[i].cost = -1;
+
+    if ((array = json_get (json, "classes")) != NULL) {
+        for (sub = array->first_child; sub != NULL; sub = sub->next) {
+            int num;
+            if ((num = class_lookup_exact (sub->name)) < 0) {
+                json_logf (json, "Unknown class '%s'", sub->name);
+                continue;
+            }
+            cost_node = json_get (sub, "cost");
+            skill_group->classes[num].cost = (cost_node != NULL)
+                ? json_value_as_int (cost_node) : 0;
+        }
+    }
+
+    if ((array = json_get (json, "skills")) != NULL) {
+        i = 0;
+        for (sub = array->first_child; sub != NULL && i < MAX_IN_GROUP;
+                sub = sub->next)
+            skill_group->spells[i++] = str_dup (
+                json_value_as_string (sub, buf, sizeof (buf)));
+    }
+
+    return skill_group;
+}
+
 DEFINE_JSON_READ_FUN (json_tblr_song) {
     char buf[256];
     JSON_T *array, *sub;

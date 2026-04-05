@@ -76,6 +76,7 @@ char *json_string_append_newline(char *buf, size_t size);
 void json_import_all(void);
 AREA_T *json_import_link_areas_get_area(char **name);
 void json_import_link_areas(void);
+int json_reload_table(const TABLE_T *table);
 #ifdef BASEMUD_JSON_HOTRELOAD
 void json_import_area(const char *dir_path, int *out_imported);
 void json_import_link_one_area(AREA_T *area);

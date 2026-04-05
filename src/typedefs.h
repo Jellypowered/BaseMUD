@@ -151,6 +151,7 @@ typedef bool OLC_FUN    (CHAR_T *ch, char *argument);
 typedef int LOOKUP_FUN  (const char *name);
 typedef void INIT_FUN (void *obj);
 typedef void DISPOSE_FUN (void *obj);
+typedef void POST_LOAD_FUN (void);
 typedef bool COND_FUN (const CHAR_T *ch);
 typedef int TRAIN_STAT_FUN (CHAR_T *ch, const TRAIN_STAT_T *ts, bool silent);
 
@@ -169,6 +170,7 @@ typedef int TRAIN_STAT_FUN (CHAR_T *ch, const TRAIN_STAT_T *ts, bool silent);
     #define DECLARE_LOOKUP_FUN(fun) int fun()
     #define DECLARE_INIT_FUN(fun)   void fun()
     #define DECLARE_DISPOSE_FUN(fun) void fun()
+    #define DECLARE_POST_LOAD_FUN(fun) void fun()
     #define DECLARE_COND_FUN(fun)   bool fun()
     #define DECLARE_TRAIN_STAT_FUN(fun) int fun()
 #else
@@ -184,6 +186,7 @@ typedef int TRAIN_STAT_FUN (CHAR_T *ch, const TRAIN_STAT_T *ts, bool silent);
     #define DECLARE_LOOKUP_FUN(fun) LOOKUP_FUN fun
     #define DECLARE_INIT_FUN(fun)   INIT_FUN fun
     #define DECLARE_DISPOSE_FUN(fun) DISPOSE_FUN fun
+    #define DECLARE_POST_LOAD_FUN(fun) POST_LOAD_FUN fun
     #define DECLARE_COND_FUN(fun)   COND_FUN fun
     #define DECLARE_TRAIN_STAT_FUN(fun) TRAIN_STAT_FUN fun
 #endif

@@ -285,6 +285,7 @@ bool table_is_unique (const void *table);
 /* Special lookup functions. */
 const TABLE_T *master_table_get_exact (const char *name);
 const TABLE_T *master_table_get_by_obj_name (const char *name);
+const TABLE_T *master_table_get_by_name (const char *name);
 
 SPEC_FUN* spec_lookup_function (const char *name);
 const char *spec_function_name (SPEC_FUN *function);

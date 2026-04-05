@@ -35,6 +35,7 @@
 #include "json_read.h"
 #include "lookup.h"
 #include "memory.h"
+#include "tables.h"
 #include "mobiles.h"
 #include "objs.h"
 #include "recycle.h"
@@ -355,6 +356,46 @@ void json_import_link_areas(void)
             continue;
         help_area_to_area(had, area);
     }
+}
+
+/* Reload a single config table from its JSON file.
+ * Disposes the existing data, zeroes the table, reads the JSON file,
+ * then calls post_load_fun if registered. Returns number of objects loaded. */
+int json_reload_table(const TABLE_T *table)
+{
+    char path[1024];
+    JSON_T *json;
+    int imported = 0;
+
+    if (table == NULL || table->json_read_func == NULL)
+        return 0;
+
+    /* Free dynamic strings from the old data. */
+    if (table->dispose_fun != NULL)
+        table_dispose(table);
+
+    /* Zero the entire array so stale pointers cannot be dereferenced. */
+    memset((void *)table->table, 0,
+           table->type_size * table->table_length);
+
+    /* Build the path: json/<json_path>/<name>.json */
+    snprintf(path, sizeof(path), "%s%s/%s.json",
+             JSON_DIR, table->json_path, table->name);
+
+    if ((json = json_read_file(path)) != NULL)
+    {
+        imported = json_import_objects(json);
+        json_free(json);
+    }
+    else
+    {
+        bugf("json_reload_table: could not read '%s'", path);
+    }
+
+    if (table->post_load_fun != NULL)
+        table->post_load_fun();
+
+    return imported;
 }
 
 #ifdef BASEMUD_JSON_HOTRELOAD

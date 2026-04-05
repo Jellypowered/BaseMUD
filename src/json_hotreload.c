@@ -388,4 +388,31 @@ void hotreload_scan(void)
     }
 }
 
+void hotreload_force_reload_area(const char *name, CHAR_T *ch)
+{
+    int i;
+    HOTRELOAD_ENTRY_T *e;
+
+    for (i = 0; i < hotreload_count; i++)
+    {
+        e = &hotreload_table[i];
+        if (!str_prefix(name, e->area_name))
+        {
+            if (ch != NULL)
+                printf_to_char(ch,
+                    "[jreload] Force-reloading area '%s'...\n\r",
+                    e->area_name);
+            hotreload_execute(e);
+            if (ch != NULL)
+                printf_to_char(ch,
+                    "[jreload] Area '%s' reload complete.\n\r",
+                    e->area_name);
+            return;
+        }
+    }
+
+    if (ch != NULL)
+        printf_to_char(ch, "[jreload] Area '%s' not found.\n\r", name);
+}
+
 #endif /* BASEMUD_JSON_HOTRELOAD */

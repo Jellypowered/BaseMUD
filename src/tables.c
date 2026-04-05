@@ -141,7 +141,7 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     TTABLE(sector_table, "sectors", "Sector/terrain properties.", "sector", "config_unsupported", json_tblw_sector, NULL, NULL),
     TTABLE(sex_table, "sexes", "Gender settings.", "sex", "config_unsupported", json_tblw_sex, NULL, NULL),
     TTABLE(size_table, "sizes", "Character sizes.", "size", "config_unsupported", json_tblw_size, NULL, NULL),
-    TTABLE(skill_group_table, "skill_groups", "Groups of skills table.", "skill_group", "config_unsupported", json_tblw_skill_group, NULL, NULL),
+    TTABLE(skill_group_table, "skill_groups", "Groups of skills table.", "skill_group", "config", json_tblw_skill_group, json_tblr_skill_group, skill_group_dispose),
     TTABLE(skill_table, "skills", "Master skill table.", "skill", "config_unsupported", json_tblw_skill, NULL, NULL),
     TTABLE(sky_table, "skies", "Skies based on the weather.", "sky", "config_unsupported", json_tblw_sky, NULL, NULL),
     TTABLE(spec_table, "specs", "Specialized mobile behavior.", "spec", "config_unsupported", json_tblw_spec, NULL, NULL),
@@ -1095,7 +1095,7 @@ SKILL_T skill_table[SKILL_MAX + 1] = {
 #undef PR
 #undef PP
 
-const SKILL_GROUP_T skill_group_table[SKILL_GROUP_MAX + 1] = {
+SKILL_GROUP_T skill_group_table[SKILL_GROUP_MAX + 1] = {
     {"rom basics", {{0}, {0}, {0}, {0}}, {"scrolls", "staves", "wands", "recall"}},
     {"mage basics", {{0}, {-1}, {-1}, {-1}}, {"dagger"}},
     {"cleric basics", {{-1}, {0}, {-1}, {-1}}, {"mace"}},
@@ -1408,6 +1408,16 @@ DEFINE_DISPOSE_FUN(race_dispose)
 {
     RACE_T *race = obj;
     str_free(&(race->name));
+}
+
+DEFINE_DISPOSE_FUN(skill_group_dispose)
+{
+    SKILL_GROUP_T *group = obj;
+    int i;
+
+    str_free(&(group->name));
+    for (i = 0; i < MAX_IN_GROUP; i++)
+        str_free(&(group->spells[i]));
 }
 
 DEFINE_DISPOSE_FUN(song_dispose)

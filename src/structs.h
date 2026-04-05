@@ -1236,6 +1236,7 @@ struct table_type
     JSON_WRITE_FUN *json_write_func;
     JSON_READ_FUN *json_read_func;
     DISPOSE_FUN *dispose_fun;
+    POST_LOAD_FUN *post_load_fun;
 };
 
 struct portal_exit_type

@@ -52,7 +52,7 @@ extern const WIS_APP_T        wis_app_table[ATTRIBUTE_HIGHEST + 2];
 extern const DEX_APP_T        dex_app_table[ATTRIBUTE_HIGHEST + 2];
 extern const CON_APP_T        con_app_table[ATTRIBUTE_HIGHEST + 2];
 extern const LIQ_T            liq_table[LIQ_MAX + 1];
-extern const SKILL_GROUP_T    skill_group_table[SKILL_GROUP_MAX + 1];
+extern SKILL_GROUP_T          skill_group_table[SKILL_GROUP_MAX + 1];
 extern const SECTOR_T         sector_table[SECT_MAX + 1];
 extern const DOOR_T           door_table[DIR_MAX + 1];
 extern const SPEC_T           spec_table[SPEC_MAX + 1];
@@ -97,6 +97,7 @@ void table_dispose (const TABLE_T *table);
 /* Init / disposal functions. */
 DECLARE_DISPOSE_FUN (pc_race_dispose);
 DECLARE_DISPOSE_FUN (race_dispose);
+DECLARE_DISPOSE_FUN (skill_group_dispose);
 DECLARE_DISPOSE_FUN (song_dispose);
 
 #endif

@@ -46,5 +46,6 @@ DECLARE_DO_FUN (do_dump);
 DECLARE_DO_FUN (do_violate);
 DECLARE_DO_FUN (do_qmconfig);
 DECLARE_DO_FUN (do_jsave);
+DECLARE_DO_FUN (do_jreload);
 
 #endif
