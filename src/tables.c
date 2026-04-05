@@ -121,7 +121,7 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     TTABLE(attack_table, "attacks", "Attack types and properties.", "attack", "config_unsupported", json_tblw_attack, NULL, NULL),
     TTABLE(board_table, "boards", "Discussion boards.", "board", "config_unsupported", json_tblw_board, NULL, NULL),
     TTABLE(clan_table, "clans", "Player clans.", "clan", "config_unsupported", json_tblw_clan, NULL, NULL),
-    TTABLE(class_table, "classes", "Classes and statistics.", "class", "config_unsupported", json_tblw_class, NULL, NULL),
+    TTABLE(class_table, "classes", "Classes and statistics.", "class", "config", json_tblw_class, json_tblr_class, class_dispose),
     TTABLE(colour_setting_table, "color_settings", "Configurable colours.", "color_setting", "config_unsupported", json_tblw_colour_setting, NULL, NULL),
     TTABLE(colour_table, "colors", "Colour values.", "color", "config_unsupported", json_tblw_colour, NULL, NULL),
     TTABLE(con_app_table, "con_app", "Con apply table.", "con_app", "config_unsupported", json_tblw_con_app, NULL, NULL),
@@ -390,7 +390,7 @@ RACE_T race_table[RACE_MAX + 1];
 PC_RACE_T pc_race_table[PC_RACE_MAX + 1];
 
 /* Class table.  */
-const CLASS_T class_table[CLASS_MAX + 1] = {
+CLASS_T class_table[CLASS_MAX + 1] = {
     {"mage", "Mag", STAT_INT, OBJ_VNUM_SCHOOL_DAGGER, {3018, 9618}, 75, 20, 6, 6, 8, TRUE, "mage basics", "mage default", FALSE},
     {"cleric", "Cle", STAT_WIS, OBJ_VNUM_SCHOOL_MACE, {3003, 9619}, 75, 20, 2, 7, 10, TRUE, "cleric basics", "cleric default", FALSE},
     {"thief", "Thi", STAT_DEX, OBJ_VNUM_SCHOOL_DAGGER, {3028, 9639}, 75, 20, -4, 8, 13, FALSE, "thief basics", "thief default", TRUE},
@@ -1393,6 +1393,15 @@ const POSE_T pose_table[CLASS_MAX + 1] = {
     {0}};
 
 SONG_T song_table[MAX_SONGS + 1];
+
+DEFINE_DISPOSE_FUN(class_dispose)
+{
+    CLASS_T *class = obj;
+
+    str_free(&(class->name));
+    str_free(&(class->base_group));
+    str_free(&(class->default_group));
+}
 
 DEFINE_DISPOSE_FUN(pc_race_dispose)
 {

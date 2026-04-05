@@ -50,6 +50,45 @@
     } \
     var = &(var ## _table[index]);
 
+DEFINE_JSON_READ_FUN (json_tblr_class) {
+    char buf[MAX_STRING_LENGTH];
+    JSON_T *array, *sub;
+    int i;
+
+    JSON_TBLR_START (CLASS_T, class, CLASS_MAX, class->name == NULL);
+
+    if (!json_import_expect ("class", json,
+            "name", "who_name", "primary_stat",
+            "weapon", "guild",
+            "skill_adept", "thac0_00", "thac0_32",
+            "hp_gain_min", "hp_gain_max",
+            "gains_mana", "base_group", "default_group",
+            "can_sneak_away", NULL))
+        return NULL;
+
+    READ_PROP_STRP (class->name,         "name");
+    READ_PROP_STR  (class->who_name,     "who_name");
+    READ_PROP_TYPE (class->attr_prime,   "primary_stat", stat_types);
+    READ_PROP_INT  (class->weapon,       "weapon");
+    if ((array = json_get (json, "guild")) != NULL) {
+        i = 0;
+        for (sub = array->first_child; sub != NULL && i < MAX_GUILD;
+                sub = sub->next)
+            class->guild[i++] = json_value_as_int (sub);
+    }
+    READ_PROP_INT  (class->skill_adept,  "skill_adept");
+    READ_PROP_INT  (class->thac0_00,     "thac0_00");
+    READ_PROP_INT  (class->thac0_32,     "thac0_32");
+    READ_PROP_INT  (class->hp_min,       "hp_gain_min");
+    READ_PROP_INT  (class->hp_max,       "hp_gain_max");
+    READ_PROP_BOOL (class->gains_mana,   "gains_mana");
+    READ_PROP_STRP (class->base_group,   "base_group");
+    READ_PROP_STRP (class->default_group, "default_group");
+    READ_PROP_BOOL (class->can_sneak_away, "can_sneak_away");
+
+    return class;
+}
+
 DEFINE_JSON_READ_FUN (json_tblr_pc_race) {
     char buf[MAX_STRING_LENGTH];
     JSON_T *array, *sub;

@@ -45,7 +45,7 @@ extern const ITEM_T           item_table[ITEM_MAX + 1];
 extern const DAM_T            dam_table[DAM_MAX + 1];
 extern const ATTACK_T         attack_table[ATTACK_MAX + 1];
 extern PC_RACE_T              pc_race_table[PC_RACE_MAX + 1];
-extern const CLASS_T          class_table[CLASS_MAX + 1];
+extern CLASS_T                class_table[CLASS_MAX + 1];
 extern const STR_APP_T        str_app_table[ATTRIBUTE_HIGHEST + 2];
 extern const INT_APP_T        int_app_table[ATTRIBUTE_HIGHEST + 2];
 extern const WIS_APP_T        wis_app_table[ATTRIBUTE_HIGHEST + 2];
@@ -95,6 +95,7 @@ void table_dispose_all (void);
 void table_dispose (const TABLE_T *table);
 
 /* Init / disposal functions. */
+DECLARE_DISPOSE_FUN (class_dispose);
 DECLARE_DISPOSE_FUN (pc_race_dispose);
 DECLARE_DISPOSE_FUN (race_dispose);
 DECLARE_DISPOSE_FUN (skill_group_dispose);

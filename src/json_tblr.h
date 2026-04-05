@@ -31,6 +31,7 @@
 #include "merc.h"
 
 /* dead-simple functions for reading JSON objects. */
+DECLARE_JSON_READ_FUN (json_tblr_class);
 DECLARE_JSON_READ_FUN (json_tblr_pc_race);
 DECLARE_JSON_READ_FUN (json_tblr_race);
 DECLARE_JSON_READ_FUN (json_tblr_skill_group);

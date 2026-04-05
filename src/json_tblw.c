@@ -232,6 +232,12 @@ DEFINE_JSON_WRITE_FUN (json_tblw_class) {
     json_prop_string  (new, "who_name", JSTR (class->who_name));
     json_prop_string  (new, "primary_stat",
         type_get_name (stat_types, class->attr_prime));
+    json_prop_integer (new, "weapon", class->weapon);
+    {
+        JSON_T *guild_arr = json_prop_array (new, "guild");
+        json_prop_integer (guild_arr, NULL, class->guild[0]);
+        json_prop_integer (guild_arr, NULL, class->guild[1]);
+    }
     json_prop_integer (new, "skill_adept", class->skill_adept);
     json_prop_integer (new, "thac0_00", class->thac0_00);
     json_prop_integer (new, "thac0_32", class->thac0_32);
