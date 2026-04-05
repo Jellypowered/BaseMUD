@@ -1,21 +1,21 @@
 #PLAYER
 Name Admin~
 Id   1565440615
-LogO 1775372769
+LogO 1775376984
 Vers 5
 Race human~
 Sex  1
 ClassName warrior~
 Levl 60
 Sec  9
-Plyd 12872
+Plyd 14553
 Scro 22
 Room 3001
 HMV  20 20 100 100 100 100
 Gold 0
 Silv 0
 Exp  1000
-Plr  [nosummon colour]
+Plr  [autoexit nosummon colour]
 Comm [prompt combine telnet_ga]
 Pos  8
 Prac 5
@@ -30,7 +30,7 @@ Pass AdNkxcSaZj1LA~
 Titl  the Implementor~
 Pnts 40
 TSex 1
-LLev 0
+LLev 3
 HMVP 20 100 100
 Cnd  0 48 48 48
 Colour 0 1031

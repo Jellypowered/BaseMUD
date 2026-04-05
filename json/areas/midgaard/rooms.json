@@ -4,7 +4,7 @@
       "area": "midgaard",
       "anum": 1,
       "name": "The {bTemple{x Of Mota",
-      "description": "You are in the southern end of the temple hall in the Temple of Mota.\nThe temple has been constructed from giant marble blocks, eternal in\nappearance, and most of the walls are covered by ancient wall paintings\npicturing gods, giants and peasants.\n   Large steps lead down through the grand temple gate, descending the huge\nmound upon which the temple is built and ends on the temple square below.\n   Equally large steps lead UP through a small door into the ENTRANCE to {rMUD \nSCHOOL{x.  (type 'up' to go to MUD SCHOOL.)  A small plaque is on this wall.",
+      "description": "You are in the southern end of the temple hall in the Temple of Mota.\nThe temple has been constructed from giant marble blocks, eternal in\nappearance, and most of the walls are covered by ancient wall paintings\npicturing gods, giants and peasants.\n   Large steps lead down through the grand temple gate, descending the huge\nmound upon which the temple is built and ends on the temple square below.\n   Equally large steps lead UP through a small door into the ENTRANCE to {rMUD SCHOOL{x.  (type 'up' to go to {bMUD SCHOOL{x.)  A small plaque is on this wall.",
       "sector_type": "inside",
       "room_flags": "no_mob indoors law",
       "portal": "midgaard-room-1",
@@ -1094,7 +1094,7 @@
         },
         {
           "dir": "down",
-          "description": "You can't see what is down there, it is too dark.  Looks like it would be\nimpossible to climb back up.",
+          "description": "You can't see what is down there, it is too dark.  Looks like it would be impossible to climb back up.",
           "portal": "midgaard-down-2"
         }
       ],
@@ -1107,7 +1107,8 @@
             "room_limit": 1
           }
         }
-      ]
+      ],
+      "extra_description": []
     }
   },
   {
