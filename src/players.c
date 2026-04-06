@@ -308,6 +308,17 @@ void player_gain_exp(CHAR_T *ch, int gain)
         wiznetf(ch, NULL, WIZ_LEVELS, 0, 0,
                 "$N has attained level %d!", ch->level);
         player_advance_level(ch, FALSE);
+        affect_strip_char(ch, SN(PLAGUE));
+        affect_strip_char(ch, SN(POISON));
+        affect_strip_char(ch, SN(BLINDNESS));
+        affect_strip_char(ch, SN(SLEEP));
+        affect_strip_char(ch, SN(CURSE));
+
+        ch->hit = ch->max_hit;
+        ch->mana = ch->max_mana;
+        ch->move = ch->max_move;
+        update_pos(ch);
+        send_to_char("Mota has given you the power to continue.\n\r", ch);
         save_char_obj(ch);
     }
 }
