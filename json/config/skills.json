@@ -58,6 +58,20 @@
     },
     {
         "skill":  {
+                      "name":  "acid rain",
+                      "classes":  {},
+                      "target":  "char_offensive",
+                      "min_position":  "fighting",
+                      "slot":  524,
+                      "min_mana":  20,
+                      "usage_beats":  12,
+                      "damage_noun":  "acid rain",
+                      "off_msg_char":  "!Acid Rain!",
+                      "spell_fun":  "spell_acid_rain"
+                  }
+    },
+    {
+        "skill":  {
                       "name":  "armor",
                       "classes":  {
                                       "mage":  {

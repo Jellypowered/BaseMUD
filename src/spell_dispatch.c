@@ -149,6 +149,7 @@ static const SPELL_ENTRY_T spell_dispatch_table[] = {
 
     /* spell_off.h */
     {"spell_acid_blast", spell_acid_blast},
+    {"spell_acid_rain", spell_acid_rain},
     {"spell_burning_hands", spell_burning_hands},
     {"spell_call_lightning", spell_call_lightning},
     {"spell_cause_critical", spell_cause_critical},
