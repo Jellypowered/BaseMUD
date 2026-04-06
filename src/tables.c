@@ -430,7 +430,8 @@ int pc_race_count = 0, pc_race_cap = 0;
 CLASS_T *class_table = NULL;
 int class_count = 0, class_cap = 0;
 
-/* Titles.  */
+/* REMOVED: title_table moved to classes.json -> CLASS_T.titles[2] */
+#if 0
 char *const title_table[CLASS_MAX][MAX_LEVEL + 1][2] = {
     {{"Man", "Woman"},
 
@@ -747,6 +748,7 @@ char *const title_table[CLASS_MAX][MAX_LEVEL + 1][2] = {
      {"Supreme Master of War", "Supreme Mistress of War"},
      {"Creator", "Creator"},
      {"Implementor", "Implementress"}}};
+#endif
 
 /* Attribute bonus tables. */
 STR_APP_T str_app_table[ATTRIBUTE_HIGHEST + 2] = {
@@ -1286,12 +1288,27 @@ DEFINE_DISPOSE_FUN(wear_loc_dispose)
 DEFINE_DISPOSE_FUN(class_dispose)
 {
     CLASS_T *class = obj;
+    int i;
 
     str_free(&(class->name));
     str_free(&(class->base_group));
     str_free(&(class->default_group));
     free(class->guild);
     class->guild = NULL;
+    if (class->titles[0] != NULL)
+    {
+        for (i = 0; i <= MAX_LEVEL; i++)
+            str_free(&(class->titles[0][i]));
+        free(class->titles[0]);
+        class->titles[0] = NULL;
+    }
+    if (class->titles[1] != NULL)
+    {
+        for (i = 0; i <= MAX_LEVEL; i++)
+            str_free(&(class->titles[1][i]));
+        free(class->titles[1]);
+        class->titles[1] = NULL;
+    }
 }
 
 DEFINE_DISPOSE_FUN(pc_race_dispose)

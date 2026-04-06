@@ -246,10 +246,15 @@ void player_advance_level(CHAR_T *ch, bool hide)
     ch->pcdata->last_level =
         (ch->played + (int)(current_time - ch->logon)) / 3600;
 
-    sprintf(buf, "the %s",
-            title_table[ch->class][ch->level][ch->sex == SEX_FEMALE ? 1 : 0]
-                ? title_table[ch->class][ch->level][ch->sex == SEX_FEMALE ? 1 : 0]
-                : class_get_name(ch->class));
+    {
+        int sex_idx = (ch->sex == SEX_FEMALE) ? 1 : 0;
+        const char *title =
+            (class_table[ch->class].titles[sex_idx] != NULL &&
+             class_table[ch->class].titles[sex_idx][ch->level] != NULL)
+                ? class_table[ch->class].titles[sex_idx][ch->level]
+                : class_get_name(ch->class);
+        sprintf(buf, "the %s", title);
+    }
     player_set_title(ch, buf);
 
     add_hp = char_con_level_hp(ch) +

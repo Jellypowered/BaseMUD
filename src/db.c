@@ -1168,8 +1168,7 @@ void load_mobiles(FILE *fp)
 void db_finalize_mob(MOB_INDEX_T *mob)
 {
     const RACE_T *race;
-    if ((mob->race >= 0 || mob->race < RACE_MAX) &&
-        (race = race_get(mob->race)) != NULL)
+    if ((race = race_get(mob->race)) != NULL)
     {
         mob->ext_mob_final = mob->ext_mob_plus;
         EXT_SET(mob->ext_mob_final, MOB_IS_NPC);

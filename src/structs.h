@@ -222,6 +222,7 @@ struct class_type
     char *base_group;    /* base skills gained          */
     char *default_group; /* default skills gained       */
     bool can_sneak_away; /* Can sneak away when fleeing */
+    char **titles[2];    /* heap, [0]=male [1]=female, MAX_LEVEL+1 entries each */
 };
 
 struct item_type

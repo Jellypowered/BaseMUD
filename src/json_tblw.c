@@ -264,6 +264,17 @@ DEFINE_JSON_WRITE_FUN(json_tblw_class)
     json_prop_string(new, "base_group", JSTR(class->base_group));
     json_prop_string(new, "default_group", JSTR(class->default_group));
     json_prop_boolean(new, "can_sneak_away", class->can_sneak_away);
+    {
+        JSON_T *titles_arr = json_prop_array(new, "titles");
+        for (i = 0; i <= MAX_LEVEL; i++)
+        {
+            JSON_T *entry = json_prop_object(titles_arr, NULL, JSON_OBJ_ANY);
+            json_prop_string(entry, "male",
+                             (class->titles[0] && class->titles[0][i]) ? class->titles[0][i] : "");
+            json_prop_string(entry, "female",
+                             (class->titles[1] && class->titles[1][i]) ? class->titles[1][i] : "");
+        }
+    }
 
     return new;
 }

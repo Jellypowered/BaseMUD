@@ -577,7 +577,7 @@ DEFINE_JSON_READ_FUN(json_tblr_class)
                             "skill_adept", "thac0_00", "thac0_32",
                             "hp_gain_min", "hp_gain_max",
                             "gains_mana", "base_group", "default_group",
-                            "can_sneak_away", NULL))
+                            "can_sneak_away", "*titles", NULL))
         return NULL;
 
     READ_PROP_STRP(class->name, "name");
@@ -601,6 +601,24 @@ DEFINE_JSON_READ_FUN(json_tblr_class)
     READ_PROP_STRP(class->base_group, "base_group");
     READ_PROP_STRP(class->default_group, "default_group");
     READ_PROP_BOOL(class->can_sneak_away, "can_sneak_away");
+    class->titles[0] = calloc(MAX_LEVEL + 1, sizeof(char *));
+    class->titles[1] = calloc(MAX_LEVEL + 1, sizeof(char *));
+    if ((array = json_get(json, "titles")) != NULL)
+    {
+        int idx = 0;
+        for (sub = array->first_child; sub != NULL && idx <= MAX_LEVEL;
+             sub = sub->next, idx++)
+        {
+            JSON_T *male_n = json_get(sub, "male");
+            JSON_T *fem_n = json_get(sub, "female");
+            if (male_n)
+                class->titles[0][idx] = str_dup(
+                    json_value_as_string(male_n, buf, sizeof(buf)));
+            if (fem_n)
+                class->titles[1][idx] = str_dup(
+                    json_value_as_string(fem_n, buf, sizeof(buf)));
+        }
+    }
 
     return class;
 }

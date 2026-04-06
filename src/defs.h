@@ -208,7 +208,7 @@
 #define DAM_MAX 20
 
 /* Shop types. */
-#define MAX_TRADE 5
+#define MAX_TRADE 16
 
 /* Per-class stuff. */
 #define MAX_GUILD 2
@@ -249,7 +249,6 @@
 /* Liquids. */
 #define LIQ_WATER 0
 /* ... lots of stuff ... */
-#define LIQ_MAX 36
 
 /* Well known object virtual numbers.
  * Defined in #OBJECTS. */
@@ -440,12 +439,10 @@
 
 /* Character classes. */
 #define CLASS_NONE -1
-#define CLASS_MAX 32
 
 /* Limits not defined elsewhere. */
 #define CLAN_MAX 3
 #define WIZNET_MAX 20
-#define RACE_MAX 30
 #define PC_RACE_MAX 16
 #define PC_RACE_SKILL_MAX 16
 #define SOCIAL_MAX 256

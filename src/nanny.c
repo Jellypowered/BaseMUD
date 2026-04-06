@@ -483,7 +483,7 @@ DEFINE_NANNY_FUN(nanny_confirm_new_password)
 
     write_to_buffer(d, echo_on_str, 0);
     send_to_desc("The following races are available:\n\r  ", d);
-    for (i = 0; i < PC_RACE_MAX; i++)
+    for (i = 0; i < pc_race_count; i++)
     {
         if ((pc_race = pc_race_get(i)) == NULL)
             break;
@@ -523,7 +523,7 @@ DEFINE_NANNY_FUN(nanny_get_new_race)
     {
         send_to_desc("That is not a valid race.\n\r", d);
         send_to_desc("The following races are available:\n\r  ", d);
-        for (i = 0; i < PC_RACE_MAX; i++)
+        for (i = 0; i < pc_race_count; i++)
         {
             if ((pc_race = pc_race_get(i)) == NULL)
                 break;
@@ -1010,10 +1010,15 @@ DEFINE_NANNY_FUN(nanny_read_motd)
         ch->move = ch->max_move;
         ch->train = 3;
         ch->practice = 5;
-        sprintf(buf, "the %s",
-                title_table[ch->class][ch->level][ch->sex == SEX_FEMALE ? 1 : 0]
-                    ? title_table[ch->class][ch->level][ch->sex == SEX_FEMALE ? 1 : 0]
-                    : class_get_name(ch->class));
+        {
+            int sex_idx = (ch->sex == SEX_FEMALE) ? 1 : 0;
+            const char *title =
+                (class_table[ch->class].titles[sex_idx] != NULL &&
+                 class_table[ch->class].titles[sex_idx][ch->level] != NULL)
+                    ? class_table[ch->class].titles[sex_idx][ch->level]
+                    : class_get_name(ch->class);
+            sprintf(buf, "the %s", title);
+        }
         player_set_title(ch, buf);
 
         do_function(ch, &do_outfit, "");

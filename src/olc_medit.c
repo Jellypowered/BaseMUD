@@ -348,7 +348,7 @@ MEDIT(medit_shop)
         int value;
 
         RETURN_IF(arg1[0] == '\0' || !is_number(arg1) || argument[0] == '\0',
-                  "Syntax: shop type [#x0-4] [item type]\n\r", ch, FALSE);
+                  "Syntax: shop type [#x0-15] [item type]\n\r", ch, FALSE);
         if (atoi(arg1) >= MAX_TRADE)
         {
             printf_to_char(ch, "MEdit:  May sell %d items max.\n\r", MAX_TRADE);
@@ -883,7 +883,7 @@ MEDIT(medit_race)
     {
         send_to_char("Available races are:", ch);
 
-        for (i = 0; i < RACE_MAX; i++)
+        for (i = 0; i < race_count; i++)
         {
             if ((race = race_get(i)) == NULL)
                 break;

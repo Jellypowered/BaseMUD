@@ -9,5 +9,6 @@ services:
       - ./gods:/opt/rom/gods:rw
       - ./json/areas:/opt/rom/json/areas:rw
       - ./json/config:/opt/rom/json/config:rw
+      - ./json/help:/opt/rom/json/help:rw
     ports:
       - "4000:4000"
