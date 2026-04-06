@@ -4020,5 +4020,14 @@
                       "usage_beats":  12,
                       "off_msg_char":  "!Recall!"
                   }
-    }
-]
+},
+{
+    "skill":  {
+                  "name":  "butcher",
+                  "classes":  {},
+                  "target":  "ignore",
+                  "min_position":  "standing",
+                  "slot":  525,
+                  "usage_beats":  24,
+                  "off_msg_char":  "!Butcher!"
+              }

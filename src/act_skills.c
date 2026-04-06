@@ -36,6 +36,7 @@
 #include "lookup.h"
 #include "magic.h"
 #include "memory.h"
+#include "objs.h"
 #include "players.h"
 #include "recycle.h"
 #include "tables.h"
@@ -781,4 +782,57 @@ DEFINE_DO_FUN(do_cast)
     }
 
     spell_fight_back_if_possible(ch, victim, sn, target);
+}
+
+DEFINE_DO_FUN(do_butcher) {
+    char arg[MAX_INPUT_LENGTH];
+    char short_buf[MAX_STRING_LENGTH];
+    char desc_buf[MAX_STRING_LENGTH];
+    OBJ_T *corpse;
+    OBJ_T *steak;
+    OBJ_T *t_obj, *next_obj;
+    int numst, i;
+
+    one_argument(argument, arg);
+
+    BAIL_IF(char_get_skill(ch, SN(BUTCHER)) == 0,
+        "Butchering is beyond your skills.\n\r", ch);
+    DO_REQUIRE_ARG(arg, "Butcher what?\n\r");
+    BAIL_IF((corpse = find_obj_same_room(ch, arg)) == NULL,
+        "It's not here.\n\r", ch);
+    BAIL_IF(corpse->item_type != ITEM_CORPSE_NPC &&
+            corpse->item_type != ITEM_CORPSE_PC,
+        "You can only butcher corpses.\n\r", ch);
+
+    snprintf(short_buf, sizeof(short_buf), "a steak of %s", corpse->short_descr);
+    snprintf(desc_buf,  sizeof(desc_buf),  "A steak of %s is here.", corpse->short_descr);
+
+    if (number_percent() < char_get_skill(ch, SN(BUTCHER))) {
+        numst = dice(1, 4);
+        for (i = 0; i < numst; i++) {
+            steak = obj_create(obj_get_index(OBJ_VNUM_STEAK), 0);
+            str_replace_dup(&steak->short_descr, short_buf);
+            str_replace_dup(&steak->description, desc_buf);
+            steak->v.food.hunger   = ch->level / 2;
+            steak->v.food.fullness = ch->level;
+            obj_give_to_room(steak, ch->in_room);
+        }
+        act2("You butcher the corpse, creating some steaks.",
+             "$n butchers a corpse, creating some steaks.",
+             ch, NULL, NULL, 0, POS_RESTING);
+        player_try_skill_improve(ch, SN(BUTCHER), TRUE, 1);
+    }
+    else {
+        act2("You fail to butcher the corpse, destroying it.",
+             "$n fails to butcher a corpse, destroying it.",
+             ch, NULL, NULL, 0, POS_RESTING);
+        player_try_skill_improve(ch, SN(BUTCHER), FALSE, 1);
+    }
+
+    /* Dump corpse contents to room, then extract. */
+    for (t_obj = corpse->content_first; t_obj != NULL; t_obj = next_obj) {
+        next_obj = t_obj->content_next;
+        obj_give_to_room(t_obj, ch->in_room);
+    }
+    obj_extract(corpse);
 }

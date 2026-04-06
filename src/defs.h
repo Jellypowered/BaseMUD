@@ -274,6 +274,7 @@
 #define OBJ_VNUM_LIGHT_BALL 21
 #define OBJ_VNUM_SPRING 22
 #define OBJ_VNUM_DISC 23
+#define OBJ_VNUM_STEAK 24
 #define OBJ_VNUM_PORTAL 25
 
 #define OBJ_VNUM_ROSE 1001
@@ -532,7 +533,7 @@
 #define RECYCLE_SOCIAL_T 22
 #define RECYCLE_PORTAL_EXIT_T 23
 #define RECYCLE_PORTAL_T 24
-#define RECYCLE_WIZ_T    25
+#define RECYCLE_WIZ_T 25
 #define RECYCLE_MAX 26
 
 /* Types of tables used for our master reference table. */
@@ -680,7 +681,8 @@
 #define SKILL_MAP_WANDS 45
 #define SKILL_MAP_RECALL 46
 #define SKILL_MAP_FRENZY 47
-#define SKILL_MAP_MAX 48
+#define SKILL_MAP_BUTCHER 48
+#define SKILL_MAP_MAX 49
 
 /* Stuff for providing a crash-proof buffer */
 #define MAX_BUF_LIST 11

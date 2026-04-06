@@ -4,6 +4,25 @@ Verified findings from actual integrations. Update this file as new patterns are
 
 ---
 
+## Object Value Fields
+
+BaseMUD objects use a union `v` for item values instead of `value[0..4]`:
+
+```c
+// Food
+obj->v.food.hunger    // value[0]
+obj->v.food.fullness  // value[1]
+obj->v.food.poisoned  // value[3]
+
+// See spell_create.c for examples
+mushroom->v.food.hunger   = level / 2;
+mushroom->v.food.fullness = level;
+```
+
+Do **not** use `obj->value[n]` directly — it may still compile but bypasses the union type.
+
+---
+
 ## Linked List Macros
 
 `LIST2_ADD` does **not exist** in BaseMUD. Use `LIST2_BACK` to append to the tail of a doubly-linked list:

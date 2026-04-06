@@ -31,9 +31,9 @@
 #include "merc.h"
 
 /* Function prototypes. */
-void wizlist_save_all (void);
-void wizlist_load_all (void);
-void wizlist_update   (CHAR_T *ch, int level);
-DECLARE_DO_FUN (do_wizlist);
+void wizlist_save_all(void);
+void wizlist_load_all(void);
+void wizlist_update(CHAR_T *ch, int level);
+DECLARE_DO_FUN(do_wizlist);
 
 #endif

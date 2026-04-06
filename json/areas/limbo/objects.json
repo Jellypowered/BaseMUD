@@ -309,6 +309,23 @@
   }},
   {"object": {
     "area": "limbo",
+    "anum": 24,
+    "name": "steak meat raw",
+    "short_descr": "a raw steak",
+    "description": "A raw steak lies here.",
+    "material": "meat",
+    "item_type": "food",
+    "values": {
+      "hunger": 5,
+      "fullness": 5
+    },
+    "level": 0,
+    "weight": 10,
+    "cost": 1,
+    "wear_flags": "take"
+  }},
+  {"object": {
+    "area": "limbo",
     "anum": 25,
     "name": "gate portal",
     "short_descr": "a shimmering gate",
