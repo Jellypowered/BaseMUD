@@ -116,6 +116,7 @@ void boot_db(void)
     init_time_weather();
 
     json_import_all();
+    greeting_reload_mapping();
     init_areas();
     music_load_songs();
 
