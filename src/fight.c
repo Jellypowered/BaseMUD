@@ -702,6 +702,12 @@ bool damage_real(CHAR_T *ch, CHAR_T *victim, int dam, int dt, int dam_type,
 
         corpse = char_die(victim);
 
+        /* Track PK kills and deaths. */
+        if (!IS_NPC(ch) && !IS_NPC(victim)) {
+            victim->pcdata->pkdeaths++;
+            ch->pcdata->pkkills++;
+        }
+
         /* dump the flags */
         if (ch != victim && !IS_NPC(ch) && !player_in_same_clan(ch, victim))
         {

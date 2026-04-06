@@ -240,6 +240,8 @@ void fwrite_char(CHAR_T *ch, FILE *fp)
         fprintf(fp, "Titl %s~\n", ch->pcdata->title);
         fprintf(fp, "Pnts %d\n", ch->pcdata->creation_points);
         fprintf(fp, "TSex %d\n", ch->pcdata->true_sex);
+        fprintf(fp, "Pkdt %d\n", ch->pcdata->pkdeaths);
+        fprintf(fp, "Pkkl %d\n", ch->pcdata->pkkills);
         fprintf(fp, "LLev %d\n", ch->pcdata->last_level);
         fprintf(fp, "HMVP %d %d %d\n", ch->pcdata->perm_hit,
                 ch->pcdata->perm_mana, ch->pcdata->perm_move);
@@ -1108,6 +1110,8 @@ void fread_char(CHAR_T *ch, FILE *fp)
             KEY("Pos", ch->position, fread_number(fp));
             KEY("Practice", ch->practice, fread_number(fp));
             KEY("Prac", ch->practice, fread_number(fp));
+            KEY("Pkdt", ch->pcdata->pkdeaths, fread_number(fp));
+            KEY("Pkkl", ch->pcdata->pkkills, fread_number(fp));
             KEYS("Prompt", ch->prompt, fread_string_dup(fp));
             KEYS("Prom", ch->prompt, fread_string_dup(fp));
             break;

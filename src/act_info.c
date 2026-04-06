@@ -711,6 +711,15 @@ DEFINE_DO_FUN(do_score)
         send_to_char(buf, ch);
     }
 
+    if (!IS_NPC(ch))
+    {
+        sprintf(buf, "[{1PK Stats{x] Kills: {Y%d{x  Deaths: {Y%d{x\n\r",
+            ch->pcdata->pkkills, ch->pcdata->pkdeaths);
+        send_to_char(buf, ch);
+        sprintf(buf, "{B================================================================={x\n\r");
+        send_to_char(buf, ch);
+    }
+
     if (IS_SET(ch->comm, COMM_SHOW_AFFECTS))
         do_function(ch, &do_affects, "");
 }
@@ -897,6 +906,12 @@ DEFINE_DO_FUN(do_whois)
         found = TRUE;
         char_get_who_string(ch, wch, buf, sizeof(buf));
         buf_cat(output, buf);
+        if (!IS_NPC(wch))
+        {
+            snprintf(buf, sizeof(buf), "[{1PK Stats{x] Kills: {Y%d{x  Deaths: {Y%d{x\n\r",
+                wch->pcdata->pkkills, wch->pcdata->pkdeaths);
+            buf_cat(output, buf);
+        }
     }
 
     BAIL_IF(!found,

@@ -31,23 +31,23 @@
 #include "merc.h"
 
 /* Sub-routines and filters. */
-void do_skills_or_spells (CHAR_T *ch, char *argument, int spells);
+void do_skills_or_spells(CHAR_T *ch, char *argument, int spells);
 
 /* Commands. */
-DECLARE_DO_FUN (do_gain);
-DECLARE_DO_FUN (do_skills);
-DECLARE_DO_FUN (do_spells);
-DECLARE_DO_FUN (do_abilities);
-DECLARE_DO_FUN (do_groups);
-DECLARE_DO_FUN (do_train);
-DECLARE_DO_FUN (do_practice);
-DECLARE_DO_FUN (do_cast);
-DECLARE_DO_FUN (do_butcher);
+DECLARE_DO_FUN(do_gain);
+DECLARE_DO_FUN(do_skills);
+DECLARE_DO_FUN(do_spells);
+DECLARE_DO_FUN(do_abilities);
+DECLARE_DO_FUN(do_groups);
+DECLARE_DO_FUN(do_train);
+DECLARE_DO_FUN(do_practice);
+DECLARE_DO_FUN(do_cast);
+DECLARE_DO_FUN(do_butcher);
 
 /* Types of stats gainable via 'train'. */
-DECLARE_TRAIN_STAT_FUN (train_stat_cost_stat);
-DECLARE_TRAIN_STAT_FUN (train_stat_can_stat);
-DECLARE_TRAIN_STAT_FUN (train_stat_do_stat);
-DECLARE_TRAIN_STAT_FUN (train_stat_do_hp_mana);
+DECLARE_TRAIN_STAT_FUN(train_stat_cost_stat);
+DECLARE_TRAIN_STAT_FUN(train_stat_can_stat);
+DECLARE_TRAIN_STAT_FUN(train_stat_do_stat);
+DECLARE_TRAIN_STAT_FUN(train_stat_do_hp_mana);
 
 #endif

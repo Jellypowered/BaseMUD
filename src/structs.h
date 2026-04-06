@@ -648,6 +648,8 @@ struct pc_data
     NOTE_T *in_progress;
     int security;   /* OLC - Builder security */
     flag_t *colour; /* COLOUR_SETTING_MAX entries (heap) */
+    int pkkills;    /* PK kills */
+    int pkdeaths;   /* PK deaths */
 
 #ifdef IMC
     IMC_CHARDATA *imcchardata;
