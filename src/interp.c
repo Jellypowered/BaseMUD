@@ -51,6 +51,7 @@
 #include "act_skills.h"
 #include "act_olc.h"
 #include "wizlist.h"
+#include "hunt.h"
 
 #include "wiz_im.h"
 #include "wiz_l1.h"
@@ -235,7 +236,7 @@ const CMD_T cmd_table[] = {
     {"sell", do_sell, POS_RESTING, 0, LOG_NORMAL, 1},
     {"take", do_get, POS_RESTING, 0, LOG_NORMAL, 1},
     {"sacrifice", do_sacrifice, POS_RESTING, 0, LOG_NORMAL, 1},
-    {"junk", do_sacrifice, POS_RESTING, 0, LOG_NORMAL, 0},
+    {"junk", do_junk, POS_RESTING, 0, LOG_NORMAL, 1},
     {"tap", do_sacrifice, POS_RESTING, 0, LOG_NORMAL, 0},
     /*  { "unlock",     do_unlock,      POS_RESTING,  0,  LOG_NORMAL, 1 }, */
     {"value", do_value, POS_RESTING, 0, LOG_NORMAL, 1},
@@ -269,6 +270,7 @@ const CMD_T cmd_table[] = {
     /*  { "group",      do_group,       POS_SLEEPING, 0,  LOG_NORMAL, 1 }, */
     {"groups", do_groups, POS_SLEEPING, 0, LOG_NORMAL, 1},
     {"hide", do_hide, POS_RESTING, 0, LOG_NORMAL, 1},
+    {"hunt", do_hunt, POS_STANDING, 0, LOG_NORMAL, 1},
     {"play", do_play, POS_RESTING, 0, LOG_NORMAL, 1},
     /*  { "practice",   do_practice,    POS_SLEEPING, 0,  LOG_NORMAL, 1 }, */
     {"qui", do_qui, POS_DEAD, 0, LOG_NORMAL, 0},

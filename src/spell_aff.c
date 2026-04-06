@@ -319,6 +319,30 @@ DEFINE_SPELL_FUN (spell_curse) {
         spell_curse_char (sn, level, ch, vo, target, target_name);
 }
 
+/* Original code by Jason Huang (god@sure.net). Permission to use this code
+ * is granted provided this header is retained and unaltered. Adapted for
+ * BaseMUD by replacing ROM structs and affect_to_char with BaseMUD equivalents. */
+DEFINE_SPELL_FUN (spell_deter) {
+    CHAR_T *victim = (CHAR_T *) vo;
+    AFFECT_T af;
+
+    BAIL_IF (IS_NPC (ch),
+        "Only players can cast this spell.\n\r", ch);
+
+    if (affect_is_char_affected_with_act (victim, -1, AFF_DETER, ch,
+            "You are already protected from hostile creatures.",
+            "$N is already protected from hostile creatures."))
+        return;
+
+    affect_init (&af, AFF_TO_AFFECTS, sn, level, number_fuzzy (level / 20), APPLY_NONE, 0, AFF_DETER);
+    affect_copy_to_char (&af, victim);
+
+    send_to_char ("Hostile creatures will no longer attack you.\n\r", victim);
+    if (ch != victim)
+        act ("$N is protected from hostile creatures.", ch, NULL, victim, TO_CHAR);
+    act ("$n is protected from hostile creatures.", victim, NULL, NULL, TO_NOTCHAR);
+}
+
 DEFINE_SPELL_FUN (spell_detect_evil) {
     CHAR_T *victim = (CHAR_T *) vo;
     AFFECT_T af;

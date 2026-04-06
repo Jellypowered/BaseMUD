@@ -473,7 +473,7 @@ void aggr_update(void)
             int count;
             ch_next = ch->room_next;
 
-            if (!IS_NPC(ch) || !EXT_IS_SET(ch->ext_mob, MOB_AGGRESSIVE) || IS_SET(ch->in_room->room_flags, ROOM_SAFE) || IS_AFFECTED(ch, AFF_CALM) || ch->fighting != NULL || IS_AFFECTED(ch, AFF_CHARM) || !IS_AWAKE(ch) || (EXT_IS_SET(ch->ext_mob, MOB_WIMPY) && IS_AWAKE(wch)) || !char_can_see_in_room(ch, wch) || number_bits(1) == 0)
+            if (!IS_NPC(ch) || !EXT_IS_SET(ch->ext_mob, MOB_AGGRESSIVE) || IS_SET(ch->in_room->room_flags, ROOM_SAFE) || IS_AFFECTED(ch, AFF_CALM) || ch->fighting != NULL || IS_AFFECTED(ch, AFF_CHARM) || !IS_AWAKE(ch) || (EXT_IS_SET(ch->ext_mob, MOB_WIMPY) && IS_AWAKE(wch)) || !char_can_see_in_room(ch, wch) || IS_AFFECTED(wch, AFF_DETER) || number_bits(1) == 0)
                 continue;
 
             /*

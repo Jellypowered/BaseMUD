@@ -216,6 +216,7 @@
 #define AFF_SWIM (BIT_28)
 #define AFF_REGENERATION (BIT_29)
 #define AFF_SLOW (BIT_30)
+#define AFF_DETER (BIT_31) /* Protected from aggressive mobs */
 
 /* Extra flags.
  * Used in #OBJECTS. */

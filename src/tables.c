@@ -1715,6 +1715,7 @@ SKILL_MAP_T skill_map_table[SKILL_MAP_MAX + 1] = {
     {SKILL_MAP_RECALL, "recall"},
     {SKILL_MAP_FRENZY, "frenzy"},
     {SKILL_MAP_BUTCHER, "butcher"},
+    {SKILL_MAP_HUNT, "hunt"},
 
     {0}};
 

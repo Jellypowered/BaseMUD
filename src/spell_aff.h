@@ -50,6 +50,7 @@ DECLARE_SPELL_FUN (spell_curse_object);
 DECLARE_SPELL_FUN (spell_curse_char);
 DECLARE_SPELL_FUN (spell_curse_char_quiet);
 DECLARE_SPELL_FUN (spell_curse);
+DECLARE_SPELL_FUN (spell_deter);
 DECLARE_SPELL_FUN (spell_detect_evil);
 DECLARE_SPELL_FUN (spell_detect_good);
 DECLARE_SPELL_FUN (spell_detect_hidden);

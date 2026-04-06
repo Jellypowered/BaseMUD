@@ -752,6 +752,22 @@ DEFINE_DO_FUN (do_sacrifice) {
     obj_extract (obj);
 }
 
+/* Code by franzj@email.uc.edu — adapted for BaseMUD. */
+DEFINE_DO_FUN (do_junk) {
+    char   arg[MAX_INPUT_LENGTH];
+    OBJ_T *obj;
+
+    DO_REQUIRE_ARG (arg, "Junk what?\n\r");
+    BAIL_IF ((obj = find_obj_own_inventory (ch, arg)) == NULL,
+        "You do not have that item.\n\r", ch);
+    BAIL_IF (!char_can_drop_obj (ch, obj),
+        "You can't let go of it.\n\r", ch);
+
+    act ("$n junks $p.", ch, obj, NULL, TO_NOTCHAR);
+    act ("You junk $p.", ch, obj, NULL, TO_CHAR);
+    obj_extract (obj);
+}
+
 DEFINE_DO_FUN (do_quaff) {
     char arg[MAX_INPUT_LENGTH];
     OBJ_T *obj;

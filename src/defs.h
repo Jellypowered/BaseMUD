@@ -682,7 +682,8 @@
 #define SKILL_MAP_RECALL 46
 #define SKILL_MAP_FRENZY 47
 #define SKILL_MAP_BUTCHER 48
-#define SKILL_MAP_MAX 49
+#define SKILL_MAP_HUNT 49
+#define SKILL_MAP_MAX 50
 
 /* Stuff for providing a crash-proof buffer */
 #define MAX_BUF_LIST 11

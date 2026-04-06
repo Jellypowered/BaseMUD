@@ -60,6 +60,7 @@ static const SPELL_ENTRY_T spell_dispatch_table[] = {
     {"spell_curse_char", spell_curse_char},
     {"spell_curse_char_quiet", spell_curse_char_quiet},
     {"spell_curse_object", spell_curse_object},
+    {"spell_deter", spell_deter},
     {"spell_detect_evil", spell_detect_evil},
     {"spell_detect_good", spell_detect_good},
     {"spell_detect_hidden", spell_detect_hidden},
@@ -131,6 +132,7 @@ static const SPELL_ENTRY_T spell_dispatch_table[] = {
     {"spell_ventriloquate", spell_ventriloquate},
 
     /* spell_move.h */
+    {"spell_fear", spell_fear},
     {"spell_gate", spell_gate},
     {"spell_nexus", spell_nexus},
     {"spell_portal", spell_portal},

@@ -27,6 +27,7 @@
 
 #include "spell_move.h"
 
+#include "act_fight.h"
 #include "act_info.h"
 #include "chars.h"
 #include "comm.h"
@@ -275,4 +276,32 @@ DEFINE_SPELL_FUN (spell_nexus) {
     if (to_room->people_first != NULL)
         act ("$p rises up from the ground.", to_room->people_first, portal,
             NULL, TO_ALL);
+}
+
+/* Original code by Jason Huang (god@sure.net). Permission to use this code
+ * is granted provided this header is retained and unaltered. Adapted for
+ * BaseMUD: cast vo to CHAR_T *, use FILTER macros and do_function. */
+DEFINE_SPELL_FUN (spell_fear) {
+    CHAR_T *victim = (CHAR_T *) vo;
+
+    BAIL_IF (victim == ch,
+        "You failed.\n\r", ch);
+    BAIL_IF (victim->in_room == NULL,
+        "You failed.\n\r", ch);
+    BAIL_IF (IS_SET (victim->in_room->room_flags, ROOM_SAFE),
+        "You failed.\n\r", ch);
+    BAIL_IF (IS_SET (victim->in_room->room_flags, ROOM_PRIVATE),
+        "You failed.\n\r", ch);
+    BAIL_IF (IS_SET (victim->in_room->room_flags, ROOM_SOLITARY),
+        "You failed.\n\r", ch);
+    BAIL_IF (IS_SET (victim->in_room->room_flags, ROOM_NO_RECALL),
+        "You failed.\n\r", ch);
+    BAIL_IF (victim->level >= level,
+        "You failed.\n\r", ch);
+    BAIL_IF (victim->in_room->area != ch->in_room->area,
+        "You failed.\n\r", ch);
+    BAIL_IF (IS_NPC (victim) && saves_spell (level, victim, DAM_OTHER),
+        "You failed.\n\r", ch);
+
+    do_function (victim, &do_flee, "");
 }

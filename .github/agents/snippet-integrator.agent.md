@@ -130,6 +130,10 @@ After each integration, update `.github/agents/cheatsheet.md` with any new verif
 
 If any JSON-visible data changed (new flag name, new skill, new type, renamed entry in `json/meta/` or `json/config/`), update `doc/Json_Documentation.md` to reflect the change. Look for the relevant section by searching for nearby flag/type names and add or amend the entry in the same style as surrounding entries.
 
+**Help files**: When adding a new player-visible command, spell, or skill, add a help entry in `json/help/`. The format is a top-level JSON array of `{"help": {...}}` objects. Use `keyword` (uppercase, space-separated aliases), `text` (pipe-delimited lines starting with `|`), and optionally `"hide_keywords": true`. Add the command/spell name as the primary keyword and `NO<NAME>` as a secondary keyword. See existing entries in `json/help/` for examples.
+
+**Credits**: When adding a snippet from a known author, add the author and feature to `json/help/credits.json` in the same `|Feature --\n|    Author\n|` format.
+
 ## Phase 7 — Build, Verify, and Commit
 
 **If you are running as a subagent** (invoked by another agent): do not attempt to build or commit yourself. Instead, report back to the calling agent with the composed commit message and instruct it to execute Phase 7.

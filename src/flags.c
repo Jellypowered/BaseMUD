@@ -150,6 +150,7 @@ const FLAG_T affect_flags[] = {
     {"swim", AFF_SWIM, TRUE},
     {"regeneration", AFF_REGENERATION, TRUE},
     {"slow", AFF_SLOW, TRUE},
+    {"deter", AFF_DETER, TRUE},
     {0}};
 
 const FLAG_T off_flags[] = {

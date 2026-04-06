@@ -1,4 +1,4 @@
-﻿[
+[
     {
         "skill":  {
                       "name":  "reserved",
@@ -4031,3 +4031,41 @@
                   "usage_beats":  24,
                   "off_msg_char":  "!Butcher!"
               }
+},
+{
+    "skill":  {
+                  "name":  "deter",
+                  "classes":  {},
+                  "target":  "char_defensive",
+                  "min_position":  "standing",
+                  "slot":  526,
+                  "min_mana":  10,
+                  "usage_beats":  12,
+                  "spell_fun":  "spell_deter"
+              }
+},
+{
+    "skill":  {
+                  "name":  "fear",
+                  "classes":  {},
+                  "target":  "char_offensive",
+                  "min_position":  "fighting",
+                  "slot":  527,
+                  "min_mana":  15,
+                  "usage_beats":  12,
+                  "off_msg_char":  "!Fear!",
+                  "spell_fun":  "spell_fear"
+              }
+},
+{
+    "skill":  {
+                  "name":  "hunt",
+                  "classes":  {},
+                  "target":  "ignore",
+                  "min_position":  "standing",
+                  "slot":  528,
+                  "usage_beats":  24,
+                  "off_msg_char":  "!Hunt!"
+              }
+}
+]

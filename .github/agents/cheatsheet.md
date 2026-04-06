@@ -19,7 +19,7 @@ mushroom->v.food.hunger   = level / 2;
 mushroom->v.food.fullness = level;
 ```
 
-Do **not** use `obj->value[n]` directly — it may still compile but bypasses the union type.
+Do **not** use `obj->value[n]` directly â€” it may still compile but bypasses the union type.
 
 ---
 
@@ -59,7 +59,7 @@ fread_word_static(fp);              // returns static buffer (no alloc)
 
 ---
 
-## Type Renames (ROM → BaseMUD)
+## Type Renames (ROM â†’ BaseMUD)
 
 | ROM / MERC          | BaseMUD    |
 | ------------------- | ---------- |
@@ -78,7 +78,7 @@ fread_word_static(fp);              // returns static buffer (no alloc)
 // ROM
 void spell_foo(int sn, int level, CHAR_DATA *ch, void *vo, int target)
 
-// BaseMUD — note extra const char *target_name argument
+// BaseMUD â€” note extra const char *target_name argument
 DEFINE_SPELL_FUN(spell_foo) {
     // sn, level, ch, vo, target, target_name all in scope
 }
@@ -90,7 +90,7 @@ DEFINE_SPELL_FUN(spell_foo) {
 DECLARE_SPELL_FUN(spell_foo);
 ```
 
-### Registration — always add to spell_dispatch.c
+### Registration â€” always add to spell_dispatch.c
 
 ```c
 // spell_dispatch.c, in the correct /* spell_off.h */ block
@@ -145,7 +145,7 @@ damage_visible(ch, victim, dam, sn, DAM_ACID, NULL);
 // NULL = no custom damage adjective string
 ```
 
-`damage_visible()` returns `bool` — `TRUE` if the victim died (or was already dead).
+`damage_visible()` returns `bool` â€” `TRUE` if the victim died (or was already dead).
 **Always check the return value in loops** to avoid use-after-free:
 
 ```c
@@ -181,7 +181,7 @@ ROM-style inline color codes work unchanged in BaseMUD:
 
 See `doc/Json_Documentation.md` for full schema.
 
-### Unassigned (dormant) spell entry — default for new spells
+### Unassigned (dormant) spell entry â€” default for new spells
 
 ```json
 {
@@ -200,8 +200,8 @@ See `doc/Json_Documentation.md` for full schema.
 }
 ```
 
-- **`"classes": {}`** — all-zero `level`/`effort` after `calloc`. `effort == 0` blocks training and practice entirely. Assign levels/efforts later via the web editor.
-- **`slot`** — must be unique across all entries. Last confirmed used: 524 (acid rain). Increment for each new spell.
+- **`"classes": {}`** â€” all-zero `level`/`effort` after `calloc`. `effort == 0` blocks training and practice entirely. Assign levels/efforts later via the web editor.
+- **`slot`** â€” must be unique across all entries. Last confirmed used: 528 (hunt). Increment for each new spell.
 - `damage_noun` and `off_msg_char` are optional but recommended for offensive spells.
 - File is a top-level JSON array of `{ "skill": { ... } }` wrapper objects.
 
@@ -239,8 +239,8 @@ Each has a matching `.h`. Add `DECLARE_SPELL_FUN` to the header, `DEFINE_SPELL_F
 > Full schema reference: `doc/Json_Documentation.md`
 
 - All JSON files are **top-level arrays** of single-key wrapper objects: `[{ "skill": {...} }, ...]`
-- Area data lives in `json/areas/<name>/` — `area.json`, `rooms.json`, `mobiles.json`, `objects.json`
-- Config tables live in `json/config/` — see `doc/Json_Documentation.md` §"Config Tables"
+- Area data lives in `json/areas/<name>/` â€” `area.json`, `rooms.json`, `mobiles.json`, `objects.json`
+- Config tables live in `json/config/` â€” see `doc/Json_Documentation.md` Â§"Config Tables"
 - Help pages live in `json/help/`
 - Color codes are stored literally in string fields
 - Multi-flag fields are **space-separated strings**: `"room_flags": "no_mob indoors"`
@@ -256,12 +256,16 @@ Keep this table updated:
 
 | Range   | Notes                       |
 | ------- | --------------------------- |
-| 1–83    | Stock ROM skills/spells     |
-| 200–204 | Extended stock entries      |
-| 401–402 | Additional stock entries    |
-| 500–523 | Extended/custom entries     |
+| 1â€“83    | Stock ROM skills/spells     |
+| 200â€“204 | Extended stock entries      |
+| 401â€“402 | Additional stock entries    |
+| 500â€“523 | Extended/custom entries     |
 | **524** | acid rain (first custom)    |
-| 525+    | Available for new additions |
+| **525** | butcher                     |
+| **526** | deter                       |
+| **527** | fear                        |
+| **528** | hunt                        |
+| 529+    | Available for new additions |
 
 ---
 
@@ -272,8 +276,8 @@ Keep this table updated:
 | `TFLAGS` / `TXFLAGS` / `TTYPES` | **C** (`flags.h`, `flags.c`, etc.) | No reader; `json/meta/` is a generated export |
 | `TTABLE` / `TTABLE_DYNAMIC`     | **JSON** (`json/config/`)          | Has a `jread` function; edit JSON not C       |
 
-- `room_flags[]` is C-authoritative — to add a flag, edit `flags.h` and `flags.c`
-- `BIT_08` / `ROOM_UNUSED_FLAG_5` was `/* old: no_magic */` — repurposed as `ROOM_NOMAGIC`
+- `room_flags[]` is C-authoritative â€” to add a flag, edit `flags.h` and `flags.c`
+- `BIT_08` / `ROOM_UNUSED_FLAG_5` was `/* old: no_magic */` â€” repurposed as `ROOM_NOMAGIC`
 
 ---
 
@@ -291,6 +295,19 @@ Keep this table updated:
   }
   ```
 - Immortal check: `victim->level >= LEVEL_IMMORTAL` (no `IS_IMM` macro)
-- Class check: `victim->class == class_lookup_exact("thief")` — class is by JSON name, returns int index
+- Class check: `victim->class == class_lookup_exact("thief")` â€” class is by JSON name, returns int index
 - Backstab skill: `SN(BACKSTAB)` (not `gsn_backstab`)
 - For `do_say` in spec functions use `do_function(ch, &do_say, buf)` (consistent with other spec usage)
+
+---
+
+## Snippet Porting: Portability Notes (MinGW64 / Windows)
+
+When adapting C snippets for BaseMUD on MinGW64:
+
+- **`bcopy` / `bzero`** — not available; replace with `memmove` / `memset`.
+- **`void*` ↔ `int` casts** — pointers are 64-bit on MinGW64 but `int` is 32-bit. Use `intptr_t` from `<stdint.h>` for any hash map or data structure that stores pointer values as integers.
+- **`dir_name[]`** — does not exist in BaseMUD; use `door_table[i].name` from `tables.h`.
+- **`get_room_index`** → `room_get_index`; **`ROOM_INDEX_DATA*`** → `ROOM_INDEX_T*`.
+- **`exit->u1.to_room`** → `exit->to_room`; **`exit_info`** → `exit_flags`.
+- **AFF_DETER aggro bypass** — add `|| IS_AFFECTED(wch, AFF_DETER)` to the long condition chain in `update.c` where aggressive mobs pick targets.

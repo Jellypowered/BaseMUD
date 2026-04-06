@@ -44,5 +44,6 @@ DECLARE_SPELL_FUN (spell_teleport);
 DECLARE_SPELL_FUN (spell_word_of_recall);
 DECLARE_SPELL_FUN (spell_portal);
 DECLARE_SPELL_FUN (spell_nexus);
+DECLARE_SPELL_FUN (spell_fear);
 
 #endif
