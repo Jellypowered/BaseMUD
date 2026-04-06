@@ -1054,6 +1054,7 @@ struct area_data
     sh_int max_vnum;
     bool had_players;
     char *builders;    /* OLC - Listing of */
+    char *repop_msg;   /* OLC - Repop message */
     int vnum;          /* OLC - Area vnum  */
     flag_t area_flags; /* OLC              */
     int security;      /* OLC - Value 1-9  */

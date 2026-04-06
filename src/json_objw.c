@@ -602,6 +602,8 @@ JSON_T *json_objw_area(const char *name, const AREA_T *area)
     json_prop_integer(new, "max_vnum", area->max_vnum);
     json_prop_string(new, "builders", area->builders);
     json_prop_integer(new, "security", area->security);
+    if (area->repop_msg && area->repop_msg[0] != '\0')
+        json_prop_string(new, "repop_msg", area->repop_msg);
 
     if (area->low_range != 0)
         json_prop_integer(new, "low_range", area->low_range);

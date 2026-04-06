@@ -59,6 +59,7 @@ const OLC_CMD_T aedit_table[] = {
     {"lvnum",    aedit_lvnum},
     {"uvnum",    aedit_uvnum},
     {"credits",  aedit_credits},
+    {"repop",    aedit_repop_msg},
     {"?",        show_help},
     {"version",  show_version},
     {0}

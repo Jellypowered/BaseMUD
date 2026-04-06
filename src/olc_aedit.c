@@ -68,6 +68,7 @@ AEDIT (aedit_show) {
     printf_to_char (ch, "Security: [%d]\n\r", area->security);
     printf_to_char (ch, "Builders: [%s]\n\r", area->builders);
     printf_to_char (ch, "Credits : [%s]\n\r", area->credits);
+    printf_to_char (ch, "RepopMsg: [%s]\n\r", area->repop_msg ? area->repop_msg : "");
     printf_to_char (ch, "Flags:    [%s]\n\r",
         flags_to_string (area_flags, area->area_flags));
 
@@ -109,6 +110,14 @@ AEDIT (aedit_credits) {
     return olc_str_replace_dup (ch, &(area->credits), argument,
         "Syntax: credits [$credits]\n\r",
         "Credits set.\n\r");
+}
+
+AEDIT (aedit_repop_msg) {
+    AREA_T *area;
+    EDIT_AREA (ch, area);
+    return olc_str_replace_dup (ch, &(area->repop_msg), argument,
+        "Syntax: repop [MESSAGE]\n\r",
+        "Repop message set.\n\r");
 }
 
 AEDIT (aedit_file) {

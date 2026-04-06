@@ -703,7 +703,7 @@ AREA_T *json_objr_area(const JSON_T *json)
                             "name", "filename", "title", "credits",
                             "min_vnum", "max_vnum", "builders", "security",
 
-                            "*low_range", "*high_range",
+                            "*low_range", "*high_range", "*repop_msg",
 
                             NULL))
         return NULL;
@@ -721,6 +721,7 @@ AREA_T *json_objr_area(const JSON_T *json)
     READ_PROP_INT(area->max_vnum, "max_vnum");
     READ_PROP_STRP(area->builders, "builders");
     READ_PROP_INT(area->security, "security");
+    READ_PROP_STRP(area->repop_msg, "repop_msg");
 
     area->age = AREA_RESET_ALWAYS_AGE;
     area->nplayer = 0;
@@ -731,6 +732,7 @@ AREA_T *json_objr_area(const JSON_T *json)
     NO_NULL_STR(area->title);
     NO_NULL_STR(area->credits);
     NO_NULL_STR(area->builders);
+    /* repop_msg is optional — leave NULL if not set */
 
     LIST2_BACK(area, global_prev, global_next, area_first, area_last);
     return area;

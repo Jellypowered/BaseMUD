@@ -28,6 +28,7 @@ AEDIT (aedit_reset);
 AEDIT (aedit_create);
 AEDIT (aedit_title);
 AEDIT (aedit_credits);
+AEDIT (aedit_repop_msg);
 AEDIT (aedit_file);
 AEDIT (aedit_age);
 /* AEDIT (aedit_recall); */

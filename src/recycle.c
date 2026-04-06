@@ -538,6 +538,7 @@ DEFINE_DISPOSE_FUN(area_dispose)
     str_free(&(area->filename));
     str_free(&(area->builders));
     str_free(&(area->credits));
+    str_free(&(area->repop_msg));
 
     while (area->had_first)
         had_free(area->had_first);

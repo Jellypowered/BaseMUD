@@ -53,6 +53,16 @@ void area_update (AREA_T *area) {
     wiznetf (NULL, NULL, WIZ_RESETS, 0, 0,
         "%s has just been reset.", area->title);
 
+    if (area->repop_msg && area->repop_msg[0] != '\0') {
+        DESCRIPTOR_T *d;
+        for (d = descriptor_first; d != NULL; d = d->global_next) {
+            if (d->connected == CON_PLAYING
+                    && d->character->in_room != NULL
+                    && d->character->in_room->area == area)
+                send_to_char (area->repop_msg, d->character);
+        }
+    }
+
     area->age = number_range (0, 3);
     room_index = room_get_index (ROOM_VNUM_SCHOOL);
 
