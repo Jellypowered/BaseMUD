@@ -45,6 +45,7 @@
 #include "recycle.h"
 #include "rooms.h"
 #include "save.h"
+#include "spell_misc.h"
 #include "tables.h"
 #include "utils.h"
 #include "wiz_l6.h"
@@ -650,6 +651,16 @@ void char_move(CHAR_T *ch, int door, bool follow)
             act("You follow $N.", fch, NULL, ch, TO_CHAR);
             char_move(fch, door, TRUE);
         }
+    }
+
+    /* Strip all buffs when entering a no-magic room. */
+    if (IS_SET(ch->in_room->room_flags, ROOM_NOMAGIC))
+    {
+        int cancel_sn = skill_lookup("cancellation");
+        spell_cancellation(cancel_sn, MAX_LEVEL + 50, ch, ch, TARGET_CHAR, "");
+        spell_cancellation(cancel_sn, MAX_LEVEL + 50, ch, ch, TARGET_CHAR, "");
+        spell_cancellation(cancel_sn, MAX_LEVEL + 50, ch, ch, TARGET_CHAR, "");
+        spell_cancellation(cancel_sn, MAX_LEVEL + 50, ch, ch, TARGET_CHAR, "");
     }
 
     /* If someone is following the char, these triggers get activated

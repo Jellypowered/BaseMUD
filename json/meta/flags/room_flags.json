@@ -38,9 +38,9 @@
       "settable": false
     },
     {
-      "name": "unused_room_5",
+      "name": "nomagic",
       "value": 7,
-      "settable": false
+      "settable": true
     },
     {
       "name": "unused_room_6",

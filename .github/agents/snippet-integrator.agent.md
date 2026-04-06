@@ -34,6 +34,12 @@ Search the BaseMUD source for:
 - Existing patterns for the subsystem being extended (e.g., how similar skills/spells/commands are registered)
 - Potential conflicts (duplicate function names, overlapping logic)
 
+**JSON vs C authority check:** When the snippet touches a flag table, type table, or struct registration (e.g. `room_flags[]`, `tables.c` entries), verify which side is authoritative before planning:
+
+- `TABLE_FLAGS` / `TABLE_EXT_FLAGS` / `TABLE_TYPES` in `tables.c` — **C is authoritative**. These macros have no reader; `json/meta/` is a generated export. Must edit `flags.h` and `flags.c` (or `types.c`, `ext_flags.c`).
+- `TABLE_UNIQUE` tables (skills, classes, races, etc.) — **JSON is authoritative**. A `json_tblr_*` reader loads from `json/config/` at startup. Edit the JSON, not C.
+- Quick test: check `tables.c` for the table's macro. If `TFLAGS`/`TTYPES`/`TXFLAGS`, it has no reader — C wins. If `TTABLE` or `TTABLE_DYNAMIC`, look for a `jread` function — JSON wins.
+
 Use `search` and `read` tools to verify — never assume.
 
 ## Phase 3 — Clarifying Questions
@@ -99,7 +105,7 @@ The feature description should be concise and plain-English (e.g., `Acid Rain sp
 Before investigating, read `.github/agents/cheatsheet.md` — it contains verified findings from prior integrations and will save redundant searching.
 
 - **Build**: MSYS2/MinGW64, gcc 15.2; new .c files auto-picked up by Makefile wildcard
-- **Flags**: BaseMUD uses its own bitflag macros — verify against `basemud.h` and relevant headers
+- **Flags**: Bit flags are defined in `src/flags.h` and name-registered in `src/flags.c`. These are C-authoritative — `json/meta/flags/` is a generated export, not a config input. Any new or renamed flag requires edits to both files. Do not rely on the JSON meta to drive the C constant.
 - **Strings**: Check string allocation patterns (BaseMUD may differ from ROM's `str_alloc`/`free_string`)
 - **JSON**: All config and area data is JSON. Schema reference: `doc/Json_Documentation.md`. Check `json/config/` and `json/areas/` for counterparts when adding features
 - **Headers**: Each `.c` file has a matching `.h`; new symbols go in the appropriate header

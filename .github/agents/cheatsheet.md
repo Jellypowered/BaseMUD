@@ -207,3 +207,15 @@ Keep this table updated:
 | 500–523 | Extended/custom entries     |
 | **524** | acid rain (first custom)    |
 | 525+    | Available for new additions |
+
+---
+
+## JSON vs C Authority for Tables
+
+| Table macro in `tables.c`       | Authority                          | Notes                                         |
+| ------------------------------- | ---------------------------------- | --------------------------------------------- |
+| `TFLAGS` / `TXFLAGS` / `TTYPES` | **C** (`flags.h`, `flags.c`, etc.) | No reader; `json/meta/` is a generated export |
+| `TTABLE` / `TTABLE_DYNAMIC`     | **JSON** (`json/config/`)          | Has a `jread` function; edit JSON not C       |
+
+- `room_flags[]` is C-authoritative — to add a flag, edit `flags.h` and `flags.c`
+- `BIT_08` / `ROOM_UNUSED_FLAG_5` was `/* old: no_magic */` — repurposed as `ROOM_NOMAGIC`

@@ -613,6 +613,8 @@ DEFINE_DO_FUN(do_cast)
 
     BAIL_IF(ch->position < skill_table[sn].minimum_position,
             "You can't concentrate enough.\n\r", ch);
+    BAIL_IF(IS_SET(ch->in_room->room_flags, ROOM_NOMAGIC),
+            "You utter the words... but nothing happens.\n\r", ch);
 
     if (IS_NPC(ch))
         mana = 25;
