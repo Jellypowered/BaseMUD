@@ -49,6 +49,7 @@ json/
     weapons.json       -- Weapon type names (read-only config)
     liquids.json       -- Liquid type names (read-only config)
     materials.json     -- Material names (read-only config)
+    greetings.json     -- Login greeting messages (live-editable)
     <others>           -- Additional config tables (see editing guide)
   help/
     <name>.json        -- Help page collections
@@ -1128,6 +1129,7 @@ These tables use heap-allocated storage and all internal per-entry sub-arrays ar
 | `materials.json`    | 38        | Material names and properties. Fully dynamic; `MATERIAL_MAX` has been removed from the codebase.                                                                                                                         |
 | `socials.json`      | many      | Emote commands (world data — fully writable)                                                                                                                                                                             |
 | `portals.json`      | many      | Inter-area portal links (world data — fully writable)                                                                                                                                                                    |
+| `greetings.json`    | 1–4+      | Login greeting screens shown to connecting players. Up to 4 are chosen randomly at connect time. Supports `{x` color codes. Live-editable via `jreload greetings`. See [greetings](#greetings) schema below.            |
 | `races.json`        | 30        | Race definitions: flags, stats, ext flags. Fully dynamic; `RACE_MAX` has been removed from the codebase. `race_count` is used wherever race limits are needed.                                                           |
 
 > **Note on remaining fixed-size sub-array limits:** The `shop.trades` array is dynamically allocated and sized to `MAX_TRADE = 16` entries per shop; adding more than 16 trade types requires raising `MAX_TRADE` in `src/defs.h` and recompiling. Songs loaded from `music.txt` are capped at `MAX_SONG_LINES = 100` lyrics per song.
@@ -1137,6 +1139,59 @@ These tables use heap-allocated storage and all internal per-entry sub-arrays ar
 These config tables are populated directly from internal C data structures (lookup tables, app tables, etc.). They are loaded by JSON at boot, but their values are tightly coupled to hardcoded C behavior. Editing them without corresponding C changes will have no visible effect or may cause errors:
 
 `attacks.json`, `dam_types.json`, `items.json`, `positions.json`, `sectors.json`, `sexes.json`, `sizes.json`, `weapons.json`, `wear_locs.json`, `doors.json`, `str_app.json`, `dex_app.json`, `int_app.json`, `wis_app.json`, `con_app.json`, `skies.json`, `suns.json`, `days.json`, `months.json`, `hp_conds.json`, `colors.json`, `color_settings.json`, `conds.json`, `songs.json`, `pose.json`, `boards.json`
+
+### greetings
+
+**File:** `json/config/greetings.json`  
+**Live-reload:** `jreload greetings`
+
+Contains one or more login greeting screens shown to players when they first connect. The server picks randomly between all defined entries. The displayed text is passed through the colour processor, so `{x` colour codes (e.g. `{R`, `{G`, `{Y`, `{x`) are fully supported.
+
+Up to 4 entries map to the named globals used in the connect/ANSI-prompt flow:
+
+| Array index | Internal global   |
+| ----------- | ----------------- |
+| 0           | `help_greeting`   |
+| 1           | `help_greeting1`  |
+| 2           | `help_greeting2`  |
+| 3           | `help_greeting3`  |
+
+Entries beyond index 3 are loaded into memory but are not currently reachable by the random picker (`number_range(0, 3)`). To use more than 4, raise the upper bound in `src/descs.c` and `src/nanny.c` and add corresponding globals.
+
+The server will abort at boot if `greeting_count == 0` (i.e. the file is missing or empty).
+
+#### Schema
+
+```json
+[
+  {
+    "greeting": {
+      "text": "(required) The full text sent to a connecting player. Supports {x colour codes."
+    }
+  }
+]
+```
+
+| Field  | Type   | Required | Notes                                                                                                               |
+| ------ | ------ | -------- | ------------------------------------------------------------------------------------------------------------------- |
+| `text` | string | yes      | Raw greeting text. Newlines are written using the `\n...\|` pipe-continuation format. Colour codes are processed.  |
+
+#### Example
+
+```json
+[
+  {
+    "greeting": {
+      "text": "
+|{YBASEMUD{x  --  A ROM 2.4 derivative
+|
+|By what name do you wish to be known? "
+    }
+  }
+]
+```
+
+---
 
 ### Adding new spells
 

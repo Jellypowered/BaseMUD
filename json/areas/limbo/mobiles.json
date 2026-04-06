@@ -1,0 +1,14 @@
+[
+  {"mobile": {
+    "area": "limbo",
+    "anum": 1,
+    "name": "zombie",
+    "short_descr": "a zombie",
+    "long_descr": "A zombie is here, slaving away for its master.",
+    "description": "This zombie has a blank, dead look on its face.",
+    "race": "human",
+    "level": 1,
+    "mob_flags": "nopurge",
+    "affected_by": "charm"
+  }}
+]

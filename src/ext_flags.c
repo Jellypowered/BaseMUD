@@ -97,6 +97,7 @@ const EXT_FLAG_DEF_T plr_flags[] = {
     {"thief", PLR_THIEF, FALSE},
     {"killer", PLR_KILLER, FALSE},
     {"questor", PLR_QUESTOR, FALSE},
+    {"noexp",   PLR_NOEXP,   FALSE},
     {0}};
 
 #define EF_INDEX(_flag) ((flag) / 8)

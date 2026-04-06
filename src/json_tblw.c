@@ -590,6 +590,13 @@ DEFINE_JSON_WRITE_FUN(json_tblw_hp_cond)
     return new;
 }
 
+DEFINE_JSON_WRITE_FUN(json_tblw_greeting)
+{
+    JSON_TBLW_START(GREETING_T, greeting, greeting->text == NULL);
+    json_prop_string(new, "text", JSTR(greeting->text));
+    return new;
+}
+
 DEFINE_JSON_WRITE_FUN(json_tblw_cond)
 {
     JSON_TBLW_START(COND_T, cond, cond->name == NULL);

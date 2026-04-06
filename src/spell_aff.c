@@ -27,15 +27,20 @@
 
 #include "spell_aff.h"
 
+#include "act_comm.h"
 #include "affects.h"
 #include "chars.h"
 #include "comm.h"
 #include "fight.h"
+#include "find.h"
 #include "groups.h"
+#include "interp.h"
 #include "items.h"
 #include "lookup.h"
 #include "magic.h"
+#include "mobiles.h"
 #include "objs.h"
+#include "players.h"
 #include "recycle.h"
 #include "tables.h"
 #include "utils.h"
@@ -1155,4 +1160,101 @@ DEFINE_SPELL_FUN (spell_weaken) {
 
     send_to_char ("You feel your strength slip away.\n\r", victim);
     act ("$n looks tired and weak.", victim, NULL, NULL, TO_NOTCHAR);
+}
+
+/* Silence spell - MBL */
+DEFINE_SPELL_FUN (spell_silence) {
+    CHAR_T *victim = (CHAR_T *) vo;
+    AFFECT_T af;
+
+    if (affect_is_char_affected_with_act (victim, sn, 0, ch,
+            "You already can't speak!",
+            "$N is already silenced."))
+        return;
+
+    BAIL_IF (saves_spell (level, victim, DAM_OTHER),
+        "Spell failed.\n\r", ch);
+
+    affect_init (&af, AFF_TO_AFFECTS, sn, level, level / 3,
+        APPLY_NONE, 0, AFF_SILENCE);
+    affect_copy_to_char (&af, victim);
+
+    send_to_char ("You suddenly have contracted a sore throat!\n\r", victim);
+    act ("$N has suddenly contracted a sore throat.", ch, NULL, victim, TO_CHAR);
+    act ("$N has suddenly contracted a sore throat.", ch, NULL, victim, TO_NOTCHAR);
+}
+
+/* Cure Mute spell - MBL */
+DEFINE_SPELL_FUN (spell_cure_mute) {
+    CHAR_T *victim = (CHAR_T *) vo;
+
+    if (affect_isnt_char_affected_with_act (victim, SN(SILENCE), 0, ch,
+            "Your speech is perfectly fine.",
+            "$N can speak just fine."))
+        return;
+
+    BAIL_IF (!check_dispel (level, victim, SN(SILENCE)),
+        "Spell failed.\n\r", ch);
+
+    send_to_char ("Your throat feels a lot better!\n\r", victim);
+    act ("$n's speech has been restored!", victim, NULL, NULL, TO_NOTCHAR);
+}
+
+/* Quench spell - Original Code by Jason Huang (god@sure.net) */
+DEFINE_SPELL_FUN (spell_quench) {
+    BAIL_IF (IS_NPC (ch),
+        "Not for NPCs.\n\r", ch);
+    player_change_condition (ch, COND_THIRST, COND_HOURS_MAX);
+    send_to_char ("You have quenched your thirst.\n\r", ch);
+}
+
+/* Sate spell - Original Code by Jason Huang (god@sure.net) */
+DEFINE_SPELL_FUN (spell_sate) {
+    BAIL_IF (IS_NPC (ch),
+        "Not for NPCs.\n\r", ch);
+    player_change_condition (ch, COND_HUNGER, COND_HOURS_MAX);
+    send_to_char ("You have sated your hunger.\n\r", ch);
+}
+
+/* Resurrect spell - Dribble (aprocter@mail.coin.missouri.edu) */
+DEFINE_SPELL_FUN (spell_resurrect) {
+    OBJ_T *corpse;
+    CHAR_T *mob;
+    int i;
+
+    corpse = find_obj_here (ch, target_name);
+    BAIL_IF (corpse == NULL, "Resurrect what?\n\r", ch);
+    BAIL_IF (corpse->item_type != ITEM_CORPSE_NPC,
+        corpse->item_type == ITEM_CORPSE_PC
+            ? "You can't resurrect players.\n\r"
+            : "It would serve no purpose...\n\r", ch);
+    BAIL_IF (corpse->level > ch->level + 2,
+        "You couldn't call forth such a great spirit.\n\r", ch);
+    BAIL_IF (ch->pet != NULL, "You already have a pet.\n\r", ch);
+
+    mob = mobile_create (mobile_get_index (MOB_VNUM_ZOMBIE));
+    mob->level = corpse->level;
+    mob->max_hit = mob->level * 8 +
+        number_range (mob->level * mob->level / 4,
+                      mob->level * mob->level);
+    mob->max_hit = mob->max_hit * 9 / 10;
+    mob->hit = mob->max_hit;
+    mob->max_mana = 100 + dice (mob->level, 10);
+    mob->mana = mob->max_mana;
+    for (i = 0; i < 3; i++)
+        mob->armor[i] = int_interpolate (mob->level, 100, -100);
+    mob->armor[3] = int_interpolate (mob->level, 100, 0);
+    for (i = 0; i < STAT_MAX; i++)
+        mob->perm_stat[i] = 11 + mob->level / 4;
+    char_to_room (mob, ch->in_room);
+    act ("$p springs to life as a hideous zombie!", ch, corpse, NULL, TO_NOTCHAR);
+    act ("$p springs to life as a hideous zombie!", ch, corpse, NULL, TO_CHAR);
+    obj_extract (corpse);
+    SET_BIT (mob->affected_by, AFF_CHARM);
+    EXT_SET (mob->ext_mob, MOB_PET);
+    mob->comm = COMM_NOTELL | COMM_NOSHOUT | COMM_NOCHANNELS;
+    add_follower (mob, ch);
+    mob->leader = ch;
+    ch->pet = mob;
+    do_function (mob, &do_say, "How may I serve you, master?");
 }

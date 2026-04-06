@@ -83,5 +83,10 @@ DECLARE_SPELL_FUN (spell_sleep);
 DECLARE_SPELL_FUN (spell_slow);
 DECLARE_SPELL_FUN (spell_stone_skin);
 DECLARE_SPELL_FUN (spell_weaken);
+DECLARE_SPELL_FUN (spell_silence);
+DECLARE_SPELL_FUN (spell_cure_mute);
+DECLARE_SPELL_FUN (spell_quench);
+DECLARE_SPELL_FUN (spell_sate);
+DECLARE_SPELL_FUN (spell_resurrect);
 
 #endif

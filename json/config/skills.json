@@ -4067,5 +4067,107 @@
                   "usage_beats":  24,
                   "off_msg_char":  "!Hunt!"
               }
+},
+{
+    "skill":  {
+                  "name":  "silence",
+                  "classes":  {
+                                  "mage":     {"level": 20, "effort": 1},
+                                  "cleric":   {"level": 23, "effort": 1},
+                                  "thief":    {"level": 52, "effort": 2},
+                                  "warrior":  {"level": 52, "effort": 2}
+                              },
+                  "target":  "char_offensive",
+                  "min_position":  "fighting",
+                  "slot":  529,
+                  "min_mana":  20,
+                  "usage_beats":  12,
+                  "off_msg_char":  "You can speak again.",
+                  "spell_fun":  "spell_silence"
+              }
+},
+{
+    "skill":  {
+                  "name":  "cure mute",
+                  "classes":  {
+                                  "mage":     {"level": 53, "effort": 1},
+                                  "cleric":   {"level": 20, "effort": 1},
+                                  "thief":    {"level": 53, "effort": 2},
+                                  "warrior":  {"level": 53, "effort": 2}
+                              },
+                  "target":  "char_defensive",
+                  "min_position":  "standing",
+                  "slot":  530,
+                  "min_mana":  10,
+                  "usage_beats":  12,
+                  "spell_fun":  "spell_cure_mute"
+              }
+},
+{
+    "skill":  {
+                  "name":  "critical strike",
+                  "classes":  {
+                                  "mage":     {"level": 53, "effort": 5},
+                                  "cleric":   {"level": 53, "effort": 5},
+                                  "thief":    {"level": 25, "effort": 4},
+                                  "warrior":  {"level": 1,  "effort": 4}
+                              },
+                  "target":  "ignore",
+                  "min_position":  "fighting",
+                  "slot":  531,
+                  "usage_beats":  0,
+                  "off_msg_char":  "!Critical Strike!"
+              }
+},
+{
+    "skill":  {
+                  "name":  "quench",
+                  "classes":  {
+                                  "mage":     {"level": 25, "effort": 1},
+                                  "cleric":   {"level": 20, "effort": 1},
+                                  "thief":    {"level": 53, "effort": 2},
+                                  "warrior":  {"level": 53, "effort": 2}
+                              },
+                  "target":  "ignore",
+                  "min_position":  "standing",
+                  "slot":  532,
+                  "min_mana":  10,
+                  "usage_beats":  12,
+                  "spell_fun":  "spell_quench"
+              }
+},
+{
+    "skill":  {
+                  "name":  "sate",
+                  "classes":  {
+                                  "mage":     {"level": 25, "effort": 1},
+                                  "cleric":   {"level": 20, "effort": 1},
+                                  "thief":    {"level": 53, "effort": 2},
+                                  "warrior":  {"level": 53, "effort": 2}
+                              },
+                  "target":  "ignore",
+                  "min_position":  "standing",
+                  "slot":  533,
+                  "min_mana":  10,
+                  "usage_beats":  12,
+                  "spell_fun":  "spell_sate"
+              }
+},
+{
+    "skill":  {
+                  "name":  "resurrect",
+                  "classes":  {
+                                  "mage":     {"level": 30, "effort": 1},
+                                  "cleric":   {"level": 20, "effort": 1},
+                                  "thief":    {"level": 53, "effort": 2},
+                                  "warrior":  {"level": 53, "effort": 2}
+                              },
+                  "target":  "ignore",
+                  "min_position":  "standing",
+                  "slot":  534,
+                  "min_mana":  50,
+                  "usage_beats":  24,
+                  "spell_fun":  "spell_resurrect"
+              }
 }
 ]

@@ -235,6 +235,20 @@ DEFINE_DO_FUN(do_password)
     printf_to_char(ch, "Password changed successfully.\n\r");
 }
 
+/* do_noexp by Luke (ddecker@mmcable.com) */
+DEFINE_DO_FUN (do_noexp) {
+    BAIL_IF (IS_NPC (ch),
+        "NPCs cannot toggle experience gain.\n\r", ch);
+    if (!EXT_IS_SET (ch->ext_plr, PLR_NOEXP)) {
+        EXT_SET (ch->ext_plr, PLR_NOEXP);
+        send_to_char ("You will no longer gain experience for kills.\n\r", ch);
+    }
+    else {
+        EXT_UNSET (ch->ext_plr, PLR_NOEXP);
+        send_to_char ("You will now gain experience for kills again.\n\r", ch);
+    }
+}
+
 /* Used for debugging conditions :) */
 #if 0
 DEFINE_DO_FUN (do_cond) {

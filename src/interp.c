@@ -174,6 +174,7 @@ const CMD_T cmd_table[] = {
 #ifdef BASEMUD_MATERIALS_COMMAND
     {"materials", do_materials, POS_DEAD, 0, LOG_NORMAL, 1},
 #endif
+    {"noexp", do_noexp, POS_DEAD, 0, LOG_NORMAL, 1},
     {"nofollow", do_nofollow, POS_DEAD, 0, LOG_NORMAL, 1},
     {"noloot", do_noloot, POS_DEAD, 0, LOG_NORMAL, 1},
     {"nosummon", do_nosummon, POS_DEAD, 0, LOG_NORMAL, 1},
@@ -225,6 +226,7 @@ const CMD_T cmd_table[] = {
     {"heal", do_heal, POS_RESTING, 0, LOG_NORMAL, 1},
     {"hold", do_wear, POS_RESTING, 0, LOG_NORMAL, 1},
     {"list", do_list, POS_RESTING, 0, LOG_NORMAL, 1},
+    {"knock", do_knock, POS_RESTING, 0, LOG_NORMAL, 1},
     {"lock", do_lock, POS_RESTING, 0, LOG_NORMAL, 1},
     {"open", do_open, POS_RESTING, 0, LOG_NORMAL, 1},
     {"pick", do_pick, POS_RESTING, 0, LOG_NORMAL, 1},

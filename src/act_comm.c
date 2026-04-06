@@ -367,6 +367,8 @@ DEFINE_DO_FUN (do_clantalk) {
 DEFINE_DO_FUN (do_say) {
     BAIL_IF (argument[0] == '\0',
         "Say what?\n\r", ch);
+    BAIL_IF (IS_AFFECTED (ch, AFF_SILENCE),
+        "You can't seem to make a sound.\n\r", ch);
 
     act2 ("{6You say '{7$T{6'{x",
           "{6$n says '{7$T{6'{x",

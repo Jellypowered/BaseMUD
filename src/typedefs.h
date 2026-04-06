@@ -44,6 +44,7 @@ typedef struct char_data CHAR_T;
 typedef struct descriptor_data DESCRIPTOR_T;
 typedef struct exit_data EXIT_T;
 typedef struct extra_descr_data EXTRA_DESCR_T;
+typedef struct greeting_t GREETING_T;
 typedef struct help_data HELP_T;
 typedef struct help_area_data HELP_AREA_T;
 typedef struct kill_data KILL_T;

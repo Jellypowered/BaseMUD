@@ -197,7 +197,7 @@
 #define AFF_FAERIE_FIRE (BIT_09)
 #define AFF_INFRARED (BIT_10)
 #define AFF_CURSE (BIT_11)
-#define AFF_UNUSED_FLAG_1 (BIT_12) /* old: flaming */
+#define AFF_SILENCE (BIT_12) /* Silenced - cannot speak */
 #define AFF_POISON (BIT_13)
 #define AFF_PROTECT_EVIL (BIT_14)
 #define AFF_PROTECT_GOOD (BIT_15)

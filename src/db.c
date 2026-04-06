@@ -108,8 +108,6 @@ void db_register_new_obj(OBJ_INDEX_T *obj)
 /* Big mama top level function. */
 void boot_db(void)
 {
-    HELP_T *help;
-
     /* Declare that we're booting the database. */
     in_boot_db = TRUE;
 
@@ -130,9 +128,8 @@ void boot_db(void)
     portal_create_missing_all();
     portal_link_unassigned_by_names();
 
-    EXIT_IF_BUGF((help = help_get_by_name_exact("greeting")) == NULL,
-                 "boot_db(): Cannot find help entry 'greeting'.");
-    help_greeting = help->text;
+    EXIT_IF_BUGF(greeting_count == 0,
+                 "boot_db(): No greetings defined in json/config/greetings.json.");
 
     reset_commit_all();
     if (room_check_resets_all() > 0)

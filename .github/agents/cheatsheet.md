@@ -201,7 +201,7 @@ See `doc/Json_Documentation.md` for full schema.
 ```
 
 - **`"classes": {}`** â€” all-zero `level`/`effort` after `calloc`. `effort == 0` blocks training and practice entirely. Assign levels/efforts later via the web editor.
-- **`slot`** â€” must be unique across all entries. Last confirmed used: 528 (hunt). Increment for each new spell.
+- **`slot`** — must be unique across all entries. Last confirmed used: 534 (resurrect). Increment for each new spell.
 - `damage_noun` and `off_msg_char` are optional but recommended for offensive spells.
 - File is a top-level JSON array of `{ "skill": { ... } }` wrapper objects.
 
@@ -265,7 +265,13 @@ Keep this table updated:
 | **526** | deter                       |
 | **527** | fear                        |
 | **528** | hunt                        |
-| 529+    | Available for new additions |
+| **529** | silence                     |
+| **530** | cure mute                   |
+| **531** | critical strike             |
+| **532** | quench                      |
+| **533** | sate                        |
+| **534** | resurrect                   |
+| 535+    | Available for new additions |
 
 ---
 

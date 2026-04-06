@@ -68,6 +68,7 @@ DECLARE_DO_FUN (do_close);
 DECLARE_DO_FUN (do_unlock);
 DECLARE_DO_FUN (do_lock);
 DECLARE_DO_FUN (do_pick);
+DECLARE_DO_FUN (do_knock);
 DECLARE_DO_FUN (do_stand);
 DECLARE_DO_FUN (do_rest);
 DECLARE_DO_FUN (do_sit);

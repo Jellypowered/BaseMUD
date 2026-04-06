@@ -48,6 +48,9 @@ extern int newobj_count;
 extern int mobile_count;
 
 extern char *help_greeting;
+extern char *help_greeting1;
+extern char *help_greeting2;
+extern char *help_greeting3;
 extern char log_buf[2 * MAX_INPUT_LENGTH];
 extern KILL_T kill_table[MAX_LEVEL];
 extern TIME_INFO_T time_info;

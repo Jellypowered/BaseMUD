@@ -131,7 +131,7 @@ const FLAG_T affect_flags[] = {
     {"faerie_fire", AFF_FAERIE_FIRE, TRUE},
     {"infrared", AFF_INFRARED, TRUE},
     {"curse", AFF_CURSE, TRUE},
-    {"unused_aff_1", AFF_UNUSED_FLAG_1, FALSE},
+    {"silence",      AFF_SILENCE,       TRUE},
     {"poison", AFF_POISON, TRUE},
     {"protect_evil", AFF_PROTECT_EVIL, TRUE},
     {"protect_good", AFF_PROTECT_GOOD, TRUE},

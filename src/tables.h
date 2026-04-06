@@ -55,6 +55,8 @@ extern DEX_APP_T dex_app_table[ATTRIBUTE_HIGHEST + 2];
 extern CON_APP_T con_app_table[ATTRIBUTE_HIGHEST + 2];
 extern LIQ_T *liq_table;
 extern int liq_count, liq_cap;
+extern GREETING_T *greeting_table;
+extern int greeting_count, greeting_cap;
 extern SKILL_GROUP_T *skill_group_table;
 extern int skill_group_count, skill_group_cap;
 extern SECTOR_T sector_table[SECT_MAX + 1];
@@ -112,6 +114,7 @@ DECLARE_DISPOSE_FUN(cond_dispose);
 DECLARE_DISPOSE_FUN(dam_dispose);
 DECLARE_DISPOSE_FUN(day_dispose);
 DECLARE_DISPOSE_FUN(door_dispose);
+DECLARE_DISPOSE_FUN(greeting_dispose);
 DECLARE_DISPOSE_FUN(hp_cond_dispose);
 DECLARE_DISPOSE_FUN(item_dispose);
 DECLARE_DISPOSE_FUN(liq_dispose);
@@ -135,6 +138,7 @@ DECLARE_DISPOSE_FUN(weapon_dispose);
 DECLARE_DISPOSE_FUN(wear_loc_dispose);
 
 DECLARE_POST_LOAD_FUN(cond_reload_mapping);
+DECLARE_POST_LOAD_FUN(greeting_reload_mapping);
 DECLARE_POST_LOAD_FUN(spec_reload_mapping);
 
 #endif

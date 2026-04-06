@@ -52,6 +52,7 @@
 #include "spell_npc.h"
 #include "spell_off.h"
 #include "utils.h"
+#include "globals.h"
 
 #include <stddef.h>
 
@@ -155,6 +156,7 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     TTABLE(day_table, "days", "Days of the week.", "day", "config", json_tblw_day, json_tblr_day, day_dispose),
     TTABLE(dex_app_table, "dex_app", "Dex apply table.", "dex_app", "config", json_tblw_dex_app, json_tblr_dex_app, NULL),
     TTABLE(door_table, "doors", "Exit names.", "door", "config", json_tblw_door, json_tblr_door, door_dispose),
+    TTABLE_DYNAMIC_POSTLOAD(&greeting_table, "greetings", "Login greeting messages.", "greeting", "config", json_tblw_greeting, json_tblr_greeting, greeting_dispose, greeting_reload_mapping, &greeting_count, &greeting_cap, NULL),
     TTABLE(hp_cond_table, "hp_conds", "Messages based on % of hp.", "hp_cond", "config", json_tblw_hp_cond, json_tblr_hp_cond, hp_cond_dispose),
     TTABLE(int_app_table, "int_app", "Int apply table.", "int_app", "config", json_tblw_int_app, json_tblr_int_app, NULL),
     TTABLE(item_table, "items", "Item types and properties.", "item", "config", json_tblw_item, json_tblr_item, item_dispose),
@@ -912,6 +914,10 @@ CON_APP_T con_app_table[ATTRIBUTE_HIGHEST + 2] = {
 LIQ_T *liq_table = NULL;
 int liq_count = 0, liq_cap = 0;
 
+/* Login greetings - loaded from JSON. */
+GREETING_T *greeting_table = NULL;
+int greeting_count = 0, greeting_cap = 0;
+
 /* Skill table - loaded from JSON at boot. */
 SKILL_T *skill_table = NULL;
 int skill_count = 0, skill_cap = 0;
@@ -1186,6 +1192,12 @@ DEFINE_DISPOSE_FUN(day_dispose)
 {
     DAY_T *day = obj;
     str_free(&(day->name));
+}
+
+DEFINE_DISPOSE_FUN(greeting_dispose)
+{
+    GREETING_T *greeting = obj;
+    str_free(&(greeting->text));
 }
 
 DEFINE_DISPOSE_FUN(month_dispose)
@@ -1496,6 +1508,14 @@ void cond_reload_mapping(void)
     }
 }
 
+void greeting_reload_mapping(void)
+{
+    help_greeting  = (greeting_count > 0) ? greeting_table[0].text : NULL;
+    help_greeting1 = (greeting_count > 1) ? greeting_table[1].text : NULL;
+    help_greeting2 = (greeting_count > 2) ? greeting_table[2].text : NULL;
+    help_greeting3 = (greeting_count > 3) ? greeting_table[3].text : NULL;
+}
+
 const AFFECT_BIT_T affect_bit_table[AFF_TO_MAX + 1] = {
     {"affects", AFF_TO_AFFECTS, affect_flags, "affect_flags"},
     {"object", AFF_TO_OBJECT, extra_flags, "extra_flags"},
@@ -1716,6 +1736,8 @@ SKILL_MAP_T skill_map_table[SKILL_MAP_MAX + 1] = {
     {SKILL_MAP_FRENZY, "frenzy"},
     {SKILL_MAP_BUTCHER, "butcher"},
     {SKILL_MAP_HUNT, "hunt"},
+    {SKILL_MAP_CRITICAL_STRIKE, "critical strike"},
+    {SKILL_MAP_SILENCE, "silence"},
 
     {0}};
 

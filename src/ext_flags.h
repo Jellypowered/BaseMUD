@@ -102,6 +102,9 @@
 /* Quest flags */
 #define PLR_QUESTOR 27
 
+/* BaseMUD flags */
+#define PLR_NOEXP 28 /* No experience gain */
+
 /* Flag tables. */
 extern const EXT_FLAG_DEF_T mob_flags[];
 extern const EXT_FLAG_DEF_T plr_flags[];

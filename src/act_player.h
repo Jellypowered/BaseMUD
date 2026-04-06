@@ -42,5 +42,6 @@ DECLARE_DO_FUN(do_qui);
 DECLARE_DO_FUN(do_quit);
 DECLARE_DO_FUN(do_save);
 DECLARE_DO_FUN(do_password);
+DECLARE_DO_FUN(do_noexp);
 
 #endif

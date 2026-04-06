@@ -1392,6 +1392,12 @@ struct train_stat_type
     int func_param;
 };
 
+/* Login greeting. */
+struct greeting_t
+{
+    char *text;
+};
+
 /* Spells for the 'heal' command. */
 struct heal_spell_type
 {

@@ -268,6 +268,46 @@ void bust_a_prompt(CHAR_T *ch)
             i = buf2;
             break;
 
+        /* Battle prompts by Ian McCormick / Gothar */
+        case 'b':
+        {
+            CHAR_T *bvict = ch->fighting;
+            if (bvict != NULL) {
+                int pct = (bvict->max_hit > 0)
+                    ? bvict->hit * 100 / bvict->max_hit : -1;
+                if      (pct >= 100) sprintf (buf2, "{WEnemy: [{R+++{Y+++{G++++{x]");
+                else if (pct >=  90) sprintf (buf2, "{WEnemy: [{R+++{Y+++{G+++ {x]");
+                else if (pct >=  80) sprintf (buf2, "{WEnemy: [{R+++{Y+++{G++  {x]");
+                else if (pct >=  70) sprintf (buf2, "{WEnemy: [{R+++{Y+++{G+   {x]");
+                else if (pct >=  58) sprintf (buf2, "{WEnemy: [{R+++{Y+++    {x]");
+                else if (pct >=  45) sprintf (buf2, "{WEnemy: [{R+++{Y++     {x]");
+                else if (pct >=  30) sprintf (buf2, "{WEnemy: [{R+++{Y+      {x]");
+                else if (pct >=  28) sprintf (buf2, "{WEnemy: [{R+++         {x]");
+                else if (pct >=  15) sprintf (buf2, "{WEnemy: [{R++          {x]");
+                else if (pct >=   8) sprintf (buf2, "{WEnemy: [{R+           {x]");
+                else                 sprintf (buf2, "{WEnemy: [          {x]");
+                i = buf2;
+            }
+            else
+                i = "";
+            break;
+        }
+        case 'B':
+        {
+            CHAR_T *bvict = ch->fighting;
+            if (bvict != NULL) {
+                int pct = (bvict->max_hit > 0)
+                    ? bvict->hit * 100 / bvict->max_hit : 0;
+                if      (pct >= 65) sprintf (buf2, " {WEnemy: {G%d%%{x", pct);
+                else if (pct >= 25) sprintf (buf2, " {WEnemy: {Y%d%%{x", pct);
+                else                sprintf (buf2, " {WEnemy: {R%d%%{x", pct);
+                i = buf2;
+            }
+            else
+                i = "";
+            break;
+        }
+
         default:
             i = " ";
             break;

@@ -93,6 +93,11 @@ static const SPELL_ENTRY_T spell_dispatch_table[] = {
     {"spell_slow", spell_slow},
     {"spell_stone_skin", spell_stone_skin},
     {"spell_weaken", spell_weaken},
+    {"spell_silence", spell_silence},
+    {"spell_cure_mute", spell_cure_mute},
+    {"spell_quench", spell_quench},
+    {"spell_sate", spell_sate},
+    {"spell_resurrect", spell_resurrect},
 
     /* spell_create.h */
     {"spell_continual_light", spell_continual_light},

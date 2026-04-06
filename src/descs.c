@@ -207,11 +207,12 @@ void init_descriptor (int control) {
 
     /* First Contact! */
     if (!mud_ansiprompt) {
-        extern char *help_greeting;
-        if (help_greeting[0] == '.')
-            send_to_desc (help_greeting+1, dnew);
-        else
-            send_to_desc (help_greeting  , dnew);
+        char *greet = help_greeting;
+        int g = number_range (0, 3);
+        if      (g == 1 && help_greeting1) greet = help_greeting1;
+        else if (g == 2 && help_greeting2) greet = help_greeting2;
+        else if (g == 3 && help_greeting3) greet = help_greeting3;
+        send_to_desc (greet, dnew);
     }
     else
         send_to_desc ("Do you want ANSI? (Y/n) ", dnew);

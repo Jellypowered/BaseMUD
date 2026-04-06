@@ -186,6 +186,24 @@ void multi_hit(CHAR_T *ch, CHAR_T *victim, int dt)
     }
 }
 
+/* Critical Strike by Brian Babey (bribe@erols.com) / Varen */
+static bool check_critical (CHAR_T *ch, CHAR_T *victim) {
+    if (char_get_eq_by_wear_loc (ch, WEAR_LOC_WIELD) == NULL)
+        return FALSE;
+    if (char_get_skill (ch, SN(CRITICAL_STRIKE)) < 1)
+        return FALSE;
+    if (char_get_weapon_skill (ch, char_get_weapon_sn (ch)) < 100)
+        return FALSE;
+    if (number_range (0, 100) > char_get_skill (ch, SN(CRITICAL_STRIKE)))
+        return FALSE;
+    if (number_range (0, 100) > 25)
+        return FALSE;
+    act ("$n CRITICALLY STRIKES $N!", ch, NULL, victim, TO_NOTCHAR);
+    act ("CRITICAL STRIKE!", ch, NULL, victim, TO_VICT);
+    player_try_skill_improve (ch, SN(CRITICAL_STRIKE), TRUE, 6);
+    return TRUE;
+}
+
 /* Hit one guy once. */
 void one_hit(CHAR_T *ch, CHAR_T *victim, int dt)
 {
@@ -378,6 +396,9 @@ void one_hit(CHAR_T *ch, CHAR_T *victim, int dt)
         player_try_skill_improve(ch, SN(ENHANCED_DAMAGE), TRUE, 6);
         dam += (dam * 3) / 4;
     }
+
+    if (check_critical (ch, victim))
+        dam = dam * 7 / 5;
 
     if (!IS_AWAKE(victim))
         dam *= 2;
@@ -1422,7 +1443,12 @@ void group_gain(CHAR_T *ch, CHAR_T *victim)
 #endif
 
         xp = fight_compute_kill_exp(gch, victim, group_levels);
-        printf_to_char(gch, "You receive %d experience points.\n\r", xp);
+        if (!IS_NPC (gch) && EXT_IS_SET (gch->ext_plr, PLR_NOEXP)) {
+            send_to_char ("You have NOEXP set - you gain no experience!\n\r", gch);
+            xp = 0;
+        }
+        else
+            printf_to_char(gch, "You receive %d experience points.\n\r", xp);
         player_gain_exp(gch, xp);
         if (EXT_IS_SET(ch->ext_plr, PLR_QUESTOR) && IS_NPC(victim))
         {

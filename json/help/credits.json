@@ -33,6 +33,30 @@
               |
               |Junk command --
               |    franzj
+              |
+              |Knock command --
+              |    John Patrick (j.s.patrick@ieee.org) for Ansalon MUD
+              |
+              |Battle prompts (%b/%B) --
+              |    Ian McCormick (Gothar)
+              |
+              |Silence / Cure Mute spells --
+              |    MBL
+              |
+              |Critical Strike skill --
+              |    Brian Babey (bribe@erols.com) / Varen
+              |
+              |Quench / Sate spells --
+              |    Jason Huang (god@sure.net)
+              |
+              |No-experience toggle (noexp) --
+              |    Luke (ddecker@mmcable.com)
+              |
+              |Multiple greetings --
+              |    Diablo
+              |
+              |Resurrect spell --
+              |    Dribble (aprocter@mail.coin.missouri.edu)
               |",
       "hide_keywords": true
     }

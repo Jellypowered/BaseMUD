@@ -55,6 +55,7 @@ DECLARE_JSON_WRITE_FUN (json_tblw_skill);
 DECLARE_JSON_WRITE_FUN (json_tblw_skill_group);
 DECLARE_JSON_WRITE_FUN (json_tblw_sector);
 DECLARE_JSON_WRITE_FUN (json_tblw_door);
+DECLARE_JSON_WRITE_FUN (json_tblw_greeting);
 DECLARE_JSON_WRITE_FUN (json_tblw_spec);
 DECLARE_JSON_WRITE_FUN (json_tblw_furniture);
 DECLARE_JSON_WRITE_FUN (json_tblw_wear_loc);

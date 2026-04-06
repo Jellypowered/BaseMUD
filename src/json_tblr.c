@@ -334,6 +334,16 @@ DEFINE_JSON_READ_FUN(json_tblr_hp_cond)
     return hp_cond;
 }
 
+DEFINE_JSON_READ_FUN(json_tblr_greeting)
+{
+    char buf[MAX_STRING_LENGTH];
+    JSON_TBLR_START_DYNAMIC(GREETING_T, greeting);
+    if (!json_import_expect("greeting", json, "text", NULL))
+        return NULL;
+    READ_PROP_STRP(greeting->text, "text");
+    return greeting;
+}
+
 DEFINE_JSON_READ_FUN(json_tblr_liq)
 {
     char buf[MAX_STRING_LENGTH];

@@ -233,6 +233,7 @@
 
 /* Well known mob virtual numbers.
  * Defined in #MOBILES. */
+#define MOB_VNUM_ZOMBIE 1
 #define MOB_VNUM_FIDO 3090
 #define MOB_VNUM_CITYGUARD 3060
 #define MOB_VNUM_VAMPIRE 3404
@@ -543,7 +544,7 @@
 #define TABLE_UNIQUE 3
 #define TABLE_INTERNAL 4
 
-#define TABLE_MAX 77
+#define TABLE_MAX 78
 #define TABLE_LENGTH_DYNAMIC -1
 
 /* Types of portals. */
@@ -683,7 +684,9 @@
 #define SKILL_MAP_FRENZY 47
 #define SKILL_MAP_BUTCHER 48
 #define SKILL_MAP_HUNT 49
-#define SKILL_MAP_MAX 50
+#define SKILL_MAP_CRITICAL_STRIKE 50
+#define SKILL_MAP_SILENCE 51
+#define SKILL_MAP_MAX 52
 
 /* Stuff for providing a crash-proof buffer */
 #define MAX_BUF_LIST 11
@@ -718,9 +721,9 @@
 
 /* prompt to use for new players or resetting prompt to default. */
 #ifdef BASEMUD_SENSIBLE_PROMPT
-#define DEFAULT_PROMPT "{W[%h/%H{Rhp{W %m/%M{Bmp{W %v/%V{Ymv{W]<%p>{x "
+#define DEFAULT_PROMPT "{W[%h/%H{Rhp{W %m/%M{Bmp{W %v/%V{Ymv{W]<%p>{x %b%B"
 #else
-#define DEFAULT_PROMPT "{W[%hhp %mm %vmv]{x "
+#define DEFAULT_PROMPT "{W[%hhp %mm %vmv]{x %b%B"
 #endif
 
 #endif

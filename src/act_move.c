@@ -392,6 +392,35 @@ DEFINE_DO_FUN (do_lock)
 DEFINE_DO_FUN (do_pick)
     { do_door (ch, argument, "pick",   do_pick_object,   do_pick_door); }
 
+/* do_knock by John Patrick (j.s.patrick@ieee.org) for Ansalon MUD.
+ * Used with permission. Credit must be preserved in help files. */
+DEFINE_DO_FUN (do_knock) {
+    char arg[MAX_INPUT_LENGTH];
+    EXIT_T *pexit;
+    ROOM_INDEX_T *to_room;
+    EXIT_T *pexit_rev;
+    CHAR_T *rch, *rch_next;
+    int door;
+
+    DO_REQUIRE_ARG (arg, "Knock on what?\n\r");
+    if ((door = find_door_same_room (ch, arg)) == -1)
+        return;
+
+    pexit = ch->in_room->exit[door];
+    act ("$n knocks on the $d.", ch, NULL, pexit->keyword, TO_NOTCHAR);
+    act ("You knock on the $d.", ch, NULL, pexit->keyword, TO_CHAR);
+
+    if ((to_room = pexit->to_room) != NULL &&
+        (pexit_rev = to_room->exit[REV_DIR (door)]) != NULL &&
+        pexit_rev->to_room == ch->in_room)
+    {
+        for (rch = to_room->people_first; rch != NULL; rch = rch_next) {
+            rch_next = rch->room_next;
+            act ("You hear someone knocking.", rch, NULL, NULL, TO_CHAR);
+        }
+    }
+}
+
 void do_change_position_sub(CHAR_T *ch, const char *argument, int pos,
     bool stay_on, const char *msg_cant_on, const char *msg_cant)
 {

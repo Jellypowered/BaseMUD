@@ -161,6 +161,8 @@
               |        %c :  Display a carriage return (useful for multi-line prompts)
               |        %R :  Display the vnum you are in (IMMORTAL ONLY)
               |        %z :  Display the area name you are in (IMMORTAL ONLY)
+              |        %b :  Display enemy HP bar (combat only)
+              |        %B :  Display enemy HP percentage (combat only)
               | 
               |Example:  PROMPT <%hhp %mm %vmv>
               |        Will set your prompt to \"<10hp 100m 100mv>\"
@@ -1898,6 +1900,189 @@
               |The player is given notice that this has occured.
               |",
       "level": 58
+    },
+    {
+      "keyword": "KNOCK",
+      "text": "Syntax: knock <door>
+              |
+              |KNOCK raps on a closed door in the given direction.  Characters on
+              |the far side of the door will hear the knock.  The door must be
+              |closed; open doors cannot be knocked on.
+              |
+              |See also: OPEN CLOSE LOCK UNLOCK DOORS
+              |"
+    },
+    {
+      "keyword": "NOEXP",
+      "text": "Syntax: noexp
+              |
+              |NOEXP toggles experience gain on or off for your character.  When
+              |enabled, all experience from kills is suppressed and you will not
+              |gain levels through combat.  This is useful when you want to keep
+              |a character at their current level or help lower-level players
+              |without outpacing them.
+              |
+              |Type NOEXP again to resume gaining experience normally.
+              |"
+    },
+    {
+      "keyword": "JUNK",
+      "text": "Syntax: junk <item>
+              |
+              |JUNK destroys an item in your inventory without any gold reward.
+              |Use this to discard unwanted items quickly.  Unlike SACRIFICE,
+              |JUNK does not ask for a deity's blessing and pays nothing in
+              |return.
+              |
+              |See also: SACRIFICE DROP
+              |"
+    },
+    {
+      "keyword": "BUTCHER",
+      "text": "Syntax: butcher <corpse>
+              |
+              |BUTCHER lets you process a corpse into raw meat.  On success you
+              |will carve 1 to 4 steaks from the corpse that can be eaten to
+              |satisfy hunger.  The corpse itself is destroyed and any items
+              |inside are dropped to the ground.
+              |
+              |Butchering is a learned skill.  Higher skill improves your chance
+              |of producing steaks.  A failed attempt still destroys the corpse
+              |and drops its contents.
+              |
+              |See also: EAT SACRIFICE
+              |"
+    },
+    {
+      "keyword": "HUNT TRACK",
+      "text": "Syntax: hunt <name>
+              |
+              |HUNT uses your tracking ability to locate a target by name and
+              |tells you which direction they are in.  Each use costs 3 movement
+              |points.  If your skill check fails, a random direction is given
+              |instead.
+              |
+              |Players are limited to hunting targets within the same area.
+              |Immortals can hunt anywhere in the world.  Your tracking skill
+              |improves each time you successfully locate a target.
+              |
+              |See also: WHERE SKILLS
+              |"
+    },
+    {
+      "keyword": "'DETER'",
+      "text": "Syntax: cast 'deter' <victim>
+              |
+              |DETER shrouds the target in a subtle aura that causes hostile
+              |creatures to ignore them and not initiate combat.  The effect
+              |lasts for several ticks depending on caster level.
+              |
+              |Only players may be targeted by this spell.
+              |
+              |See also: SNEAK INVIS
+              |"
+    },
+    {
+      "keyword": "'FEAR'",
+      "text": "Syntax: cast 'fear' <victim>
+              |
+              |FEAR floods the target with supernatural terror, forcing them to
+              |flee immediately.  The spell cannot be cast in safe, private, or
+              |no-recall rooms, nor in unsanctioned locations.
+              |
+              |The spell fails if the target's level is equal to or higher than
+              |the caster's, if they are in a different area, or if an NPC
+              |target successfully saves against it.
+              |
+              |See also: FLEE CALM
+              |"
+    },
+    {
+      "keyword": "'SILENCE' 'MUTE'",
+      "text": "Syntax: cast 'silence' <victim>
+              |
+              |SILENCE afflicts the target with a magical sore throat, preventing
+              |them from speaking, yelling, telling, or gossiping for a number of
+              |ticks based on the caster's level.  The victim may save against
+              |the spell to resist it.
+              |
+              |Mages learn Silence at level 20; Clerics at level 23.
+              |
+              |See also: 'CURE MUTE'
+              |"
+    },
+    {
+      "keyword": "'CURE MUTE'",
+      "text": "Syntax: cast 'cure mute' <victim>
+              |
+              |CURE MUTE removes the silence affliction from a target who has
+              |been magically muted.  The spell fails if the target is not
+              |currently silenced.
+              |
+              |Clerics learn Cure Mute at level 20.
+              |
+              |See also: 'SILENCE'
+              |"
+    },
+    {
+      "keyword": "'QUENCH'",
+      "text": "Syntax: cast 'quench'
+              |
+              |QUENCH magically satisfies the caster's thirst, filling them
+              |completely.  The spell can only be cast on oneself and only
+              |affects player characters.
+              |
+              |Mages learn Quench at level 25; Clerics at level 20.
+              |
+              |See also: 'SATE' DRINK
+              |"
+    },
+    {
+      "keyword": "'SATE'",
+      "text": "Syntax: cast 'sate'
+              |
+              |SATE magically satisfies the caster's hunger, filling them
+              |completely.  The spell can only be cast on oneself and only
+              |affects player characters.
+              |
+              |Mages learn Sate at level 25; Clerics at level 20.
+              |
+              |See also: 'QUENCH' EAT
+              |"
+    },
+    {
+      "keyword": "'RESURRECT' 'RAISE DEAD'",
+      "text": "Syntax: cast 'resurrect' <corpse>
+              |
+              |RESURRECT animates an NPC corpse lying in the room as a zombie
+              |servant.  The zombie will follow and fight for you as a charmed
+              |pet.  You may only have one pet at a time.
+              |
+              |The corpse must belong to an NPC and its level may not exceed
+              |your own level by more than two.  Player corpses cannot be
+              |raised.  The zombie is temporary and will not survive logging
+              |out.
+              |
+              |Mages learn Resurrect at level 30; Clerics at level 20.
+              |
+              |See also: CHARM PET ORDER
+              |"
+    },
+    {
+      "keyword": "CRITICAL STRIKE 'CRITICAL STRIKE'",
+      "text": "CRITICAL STRIKE is a passive combat skill that gives you a chance
+              |to land an especially powerful blow when you have mastered the
+              |weapon you are wielding (100% weapon skill) and have a weapon
+              |equipped.
+              |
+              |Each attack has a 25% chance to trigger a critical strike, dealing
+              |roughly 40% bonus damage.  A \"CRITICAL STRIKE!\" message is shown
+              |when it fires.
+              |
+              |Warriors learn Critical Strike at level 1; Thieves at level 25.
+              |
+              |See also: WEAPONS SKILLS
+              |"
     }
   ]
 }}]

@@ -50,6 +50,7 @@ DECLARE_JSON_READ_FUN(json_tblr_dam);
 DECLARE_JSON_READ_FUN(json_tblr_day);
 DECLARE_JSON_READ_FUN(json_tblr_dex_app);
 DECLARE_JSON_READ_FUN(json_tblr_door);
+DECLARE_JSON_READ_FUN(json_tblr_greeting);
 DECLARE_JSON_READ_FUN(json_tblr_hp_cond);
 DECLARE_JSON_READ_FUN(json_tblr_int_app);
 DECLARE_JSON_READ_FUN(json_tblr_item);

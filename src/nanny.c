@@ -194,7 +194,9 @@ void nanny(DESCRIPTOR_T *d, char *argument)
 
 DEFINE_NANNY_FUN(nanny_ansi)
 {
-    extern char *help_greeting;
+    char *greet;
+    int g;
+
     if (argument[0] == '\0' || UPPER(argument[0]) == 'Y')
     {
         d->ansi = TRUE;
@@ -211,10 +213,12 @@ DEFINE_NANNY_FUN(nanny_ansi)
         return;
     }
 
-    if (help_greeting[0] == '.')
-        send_to_desc(help_greeting + 1, d);
-    else
-        send_to_desc(help_greeting, d);
+    greet = help_greeting;
+    g = number_range (0, 3);
+    if      (g == 1 && help_greeting1) greet = help_greeting1;
+    else if (g == 2 && help_greeting2) greet = help_greeting2;
+    else if (g == 3 && help_greeting3) greet = help_greeting3;
+    send_to_desc(greet, d);
     d->connected = CON_GET_NAME;
 }
 

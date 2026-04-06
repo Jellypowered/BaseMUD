@@ -43,6 +43,9 @@ int newobj_count = 0;
 int mobile_count = 0;
 
 char *help_greeting;
+char *help_greeting1;
+char *help_greeting2;
+char *help_greeting3;
 char log_buf[2 * MAX_INPUT_LENGTH];
 KILL_T kill_table[MAX_LEVEL];
 TIME_INFO_T time_info;
