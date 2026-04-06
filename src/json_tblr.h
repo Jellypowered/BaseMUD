@@ -29,6 +29,13 @@
 #define __ROM_JSON_TBLR_H
 
 #include "merc.h"
+#include <stddef.h>
+
+/* Grow a dynamic config table.  Doubles capacity (minimum 16), reallocates
+ * *table_pp, zeroes the new region, and updates *cap_p.  A null sentinel slot
+ * is always kept at index *count_p so walk-until-null iterators still work. */
+void json_tblr_grow(void **table_pp, int *count_p, int *cap_p,
+                    size_t elem_size);
 
 /* dead-simple functions for reading JSON objects. */
 DECLARE_JSON_READ_FUN(json_tblr_attack);

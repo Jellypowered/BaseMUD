@@ -440,7 +440,7 @@
 
 /* Character classes. */
 #define CLASS_NONE -1
-#define CLASS_MAX 16
+#define CLASS_MAX 32
 
 /* Limits not defined elsewhere. */
 #define CLAN_MAX 3
@@ -449,8 +449,8 @@
 #define PC_RACE_MAX 16
 #define PC_RACE_SKILL_MAX 16
 #define SOCIAL_MAX 256
-#define SKILL_MAX 150
-#define SKILL_GROUP_MAX 30
+#define SKILL_MAX 300
+#define SKILL_GROUP_MAX 64
 #define SPEC_MAX 23
 #define ATTRIBUTE_HIGHEST 25
 #define ATTACK_MAX 40

@@ -115,7 +115,6 @@ void boot_db(void)
     string_space_init();
     number_mm_init();
     init_time_weather();
-    skill_init_mapping();
 
     json_import_all();
     init_areas();

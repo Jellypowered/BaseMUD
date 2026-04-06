@@ -217,15 +217,11 @@ DEFINE_JSON_WRITE_FUN(json_tblw_pc_race)
                 json_prop_integer(sub, class->name, pc_race->class_mult[i]);
     }
 
-    for (i = 0; i < PC_RACE_SKILL_MAX; i++)
-        if (pc_race->skills[i] != NULL && pc_race->skills[i][0] != '\0')
-            break;
-    if (i != PC_RACE_SKILL_MAX)
+    if (pc_race->skills != NULL && pc_race->skills[0] != NULL && pc_race->skills[0][0] != '\0')
     {
         sub = json_prop_array(new, "skills");
-        for (i = 0; i < 5; i++)
-            if (pc_race->skills[i] != NULL && pc_race->skills[i][0] != '\0')
-                json_prop_string(sub, NULL, pc_race->skills[i]);
+        for (i = 0; pc_race->skills[i] != NULL && pc_race->skills[i][0] != '\0'; i++)
+            json_prop_string(sub, NULL, pc_race->skills[i]);
     }
 
     sub = json_prop_object(new, "base_stats", JSON_OBJ_ANY);
@@ -246,6 +242,7 @@ DEFINE_JSON_WRITE_FUN(json_tblw_pc_race)
 
 DEFINE_JSON_WRITE_FUN(json_tblw_class)
 {
+    int i;
     JSON_TBLW_START(CLASS_T, class, class->name == NULL);
 
     json_prop_string(new, "name", JSTR(class->name));
@@ -255,8 +252,8 @@ DEFINE_JSON_WRITE_FUN(json_tblw_class)
     json_prop_integer(new, "weapon", class->weapon);
     {
         JSON_T *guild_arr = json_prop_array(new, "guild");
-        json_prop_integer(guild_arr, NULL, class->guild[0]);
-        json_prop_integer(guild_arr, NULL, class->guild[1]);
+        for (i = 0; i < class->guild_count; i++)
+            json_prop_integer(guild_arr, NULL, class->guild[i]);
     }
     json_prop_integer(new, "skill_adept", class->skill_adept);
     json_prop_integer(new, "thac0_00", class->thac0_00);
@@ -393,7 +390,7 @@ DEFINE_JSON_WRITE_FUN(json_tblw_skill_group)
     }
 
     sub = json_prop_array(new, "skills");
-    for (i = 0; i < MAX_IN_GROUP; i++)
+    for (i = 0; i < group->spell_count; i++)
         if (group->spells[i] && group->spells[i][0] != '\0')
             json_prop_string(sub, NULL, JSTR(group->spells[i]));
 

@@ -426,13 +426,13 @@ The container must have been placed in the room by a preceding `object` reset.
 }
 ```
 
-| Field         | Type                   | Req | Notes                                                                                                                 |
-| ------------- | ---------------------- | --- | --------------------------------------------------------------------------------------------------------------------- |
-| `trades`      | array of string (enum) | yes | Item types the shop buys from players. Max 5 entries. Empty array = buys nothing. Uses [item_type](#item_type) names. |
-| `profit_buy`  | integer                | yes | Buy price as % of list. E.g. `105` = 5% markup.                                                                       |
-| `profit_sell` | integer                | yes | Sell (to shop) price as % of list. E.g. `15` = shop pays 15%.                                                         |
-| `open_hour`   | integer                | yes | Opening hour 0�23.                                                                                                    |
-| `close_hour`  | integer                | yes | Closing hour 0�23.                                                                                                    |
+| Field         | Type                   | Req | Notes                                                                                                                                 |
+| ------------- | ---------------------- | --- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `trades`      | array of string (enum) | yes | Item types the shop buys from players. Up to `MAX_TRADE` (5) entries. Empty array = buys nothing. Uses [item_type](#item_type) names. |
+| `profit_buy`  | integer                | yes | Buy price as % of list. E.g. `105` = 5% markup.                                                                                       |
+| `profit_sell` | integer                | yes | Sell (to shop) price as % of list. E.g. `15` = shop pays 15%.                                                                         |
+| `open_hour`   | integer                | yes | Opening hour 0�23.                                                                                                                    |
+| `close_hour`  | integer                | yes | Closing hour 0�23.                                                                                                                    |
 
 What the shop **sells** is determined by `give` resets on the mob � items placed in the mob's inventory via `give` resets appear as shop stock. `equip` resets on a shopkeeper mob equip items on the mob personally (not for sale).
 
@@ -1084,7 +1084,7 @@ Range: 0�100. 100 = perfect condition. The field is omitted from output when t
 
 ### Shop `trades` Maximum
 
-A shop's `trades` array may contain at most **5 entries** (`MAX_TRADE`). Excess entries are silently ignored.
+A shop's `trades` array may contain at most **5 entries** (the internal allocation uses `MAX_TRADE = 5`). Excess entries are silently ignored. The `buy_count` field on the struct tracks how many entries are active; callers iterate up to `shop->buy_count`.
 
 ### Armor `vs_magic` (Fourth Value)
 
@@ -1116,16 +1116,16 @@ All files in `json/config/` are **loaded from JSON at boot**, not baked into the
 
 ### Fully editable, no cap concerns
 
-These tables have ample room or are not size-constrained:
+These tables use heap-allocated storage and all internal per-entry sub-arrays are also heap-allocated. There is no compile-time limit:
 
-| File                | Currently | Cap  | What it controls                                                              |
-| ------------------- | --------- | ---- | ----------------------------------------------------------------------------- |
-| `classes.json`      | 4         | 16   | Classes: name, stat, THAC0, HP gain, mana, guild rooms, default groups        |
-| `pc_races.json`     | 6         | 16   | Player-selectable races: stats, class exp modifiers, bonus skills             |
-| `skills.json`       | ~137      | 150  | Skills and spells: per-class level/effort, mana cost, beats, target, position |
-| `skill_groups.json` | 27        | 30   | Skill groups: member skills, per-class purchase cost                          |
-| `socials.json`      | many      | none | Emote commands (world data — fully writable)                                  |
-| `portals.json`      | many      | none | Inter-area portal links (world data — fully writable)                         |
+| File                | Currently | Notes                                                                                                                                                |
+| ------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `classes.json`      | 4         | Classes: name, stat, THAC0, HP gain, mana, guild rooms, default groups. `guild[]`, `class_mult[]` and all per-class sub-arrays are heap-allocated.   |
+| `pc_races.json`     | 6         | Player-selectable races: stats, class exp modifiers, bonus skills. `class_mult[]` and `skills[]` are heap-allocated.                                 |
+| `skills.json`       | ~137      | Skills and spells: per-class level/effort, mana cost, beats, target, position. `classes[]` sub-array is heap-allocated (one entry per loaded class). |
+| `skill_groups.json` | 27        | Skill groups: member skills, per-class purchase cost. `classes[]` and `spells[]` are heap-allocated.                                                 |
+| `socials.json`      | many      | Emote commands (world data — fully writable)                                                                                                         |
+| `portals.json`      | many      | Inter-area portal links (world data — fully writable)                                                                                                |
 
 ### Editable, but requires a recompile to add new entries
 
@@ -1136,6 +1136,8 @@ These tables are full or nearly full. You can **modify existing entries** freely
 | `races.json`     | 30        | 30 (full) | `RACE_MAX` in `src/defs.h`      |
 | `liquids.json`   | 36        | 36 (full) | `LIQ_MAX` in `src/defs.h`       |
 | `materials.json` | 38        | 38 (full) | `MATERIAL_MAX` in `src/types.h` |
+
+> **Note on remaining fixed-size sub-array limits:** The `shop.trades` array is capped at `MAX_TRADE = 5` entries. Songs loaded from `music.txt` are capped at `MAX_SONG_LINES = 100` lyrics per song. These are the only remaining per-entry sub-array limits that require a recompile to increase.
 
 ### Read from JSON but not normally edited
 

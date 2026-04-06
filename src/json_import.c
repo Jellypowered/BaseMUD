@@ -374,9 +374,21 @@ int json_reload_table(const TABLE_T *table)
     if (table->dispose_fun != NULL)
         table_dispose(table);
 
-    /* Zero the entire array so stale pointers cannot be dereferenced. */
-    memset((void *)table->table, 0,
-           table->type_size * table->table_length);
+    /* Reset the backing store for reload. */
+    if (table->table_pp != NULL)
+    {
+        /* Dynamic heap table: release, then start fresh. */
+        free(*table->table_pp);
+        *table->table_pp = NULL;
+        *table->count_p = 0;
+        *table->cap_p = 0;
+    }
+    else
+    {
+        /* Static array: zero the entire array so stale pointers are cleared. */
+        memset((void *)table->table, 0,
+               table->type_size * table->table_length);
+    }
 
     /* Build the path: json/<json_path>/<name>.json */
     snprintf(path, sizeof(path), "%s%s/%s.json",
@@ -391,6 +403,9 @@ int json_reload_table(const TABLE_T *table)
     {
         bugf("json_reload_table: could not read '%s'", path);
     }
+
+    if (table->invalidate_max_fun != NULL)
+        table->invalidate_max_fun();
 
     if (table->post_load_fun != NULL)
         table->post_load_fun();

@@ -195,31 +195,33 @@ struct help_area_data
 struct shop_data
 {
     SHOP_T *global_next, *global_prev;
-    sh_int keeper;              /* Vnum of shop keeper mob     */
-    sh_int buy_type[MAX_TRADE]; /* Item types shop will buy    */
-    sh_int profit_buy;          /* Cost multiplier for buying  */
-    sh_int profit_sell;         /* Cost multiplier for selling */
-    sh_int open_hour;           /* First opening hour          */
-    sh_int close_hour;          /* First closing hour          */
+    sh_int keeper;      /* Vnum of shop keeper mob     */
+    sh_int *buy_type;   /* heap, buy_count entries */
+    int buy_count;      /* number of item types */
+    sh_int profit_buy;  /* Cost multiplier for buying  */
+    sh_int profit_sell; /* Cost multiplier for selling */
+    sh_int open_hour;   /* First opening hour          */
+    sh_int close_hour;  /* First closing hour          */
     OBJ_RECYCLE_T rec_data;
 };
 
 struct class_type
 {
-    char *name;              /* the full name of the class  */
-    char who_name[4];        /* Three-letter name for 'who' */
-    sh_int attr_prime;       /* Prime attribute             */
-    sh_int weapon;           /* First weapon                */
-    sh_int guild[MAX_GUILD]; /* Vnum of guild rooms         */
-    sh_int skill_adept;      /* Maximum skill level         */
-    sh_int thac0_00;         /* Thac0 for level  0          */
-    sh_int thac0_32;         /* Thac0 for level 32          */
-    sh_int hp_min;           /* Min hp gained on leveling   */
-    sh_int hp_max;           /* Max hp gained on leveling   */
-    bool gains_mana;         /* Class gains mana on level   */
-    char *base_group;        /* base skills gained          */
-    char *default_group;     /* default skills gained       */
-    bool can_sneak_away;     /* Can sneak away when fleeing */
+    char *name;          /* the full name of the class  */
+    char who_name[4];    /* Three-letter name for 'who' */
+    sh_int attr_prime;   /* Prime attribute             */
+    sh_int weapon;       /* First weapon                */
+    sh_int *guild;       /* Vnum of guild rooms (heap, guild_count entries) */
+    int guild_count;     /* Number of guild entries */
+    sh_int skill_adept;  /* Maximum skill level         */
+    sh_int thac0_00;     /* Thac0 for level  0          */
+    sh_int thac0_32;     /* Thac0 for level 32          */
+    sh_int hp_min;       /* Min hp gained on leveling   */
+    sh_int hp_max;       /* Max hp gained on leveling   */
+    bool gains_mana;     /* Class gains mana on level   */
+    char *base_group;    /* base skills gained          */
+    char *default_group; /* default skills gained       */
+    bool can_sneak_away; /* Can sneak away when fleeing */
 };
 
 struct item_type
@@ -284,13 +286,13 @@ struct pc_race_type
 {               /* additional data for pc races    */
     char *name; /* MUST be in race_type            */
     char who_name[8];
-    sh_int creation_points;          /* cost in points of the race      */
-    sh_int class_mult[CLASS_MAX];    /* exp multiplier for class, * 100 */
-    char *skills[PC_RACE_SKILL_MAX]; /* bonus skills for the race    */
-    sh_int stats[STAT_MAX];          /* starting stats                  */
-    sh_int max_stats[STAT_MAX];      /* maximum stats                   */
-    sh_int size;                     /* aff bits for the race           */
-    sh_int bonus_max;                /* bonus to maximum stats          */
+    sh_int creation_points;     /* cost in points of the race      */
+    sh_int *class_mult;         /* exp multiplier for class, * 100 (heap, class_count entries) */
+    char **skills;              /* bonus skills for the race (heap, pc_race_skill_count entries) */
+    sh_int stats[STAT_MAX];     /* starting stats                  */
+    sh_int max_stats[STAT_MAX]; /* maximum stats                   */
+    sh_int size;                /* aff bits for the race           */
+    sh_int bonus_max;           /* bonus to maximum stats          */
 };
 
 struct spec_type
@@ -624,19 +626,19 @@ struct pc_data
     sh_int perm_move;
     sh_int true_sex;
     int last_level;
-    sh_int cond_hours[4];
-    sh_int learned[SKILL_MAX];
-    sh_int skill_known[SKILL_MAX];
-    sh_int group_known[SKILL_GROUP_MAX];
+    sh_int *cond_hours;  /* COND_MAX entries (heap) */
+    sh_int *learned;     /* skill_count entries (heap) */
+    sh_int *skill_known; /* skill_count entries (heap) */
+    sh_int *group_known; /* skill_group_count entries (heap) */
     sh_int creation_points;
     bool confirm_delete;
-    char *alias[MAX_ALIAS];
-    char *alias_sub[MAX_ALIAS];
-    BOARD_T *board;              /* The current board        */
-    time_t last_note[BOARD_MAX]; /* last note for the boards */
+    char **alias;      /* MAX_ALIAS entries (heap) */
+    char **alias_sub;  /* MAX_ALIAS entries (heap) */
+    BOARD_T *board;    /* The current board        */
+    time_t *last_note; /* BOARD_MAX entries (heap) */
     NOTE_T *in_progress;
-    int security; /* OLC - Builder security */
-    flag_t colour[COLOUR_SETTING_MAX];
+    int security;   /* OLC - Builder security */
+    flag_t *colour; /* COLOUR_SETTING_MAX entries (heap) */
 
 #ifdef IMC
     IMC_CHARDATA *imcchardata;
@@ -647,8 +649,8 @@ struct pc_data
 /* Data for generating characters -- only used during generation */
 struct gen_data
 {
-    bool skill_chosen[SKILL_MAX];
-    bool group_chosen[SKILL_GROUP_MAX];
+    bool *skill_chosen; /* skill_count entries (heap) */
+    bool *group_chosen; /* skill_group_count entries (heap) */
     OBJ_RECYCLE_T rec_data;
 };
 
@@ -1092,19 +1094,19 @@ struct skill_class_type
 /* Skills include spells as a particular case. */
 struct skill_type
 {
-    char *name;                       /* Name of skill               */
-    SKILL_CLASS_T classes[CLASS_MAX]; /* Restrictions based on class */
-    SPELL_FUN *spell_fun;             /* Spell pointer (for spells)  */
-    sh_int target;                    /* Legal targets               */
-    sh_int minimum_position;          /* Position for caster / user  */
-    sh_int slot;                      /* Slot for #OBJECT loading    */
-    sh_int min_mana;                  /* Minimum mana used           */
-    sh_int beats;                     /* Waiting time after use      */
-    char *noun_damage;                /* Damage message              */
-    char *msg_off;                    /* Wear off message            */
-    char *msg_obj;                    /* Wear off message for obects */
-    int map_index;                    /* Dynamically set             */
-    int weapon_index;                 /* Dynamically set             */
+    char *name;              /* Name of skill               */
+    SKILL_CLASS_T *classes;  /* Restrictions based on class (heap, class_count entries) */
+    SPELL_FUN *spell_fun;    /* Spell pointer (for spells)  */
+    sh_int target;           /* Legal targets               */
+    sh_int minimum_position; /* Position for caster / user  */
+    sh_int slot;             /* Slot for #OBJECT loading    */
+    sh_int min_mana;         /* Minimum mana used           */
+    sh_int beats;            /* Waiting time after use      */
+    char *noun_damage;       /* Damage message              */
+    char *msg_off;           /* Wear off message            */
+    char *msg_obj;           /* Wear off message for obects */
+    int map_index;           /* Dynamically set             */
+    int weapon_index;        /* Dynamically set             */
 };
 
 struct skill_group_class_type
@@ -1115,8 +1117,9 @@ struct skill_group_class_type
 struct skill_group_type
 {
     char *name;
-    SKILL_GROUP_CLASS_T classes[CLASS_MAX];
-    char *spells[MAX_IN_GROUP];
+    SKILL_GROUP_CLASS_T *classes; /* heap, class_count entries */
+    char **spells;                /* heap, spell_count entries (null-terminated) */
+    int spell_count;              /* number of spells in group */
 };
 
 struct skill_map_type
@@ -1237,6 +1240,12 @@ struct table_type
     JSON_READ_FUN *json_read_func;
     DISPOSE_FUN *dispose_fun;
     POST_LOAD_FUN *post_load_fun;
+
+    /* Dynamic-table support. NULL for static tables. */
+    void **table_pp;                  /* e.g. (void **)&race_table */
+    int *count_p;                     /* &race_count  */
+    int *cap_p;                       /* &race_cap    */
+    void (*invalidate_max_fun)(void); /* e.g. race_invalidate_max */
 };
 
 struct portal_exit_type
@@ -1346,7 +1355,7 @@ struct song_type
 {
     char *group;
     char *name;
-    char *lyrics[MAX_SONG_LINES];
+    char **lyrics; /* heap, MAX_SONG_LINES slots (null-terminated) */
     int lines;
 };
 

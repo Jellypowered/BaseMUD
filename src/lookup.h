@@ -158,6 +158,68 @@
                    : (btype##_get)(type)->name;              \
     }
 
+/* Like SIMPLE_INDEX_BUNDLE but for heap-allocated tables that can grow
+ * beyond their original _MAX.  Uses an unbounded sentinel scan when the
+ * cache is stale, and exposes btype_invalidate_max() for post-reload use. */
+#define SIMPLE_INDEX_BUNDLE_DYNAMIC(btype, vtype)            \
+    static int btype##_max_value = -1;                       \
+    void btype##_invalidate_max(void)                        \
+    {                                                        \
+        btype##_max_value = -1;                              \
+    }                                                        \
+    static int btype##_get_max(void)                         \
+    {                                                        \
+        if (btype##_max_value != -1)                         \
+            return btype##_max_value;                        \
+        else                                                 \
+        {                                                    \
+            int i;                                           \
+            for (i = 0; btype##_table != NULL &&             \
+                        btype##_table[i].name != NULL;       \
+                 i++)                                        \
+                ;                                            \
+            btype##_max_value = i;                           \
+            return i;                                        \
+        }                                                    \
+    }                                                        \
+                                                             \
+    int btype##_lookup(const char *name)                     \
+    {                                                        \
+        SIMPLE_LOOKUP(btype##_table, name, -1, 0);           \
+    }                                                        \
+    int btype##_lookup_exact(const char *name)               \
+    {                                                        \
+        SIMPLE_LOOKUP_EXACT(btype##_table, name, -1, 0);     \
+    }                                                        \
+    const vtype *btype##_get_by_name(const char *name)       \
+    {                                                        \
+        SIMPLE_GET_BY_NAME(btype##_table, name, 0);          \
+    }                                                        \
+    const vtype *btype##_get_by_name_exact(const char *name) \
+    {                                                        \
+        SIMPLE_GET_BY_NAME_EXACT(btype##_table, name, 0);    \
+    }                                                        \
+    const vtype *btype##_get(int type)                       \
+    {                                                        \
+        return (type < 0 || type >= btype##_get_max())       \
+                   ? NULL                                    \
+                   : (btype##_table + type);                 \
+    }                                                        \
+    const char *btype##_get_name(int type)                   \
+    {                                                        \
+        return (type < 0 || type >= btype##_get_max())       \
+                   ? NULL                                    \
+                   : (btype##_get)(type)->name;              \
+    }
+
+/* Forward declarations for dynamic-table invalidators (defined in lookup.c). */
+void class_invalidate_max(void);
+void liq_invalidate_max(void);
+void pc_race_invalidate_max(void);
+void race_invalidate_max(void);
+void skill_invalidate_max(void);
+void skill_group_invalidate_max(void);
+
 /* Defines a bundle of lookup functions for elements that may start or end
  * at any value and must be referenced by an internal property for lookup. */
 #define SIMPLE_HASH_BUNDLE(btype, vtype, ref)                        \

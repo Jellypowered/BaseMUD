@@ -45,12 +45,13 @@
 #include <stdlib.h>
 
 #ifdef BASEMUD_DOTTED_LINES_IN_SKILLS
-    #define LINE_CHAR '.'
+#define LINE_CHAR '.'
 #else
-    #define LINE_CHAR ' '
+#define LINE_CHAR ' '
 #endif
 
-void do_skills_or_spells (CHAR_T *ch, char *argument, int spells) {
+void do_skills_or_spells(CHAR_T *ch, char *argument, int spells)
+{
     BUFFER_T *buffer;
     char arg[MAX_INPUT_LENGTH];
     char skill_list[MAX_LEVEL + 1][MAX_STRING_LENGTH];
@@ -63,67 +64,74 @@ void do_skills_or_spells (CHAR_T *ch, char *argument, int spells) {
     if (IS_NPC(ch))
         return;
 
-    type_str = (spells == TRUE)  ? "spells"
-             : (spells == FALSE) ? "skills"
-             :                     "abilities";
+    type_str = (spells == TRUE)    ? "spells"
+               : (spells == FALSE) ? "skills"
+                                   : "abilities";
 
     /* Parameter options. */
     if (argument[0] == '\0')
         max_lev = URANGE(1, ch->level, top_level);
-    else if (!str_cmp (argument, "all"))
+    else if (!str_cmp(argument, "all"))
         ;
-    else if (argument[0] >= '1' && argument[0] <= '9') {
-        argument = one_argument (argument, arg);
-        BAIL_IF (!is_number (arg),
-            "Please specify a valid number for level ranges.\n\r", ch);
-        max_lev = atoi (arg);
-        if (max_lev < 1 || max_lev > top_level) {
-            printf_to_char (ch, "Levels must be between 1 and %d.\n\r",
-                top_level);
+    else if (argument[0] >= '1' && argument[0] <= '9')
+    {
+        argument = one_argument(argument, arg);
+        BAIL_IF(!is_number(arg),
+                "Please specify a valid number for level ranges.\n\r", ch);
+        max_lev = atoi(arg);
+        if (max_lev < 1 || max_lev > top_level)
+        {
+            printf_to_char(ch, "Levels must be between 1 and %d.\n\r",
+                           top_level);
             return;
         }
 
-        if (argument[0] != '\0') {
-            argument = one_argument (argument, arg);
-            BAIL_IF (!is_number (arg),
-                "Please specify a valid number for level ranges.\n\r", ch);
+        if (argument[0] != '\0')
+        {
+            argument = one_argument(argument, arg);
+            BAIL_IF(!is_number(arg),
+                    "Please specify a valid number for level ranges.\n\r", ch);
             min_lev = max_lev;
-            max_lev = atoi (arg);
+            max_lev = atoi(arg);
 
-            if (max_lev < 1 || max_lev > top_level) {
-                printf_to_char (ch, "Levels must be between 1 and %d.\n\r",
-                    top_level);
+            if (max_lev < 1 || max_lev > top_level)
+            {
+                printf_to_char(ch, "Levels must be between 1 and %d.\n\r",
+                               top_level);
                 return;
             }
-            BAIL_IF (min_lev > max_lev,
-                "That would be silly.\n\r", ch);
+            BAIL_IF(min_lev > max_lev,
+                    "That would be silly.\n\r", ch);
         }
     }
     else
         prefix = argument;
 
     /* Show the skill/spell/abilities we're looking for. */
-    buffer = buf_new ();
+    buffer = buf_new();
     if (min_lev == 1 && max_lev == top_level)
-        printf_to_buf (buffer, "Showing all %s", type_str);
+        printf_to_buf(buffer, "Showing all %s", type_str);
     else if (min_lev == max_lev)
-        printf_to_buf (buffer, "Showing %s for level %d", type_str,
-            min_lev);
-    else {
-        printf_to_buf (buffer, "Showing %s between levels %d and %d",
-            type_str, min_lev, max_lev);
+        printf_to_buf(buffer, "Showing %s for level %d", type_str,
+                      min_lev);
+    else
+    {
+        printf_to_buf(buffer, "Showing %s between levels %d and %d",
+                      type_str, min_lev, max_lev);
     }
     if (prefix)
-        printf_to_buf (buffer, " that begin with '%s'", prefix);
-    buf_cat (buffer, ":\n\r");
+        printf_to_buf(buffer, " that begin with '%s'", prefix);
+    buf_cat(buffer, ":\n\r");
 
     /* initialize data */
-    for (level = min_lev; level <= max_lev; level++) {
+    for (level = min_lev; level <= max_lev; level++)
+    {
         skill_columns[level] = 0;
         skill_list[level][0] = '\0';
     }
 
-    for (sn = 0; sn < SKILL_MAX && skill_table[sn].name != NULL; sn++) {
+    for (sn = 0; sn < SKILL_MAX && skill_table[sn].name != NULL; sn++)
+    {
         int is_spell;
 
         level = skill_table[sn].classes[ch->class].level;
@@ -138,260 +146,293 @@ void do_skills_or_spells (CHAR_T *ch, char *argument, int spells) {
             continue;
 
         if (skill_list[level][0] == '\0')
-            sprintf (skill_list[level], "Level %2d: ", level);
+            sprintf(skill_list[level], "Level %2d: ", level);
         else if (++skill_columns[level] % 2 == 0)
-            strcat (skill_list[level], "\n\r          ");
+            strcat(skill_list[level], "\n\r          ");
         else
-            strcat (skill_list[level], " ");
+            strcat(skill_list[level], " ");
 
         found = TRUE;
         if (ch->level < level)
-            sprintf (buf, "%s%sn/a            ", skill_table[sn].name,
-                str_line (LINE_CHAR, 19 - strlen (skill_table[sn].name)));
-        else if (!is_spell) {
-            sprintf (buf, "%s%s%d%%           ", skill_table[sn].name,
-                str_line (LINE_CHAR, 19 - strlen (skill_table[sn].name) +
-                    (3 - int_str_len (ch->pcdata->learned[sn]))),
-                ch->pcdata->learned[sn]);
+            sprintf(buf, "%s%sn/a            ", skill_table[sn].name,
+                    str_line(LINE_CHAR, 19 - strlen(skill_table[sn].name)));
+        else if (!is_spell)
+        {
+            sprintf(buf, "%s%s%d%%           ", skill_table[sn].name,
+                    str_line(LINE_CHAR, 19 - strlen(skill_table[sn].name) +
+                                            (3 - int_str_len(ch->pcdata->learned[sn]))),
+                    ch->pcdata->learned[sn]);
         }
-        else if (is_spell) {
-            int mana = UMAX (skill_table[sn].min_mana,
-                         100 / (2 + ch->level - level));
-            sprintf (buf, "%s%s%d%% (%3d mana)", skill_table[sn].name,
-                str_line (LINE_CHAR, 19 - strlen (skill_table[sn].name) +
-                    (3 - int_str_len (ch->pcdata->learned[sn]))),
-                ch->pcdata->learned[sn], mana);
+        else if (is_spell)
+        {
+            int mana = UMAX(skill_table[sn].min_mana,
+                            100 / (2 + ch->level - level));
+            sprintf(buf, "%s%s%d%% (%3d mana)", skill_table[sn].name,
+                    str_line(LINE_CHAR, 19 - strlen(skill_table[sn].name) +
+                                            (3 - int_str_len(ch->pcdata->learned[sn]))),
+                    ch->pcdata->learned[sn], mana);
         }
-        strcat (skill_list[level], buf);
+        strcat(skill_list[level], buf);
     }
 
     /* return results */
     if (!found)
-        printf_to_buf (buffer, "No %s found.\n\r", type_str);
-    else {
-        for (level = min_lev; level <= max_lev; level++) {
-            if (skill_list[level][0] != '\0') {
-                buf_cat (buffer, skill_list[level]);
-                buf_cat (buffer, "\n\r");
+        printf_to_buf(buffer, "No %s found.\n\r", type_str);
+    else
+    {
+        for (level = min_lev; level <= max_lev; level++)
+        {
+            if (skill_list[level][0] != '\0')
+            {
+                buf_cat(buffer, skill_list[level]);
+                buf_cat(buffer, "\n\r");
             }
         }
     }
 
-    page_to_char (buf_string (buffer), ch);
-    buf_free (buffer);
+    page_to_char(buf_string(buffer), ch);
+    buf_free(buffer);
 }
 
 /* used to get new skills */
-DEFINE_DO_FUN (do_gain) {
+DEFINE_DO_FUN(do_gain)
+{
     char arg[MAX_INPUT_LENGTH];
     CHAR_T *trainer;
     int num;
 
-    if (IS_NPC (ch))
+    if (IS_NPC(ch))
         return;
-    BAIL_IF ((trainer = char_get_trainer_room (ch)) == NULL,
-        "You can't do that here.\n\r", ch);
-    BAIL_IF (!char_can_see_in_room (ch, trainer),
-        "You can't do that here.\n\r", ch);
+    BAIL_IF((trainer = char_get_trainer_room(ch)) == NULL,
+            "You can't do that here.\n\r", ch);
+    BAIL_IF(!char_can_see_in_room(ch, trainer),
+            "You can't do that here.\n\r", ch);
 
-    one_argument (argument, arg);
-    BAIL_IF_ACT (arg[0] == '\0',
-        "$N tells you 'Pardon me?'", ch, NULL, trainer);
+    one_argument(argument, arg);
+    BAIL_IF_ACT(arg[0] == '\0',
+                "$N tells you 'Pardon me?'", ch, NULL, trainer);
 
-    if (!str_prefix (arg, "list")) {
-        player_list_skills_and_groups (ch, FALSE);
+    if (!str_prefix(arg, "list"))
+    {
+        player_list_skills_and_groups(ch, FALSE);
         return;
     }
 
-    if (!str_prefix (arg, "convert")) {
-        BAIL_IF_ACT (ch->practice < 10,
-            "$N tells you 'You are not yet ready.'", ch, NULL, trainer);
+    if (!str_prefix(arg, "convert"))
+    {
+        BAIL_IF_ACT(ch->practice < 10,
+                    "$N tells you 'You are not yet ready.'", ch, NULL, trainer);
 
-        act ("$N helps you apply your practice to training.",
-             ch, NULL, trainer, TO_CHAR);
+        act("$N helps you apply your practice to training.",
+            ch, NULL, trainer, TO_CHAR);
         ch->practice -= 10;
         ch->train += 1;
         return;
     }
 
-    if (!str_prefix (arg, "points")) {
-        BAIL_IF_ACT (ch->train < 2,
-            "$N tells you 'You are not yet ready.'", ch, NULL, trainer);
-        BAIL_IF_ACT (ch->pcdata->creation_points <= 40,
-            "$N tells you 'There would be no point in that.'", ch, NULL, trainer);
+    if (!str_prefix(arg, "points"))
+    {
+        BAIL_IF_ACT(ch->train < 2,
+                    "$N tells you 'You are not yet ready.'", ch, NULL, trainer);
+        BAIL_IF_ACT(ch->pcdata->creation_points <= 40,
+                    "$N tells you 'There would be no point in that.'", ch, NULL, trainer);
 
-        act ("$N trains you, and you feel more at ease with your skills.",
-             ch, NULL, trainer, TO_CHAR);
+        act("$N trains you, and you feel more at ease with your skills.",
+            ch, NULL, trainer, TO_CHAR);
         ch->train -= 2;
         ch->pcdata->creation_points -= 1;
-        ch->exp = player_get_exp_per_level (ch) * ch->level;
+        ch->exp = player_get_exp_per_level(ch) * ch->level;
         return;
     }
 
     /* else add a group/skill */
-    num = skill_group_lookup (argument);
-    if (num >= 0) {
-        const SKILL_GROUP_T *group = skill_group_get (num);
-        BAIL_IF_ACT (ch->pcdata->group_known[num],
-            "$N tells you 'You already know that group!'", ch, NULL, trainer);
-        BAIL_IF_ACT (group->classes[ch->class].cost <= 0,
-            "$N tells you 'That group is beyond your powers.'", ch, NULL, trainer);
-        BAIL_IF_ACT (ch->train < group->classes[ch->class].cost,
-            "$N tells you 'You are not yet ready for that group.'", ch, NULL, trainer);
+    num = skill_group_lookup(argument);
+    if (num >= 0)
+    {
+        const SKILL_GROUP_T *group = skill_group_get(num);
+        BAIL_IF_ACT(ch->pcdata->group_known[num],
+                    "$N tells you 'You already know that group!'", ch, NULL, trainer);
+        BAIL_IF_ACT(group->classes[ch->class].cost <= 0,
+                    "$N tells you 'That group is beyond your powers.'", ch, NULL, trainer);
+        BAIL_IF_ACT(ch->train < group->classes[ch->class].cost,
+                    "$N tells you 'You are not yet ready for that group.'", ch, NULL, trainer);
 
         /* add the group */
-        player_add_skill_group (ch, num, FALSE);
-        act ("$N trains you in the art of $t.", ch, group->name, trainer, TO_CHAR);
+        player_add_skill_group(ch, num, FALSE);
+        act("$N trains you in the art of $t.", ch, group->name, trainer, TO_CHAR);
         ch->train -= group->classes[ch->class].cost;
         return;
     }
 
-    num = skill_lookup (argument);
-    if (num >= 1) {
-        const SKILL_T *skill = skill_get (num);
-        BAIL_IF_ACT (skill->spell_fun != spell_null,
-            "$N tells you 'You must learn the full group.'", ch, NULL, trainer);
-        BAIL_IF_ACT (ch->pcdata->learned[num],
-            "$N tells you 'You already know that skill!'", ch, NULL, trainer);
-        BAIL_IF_ACT (skill->classes[ch->class].effort <= 0,
-            "$N tells you 'That skill is beyond your powers.'", ch, NULL, trainer);
-        BAIL_IF_ACT (ch->train < skill->classes[ch->class].effort,
-            "$N tells you 'You are not yet ready for that skill.'", ch, NULL, trainer);
+    num = skill_lookup(argument);
+    if (num >= 1)
+    {
+        const SKILL_T *skill = skill_get(num);
+        BAIL_IF_ACT(skill->spell_fun != spell_null,
+                    "$N tells you 'You must learn the full group.'", ch, NULL, trainer);
+        BAIL_IF_ACT(ch->pcdata->learned[num],
+                    "$N tells you 'You already know that skill!'", ch, NULL, trainer);
+        BAIL_IF_ACT(skill->classes[ch->class].effort <= 0,
+                    "$N tells you 'That skill is beyond your powers.'", ch, NULL, trainer);
+        BAIL_IF_ACT(ch->train < skill->classes[ch->class].effort,
+                    "$N tells you 'You are not yet ready for that skill.'", ch, NULL, trainer);
 
         /* add the skill */
         ch->pcdata->learned[num] = 1;
-        act ("$N trains you in the art of $t.", ch, skill->name, trainer, TO_CHAR);
+        act("$N trains you in the art of $t.", ch, skill->name, trainer, TO_CHAR);
         ch->train -= skill->classes[ch->class].effort;
         return;
     }
 
-    act ("$N tells you 'I do not understand...'", ch, NULL, trainer, TO_CHAR);
+    act("$N tells you 'I do not understand...'", ch, NULL, trainer, TO_CHAR);
 }
 
-DEFINE_DO_FUN (do_skills)
-    { do_skills_or_spells (ch, argument, FALSE); }
-DEFINE_DO_FUN (do_spells)
-    { do_skills_or_spells (ch, argument, TRUE); }
-DEFINE_DO_FUN (do_abilities)
-    { do_skills_or_spells (ch, argument, -1); }
+DEFINE_DO_FUN(do_skills)
+{
+    do_skills_or_spells(ch, argument, FALSE);
+}
+DEFINE_DO_FUN(do_spells)
+{
+    do_skills_or_spells(ch, argument, TRUE);
+}
+DEFINE_DO_FUN(do_abilities)
+{
+    do_skills_or_spells(ch, argument, -1);
+}
 
 /* shows all groups, or the sub-members of a group */
-DEFINE_DO_FUN (do_groups) {
+DEFINE_DO_FUN(do_groups)
+{
     const SKILL_GROUP_T *group;
     int num, col;
-    if (IS_NPC (ch))
+    if (IS_NPC(ch))
         return;
 
     /* show all groups */
-    if (argument[0] == '\0') {
+    if (argument[0] == '\0')
+    {
         col = 0;
-        for (num = 0; num < SKILL_GROUP_MAX; num++) {
-            if ((group = skill_group_get (num)) == NULL || group->name == NULL)
+        for (num = 0; num < SKILL_GROUP_MAX; num++)
+        {
+            if ((group = skill_group_get(num)) == NULL || group->name == NULL)
                 break;
             if (!ch->pcdata->group_known[num])
                 continue;
 
-            printf_to_char (ch, "%-20s ", group->name);
+            printf_to_char(ch, "%-20s ", group->name);
             if (++col % 3 == 0)
-                send_to_char ("\n\r", ch);
+                send_to_char("\n\r", ch);
         }
         if (col % 3 != 0)
-            send_to_char ("\n\r", ch);
-        printf_to_char (ch, "Creation points: %d\n\r",
-            ch->pcdata->creation_points);
+            send_to_char("\n\r", ch);
+        printf_to_char(ch, "Creation points: %d\n\r",
+                       ch->pcdata->creation_points);
         return;
     }
 
     /* show all groups */
-    if (!str_cmp (argument, "all")) {
+    if (!str_cmp(argument, "all"))
+    {
         col = 0;
-        for (num = 0; num < SKILL_GROUP_MAX; num++) {
-            if ((group = skill_group_get (num)) == NULL || group->name == NULL)
+        for (num = 0; num < SKILL_GROUP_MAX; num++)
+        {
+            if ((group = skill_group_get(num)) == NULL || group->name == NULL)
                 break;
-            printf_to_char (ch, "%-20s ", group->name);
+            printf_to_char(ch, "%-20s ", group->name);
             if (++col % 3 == 0)
-                send_to_char ("\n\r", ch);
+                send_to_char("\n\r", ch);
         }
         if (col % 3 != 0)
-            send_to_char ("\n\r", ch);
+            send_to_char("\n\r", ch);
         return;
     }
 
     /* show the sub-members of a group */
-    num = skill_group_lookup (argument);
-    if (num < 0) {
-        send_to_char (
+    num = skill_group_lookup(argument);
+    if (num < 0)
+    {
+        send_to_char(
             "No group of that name exist.\n\r"
-            "Type 'groups all' or 'info all' for a full listing.\n\r", ch);
+            "Type 'groups all' or 'info all' for a full listing.\n\r",
+            ch);
         return;
     }
-    group = skill_group_get (num);
+    group = skill_group_get(num);
 
     col = 0;
-    for (num = 0; num < MAX_IN_GROUP && group->spells[num] != NULL; num++) {
-        printf_to_char (ch, "%-20s ", group->spells[num]);
+    for (num = 0; num < group->spell_count && group->spells[num] != NULL; num++)
+    {
+        printf_to_char(ch, "%-20s ", group->spells[num]);
         if (++col % 3 == 0)
-            send_to_char ("\n\r", ch);
+            send_to_char("\n\r", ch);
     }
     if (col % 3 != 0)
-        send_to_char ("\n\r", ch);
+        send_to_char("\n\r", ch);
 }
 
-DEFINE_DO_FUN (do_train) {
+DEFINE_DO_FUN(do_train)
+{
     const TRAIN_STAT_T *ts;
     int cost;
 
-    if (IS_NPC (ch))
+    if (IS_NPC(ch))
         return;
 
     /* Check for trainer. */
-    BAIL_IF (char_get_trainer_room (ch) == NULL,
-        "You can't do that here.\n\r", ch);
+    BAIL_IF(char_get_trainer_room(ch) == NULL,
+            "You can't do that here.\n\r", ch);
 
     /* If no argument was provided, always show the stats available. */
-    if (argument[0] == '\0') {
-        printf_to_char (ch, "You have %d training sessions.\n\r", ch->train);
+    if (argument[0] == '\0')
+    {
+        printf_to_char(ch, "You have %d training sessions.\n\r", ch->train);
         ts = NULL;
     }
     /* Otherwise, does the argument correspond to a stat? */
-    else {
+    else
+    {
         for (ts = &(train_stat_table[0]); ts->keyword != NULL; ts++)
-            if (!str_cmp (argument, ts->keyword))
+            if (!str_cmp(argument, ts->keyword))
                 break;
     }
 
     /* No keyword matched - show a list of trainable stats. */
-    if (ts == NULL || ts->keyword == NULL) {
+    if (ts == NULL || ts->keyword == NULL)
+    {
         char buf[MAX_STRING_LENGTH];
-        strcpy (buf, "You can train:");
+        strcpy(buf, "You can train:");
 
-        for (ts = &(train_stat_table[0]); ts->keyword != NULL; ts++) {
+        for (ts = &(train_stat_table[0]); ts->keyword != NULL; ts++)
+        {
             if (ts->can_func && !ts->can_func(ch, ts, TRUE))
                 continue;
 
             char buf2[16];
             snprintf(buf2, sizeof(buf2), " %s", ts->keyword);
-            strcat (buf, buf2);
+            strcat(buf, buf2);
         }
 
-        if (buf[strlen(buf) - 1] != ':') {
-            strcat (buf, ".\n\r");
-            send_to_char (buf, ch);
+        if (buf[strlen(buf) - 1] != ':')
+        {
+            strcat(buf, ".\n\r");
+            send_to_char(buf, ch);
         }
-        else {
+        else
+        {
             /* This message dedicated to Jordan ... you big stud! */
-            act ("You have nothing left to train, you $T!",
-                 ch, NULL,
-                 (ch->sex == SEX_MALE) ? "big stud" :
-                 (ch->sex == SEX_FEMALE) ? "hot babe" : "wild thing", TO_CHAR);
+            act("You have nothing left to train, you $T!",
+                ch, NULL,
+                (ch->sex == SEX_MALE) ? "big stud" : (ch->sex == SEX_FEMALE) ? "hot babe"
+                                                                             : "wild thing",
+                TO_CHAR);
         }
         return;
     }
 
     /* Determine skill cost. */
     cost = ts->cost_func ? ts->cost_func(ch, ts, FALSE) : 1;
-    BAIL_IF (cost > ch->train,
-        "You don't have enough training sessions.\n\r", ch);
+    BAIL_IF(cost > ch->train,
+            "You don't have enough training sessions.\n\r", ch);
 
     /* Check any other requirements. */
     if (ts->can_func && !ts->can_func(ch, ts, FALSE))
@@ -402,61 +443,73 @@ DEFINE_DO_FUN (do_train) {
     ts->do_func(ch, ts, FALSE);
 }
 
-DEFINE_TRAIN_STAT_FUN (train_stat_cost_stat) {
+DEFINE_TRAIN_STAT_FUN(train_stat_cost_stat)
+{
     /* OPTIONAL: to make a non-primary stat cost more training sessions,
                  increase the second number! */
     return (class_table[ch->class].attr_prime == ts->func_param) ? 1 : 1;
 }
 
-DEFINE_TRAIN_STAT_FUN (train_stat_can_stat) {
+DEFINE_TRAIN_STAT_FUN(train_stat_can_stat)
+{
     int stat = ts->func_param;
-    if (ch->perm_stat[stat] >= char_get_max_train (ch, stat)) {
+    if (ch->perm_stat[stat] >= char_get_max_train(ch, stat))
+    {
         if (!silent)
-            act ("Your $T is already at maximum.", ch, NULL, ts->name, TO_CHAR);
+            act("Your $T is already at maximum.", ch, NULL, ts->name, TO_CHAR);
         return 0;
     }
     return 1;
 }
 
-DEFINE_TRAIN_STAT_FUN (train_stat_do_stat) {
+DEFINE_TRAIN_STAT_FUN(train_stat_do_stat)
+{
     ch->perm_stat[ts->func_param] += 1;
 
-    if (!silent) {
-        act ("Your $T increases!", ch, NULL, ts->name, TO_CHAR);
-        act ("$n's $T increases!", ch, NULL, ts->name, TO_NOTCHAR);
+    if (!silent)
+    {
+        act("Your $T increases!", ch, NULL, ts->name, TO_CHAR);
+        act("$n's $T increases!", ch, NULL, ts->name, TO_NOTCHAR);
     }
     return 0;
 }
 
-DEFINE_TRAIN_STAT_FUN (train_stat_do_hp_mana) {
-    if (ts->func_param == 0) {
+DEFINE_TRAIN_STAT_FUN(train_stat_do_hp_mana)
+{
+    if (ts->func_param == 0)
+    {
         ch->pcdata->perm_hit += 10;
         ch->max_hit += 10;
         ch->hit += 10;
     }
-    else {
+    else
+    {
         ch->pcdata->perm_mana += 10;
         ch->max_mana += 10;
         ch->mana += 10;
     }
-    if (!silent) {
-        act ("Your $T increases!", ch, NULL, ts->name, TO_CHAR);
-        act ("$n's $T increases!", ch, NULL, ts->name, TO_NOTCHAR);
+    if (!silent)
+    {
+        act("Your $T increases!", ch, NULL, ts->name, TO_CHAR);
+        act("$n's $T increases!", ch, NULL, ts->name, TO_NOTCHAR);
     }
     return 0;
 }
 
-DEFINE_DO_FUN (do_practice) {
+DEFINE_DO_FUN(do_practice)
+{
     int sn, level, col, rating;
     CHAR_T *mob;
     int adept, top_level = UMAX(LEVEL_HERO, ch->level);
 
-    if (IS_NPC (ch))
+    if (IS_NPC(ch))
         return;
 
-    if (argument[0] == '\0') {
+    if (argument[0] == '\0')
+    {
         col = 0;
-        for (sn = 0; sn < SKILL_MAX && skill_table[sn].name != NULL; sn++) {
+        for (sn = 0; sn < SKILL_MAX && skill_table[sn].name != NULL; sn++)
+        {
             level = skill_table[sn].classes[ch->class].level;
             if (level < 1 || level > top_level)
                 continue;
@@ -465,68 +518,73 @@ DEFINE_DO_FUN (do_practice) {
             if (!IS_IMMORTAL(ch) && ch->pcdata->learned[sn] < 1)
                 continue;
 
-            printf_to_char (ch, "%s%s%d%%  ", skill_table[sn].name,
-                str_line (LINE_CHAR, 19 - strlen (skill_table[sn].name) +
-                    (3 - int_str_len (ch->pcdata->learned[sn]))),
-                ch->pcdata->learned[sn]);
+            printf_to_char(ch, "%s%s%d%%  ", skill_table[sn].name,
+                           str_line(LINE_CHAR, 19 - strlen(skill_table[sn].name) +
+                                                   (3 - int_str_len(ch->pcdata->learned[sn]))),
+                           ch->pcdata->learned[sn]);
             if (++col % 3 == 0)
-                send_to_char ("\n\r", ch);
+                send_to_char("\n\r", ch);
         }
 
         if (col % 3 != 0)
-            send_to_char ("\n\r", ch);
+            send_to_char("\n\r", ch);
 
-        printf_to_char (ch, "You have %d practice sessions left.\n\r",
-            ch->practice);
+        printf_to_char(ch, "You have %d practice sessions left.\n\r",
+                       ch->practice);
         return;
     }
 
-    BAIL_IF (!IS_AWAKE (ch),
-        "In your dreams, or what?\n\r", ch);
-    BAIL_IF ((mob = char_get_practicer_room (ch)) == NULL,
-        "You can't do that here.\n\r", ch);
+    BAIL_IF(!IS_AWAKE(ch),
+            "In your dreams, or what?\n\r", ch);
+    BAIL_IF((mob = char_get_practicer_room(ch)) == NULL,
+            "You can't do that here.\n\r", ch);
 
-    sn = find_spell (ch, argument);
-    BAIL_IF (sn < 0 || sn >= SKILL_MAX || skill_table[sn].name == NULL,
-        "Practice what now?\n\r", ch);
+    sn = find_spell(ch, argument);
+    BAIL_IF(sn < 0 || sn >= SKILL_MAX || skill_table[sn].name == NULL,
+            "Practice what now?\n\r", ch);
 
     level = skill_table[sn].classes[ch->class].level;
-    BAIL_IF (level < 1 || level > top_level,
-        "Practice what now?\n\r", ch);
-
-    if (!IS_IMMORTAL (ch)) {
-        BAIL_IF ((ch->pcdata->learned[sn] < 1 ||
-                skill_table[sn].classes[ch->class].effort == 0),
+    BAIL_IF(level < 1 || level > top_level,
             "Practice what now?\n\r", ch);
-        BAIL_IF (ch->level < skill_table[sn].classes[ch->class].level,
-            "You can't practice that yet.\n\r", ch);
+
+    if (!IS_IMMORTAL(ch))
+    {
+        BAIL_IF((ch->pcdata->learned[sn] < 1 ||
+                 skill_table[sn].classes[ch->class].effort == 0),
+                "Practice what now?\n\r", ch);
+        BAIL_IF(ch->level < skill_table[sn].classes[ch->class].level,
+                "You can't practice that yet.\n\r", ch);
     }
 
-    adept = IS_NPC (ch) ? 100 : class_table[ch->class].skill_adept;
-    if (ch->pcdata->learned[sn] >= adept) {
-        printf_to_char (ch, "You are already learned at %s.\n\r",
-            skill_table[sn].name);
+    adept = IS_NPC(ch) ? 100 : class_table[ch->class].skill_adept;
+    if (ch->pcdata->learned[sn] >= adept)
+    {
+        printf_to_char(ch, "You are already learned at %s.\n\r",
+                       skill_table[sn].name);
         return;
     }
 
-    BAIL_IF (ch->practice <= 0,
-        "You have no practice sessions left.\n\r", ch);
+    BAIL_IF(ch->practice <= 0,
+            "You have no practice sessions left.\n\r", ch);
 
     ch->practice--;
     rating = skill_table[sn].classes[ch->class].effort;
-    ch->pcdata->learned[sn] += char_int_learn_rate (ch) / UMAX (1, rating);
-    if (ch->pcdata->learned[sn] < adept) {
-        act2 ("You practice $T.", "$n practices $T.",
-            ch, NULL, skill_table[sn].name, 0, POS_RESTING);
+    ch->pcdata->learned[sn] += char_int_learn_rate(ch) / UMAX(1, rating);
+    if (ch->pcdata->learned[sn] < adept)
+    {
+        act2("You practice $T.", "$n practices $T.",
+             ch, NULL, skill_table[sn].name, 0, POS_RESTING);
     }
-    else {
+    else
+    {
         ch->pcdata->learned[sn] = adept;
-        act2 ("You are now learned at $T.", "$n is now learned at $T.",
-            ch, NULL, skill_table[sn].name, 0, POS_RESTING);
+        act2("You are now learned at $T.", "$n is now learned at $T.",
+             ch, NULL, skill_table[sn].name, 0, POS_RESTING);
     }
 }
 
-DEFINE_DO_FUN (do_cast) {
+DEFINE_DO_FUN(do_cast)
+{
     char *target_name;
     char arg1[MAX_INPUT_LENGTH];
     char arg2[MAX_INPUT_LENGTH];
@@ -538,33 +596,31 @@ DEFINE_DO_FUN (do_cast) {
     int target;
 
     /* Switched NPC's can cast spells, but others can't. */
-    if (IS_NPC (ch) && ch->desc == NULL)
+    if (IS_NPC(ch) && ch->desc == NULL)
         return;
 
-    target_name = one_argument (argument, arg1);
-    BAIL_IF (arg1[0] == '\0',
-        "Cast which what where?\n\r", ch);
-    one_argument (target_name, arg2);
+    target_name = one_argument(argument, arg1);
+    BAIL_IF(arg1[0] == '\0',
+            "Cast which what where?\n\r", ch);
+    one_argument(target_name, arg2);
 
-    BAIL_IF ((sn = find_spell (ch, arg1)) < 1,
-        "You don't know any spells of that name.\n\r", ch);
-    BAIL_IF (skill_table[sn].spell_fun == spell_null,
-        "You don't know any spells of that name.\n\r", ch);
-    BAIL_IF (!IS_NPC (ch) && !IS_IMMORTAL(ch) && (
-            ch->level < skill_table[sn].classes[ch->class].level ||
-            ch-> pcdata->learned[sn] == 0),
-        "You don't know any spells of that name.\n\r", ch);
+    BAIL_IF((sn = find_spell(ch, arg1)) < 1,
+            "You don't know any spells of that name.\n\r", ch);
+    BAIL_IF(skill_table[sn].spell_fun == spell_null,
+            "You don't know any spells of that name.\n\r", ch);
+    BAIL_IF(!IS_NPC(ch) && !IS_IMMORTAL(ch) && (ch->level < skill_table[sn].classes[ch->class].level || ch->pcdata->learned[sn] == 0),
+            "You don't know any spells of that name.\n\r", ch);
 
-    BAIL_IF (ch->position < skill_table[sn].minimum_position,
-        "You can't concentrate enough.\n\r", ch);
+    BAIL_IF(ch->position < skill_table[sn].minimum_position,
+            "You can't concentrate enough.\n\r", ch);
 
-    if (IS_NPC (ch))
+    if (IS_NPC(ch))
         mana = 25;
     else if (ch->level + 2 == skill_table[sn].classes[ch->class].level)
         mana = 50;
     else
-        mana = UMAX (skill_table[sn].min_mana, 100 / (2 + ch->level -
-                        skill_table[sn].classes[ch->class].level));
+        mana = UMAX(skill_table[sn].min_mana, 100 / (2 + ch->level -
+                                                     skill_table[sn].classes[ch->class].level));
 
     /* Locate targets. */
     victim = NULL;
@@ -572,139 +628,155 @@ DEFINE_DO_FUN (do_cast) {
     vo = NULL;
     target = TARGET_NONE;
 
-    switch (skill_table[sn].target) {
-        case SKILL_TARGET_IGNORE:
-            break;
+    switch (skill_table[sn].target)
+    {
+    case SKILL_TARGET_IGNORE:
+        break;
 
-        case SKILL_TARGET_CHAR_OFFENSIVE:
-            if (arg2[0] == '\0') {
-                BAIL_IF ((victim = ch->fighting) == NULL,
+    case SKILL_TARGET_CHAR_OFFENSIVE:
+        if (arg2[0] == '\0')
+        {
+            BAIL_IF((victim = ch->fighting) == NULL,
                     "Cast the spell on whom?\n\r", ch);
-            }
-            else {
-                BAIL_IF ((victim = find_char_same_room (ch, target_name)) == NULL,
+        }
+        else
+        {
+            BAIL_IF((victim = find_char_same_room(ch, target_name)) == NULL,
                     "They aren't here.\n\r", ch);
-            }
-            if (!IS_NPC (ch)) {
-                if (victim != ch && do_filter_can_attack (ch, victim))
-                    return;
-                check_killer (ch, victim);
-            }
-            BAIL_IF (IS_AFFECTED (ch, AFF_CHARM) && ch->master == victim,
+        }
+        if (!IS_NPC(ch))
+        {
+            if (victim != ch && do_filter_can_attack(ch, victim))
+                return;
+            check_killer(ch, victim);
+        }
+        BAIL_IF(IS_AFFECTED(ch, AFF_CHARM) && ch->master == victim,
                 "You can't do that on your own follower.\n\r", ch);
-            vo = (void *) victim;
-            target = TARGET_CHAR;
-            break;
+        vo = (void *)victim;
+        target = TARGET_CHAR;
+        break;
 
-        case SKILL_TARGET_CHAR_DEFENSIVE:
-            if (arg2[0] == '\0')
-                victim = ch;
-            else {
-                BAIL_IF ((victim = find_char_same_room (ch, target_name)) == NULL,
+    case SKILL_TARGET_CHAR_DEFENSIVE:
+        if (arg2[0] == '\0')
+            victim = ch;
+        else
+        {
+            BAIL_IF((victim = find_char_same_room(ch, target_name)) == NULL,
                     "They aren't here.\n\r", ch);
-            }
-            vo = (void *) victim;
-            target = TARGET_CHAR;
-            break;
+        }
+        vo = (void *)victim;
+        target = TARGET_CHAR;
+        break;
 
-        case SKILL_TARGET_CHAR_SELF:
-            BAIL_IF (arg2[0] != '\0' && !str_in_namelist (target_name, ch->name),
+    case SKILL_TARGET_CHAR_SELF:
+        BAIL_IF(arg2[0] != '\0' && !str_in_namelist(target_name, ch->name),
                 "You cannot cast this spell on another.\n\r", ch);
-            vo = (void *) ch;
-            target = TARGET_CHAR;
-            break;
+        vo = (void *)ch;
+        target = TARGET_CHAR;
+        break;
 
-        case SKILL_TARGET_OBJ_INV:
-            BAIL_IF (arg2[0] == '\0',
+    case SKILL_TARGET_OBJ_INV:
+        BAIL_IF(arg2[0] == '\0',
                 "What should the spell be cast upon?\n\r", ch);
-            BAIL_IF ((obj = find_obj_own_inventory (ch, target_name)) == NULL,
+        BAIL_IF((obj = find_obj_own_inventory(ch, target_name)) == NULL,
                 "You are not carrying that.\n\r", ch);
-            vo = (void *) obj;
-            target = TARGET_OBJ;
-            break;
+        vo = (void *)obj;
+        target = TARGET_OBJ;
+        break;
 
-        case SKILL_TARGET_OBJ_CHAR_OFF:
-            if (arg2[0] == '\0') {
-                BAIL_IF ((victim = ch->fighting) == NULL,
+    case SKILL_TARGET_OBJ_CHAR_OFF:
+        if (arg2[0] == '\0')
+        {
+            BAIL_IF((victim = ch->fighting) == NULL,
                     "Cast the spell on whom or what?\n\r", ch);
-                target = TARGET_CHAR;
-            }
-            else if ((victim = find_char_same_room (ch, target_name)) != NULL)
-                target = TARGET_CHAR;
+            target = TARGET_CHAR;
+        }
+        else if ((victim = find_char_same_room(ch, target_name)) != NULL)
+            target = TARGET_CHAR;
 
-            /* check the sanity of the attack */
-            if (target == TARGET_CHAR) {
-                if (victim != ch && do_filter_can_attack_spell (
-                        ch, victim, FALSE))
-                    return;
-                BAIL_IF (IS_AFFECTED (ch, AFF_CHARM) && ch->master == victim,
+        /* check the sanity of the attack */
+        if (target == TARGET_CHAR)
+        {
+            if (victim != ch && do_filter_can_attack_spell(
+                                    ch, victim, FALSE))
+                return;
+            BAIL_IF(IS_AFFECTED(ch, AFF_CHARM) && ch->master == victim,
                     "You can't do that on your own follower.\n\r", ch);
-                if (!IS_NPC (ch))
-                    check_killer (ch, victim);
-                vo = (void *) victim;
-            }
-            else if ((obj = find_obj_here (ch, target_name)) != NULL) {
-                vo = (void *) obj;
-                target = TARGET_OBJ;
-            }
-            else {
-                send_to_char ("You don't see that here.\n\r", ch);
-                return;
-            }
-            break;
-
-        case SKILL_TARGET_OBJ_CHAR_DEF:
-            if (arg2[0] == '\0') {
-                victim = ch;
-                vo = (void *) ch;
-                target = TARGET_CHAR;
-            }
-            else if ((victim = find_char_same_room (ch, target_name)) != NULL) {
-                vo = (void *) victim;
-                target = TARGET_CHAR;
-            }
-            else if ((obj = find_obj_own_inventory (ch, target_name)) != NULL) {
-                vo = (void *) obj;
-                target = TARGET_OBJ;
-            }
-            else {
-                send_to_char ("You don't see that here.\n\r", ch);
-                return;
-            }
-            break;
-
-        default:
-            bug ("do_cast: bad target for sn %d.", sn);
+            if (!IS_NPC(ch))
+                check_killer(ch, victim);
+            vo = (void *)victim;
+        }
+        else if ((obj = find_obj_here(ch, target_name)) != NULL)
+        {
+            vo = (void *)obj;
+            target = TARGET_OBJ;
+        }
+        else
+        {
+            send_to_char("You don't see that here.\n\r", ch);
             return;
+        }
+        break;
+
+    case SKILL_TARGET_OBJ_CHAR_DEF:
+        if (arg2[0] == '\0')
+        {
+            victim = ch;
+            vo = (void *)ch;
+            target = TARGET_CHAR;
+        }
+        else if ((victim = find_char_same_room(ch, target_name)) != NULL)
+        {
+            vo = (void *)victim;
+            target = TARGET_CHAR;
+        }
+        else if ((obj = find_obj_own_inventory(ch, target_name)) != NULL)
+        {
+            vo = (void *)obj;
+            target = TARGET_OBJ;
+        }
+        else
+        {
+            send_to_char("You don't see that here.\n\r", ch);
+            return;
+        }
+        break;
+
+    default:
+        bug("do_cast: bad target for sn %d.", sn);
+        return;
     }
 
-    BAIL_IF (!IS_NPC (ch) && ch->mana < mana,
-        "You don't have enough mana.\n\r", ch);
+    BAIL_IF(!IS_NPC(ch) && ch->mana < mana,
+            "You don't have enough mana.\n\r", ch);
 
-    if (str_cmp (skill_table[sn].name, "ventriloquate"))
-        say_spell (ch, sn, IS_NPC (ch)
-            ? class_lookup_exact ("mage") : ch->class);
+    if (str_cmp(skill_table[sn].name, "ventriloquate"))
+        say_spell(ch, sn, IS_NPC(ch) ? class_lookup_exact("mage") : ch->class);
 
-    WAIT_STATE (ch, skill_table[sn].beats);
+    WAIT_STATE(ch, skill_table[sn].beats);
 
-    if (number_percent () > char_get_skill (ch, sn)) {
-        send_to_char ("You lost your concentration.\n\r", ch);
-        player_try_skill_improve (ch, sn, FALSE, 1);
+    if (number_percent() > char_get_skill(ch, sn))
+    {
+        send_to_char("You lost your concentration.\n\r", ch);
+        player_try_skill_improve(ch, sn, FALSE, 1);
         ch->mana -= mana / 2;
     }
-    else {
+    else
+    {
         ch->mana -= mana;
-        if (IS_NPC (ch) || class_table[ch->class].gains_mana) {
+        if (IS_NPC(ch) || class_table[ch->class].gains_mana)
+        {
             /* class has spells */
-            (*skill_table[sn].spell_fun) (sn, ch->level, ch, vo, target,
-                target_name);
+            (*skill_table[sn].spell_fun)(sn, ch->level, ch, vo, target,
+                                         target_name);
         }
-        else {
-            (*skill_table[sn].spell_fun) (sn, ch->level * 3 / 4, ch, vo, target,
-                target_name);
+        else
+        {
+            (*skill_table[sn].spell_fun)(sn, ch->level * 3 / 4, ch, vo, target,
+                                         target_name);
         }
-        player_try_skill_improve (ch, sn, TRUE, 1);
+        player_try_skill_improve(ch, sn, TRUE, 1);
     }
 
-    spell_fight_back_if_possible (ch, victim, sn, target);
+    spell_fight_back_if_possible(ch, victim, sn, target);
 }

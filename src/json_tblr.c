@@ -37,8 +37,23 @@
 #include "tables.h"
 #include "types.h"
 
+#include <stdlib.h>
 #include <string.h>
 
+/* Grow a heap-allocated config table.  Doubles capacity (min 16), reallocates,
+ * zeroes all slots from the old count to the new end (including sentinel). */
+void json_tblr_grow(void **table_pp, int *count_p, int *cap_p,
+                    size_t elem_size)
+{
+    int new_cap = (*cap_p < 8) ? 16 : *cap_p * 2;
+    *table_pp = realloc(*table_pp, (size_t)(new_cap + 1) * elem_size);
+    /* zero the newly-added slots plus the null sentinel */
+    memset((char *)*table_pp + (size_t)*count_p * elem_size, 0,
+           (size_t)(new_cap + 1 - *count_p) * elem_size);
+    *cap_p = new_cap;
+}
+
+/* Claim the next free slot in a static table (scan-until-null pattern). */
 #define JSON_TBLR_START(vtype, var, max, null_check)           \
     vtype *var;                                                \
                                                                \
@@ -55,6 +70,16 @@
         return NULL;                                           \
     }                                                          \
     var = &(var##_table[index]);
+
+/* Claim the next free slot in a dynamic (heap) table, growing if needed. */
+#define JSON_TBLR_START_DYNAMIC(vtype, var)                             \
+    vtype *var;                                                         \
+    if (var##_count >= var##_cap)                                       \
+        json_tblr_grow((void **)&var##_table, &var##_count, &var##_cap, \
+                       sizeof(vtype));                                  \
+    var = &(var##_table[var##_count]);                                  \
+    memset(var, 0, sizeof(vtype));                                      \
+    var##_count++;
 
 DEFINE_JSON_READ_FUN(json_tblr_str_app)
 {
@@ -313,7 +338,7 @@ DEFINE_JSON_READ_FUN(json_tblr_liq)
 {
     char buf[MAX_STRING_LENGTH];
     JSON_T *conds_node, *cond_node;
-    JSON_TBLR_START(LIQ_T, liq, LIQ_MAX, liq->name == NULL);
+    JSON_TBLR_START_DYNAMIC(LIQ_T, liq);
     if (!json_import_expect("liquid", json,
                             "name", "color_name", "conditions", "serving_size", NULL))
         return NULL;
@@ -418,7 +443,7 @@ DEFINE_JSON_READ_FUN(json_tblr_material)
 {
     char buf[MAX_STRING_LENGTH];
     const char *color_str;
-    JSON_TBLR_START(MATERIAL_T, material, MATERIAL_MAX, material->name == NULL);
+    JSON_TBLR_START_DYNAMIC(MATERIAL_T, material);
     if (!json_import_expect("material", json,
                             "type", "name", "color_char", NULL))
         return NULL;
@@ -471,7 +496,7 @@ DEFINE_JSON_READ_FUN(json_tblr_skill)
     char buf[MAX_STRING_LENGTH];
     JSON_T *array, *sub, *sub2;
 
-    JSON_TBLR_START(SKILL_T, skill, SKILL_MAX, skill->name == NULL);
+    JSON_TBLR_START_DYNAMIC(SKILL_T, skill);
 
     if (!json_import_expect("skill", json,
                             "name", "*classes",
@@ -483,6 +508,7 @@ DEFINE_JSON_READ_FUN(json_tblr_skill)
 
     READ_PROP_STRP(skill->name, "name");
 
+    skill->classes = calloc(class_count, sizeof(SKILL_CLASS_T));
     if ((array = json_get(json, "classes")) != NULL)
     {
         for (sub = array->first_child; sub != NULL; sub = sub->next)
@@ -542,9 +568,8 @@ DEFINE_JSON_READ_FUN(json_tblr_class)
 {
     char buf[MAX_STRING_LENGTH];
     JSON_T *array, *sub;
-    int i;
 
-    JSON_TBLR_START(CLASS_T, class, CLASS_MAX, class->name == NULL);
+    JSON_TBLR_START_DYNAMIC(CLASS_T, class);
 
     if (!json_import_expect("class", json,
                             "name", "who_name", "primary_stat",
@@ -559,12 +584,13 @@ DEFINE_JSON_READ_FUN(json_tblr_class)
     READ_PROP_STR(class->who_name, "who_name");
     READ_PROP_TYPE(class->attr_prime, "primary_stat", stat_types);
     READ_PROP_INT(class->weapon, "weapon");
+    class->guild = calloc(MAX_GUILD, sizeof(sh_int));
+    class->guild_count = 0;
     if ((array = json_get(json, "guild")) != NULL)
     {
-        i = 0;
-        for (sub = array->first_child; sub != NULL && i < MAX_GUILD;
+        for (sub = array->first_child; sub != NULL && class->guild_count < MAX_GUILD;
              sub = sub->next)
-            class->guild[i++] = json_value_as_int(sub);
+            class->guild[class->guild_count++] = json_value_as_int(sub);
     }
     READ_PROP_INT(class->skill_adept, "skill_adept");
     READ_PROP_INT(class->thac0_00, "thac0_00");
@@ -585,7 +611,7 @@ DEFINE_JSON_READ_FUN(json_tblr_pc_race)
     JSON_T *array, *sub;
     int i;
 
-    JSON_TBLR_START(PC_RACE_T, pc_race, PC_RACE_MAX, pc_race->name == NULL);
+    JSON_TBLR_START_DYNAMIC(PC_RACE_T, pc_race);
 
     if (!json_import_expect("pc_race", json,
                             "name", "who_name", "creation_points",
@@ -597,6 +623,8 @@ DEFINE_JSON_READ_FUN(json_tblr_pc_race)
     READ_PROP_STR(pc_race->who_name, "who_name");
     READ_PROP_INT(pc_race->creation_points, "creation_points");
 
+    pc_race->class_mult = calloc(class_count, sizeof(sh_int));
+    pc_race->skills = calloc(PC_RACE_SKILL_MAX + 1, sizeof(char *));
     for (i = 0; class_get(i) != NULL; i++)
         pc_race->class_mult[i] = 100;
     if ((array = json_get(json, "class_exp")) != NULL)
@@ -657,7 +685,7 @@ DEFINE_JSON_READ_FUN(json_tblr_pc_race)
 DEFINE_JSON_READ_FUN(json_tblr_race)
 {
     char buf[MAX_STRING_LENGTH];
-    JSON_TBLR_START(RACE_T, race, RACE_MAX, race->name == NULL);
+    JSON_TBLR_START_DYNAMIC(RACE_T, race);
 
     if (!json_import_expect("race", json,
                             "name",
@@ -685,7 +713,7 @@ DEFINE_JSON_READ_FUN(json_tblr_skill_group)
     JSON_T *array, *sub, *cost_node;
     int i;
 
-    JSON_TBLR_START(SKILL_GROUP_T, skill_group, SKILL_GROUP_MAX, skill_group->name == NULL);
+    JSON_TBLR_START_DYNAMIC(SKILL_GROUP_T, skill_group);
 
     if (!json_import_expect("skill_group", json,
                             "name", "*classes", "*skills", NULL))
@@ -693,6 +721,7 @@ DEFINE_JSON_READ_FUN(json_tblr_skill_group)
 
     READ_PROP_STRP(skill_group->name, "name");
 
+    skill_group->classes = calloc(class_count, sizeof(SKILL_GROUP_CLASS_T));
     /* initialize all class costs to -1 (unavailable) */
     for (i = 0; class_get(i) != NULL; i++)
         skill_group->classes[i].cost = -1;
@@ -714,6 +743,8 @@ DEFINE_JSON_READ_FUN(json_tblr_skill_group)
         }
     }
 
+    skill_group->spells = calloc(MAX_IN_GROUP + 1, sizeof(char *));
+    skill_group->spell_count = 0;
     if ((array = json_get(json, "skills")) != NULL)
     {
         i = 0;
@@ -721,6 +752,7 @@ DEFINE_JSON_READ_FUN(json_tblr_skill_group)
              sub = sub->next)
             skill_group->spells[i++] = str_dup(
                 json_value_as_string(sub, buf, sizeof(buf)));
+        skill_group->spell_count = i;
     }
 
     return skill_group;
@@ -740,6 +772,7 @@ DEFINE_JSON_READ_FUN(json_tblr_song)
     READ_PROP_STRP(song->name, "name");
     READ_PROP_STRP(song->group, "group");
 
+    song->lyrics = calloc(MAX_SONG_LINES + 1, sizeof(char *));
     if ((array = json_get(json, "lyrics")) != NULL)
     {
         for (sub = array->first_child; sub != NULL; sub = sub->next)
@@ -802,7 +835,7 @@ DEFINE_JSON_READ_FUN(json_tblr_pose)
     JSON_T *array, *sub;
     int idx;
 
-    JSON_TBLR_START(POSE_T, pose, CLASS_MAX, pose->class_name == NULL);
+    JSON_TBLR_START_DYNAMIC(POSE_T, pose);
 
     if (!json_import_expect("pose", json, "class", "poses", NULL))
         return NULL;

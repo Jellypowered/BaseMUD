@@ -923,16 +923,18 @@ DEFINE_DO_FUN(do_who)
     bool only_clan = FALSE;
     bool restrict_race = FALSE;
     bool only_immortal = FALSE;
-    bool show_class[CLASS_MAX];
-    bool show_race[RACE_MAX];
+    bool *show_class;
+    bool *show_race;
     bool show_clan[CLAN_MAX];
 
     /* Set default arguments. */
     level_lower = 0;
     level_upper = MAX_LEVEL;
-    for (i = 0; i < CLASS_MAX; i++)
+    show_class = calloc(class_count, sizeof(bool));
+    show_race = calloc(race_count, sizeof(bool));
+    for (i = 0; i < class_count; i++)
         show_class[i] = FALSE;
-    for (i = 0; i < RACE_MAX; i++)
+    for (i = 0; i < race_count; i++)
         show_race[i] = FALSE;
     for (i = 0; i < CLAN_MAX; i++)
         show_clan[i] = FALSE;
@@ -959,6 +961,8 @@ DEFINE_DO_FUN(do_who)
                 break;
             default:
                 send_to_char("Only two level numbers allowed.\n\r", ch);
+                free(show_class);
+                free(show_race);
                 return;
             }
             continue;
@@ -1009,6 +1013,8 @@ DEFINE_DO_FUN(do_who)
 
         /* Unknown argument. */
         send_to_char("That's not a valid race, class, or clan.\n\r", ch);
+        free(show_class);
+        free(show_race);
         return;
     }
 
@@ -1050,6 +1056,8 @@ DEFINE_DO_FUN(do_who)
     buf_cat(output, buf2);
     page_to_char(buf_string(output), ch);
     buf_free(output);
+    free(show_class);
+    free(show_race);
 }
 
 /* for keeping track of the player count */

@@ -27,6 +27,7 @@
 
 #include "tables.h"
 
+#include <stdlib.h>
 #include "act_skills.h"
 #include "board.h"
 #include "chars.h"
@@ -34,6 +35,7 @@
 #include "effects.h"
 #include "json_tblr.h"
 #include "json_tblw.h"
+#include "lookup.h"
 #include "magic.h"
 #include "memory.h"
 #include "nanny.h"
@@ -79,6 +81,22 @@
 #define TTABLE_INTERNAL(table, name, desc) \
     {table, name, TABLE_INTERNAL, desc,    \
      sizeof(table[0]), sizeof(table) / sizeof(table[0])}
+/* Dynamic table: table_pp points to the global pointer variable; count/cap
+ * track current population and allocated capacity respectively. */
+#define TTABLE_DYNAMIC(tbl_pp, name, desc, obj_name, json_path, jwrite, jread, \
+                       dispose, count_p, cap_p, inv_fun)                       \
+    {NULL, name, TABLE_UNIQUE, desc,                                           \
+     sizeof(**(tbl_pp)), TABLE_LENGTH_DYNAMIC,                                 \
+     obj_name, json_path, jwrite, jread, dispose, NULL,                        \
+     (void **)(tbl_pp), count_p, cap_p, inv_fun}
+
+#define TTABLE_DYNAMIC_POSTLOAD(tbl_pp, name, desc, obj_name, json_path, \
+                                jwrite, jread, dispose, post_load,       \
+                                count_p, cap_p, inv_fun)                 \
+    {NULL, name, TABLE_UNIQUE, desc,                                     \
+     sizeof(**(tbl_pp)), TABLE_LENGTH_DYNAMIC,                           \
+     obj_name, json_path, jwrite, jread, dispose, post_load,             \
+     (void **)(tbl_pp), count_p, cap_p, inv_fun}
 
 const TABLE_T master_table[TABLE_MAX + 1] = {
     /* from flags.h */
@@ -119,8 +137,8 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     TTYPES(weapon_types, "Weapon classes."),
 
     /* tables that are currently supported for reading. */
-    TTABLE(pc_race_table, "pc_races", "Playable race data.", "player_race", "config", json_tblw_pc_race, json_tblr_pc_race, pc_race_dispose),
-    TTABLE(race_table, "races", "Races and statistics.", "race", "config", json_tblw_race, json_tblr_race, race_dispose),
+    TTABLE_DYNAMIC(&pc_race_table, "pc_races", "Playable race data.", "player_race", "config", json_tblw_pc_race, json_tblr_pc_race, pc_race_dispose, &pc_race_count, &pc_race_cap, pc_race_invalidate_max),
+    TTABLE_DYNAMIC(&race_table, "races", "Races and statistics.", "race", "config", json_tblw_race, json_tblr_race, race_dispose, &race_count, &race_cap, race_invalidate_max),
     TTABLE(song_table, "songs", "Songs for jukeboxes.", "song", "config", json_tblw_song, json_tblr_song, song_dispose),
 
     /* tables that are written but not yet read. */
@@ -128,7 +146,7 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     TTABLE(attack_table, "attacks", "Attack types and properties.", "attack", "config", json_tblw_attack, json_tblr_attack, attack_dispose),
     TTABLE(board_table, "boards", "Discussion boards.", "board", "config", json_tblw_board, json_tblr_board, board_dispose),
     TTABLE(clan_table, "clans", "Player clans.", "clan", "config", json_tblw_clan, json_tblr_clan, clan_dispose),
-    TTABLE(class_table, "classes", "Classes and statistics.", "class", "config", json_tblw_class, json_tblr_class, class_dispose),
+    TTABLE_DYNAMIC(&class_table, "classes", "Classes and statistics.", "class", "config", json_tblw_class, json_tblr_class, class_dispose, &class_count, &class_cap, class_invalidate_max),
     TTABLE(colour_setting_table, "color_settings", "Configurable colours.", "color_setting", "config", json_tblw_colour_setting, json_tblr_colour_setting, colour_setting_dispose),
     TTABLE(colour_table, "colors", "Colour values.", "color", "config", json_tblw_colour, json_tblr_colour, colour_dispose),
     TTABLE(con_app_table, "con_app", "Con apply table.", "con_app", "config", json_tblw_con_app, json_tblr_con_app, NULL),
@@ -140,16 +158,16 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     TTABLE(hp_cond_table, "hp_conds", "Messages based on % of hp.", "hp_cond", "config", json_tblw_hp_cond, json_tblr_hp_cond, hp_cond_dispose),
     TTABLE(int_app_table, "int_app", "Int apply table.", "int_app", "config", json_tblw_int_app, json_tblr_int_app, NULL),
     TTABLE(item_table, "items", "Item types and properties.", "item", "config", json_tblw_item, json_tblr_item, item_dispose),
-    TTABLE(liq_table, "liquids", "Liquid types.", "liquid", "config", json_tblw_liq, json_tblr_liq, liq_dispose),
-    TTABLE(material_table, "materials", "Material properties", "material", "config", json_tblw_material, json_tblr_material, material_dispose),
+    TTABLE_DYNAMIC(&liq_table, "liquids", "Liquid types.", "liquid", "config", json_tblw_liq, json_tblr_liq, liq_dispose, &liq_count, &liq_cap, liq_invalidate_max),
+    TTABLE_DYNAMIC(&material_table, "materials", "Material properties", "material", "config", json_tblw_material, json_tblr_material, material_dispose, &material_count, &material_cap, NULL),
     TTABLE(month_table, "months", "Months of the year.", "month", "config", json_tblw_month, json_tblr_month, month_dispose),
-    TTABLE(pose_table, "pose", "Poses based on class and level", "pose", "config", json_tblw_pose, json_tblr_pose, pose_dispose),
+    TTABLE_DYNAMIC(&pose_table, "pose", "Poses based on class and level", "pose", "config", json_tblw_pose, json_tblr_pose, pose_dispose, &pose_count, &pose_cap, NULL),
     TTABLE(position_table, "positions", "Character positions.", "position", "config", json_tblw_position, json_tblr_position, position_dispose),
     TTABLE(sector_table, "sectors", "Sector/terrain properties.", "sector", "config", json_tblw_sector, json_tblr_sector, sector_dispose),
     TTABLE(sex_table, "sexes", "Gender settings.", "sex", "config", json_tblw_sex, json_tblr_sex, sex_dispose),
     TTABLE(size_table, "sizes", "Character sizes.", "size", "config", json_tblw_size, json_tblr_size, size_dispose),
-    TTABLE(skill_group_table, "skill_groups", "Groups of skills table.", "skill_group", "config", json_tblw_skill_group, json_tblr_skill_group, skill_group_dispose),
-    TTABLE_POSTLOAD(skill_table, "skills", "Master skill table.", "skill", "config", json_tblw_skill, json_tblr_skill, skill_dispose, skill_reload_mapping),
+    TTABLE_DYNAMIC(&skill_group_table, "skill_groups", "Groups of skills table.", "skill_group", "config", json_tblw_skill_group, json_tblr_skill_group, skill_group_dispose, &skill_group_count, &skill_group_cap, skill_group_invalidate_max),
+    TTABLE_DYNAMIC_POSTLOAD(&skill_table, "skills", "Master skill table.", "skill", "config", json_tblw_skill, json_tblr_skill, skill_dispose, skill_reload_mapping, &skill_count, &skill_cap, skill_invalidate_max),
     TTABLE(sky_table, "skies", "Skies based on the weather.", "sky", "config", json_tblw_sky, json_tblr_sky, sky_dispose),
     TTABLE_POSTLOAD(spec_table, "specs", "Specialized mobile behavior.", "spec", "config", json_tblw_spec, json_tblr_spec, spec_dispose, spec_reload_mapping),
     TTABLE(str_app_table, "str_app", "Str apply table.", "str_app", "config", json_tblw_str_app, json_tblr_str_app, NULL),
@@ -189,14 +207,24 @@ void table_dispose_all(void)
 
 void table_dispose(const TABLE_T *table)
 {
-    int i;
+    int i, count;
     void *obj;
 
     if (table->dispose_fun == NULL)
         return;
 
-    obj = (void *)table->table;
-    for (i = 0; i < table->table_length; i++)
+    if (table->table_pp != NULL)
+    {
+        obj = *table->table_pp;
+        count = *table->count_p;
+    }
+    else
+    {
+        obj = (void *)table->table;
+        count = (int)table->table_length;
+    }
+
+    for (i = 0; i < count; i++)
     {
         table->dispose_fun(obj);
         obj += table->type_size;
@@ -393,16 +421,14 @@ ATTACK_T attack_table[ATTACK_MAX + 1] = {
     {"chill", "chill", DAM_COLD},
     {NULL, NULL, -1}};
 
-RACE_T race_table[RACE_MAX + 1];
-PC_RACE_T pc_race_table[PC_RACE_MAX + 1];
+RACE_T *race_table = NULL;
+int race_count = 0, race_cap = 0;
+PC_RACE_T *pc_race_table = NULL;
+int pc_race_count = 0, pc_race_cap = 0;
 
-/* Class table.  */
-CLASS_T class_table[CLASS_MAX + 1] = {
-    {"mage", "Mag", STAT_INT, OBJ_VNUM_SCHOOL_DAGGER, {3018, 9618}, 75, 20, 6, 6, 8, TRUE, "mage basics", "mage default", FALSE},
-    {"cleric", "Cle", STAT_WIS, OBJ_VNUM_SCHOOL_MACE, {3003, 9619}, 75, 20, 2, 7, 10, TRUE, "cleric basics", "cleric default", FALSE},
-    {"thief", "Thi", STAT_DEX, OBJ_VNUM_SCHOOL_DAGGER, {3028, 9639}, 75, 20, -4, 8, 13, FALSE, "thief basics", "thief default", TRUE},
-    {"warrior", "War", STAT_STR, OBJ_VNUM_SCHOOL_SWORD, {3022, 9633}, 75, 20, -10, 11, 15, FALSE, "warrior basics", "warrior default", FALSE},
-    {0}};
+/* Class table - loaded from JSON at boot. */
+CLASS_T *class_table = NULL;
+int class_count = 0, class_cap = 0;
 
 /* Titles.  */
 char *const title_table[CLASS_MAX][MAX_LEVEL + 1][2] = {
@@ -880,257 +906,17 @@ CON_APP_T con_app_table[ATTRIBUTE_HIGHEST + 2] = {
     {-999},
 };
 
-/* Liquid properties. */
-LIQ_T liq_table[LIQ_MAX + 1] = {
-    /* name                   color         proof, full, thirst, food, serving_size */
-    {"water", "clear", {0, 1, 10, 0}, 16},
-    {"beer", "amber", {12, 1, 8, 1}, 12},
-    {"red wine", "burgundy", {30, 1, 8, 1}, 5},
-    {"ale", "brown", {15, 1, 8, 1}, 12},
-    {"dark ale", "dark", {16, 1, 8, 1}, 12},
-    {"whisky", "golden", {120, 1, 5, 0}, 2},
-    {"lemonade", "pink", {0, 1, 9, 2}, 12},
-    {"firebreather", "boiling", {190, 0, 4, 0}, 2},
-    {"local specialty", "clear", {151, 1, 3, 0}, 2},
-    {"slime mold juice", "green", {0, 2, -8, 1}, 2},
-    {"milk", "white", {0, 2, 9, 3}, 12},
-    {"tea", "tan", {0, 1, 8, 0}, 6},
-    {"coffee", "black", {0, 1, 8, 0}, 6},
-    {"blood", "red", {0, 2, -1, 2}, 6},
-    {"salt water", "clear", {0, 1, -2, 0}, 1},
-    {"coke", "brown", {0, 2, 9, 2}, 12},
-    {"root beer", "brown", {0, 2, 9, 2}, 12},
-    {"elvish wine", "green", {35, 2, 8, 1}, 5},
-    {"white wine", "golden", {28, 1, 8, 1}, 5},
-    {"champagne", "golden", {32, 1, 8, 1}, 5},
-    {"mead", "honey-colored", {34, 2, 8, 2}, 12},
-    {"rose wine", "pink", {26, 1, 8, 1}, 5},
-    {"benedictine wine", "burgundy", {40, 1, 8, 1}, 5},
-    {"vodka", "clear", {130, 1, 5, 0}, 2},
-    {"cranberry juice", "red", {0, 1, 9, 2}, 12},
-    {"orange juice", "orange", {0, 2, 9, 3}, 12},
-    {"absinthe", "green", {200, 1, 4, 0}, 2},
-    {"brandy", "golden", {80, 1, 5, 0}, 4},
-    {"aquavit", "clear", {140, 1, 5, 0}, 2},
-    {"schnapps", "clear", {90, 1, 5, 0}, 2},
-    {"icewine", "purple", {50, 2, 6, 1}, 5},
-    {"amontillado", "burgundy", {35, 2, 8, 1}, 5},
-    {"sherry", "red", {38, 2, 7, 1}, 5},
-    {"framboise", "red", {50, 1, 7, 1}, 5},
-    {"rum", "amber", {151, 1, 4, 0}, 2},
-    {"cordial", "clear", {100, 1, 5, 0}, 2},
-    {0}};
+/* Liquid properties - loaded from JSON. */
+LIQ_T *liq_table = NULL;
+int liq_count = 0, liq_cap = 0;
 
-/* The skill and spell table.
- * Slot numbers must never be changed as they appear in #OBJECTS sections. */
-#define SLOT(n) n
+/* Skill table - loaded from JSON at boot. */
+SKILL_T *skill_table = NULL;
+int skill_count = 0, skill_cap = 0;
 
-#define TI SKILL_TARGET_IGNORE
-#define TCO SKILL_TARGET_CHAR_OFFENSIVE
-#define TCD SKILL_TARGET_CHAR_DEFENSIVE
-#define TCS SKILL_TARGET_CHAR_SELF
-#define TOI SKILL_TARGET_OBJ_INV
-#define TOCD SKILL_TARGET_OBJ_CHAR_DEF
-#define TOCO SKILL_TARGET_OBJ_CHAR_OFF
-
-#define PS POS_STANDING
-#define PF POS_FIGHTING
-#define PR POS_RESTING
-#define PP POS_SLEEPING
-
-SKILL_T skill_table[SKILL_MAX + 1] = {
-    /* Magic spells. */
-    {"reserved", {{99, 99}, {99, 99}, {99, 99}, {99, 99}}, NULL, TI, PS, SLOT(0), 0, 0, "", "", ""},
-    {"acid blast", {{28, 1}, {53, 1}, {35, 2}, {32, 2}}, spell_acid_blast, TCO, PF, SLOT(70), 20, 12, "acid blast", "!Acid Blast!", ""},
-    {"armor", {{7, 1}, {2, 1}, {10, 2}, {5, 2}}, spell_armor, TCD, PS, SLOT(1), 5, 12, "", "You feel less armored.", ""},
-    {"bless", {{53, 1}, {7, 1}, {53, 2}, {8, 2}}, spell_bless, TOCD, PS, SLOT(3), 5, 12, "", "You feel less righteous.", "$p's holy aura fades."},
-    {"blindness", {{12, 1}, {8, 1}, {17, 2}, {15, 2}}, spell_blindness, TCO, PF, SLOT(4), 5, 12, "", "You can see again.", ""},
-    {"burning hands", {{7, 1}, {53, 1}, {10, 2}, {9, 2}}, spell_burning_hands, TCO, PF, SLOT(5), 15, 12, "burning hands", "!Burning Hands!", ""},
-    {"call lightning", {{26, 1}, {18, 1}, {31, 2}, {22, 2}}, spell_call_lightning, TI, PF, SLOT(6), 15, 12, "lightning bolt", "!Call Lightning!", ""},
-    {"calm", {{48, 1}, {16, 1}, {50, 2}, {20, 2}}, spell_calm, TI, PF, SLOT(509), 30, 12, "", "You have lost your peace of mind.", ""},
-    {"cancellation", {{18, 1}, {26, 1}, {34, 2}, {34, 2}}, spell_cancellation, TCD, PF, SLOT(507), 20, 12, "", "!cancellation!", ""},
-    {"cause critical", {{53, 1}, {13, 1}, {53, 2}, {19, 2}}, spell_cause_critical, TCO, PF, SLOT(63), 20, 12, "harmful spell", "!Cause Critical!", ""},
-    {"cause light", {{53, 1}, {1, 1}, {53, 2}, {3, 2}}, spell_cause_light, TCO, PF, SLOT(62), 15, 12, "harmful spell", "!Cause Light!", ""},
-    {"cause serious", {{53, 1}, {7, 1}, {53, 2}, {10, 2}}, spell_cause_serious, TCO, PF, SLOT(64), 17, 12, "harmful spell", "!Cause Serious!", ""},
-    {"chain lightning", {{33, 1}, {53, 1}, {39, 2}, {36, 2}}, spell_chain_lightning, TCO, PF, SLOT(500), 25, 12, "lightning", "!Chain Lightning!", ""},
-    {"change sex", {{53, 1}, {53, 1}, {53, 2}, {53, 2}}, spell_change_sex, TCD, PF, SLOT(82), 15, 12, "", "Your body feels familiar again.", ""},
-    {"charm person", {{20, 1}, {53, 1}, {25, 2}, {53, 2}}, spell_charm_person, TCO, PS, SLOT(7), 5, 12, "", "You feel more self-confident.", ""},
-    {"chill touch", {{4, 1}, {53, 1}, {6, 2}, {6, 2}}, spell_chill_touch, TCO, PF, SLOT(8), 15, 12, "chilling touch", "You feel less cold.", ""},
-    {"colour spray", {{16, 1}, {53, 1}, {22, 2}, {20, 2}}, spell_colour_spray, TCO, PF, SLOT(10), 15, 12, "colour spray", "!Colour Spray!", ""},
-    {"continual light", {{6, 1}, {4, 1}, {6, 2}, {9, 2}}, spell_continual_light, TI, PS, SLOT(57), 7, 12, "", "!Continual Light!", ""},
-    {"control weather", {{15, 1}, {19, 1}, {28, 2}, {22, 2}}, spell_control_weather, TI, PS, SLOT(11), 25, 12, "", "!Control Weather!", ""},
-    {"create food", {{10, 1}, {5, 1}, {11, 2}, {12, 2}}, spell_create_food, TI, PS, SLOT(12), 5, 12, "", "!Create Food!", ""},
-    {"create rose", {{16, 1}, {11, 1}, {10, 2}, {24, 2}}, spell_create_rose, TI, PS, SLOT(511), 30, 12, "", "!Create Rose!", ""},
-    {"create spring", {{14, 1}, {17, 1}, {23, 2}, {20, 2}}, spell_create_spring, TI, PS, SLOT(80), 20, 12, "", "!Create Spring!", ""},
-    {"create water", {{8, 1}, {3, 1}, {12, 2}, {11, 2}}, spell_create_water, TOI, PS, SLOT(13), 5, 12, "", "!Create Water!", ""},
-    {"cure blindness", {{53, 1}, {6, 1}, {53, 2}, {8, 2}}, spell_cure_blindness, TCD, PF, SLOT(14), 5, 12, "", "!Cure Blindness!", ""},
-    {"cure critical", {{53, 1}, {13, 1}, {53, 2}, {19, 2}}, spell_cure_critical, TCD, PF, SLOT(15), 20, 12, "", "!Cure Critical!", ""},
-    {"cure disease", {{53, 1}, {13, 1}, {53, 2}, {14, 2}}, spell_cure_disease, TCD, PS, SLOT(501), 20, 12, "", "!Cure Disease!", ""},
-    {"cure light", {{53, 1}, {1, 1}, {53, 2}, {3, 2}}, spell_cure_light, TCD, PF, SLOT(16), 10, 12, "", "!Cure Light!", ""},
-    {"cure poison", {{53, 1}, {14, 1}, {53, 2}, {16, 2}}, spell_cure_poison, TCD, PS, SLOT(43), 5, 12, "", "!Cure Poison!", ""},
-    {"cure serious", {{53, 1}, {7, 1}, {53, 2}, {10, 2}}, spell_cure_serious, TCD, PF, SLOT(61), 15, 12, "", "!Cure Serious!", ""},
-    {"curse", {{18, 1}, {18, 1}, {26, 2}, {22, 2}}, spell_curse, TOCO, PF, SLOT(17), 20, 12, "curse", "The curse wears off.", "$p is no longer impure."},
-    {"demonfire", {{53, 1}, {34, 1}, {53, 2}, {45, 2}}, spell_demonfire, TCO, PF, SLOT(505), 20, 12, "torments", "!Demonfire!", ""},
-    {"detect evil", {{11, 1}, {4, 1}, {12, 2}, {53, 2}}, spell_detect_evil, TCS, PS, SLOT(18), 5, 12, "", "The red in your vision disappears.", ""},
-    {"detect good", {{11, 1}, {4, 1}, {12, 2}, {53, 2}}, spell_detect_good, TCS, PS, SLOT(513), 5, 12, "", "The gold in your vision disappears.", ""},
-    {"detect hidden", {{15, 1}, {11, 1}, {12, 2}, {53, 2}}, spell_detect_hidden, TCS, PS, SLOT(44), 5, 12, "", "You feel less aware of your surroundings.", ""},
-    {"detect invis", {{3, 1}, {8, 1}, {6, 2}, {53, 2}}, spell_detect_invis, TCS, PS, SLOT(19), 5, 12, "", "You no longer see invisible objects.", ""},
-    {"detect magic", {{2, 1}, {6, 1}, {5, 2}, {53, 2}}, spell_detect_magic, TCS, PS, SLOT(20), 5, 12, "", "The detect magic wears off.", ""},
-    {"detect poison", {{15, 1}, {7, 1}, {9, 2}, {53, 2}}, spell_detect_poison, TOI, PS, SLOT(21), 5, 12, "", "!Detect Poison!", ""},
-    {"dispel evil", {{53, 1}, {15, 1}, {53, 2}, {21, 2}}, spell_dispel_evil, TCO, PF, SLOT(22), 15, 12, "dispel evil", "!Dispel Evil!", ""},
-    {"dispel good", {{53, 1}, {15, 1}, {53, 2}, {21, 2}}, spell_dispel_good, TCO, PF, SLOT(512), 15, 12, "dispel good", "!Dispel Good!", ""},
-    {"dispel magic", {{16, 1}, {24, 1}, {30, 2}, {30, 2}}, spell_dispel_magic, TCO, PF, SLOT(59), 15, 12, "", "!Dispel Magic!", ""},
-    {"earthquake", {{53, 1}, {10, 1}, {53, 2}, {14, 2}}, spell_earthquake, TI, PF, SLOT(23), 15, 12, "earthquake", "!Earthquake!", ""},
-    {"enchant armor", {{16, 2}, {53, 2}, {53, 4}, {53, 4}}, spell_enchant_armor, TOI, PS, SLOT(510), 100, 24, "", "!Enchant Armor!", ""},
-    {"enchant weapon", {{17, 2}, {53, 2}, {53, 4}, {53, 4}}, spell_enchant_weapon, TOI, PS, SLOT(24), 100, 24, "", "!Enchant Weapon!", ""},
-    {"energy drain", {{19, 1}, {22, 1}, {26, 2}, {23, 2}}, spell_energy_drain, TCO, PF, SLOT(25), 35, 12, "energy drain", "!Energy Drain!", ""},
-    {"faerie fire", {{6, 1}, {3, 1}, {5, 2}, {8, 2}}, spell_faerie_fire, TCO, PF, SLOT(72), 5, 12, "faerie fire", "The pink aura around you fades away.", ""},
-    {"faerie fog", {{14, 1}, {21, 1}, {16, 2}, {24, 2}}, spell_faerie_fog, TI, PS, SLOT(73), 12, 12, "faerie fog", "!Faerie Fog!", ""},
-    {"farsight", {{14, 1}, {16, 1}, {16, 2}, {53, 2}}, spell_farsight, TI, PS, SLOT(521), 36, 20, "farsight", "!Farsight!", ""},
-    {"fireball", {{22, 1}, {53, 1}, {30, 2}, {26, 2}}, spell_fireball, TCO, PF, SLOT(26), 15, 12, "fireball", "!Fireball!", ""},
-    {"fireproof", {{13, 1}, {12, 1}, {19, 2}, {18, 2}}, spell_fireproof, TOI, PS, SLOT(523), 10, 12, "", "", "$p's protective aura fades."},
-    {"flamestrike", {{53, 1}, {20, 1}, {53, 2}, {27, 2}}, spell_flamestrike, TCO, PF, SLOT(65), 20, 12, "flamestrike", "!Flamestrike!", ""},
-    {"fly", {{10, 1}, {18, 1}, {20, 2}, {22, 2}}, spell_fly, TCD, PS, SLOT(56), 10, 18, "", "You slowly float to the ground.", ""},
-    {"floating disc", {{4, 1}, {10, 1}, {7, 2}, {16, 2}}, spell_floating_disc, TI, PS, SLOT(522), 40, 24, "", "!Floating disc!", ""},
-    {"frenzy", {{53, 1}, {24, 1}, {53, 2}, {26, 2}}, spell_frenzy, TCD, PS, SLOT(504), 30, 24, "", "Your rage ebbs.", ""},
-    {"gate", {{27, 1}, {17, 1}, {32, 2}, {28, 2}}, spell_gate, TI, PF, SLOT(83), 80, 12, "", "!Gate!", ""},
-    {"giant strength", {{11, 1}, {53, 1}, {22, 2}, {20, 2}}, spell_giant_strength, TCD, PS, SLOT(39), 20, 12, "", "You feel weaker.", ""},
-    {"harm", {{53, 1}, {23, 1}, {53, 2}, {28, 2}}, spell_harm, TCO, PF, SLOT(27), 35, 12, "harmful spell", "!Harm!,        "
-                                                                                                           ""},
-    {"haste", {{21, 1}, {53, 1}, {26, 2}, {29, 2}}, spell_haste, TCD, PF, SLOT(502), 30, 12, "", "You feel yourself slow down.", ""},
-    {"heal", {{53, 1}, {21, 1}, {33, 2}, {30, 2}}, spell_heal, TCD, PF, SLOT(28), 50, 12, "", "!Heal!", ""},
-    {"heat metal", {{53, 1}, {16, 1}, {53, 2}, {23, 2}}, spell_heat_metal, TCO, PF, SLOT(516), 25, 18, "burn", "!Heat Metal!", ""},
-    {"holy word", {{53, 2}, {36, 2}, {53, 4}, {42, 4}}, spell_holy_word, TI, PF, SLOT(506), 200, 24, "divine wrath", "!Holy Word!", ""},
-    {"identify", {{15, 1}, {16, 1}, {18, 2}, {53, 2}}, spell_identify, TOI, PS, SLOT(53), 12, 24, "", "!Identify!", ""},
-    {"infravision", {{9, 1}, {13, 1}, {10, 2}, {16, 2}}, spell_infravision, TCD, PS, SLOT(77), 5, 18, "", "You no longer see in the dark.", ""},
-    {"invisibility", {{5, 1}, {53, 1}, {9, 2}, {53, 2}}, spell_invis, TOCD, PS, SLOT(29), 5, 12, "", "You are no longer invisible.", "$p fades into view."},
-    {"know alignment", {{12, 1}, {9, 1}, {20, 2}, {53, 2}}, spell_know_alignment, TCD, PF, SLOT(58), 9, 12, "", "!Know Alignment!", ""},
-    {"lightning bolt", {{13, 1}, {23, 1}, {18, 2}, {16, 2}}, spell_lightning_bolt, TCO, PF, SLOT(30), 15, 12, "lightning bolt", "!Lightning Bolt!", ""},
-    {"locate object", {{9, 1}, {15, 1}, {11, 2}, {53, 2}}, spell_locate_object, TI, PS, SLOT(31), 20, 18, "", "!Locate Object!", ""},
-    {"magic missile", {{1, 1}, {53, 1}, {2, 2}, {2, 2}}, spell_magic_missile, TCO, PF, SLOT(32), 15, 12, "magic missile", "!Magic Missile!", ""},
-    {"mass healing", {{53, 2}, {38, 2}, {53, 4}, {46, 4}}, spell_mass_healing, TI, PS, SLOT(508), 100, 36, "", "!Mass Healing!", ""},
-    {"mass invis", {{22, 1}, {25, 1}, {31, 2}, {53, 2}}, spell_mass_invis, TI, PS, SLOT(69), 20, 24, "", "You are no longer invisible.", ""},
-    {"nexus", {{40, 2}, {35, 2}, {50, 4}, {45, 4}}, spell_nexus, TI, PS, SLOT(520), 150, 36, "", "!Nexus!", ""},
-    {"pass door", {{24, 1}, {32, 1}, {25, 2}, {37, 2}}, spell_pass_door, TCS, PS, SLOT(74), 20, 12, "", "You feel solid again.", ""},
-    {"plague", {{23, 1}, {17, 1}, {36, 2}, {26, 2}}, spell_plague, TCO, PF, SLOT(503), 20, 12, "sickness", "Your sores vanish.", ""},
-    {"poison", {{17, 1}, {12, 1}, {15, 2}, {21, 2}}, spell_poison, TOCO, PF, SLOT(33), 10, 12, "poison", "You feel less sick.", "The poison on $p dries up."},
-    {"portal", {{35, 2}, {30, 2}, {45, 4}, {40, 4}}, spell_portal, TI, PS, SLOT(519), 100, 24, "", "!Portal!", ""},
-    {"protection evil", {{12, 1}, {9, 1}, {17, 2}, {11, 2}}, spell_protection_evil, TCS, PS, SLOT(34), 5, 12, "", "You feel less protected.", ""},
-    {"protection good", {{12, 1}, {9, 1}, {17, 2}, {11, 2}}, spell_protection_good, TCS, PS, SLOT(514), 5, 12, "", "You feel less protected.", ""},
-    {"ray of truth", {{53, 1}, {35, 1}, {53, 2}, {47, 2}}, spell_ray_of_truth, TCO, PF, SLOT(518), 20, 12, "ray of truth", "!Ray of Truth!", ""},
-    {"recharge", {{9, 1}, {53, 1}, {53, 2}, {53, 2}}, spell_recharge, TOI, PS, SLOT(517), 60, 24, "", "!Recharge!", ""},
-    {"refresh", {{8, 1}, {5, 1}, {12, 2}, {9, 2}}, spell_refresh, TCD, PS, SLOT(81), 12, 18, "refresh", "!Refresh!", ""},
-    {"remove curse", {{53, 1}, {18, 1}, {53, 2}, {22, 2}}, spell_remove_curse, TOCD, PS, SLOT(35), 5, 12, "", "!Remove Curse!", ""},
-    {"restore mana", {{99, 99}, {99, 99}, {99, 99}, {99, 99}}, spell_restore_mana, TCD, PF, SLOT(0), 0, 0, "", "!Restore Mana!", ""},
-    {"sanctuary", {{36, 1}, {20, 1}, {42, 2}, {30, 2}}, spell_sanctuary, TCD, PS, SLOT(36), 75, 12, "", "The white aura around your body fades.", ""},
-    {"shield", {{20, 1}, {35, 1}, {35, 2}, {40, 2}}, spell_shield, TCD, PS, SLOT(67), 12, 18, "", "Your force shield shimmers then fades away.", ""},
-    {"shocking grasp", {{10, 1}, {53, 1}, {14, 2}, {13, 2}}, spell_shocking_grasp, TCO, PF, SLOT(53), 15, 12, "shocking grasp", "!Shocking Grasp!", ""},
-    {"sleep", {{10, 1}, {53, 1}, {11, 2}, {53, 2}}, spell_sleep, TCO, PS, SLOT(38), 15, 12, "", "You feel less tired.", ""},
-    {"slow", {{23, 1}, {30, 1}, {29, 2}, {32, 2}}, spell_slow, TCO, PF, SLOT(515), 30, 12, "", "You feel yourself speed up.", ""},
-    {"stone skin", {{25, 1}, {40, 1}, {40, 2}, {45, 2}}, spell_stone_skin, TCS, PS, SLOT(66), 12, 18, "", "Your skin feels soft again.", ""},
-    {"summon", {{24, 1}, {12, 1}, {29, 2}, {22, 2}}, spell_summon, TI, PS, SLOT(40), 50, 12, "", "!Summon!", ""},
-    {"teleport", {{13, 1}, {22, 1}, {25, 2}, {36, 2}}, spell_teleport, TCS, PF, SLOT(2), 35, 12, "", "!Teleport!", ""},
-    {"ventriloquate", {{1, 1}, {53, 1}, {2, 2}, {53, 2}}, spell_ventriloquate, TI, PS, SLOT(41), 5, 12, "", "!Ventriloquate!", ""},
-    {"weaken", {{11, 1}, {14, 1}, {16, 2}, {17, 2}}, spell_weaken, TCO, PF, SLOT(68), 20, 12, "spell", "You feel stronger.", ""},
-    {"word of recall", {{32, 1}, {28, 1}, {40, 2}, {30, 2}}, spell_word_of_recall, TCS, PR, SLOT(42), 5, 12, "", "!Word of Recall!", ""},
-
-    /* Dragon breath */
-    {"acid breath", {{31, 1}, {32, 1}, {33, 2}, {34, 2}}, spell_acid_breath, TCO, PF, SLOT(200), 100, 24, "blast of acid", "!Acid Breath!", ""},
-    {"fire breath", {{40, 1}, {45, 1}, {50, 2}, {51, 2}}, spell_fire_breath, TCO, PF, SLOT(201), 200, 24, "blast of flame", "The smoke leaves your eyes.", ""},
-    {"frost breath", {{34, 1}, {36, 1}, {38, 2}, {40, 2}}, spell_frost_breath, TCO, PF, SLOT(202), 125, 24, "blast of frost", "!Frost Breath!", ""},
-    {"gas breath", {{39, 1}, {43, 1}, {47, 2}, {50, 2}}, spell_gas_breath, TI, PF, SLOT(203), 175, 24, "blast of gas", "!Gas Breath!", ""},
-    {"lightning breath", {{37, 1}, {40, 1}, {43, 2}, {46, 2}}, spell_lightning_breath, TCO, PF, SLOT(204), 150, 24, "blast of lightning", "!Lightning Breath!", ""},
-
-    /* Spells for mega1.are from Glop/Erkenbrand. */
-    {"general purpose", {{53, 0}, {53, 0}, {53, 0}, {53, 0}}, spell_general_purpose, TCO, PF, SLOT(401), 0, 12, "general purpose ammo", "!General Purpose Ammo!", ""},
-    {"high explosive", {{53, 0}, {53, 0}, {53, 0}, {53, 0}}, spell_high_explosive, TCO, PF, SLOT(402), 0, 12, "high explosive ammo", "!High Explosive Ammo!", ""},
-
-    /* combat and weapons skills */
-    {"axe", {{1, 6}, {1, 6}, {1, 5}, {1, 4}}, spell_null, TI, PF, SLOT(0), 0, 0, "", "!Axe!", ""},
-    {"dagger", {{1, 2}, {1, 3}, {1, 2}, {1, 2}}, spell_null, TI, PF, SLOT(0), 0, 0, "", "!Dagger!", ""},
-    {"flail", {{1, 6}, {1, 3}, {1, 6}, {1, 4}}, spell_null, TI, PF, SLOT(0), 0, 0, "", "!Flail!", ""},
-    {"mace", {{1, 5}, {1, 2}, {1, 3}, {1, 3}}, spell_null, TI, PF, SLOT(0), 0, 0, "", "!Mace!", ""},
-    {"polearm", {{1, 6}, {1, 6}, {1, 6}, {1, 4}}, spell_null, TI, PF, SLOT(0), 0, 0, "", "!Polearm!", ""},
-    {"shield block", {{1, 6}, {1, 4}, {1, 6}, {1, 2}}, spell_null, TI, PF, SLOT(0), 0, 0, "", "!Shield!", ""},
-    {"spear", {{1, 4}, {1, 4}, {1, 4}, {1, 3}}, spell_null, TI, PF, SLOT(0), 0, 0, "", "!Spear!", ""},
-    {"sword", {{1, 5}, {1, 6}, {1, 3}, {1, 2}}, spell_null, TI, PF, SLOT(0), 0, 0, "", "!Sword!", ""},
-    {"whip", {{1, 6}, {1, 5}, {1, 5}, {1, 4}}, spell_null, TI, PF, SLOT(0), 0, 0, "", "!Whip!", ""},
-    {"backstab", {{53, 0}, {53, 0}, {1, 5}, {53, 0}}, spell_null, TI, PS, SLOT(0), 0, 24, "backstab", "!Backstab!", ""},
-    {"bash", {{53, 0}, {53, 0}, {53, 0}, {1, 4}}, spell_null, TI, PF, SLOT(0), 0, 24, "bash", "!Bash!", ""},
-    {"berserk", {{53, 0}, {53, 0}, {53, 0}, {18, 5}}, spell_null, TI, PF, SLOT(0), 0, 24, "", "You feel your pulse slow down.", ""},
-    {"dirt kicking", {{53, 0}, {53, 0}, {3, 4}, {3, 4}}, spell_null, TI, PF, SLOT(0), 0, 24, "kicked dirt", "You rub the dirt out of your eyes.", ""},
-    {"disarm", {{53, 0}, {53, 0}, {12, 6}, {11, 4}}, spell_null, TI, PF, SLOT(0), 0, 24, "", "!Disarm!", ""},
-    {"dodge", {{20, 8}, {22, 8}, {1, 4}, {13, 6}}, spell_null, TI, PF, SLOT(0), 0, 0, "", "!Dodge!", ""},
-    {"enhanced damage", {{45, 10}, {30, 9}, {25, 5}, {1, 3}}, spell_null, TI, PF, SLOT(0), 0, 0, "", "!Enhanced Damage!", ""},
-    {"envenom", {{53, 0}, {53, 0}, {10, 4}, {53, 0}}, spell_null, TI, PR, SLOT(0), 0, 36, "", "!Envenom!", ""},
-    {"hand to hand", {{25, 8}, {10, 5}, {15, 6}, {6, 4}}, spell_null, TI, PF, SLOT(0), 0, 0, "", "!Hand to Hand!", ""},
-    {"kick", {{53, 0}, {12, 4}, {14, 6}, {8, 3}}, spell_null, TCO, PF, SLOT(0), 0, 12, "kick", "!Kick!", ""},
-    {"parry", {{22, 8}, {20, 8}, {13, 6}, {1, 4}}, spell_null, TI, PF, SLOT(0), 0, 0, "", "!Parry!", ""},
-    {"rescue", {{53, 0}, {53, 0}, {53, 0}, {1, 4}}, spell_null, TI, PF, SLOT(0), 0, 12, "", "!Rescue!", ""},
-    {"trip", {{53, 0}, {53, 0}, {1, 4}, {15, 8}}, spell_null, TI, PF, SLOT(0), 0, 24, "trip", "!Trip!", ""},
-    {"second attack", {{30, 10}, {24, 8}, {12, 5}, {5, 3}}, spell_null, TI, PF, SLOT(0), 0, 0, "", "!Second Attack!", ""},
-    {"third attack", {{53, 0}, {53, 0}, {24, 10}, {12, 4}}, spell_null, TI, PF, SLOT(0), 0, 0, "", "!Third Attack!", ""},
-
-    /* non-combat skills */
-    {"fast healing", {{15, 8}, {9, 5}, {16, 6}, {6, 4}}, spell_null, TI, PP, SLOT(0), 0, 0, "", "!Fast Healing!", ""},
-    {"haggle", {{7, 5}, {18, 8}, {1, 3}, {14, 6}}, spell_null, TI, PR, SLOT(0), 0, 0, "", "!Haggle!", ""},
-    {"hide", {{53, 0}, {53, 0}, {1, 4}, {12, 6}}, spell_null, TI, PR, SLOT(0), 0, 12, "", "!Hide!", ""},
-    {"lore", {{5, 6}, {6, 8}, {7, 10}, {8, 12}}, spell_null, TI, PR, SLOT(0), 0, 36, "", "!Lore!", ""},
-    {"meditation", {{6, 5}, {6, 5}, {15, 8}, {15, 8}}, spell_null, TI, PP, SLOT(0), 0, 0, "", "Meditation", ""},
-    {"peek", {{8, 5}, {21, 7}, {1, 3}, {14, 6}}, spell_null, TI, PS, SLOT(0), 0, 0, "", "!Peek!", ""},
-    {"pick lock", {{25, 8}, {25, 8}, {7, 4}, {25, 8}}, spell_null, TI, PS, SLOT(0), 0, 12, "", "!Pick!", ""},
-    {"sneak", {{53, 0}, {53, 0}, {4, 4}, {10, 6}}, spell_null, TI, PS, SLOT(0), 0, 12, "", "You no longer feel stealthy.", ""},
-    {"steal", {{53, 0}, {53, 0}, {5, 4}, {53, 0}}, spell_null, TI, PS, SLOT(0), 0, 24, "", "!Steal!", ""},
-    {"scrolls", {{1, 2}, {1, 3}, {1, 5}, {1, 8}}, spell_null, TI, PS, SLOT(0), 0, 24, "", "!Scrolls!", ""},
-    {"staves", {{1, 2}, {1, 3}, {1, 5}, {1, 8}}, spell_null, TI, PS, SLOT(0), 0, 12, "", "!Staves!", ""},
-    {"wands", {{1, 2}, {1, 3}, {1, 5}, {1, 8}}, spell_null, TI, PS, SLOT(0), 0, 12, "", "!Wands!", ""},
-    {"recall", {{1, 2}, {1, 2}, {1, 2}, {1, 2}}, spell_null, TI, PS, SLOT(0), 0, 12, "", "!Recall!", ""},
-
-    /* done! */
-    {0}};
-
-#undef TI
-#undef TCO
-#undef TCD
-#undef TCS
-#undef TOI
-#undef TOCD
-#undef TOCO
-
-#undef PS
-#undef PF
-#undef PR
-#undef PP
-
-SKILL_GROUP_T skill_group_table[SKILL_GROUP_MAX + 1] = {
-    {"rom basics", {{0}, {0}, {0}, {0}}, {"scrolls", "staves", "wands", "recall"}},
-    {"mage basics", {{0}, {-1}, {-1}, {-1}}, {"dagger"}},
-    {"cleric basics", {{-1}, {0}, {-1}, {-1}}, {"mace"}},
-    {"thief basics", {{-1}, {-1}, {0}, {-1}}, {"dagger", "steal"}},
-    {"warrior basics", {{-1}, {-1}, {-1}, {0}}, {"sword", "second attack"}},
-    {"mage default", {{40}, {-1}, {-1}, {-1}}, {"lore", "beguiling", "combat", "detection", "enhancement", "illusion", "maladictions", "protective", "transportation", "weather"}},
-    {"cleric default", {{-1}, {40}, {-1}, {-1}}, {"flail", "attack", "creation", "curative", "benedictions", "detection", "healing", "maladictions", "protective", "shield block", "transportation", "weather"}},
-    {"thief default", {{-1}, {-1}, {40}, {-1}}, {"mace", "sword", "backstab", "disarm", "dodge", "second attack", "trip", "hide", "peek", "pick lock", "sneak"}},
-    {"warrior default", {{-1}, {-1}, {-1}, {40}}, {"weaponsmaster", "shield block", "bash", "disarm", "enhanced damage", "parry", "rescue", "third attack"}},
-    {"weaponsmaster", {{40}, {40}, {40}, {20}}, {"axe", "dagger", "flail", "mace", "polearm", "spear", "sword", "whip"}},
-    {"attack", {{-1}, {5}, {-1}, {8}}, {"demonfire", "dispel evil", "dispel good", "earthquake", "flamestrike", "heat metal", "ray of truth"}},
-    {"beguiling", {{4}, {-1}, {6}, {-1}}, {"calm", "charm person", "sleep"}},
-    {"benedictions", {{-1}, {4}, {-1}, {8}}, {"bless", "calm", "frenzy", "holy word", "remove curse"}},
-    {"combat", {{6}, {-1}, {10}, {9}}, {"acid blast", "burning hands", "chain lightning", "chill touch", "colour spray", "fireball", "lightning bolt", "magic missile", "shocking grasp"}},
-    {"creation", {{4}, {4}, {8}, {8}}, {"continual light", "create food", "create spring", "create water", "create rose", "floating disc"}},
-    {"curative", {{-1}, {4}, {-1}, {8}}, {"cure blindness", "cure disease", "cure poison"}},
-    {"detection", {{4}, {3}, {6}, {-1}}, {"detect evil", "detect good", "detect hidden", "detect invis", "detect magic", "detect poison", "farsight", "identify", "know alignment", "locate object"}},
-    {"draconian", {{8}, {-1}, {-1}, {-1}}, {"acid breath", "fire breath", "frost breath", "gas breath", "lightning breath"}},
-    {"enchantment", {{6}, {-1}, {-1}, {-1}}, {"enchant armor", "enchant weapon", "fireproof", "recharge"}},
-    {"enhancement", {{5}, {-1}, {9}, {9}}, {"giant strength", "haste", "infravision", "refresh"}},
-    {"harmful", {{-1}, {3}, {-1}, {6}}, {"cause critical", "cause light", "cause serious", "harm"}},
-    {"healing", {{-1}, {3}, {-1}, {6}}, {"cure critical", "cure light", "cure serious", "heal", "mass healing", "refresh"}},
-    {"illusion", {{4}, {-1}, {7}, {-1}}, {"invisibility", "mass invis", "ventriloquate"}},
-    {"maladictions", {{5}, {5}, {9}, {9}}, {"blindness", "change sex", "curse", "energy drain", "plague", "poison", "slow", "weaken"}},
-    {"protective", {{4}, {4}, {7}, {8}}, {"armor", "cancellation", "dispel magic", "fireproof", "protection evil", "protection good", "sanctuary", "shield", "stone skin"}},
-    {"transportation", {{4}, {4}, {8}, {9}}, {"fly", "gate", "nexus", "pass door", "portal", "summon", "teleport", "word of recall"}},
-    {"weather", {{4}, {4}, {8}, {8}}, {"call lightning", "control weather", "faerie fire", "faerie fog", "lightning bolt"}},
-    {0}};
+/* Skill group table - loaded from JSON at boot. */
+SKILL_GROUP_T *skill_group_table = NULL;
+int skill_group_count = 0, skill_group_cap = 0;
 
 SECTOR_T sector_table[SECT_MAX + 1] = {
     {SECT_INSIDE, "inside", 1, 'C'},
@@ -1297,46 +1083,9 @@ WEAR_LOC_T wear_loc_table[WEAR_LOC_MAX + 2] = {
     {0},
 };
 
-MATERIAL_T material_table[MATERIAL_MAX + 1] = {
-    {MATERIAL_GENERIC, "generic", 'x'},
-    {MATERIAL_ADAMANTITE, "adamantite", 'D'},
-    {MATERIAL_ALUMINUM, "aluminum", 'w'},
-    {MATERIAL_BRASS, "brass", 'y'},
-    {MATERIAL_BRONZE, "bronze", 'y'},
-    {MATERIAL_CHINA, "china", 'W'},
-    {MATERIAL_CLAY, "clay", 'R'},
-    {MATERIAL_CLOTH, "cloth", 'y'},
-    {MATERIAL_COPPER, "copper", 'y'},
-    {MATERIAL_CRYSTAL, "crystal", 'C'},
-    {MATERIAL_DIAMOND, "diamond", 'W'},
-    {MATERIAL_ENERGY, "energy", 'm'},
-    {MATERIAL_FLESH, "flesh", 'r'},
-    {MATERIAL_FOOD, "food", 'y'},
-    {MATERIAL_FUR, "fur", 'y'},
-    {MATERIAL_GEM, "gem", 'M'},
-    {MATERIAL_GLASS, "glass", 'C'},
-    {MATERIAL_GOLD, "gold", 'Y'},
-    {MATERIAL_ICE, "ice", 'C'},
-    {MATERIAL_IRON, "iron", 'D'},
-    {MATERIAL_IVORY, "ivory", 'W'},
-    {MATERIAL_LEAD, "lead", 'D'},
-    {MATERIAL_LEATHER, "leather", 'y'},
-    {MATERIAL_MEAT, "meat", 'R'},
-    {MATERIAL_MITHRIL, "mithril", 'c'},
-    {MATERIAL_OBSIDIAN, "obsidian", 'D'},
-    {MATERIAL_PAPER, "paper", 'w'},
-    {MATERIAL_PARCHMENT, "parchment", 'Y'},
-    {MATERIAL_PEARL, "pearl", 'W'},
-    {MATERIAL_PLATINUM, "platinum", 'W'},
-    {MATERIAL_RUBBER, "rubber", 'x'},
-    {MATERIAL_SHADOW, "shadow", 'D'},
-    {MATERIAL_SILVER, "silver", 'w'},
-    {MATERIAL_STEEL, "steel", 'w'},
-    {MATERIAL_TIN, "tin", 'w'},
-    {MATERIAL_VELLUM, "vellum", 'W'},
-    {MATERIAL_WATER, "water", 'B'},
-    {MATERIAL_WOOD, "wood", 'y'},
-    {0}};
+/* Material table - loaded from JSON. */
+MATERIAL_T *material_table = NULL;
+int material_count = 0, material_cap = 0;
 
 /* Technically not const, but this is a good place to have it! */
 BOARD_T board_table[BOARD_MAX + 1] = {
@@ -1392,12 +1141,9 @@ SUN_T sun_table[SUN_MAX + 1] = {
     {SUN_SET, "set", TRUE, 19, 20, "The sun slowly disappears in the west."},
     {-1, NULL, 0}};
 
-POSE_T pose_table[CLASS_MAX + 1] = {
-    {"mage", {"You sizzle with energy.", "$n sizzles with energy.", "You turn into a butterfly, then return to your normal shape.", "$n turns into a butterfly, then returns to $s normal shape.", "Blue sparks fly from your fingers.", "Blue sparks fly from $n's fingers.", "Little red lights dance in your eyes.", "Little red lights dance in $n's eyes.", "A slimy green monster appears before you and bows.", "A slimy green monster appears before $n and bows.", "You turn everybody into a little pink elephant.", "You are turned into a little pink elephant by $n.", "A small ball of light dances on your fingertips.", "A small ball of light dances on $n's fingertips.", "Smoke and fumes leak from your nostrils.", "Smoke and fumes leak from $n's nostrils.", "The light flickers as you rap in magical languages.", "The light flickers as $n raps in magical languages.", "Your head disappears.", "$n's head disappears.", "A fire elemental singes your hair.", "A fire elemental singes $n's hair.", "The sky changes colour to match your eyes.", "The sky changes colour to match $n's eyes.", "The stones dance to your command.", "The stones dance to $n's command.", "The heavens and grass change colour as you smile.", "The heavens and grass change colour as $n smiles.", "Everyone's clothes are transparent, and you are laughing.", "Your clothes are transparent, and $n is laughing.", "A black hole swallows you.", "A black hole swallows $n.", "The world shimmers in time with your whistling.", "The world shimmers in time with $n's whistling.", NULL}},
-    {"cleric", {"You feel very holy.", "$n looks very holy.", "You nonchalantly turn wine into water.", "$n nonchalantly turns wine into water.", "A halo appears over your head.", "A halo appears over $n's head.", "You recite words of wisdom.", "$n recites words of wisdom.", "Deep in prayer, you levitate.", "Deep in prayer, $n levitates.", "An angel consults you.", "An angel consults $n.", "Your body glows with an unearthly light.", "$n's body glows with an unearthly light.", "A spot light hits you.", "A spot light hits $n.", "Everyone levitates as you pray.", "You levitate as $n prays.", "A cool breeze refreshes you.", "A cool breeze refreshes $n.", "The sun pierces through the clouds to illuminate you.", "The sun pierces through the clouds to illuminate $n.", "The ocean parts before you.", "The ocean parts before $n.", "A thunder cloud kneels to you.", "A thunder cloud kneels to $n.", "The Burning Man speaks to you.", "The Burning Man speaks to $n.", "An eye in a pyramid winks at you.", "An eye in a pyramid winks at $n.", "Valentine Michael Smith offers you a glass of water.", "Valentine Michael Smith offers $n a glass of water.", "The great god Mota gives you a staff.", "The great god Mota gives $n a staff.", NULL}},
-    {"thief", {"You perform a small card trick.", "$n performs a small card trick.", "You wiggle your ears alternately.", "$n wiggles $s ears alternately.", "You nimbly tie yourself into a knot.", "$n nimbly ties $mself into a knot.", "You juggle with daggers, apples, and eyeballs.", "$n juggles with daggers, apples, and eyeballs.", "You steal the underwear off every person in the room.", "Your underwear is gone!  $n stole it!", "The dice roll ... and you win again.", "The dice roll ... and $n wins again.", "You count the money in everyone's pockets.", "Check your money, $n is counting it.", "You balance a pocket knife on your tongue.", "$n balances a pocket knife on your tongue.", "You produce a coin from everyone's ear.", "$n produces a coin from your ear.", "You step behind your shadow.", "$n steps behind $s shadow.", "Your eyes dance with greed.", "$n's eyes dance with greed.", "You deftly steal everyone's weapon.", "$n deftly steals your weapon.", "The Grey Mouser buys you a beer.", "The Grey Mouser buys $n a beer.", "Everyone's pocket explodes with your fireworks.", "Your pocket explodes with $n's fireworks.", "Everyone discovers your dagger a centimeter from their eye.", "You discover $n's dagger a centimeter from your eye.", "Where did you go?", "Where did $n go?", "Click.", "Click.", NULL}},
-    {"warrior", {"You show your bulging muscles.", "$n shows $s bulging muscles.", "You crack nuts between your fingers.", "$n cracks nuts between $s fingers.", "You grizzle your teeth and look mean.", "$n grizzles $s teeth and looks mean.", "You hit your head, and your eyes roll.", "$n hits $s head, and $s eyes roll.", "Crunch, crunch -- you munch a bottle.", "Crunch, crunch -- $n munches a bottle.", "... 98, 99, 100 ... you do pushups.", "... 98, 99, 100 ... $n does pushups.", "Arnold Schwarzenegger admires your physique.", "Arnold Schwarzenegger admires $n's physique.", "Watch your feet, you are juggling granite boulders.", "Watch your feet, $n is juggling granite boulders.", "Oomph!  You squeeze water out of a granite boulder.", "Oomph!  $n squeezes water out of a granite boulder.", "You pick your teeth with a spear.", "$n picks $s teeth with a spear.", "Everyone is swept off their foot by your hug.", "You are swept off your feet by $n's hug.", "Your karate chop splits a tree.", "$n's karate chop splits a tree.", "A strap of your armor breaks over your mighty thews.", "A strap of $n's armor breaks over $s mighty thews.", "A boulder cracks at your frown.", "A boulder cracks at $n's frown.", "Mercenaries arrive to do your bidding.", "Mercenaries arrive to do $n's bidding.", "Four matched Percherons bring in your chariot.", "Four matched Percherons bring in $n's chariot.", "Atlas asks you to relieve him.", "Atlas asks $n to relieve him.", NULL}},
-    {0}};
+/* Pose table - loaded from JSON at boot. */
+POSE_T *pose_table = NULL;
+int pose_count = 0, pose_cap = 0;
 
 SONG_T song_table[MAX_SONGS + 1];
 
@@ -1544,6 +1290,8 @@ DEFINE_DISPOSE_FUN(class_dispose)
     str_free(&(class->name));
     str_free(&(class->base_group));
     str_free(&(class->default_group));
+    free(class->guild);
+    class->guild = NULL;
 }
 
 DEFINE_DISPOSE_FUN(pc_race_dispose)
@@ -1552,8 +1300,15 @@ DEFINE_DISPOSE_FUN(pc_race_dispose)
     int i;
 
     str_free(&(pc_race->name));
-    for (i = 0; i < PC_RACE_SKILL_MAX; i++)
-        str_free(&(pc_race->skills[i]));
+    if (pc_race->skills != NULL)
+    {
+        for (i = 0; pc_race->skills[i] != NULL; i++)
+            str_free(&(pc_race->skills[i]));
+        free(pc_race->skills);
+        pc_race->skills = NULL;
+    }
+    free(pc_race->class_mult);
+    pc_race->class_mult = NULL;
 }
 
 DEFINE_DISPOSE_FUN(race_dispose)
@@ -1570,6 +1325,8 @@ DEFINE_DISPOSE_FUN(skill_dispose)
     str_free(&(skill->noun_damage));
     str_free(&(skill->msg_off));
     str_free(&(skill->msg_obj));
+    free(skill->classes);
+    skill->classes = NULL;
 }
 
 DEFINE_DISPOSE_FUN(skill_group_dispose)
@@ -1578,8 +1335,12 @@ DEFINE_DISPOSE_FUN(skill_group_dispose)
     int i;
 
     str_free(&(group->name));
-    for (i = 0; i < MAX_IN_GROUP; i++)
+    for (i = 0; i < group->spell_count; i++)
         str_free(&(group->spells[i]));
+    free(group->spells);
+    group->spells = NULL;
+    free(group->classes);
+    group->classes = NULL;
 }
 
 DEFINE_DISPOSE_FUN(song_dispose)
@@ -1589,8 +1350,10 @@ DEFINE_DISPOSE_FUN(song_dispose)
 
     str_free(&(song->group));
     str_free(&(song->name));
-    for (i = 0; i < MAX_SONG_LINES; i++)
+    for (i = 0; i < song->lines; i++)
         str_free(&(song->lyrics[i]));
+    free(song->lyrics);
+    song->lyrics = NULL;
     song->lines = 0;
 }
 
@@ -1968,7 +1731,7 @@ RECYCLE_T recycle_table[RECYCLE_MAX + 1] = {
     RECYCLE_N_ENTRY(RECYCLE_HELP_T, help, HELP_T, keyword, NULL, help_dispose),
     RECYCLE_ENTRY(RECYCLE_MPROG_CODE_T, mpcode, MPROG_CODE_T, mpcode_init, mpcode_dispose),
     RECYCLE_ENTRY(RECYCLE_DESCRIPTOR_T, descriptor, DESCRIPTOR_T, descriptor_init, descriptor_dispose),
-    RECYCLE_ENTRY(RECYCLE_GEN_T, gen_data, GEN_T, NULL, NULL),
+    RECYCLE_ENTRY(RECYCLE_GEN_T, gen_data, GEN_T, gen_data_init, gen_data_dispose),
     RECYCLE_ENTRY(RECYCLE_AFFECT_T, affect, AFFECT_T, NULL, affect_dispose),
     RECYCLE_ENTRY(RECYCLE_OBJ_T, obj, OBJ_T, NULL, obj_dispose),
     RECYCLE_ENTRY(RECYCLE_CHAR_T, char, CHAR_T, char_init, char_dispose),
