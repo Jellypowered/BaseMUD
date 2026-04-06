@@ -1,6 +1,6 @@
 ---
 description: "Use when: integrating a code snippet, porting code from another MUD, adapting external C code, adding a feature from a snippet or paste, merging legacy ROM/MERC/Circle/Diku code into BaseMUD. Handles snippet analysis, codebase investigation, clarifying questions, and implementation."
-tools: [read, search, edit, todo]
+tools: [read, search, edit, todo, run_in_terminal, get_changed_files]
 user-invocable: true
 argument-hint: "Paste or describe the snippet you want to integrate into BaseMUD."
 ---
@@ -63,11 +63,97 @@ Wait for the user to approve the plan before implementing.
 
 Implement the approved plan using the `edit` tool. After each file, confirm what was done. Use `todo` to track multi-file work.
 
+## Phase 6 — Credits
+
+Update `json/help/credits.json` to record the contribution.
+
+**Contributor name**: Scan the original snippet for attribution clues — file headers, comment blocks, author lines (e.g., `/* Written by ... */`, `// by ...`, `Author:`, `Coder:`). Use only the person's name. Strip any email addresses, URLs, Discord handles, or social links. If no name is identifiable, ask the user before leaving the field empty.
+
+**If `json/help/credits.json` does not exist**, create it using this schema (matches the `json/help/` format used by all help files):
+
+```json
+[{"help": {
+  "area": null,
+  "name": "credits",
+  "filename": "credits.are",
+  "pages": [
+    {
+      "keyword": "CREDITS",
+      "text": "The following people contributed code, snippets, or features to BaseMUD:
+              |
+              |<Feature description> --
+              |    <Contributor Name>
+              |",
+      "hide_keywords": true
+    }
+  ]
+}}]
+```
+
+**If it already exists**, append a new entry to the `text` of the `CREDITS` page, following the same `Feature --\n    Name` format. Do not modify other pages or entries.
+
+The feature description should be concise and plain-English (e.g., `Acid Rain spell`, `Extended affects system from MERC 2.2`). No code, no filenames, no URLs.
+
 ## BaseMUD Conventions to Check
+
+Before investigating, read `.github/agents/cheatsheet.md` — it contains verified findings from prior integrations and will save redundant searching.
 
 - **Build**: MSYS2/MinGW64, gcc 15.2; new .c files auto-picked up by Makefile wildcard
 - **Flags**: BaseMUD uses its own bitflag macros — verify against `basemud.h` and relevant headers
 - **Strings**: Check string allocation patterns (BaseMUD may differ from ROM's `str_alloc`/`free_string`)
-- **JSON**: If the feature involves area data, mob/obj/room definitions, or config, check if JSON counterparts in `json/` need updating
+- **JSON**: All config and area data is JSON. Schema reference: `doc/Json_Documentation.md`. Check `json/config/` and `json/areas/` for counterparts when adding features
 - **Headers**: Each `.c` file has a matching `.h`; new symbols go in the appropriate header
 - **Struct fields**: BaseMUD struct definitions may have added, renamed, or removed fields vs. stock ROM/MERC
+
+## Default Conventions (apply unless user overrides)
+
+- **New spells/skills**: Add a JSON entry in `json/config/skills.json` with `"classes": {}` (unassigned/dormant). Do NOT assign class levels — the user will do this later via the web editor
+- **Slot numbers**: Must be globally unique. Check the slot table in `cheatsheet.md` and use the next available number. Update the cheatsheet after use
+- **act() calls**: Use `act3()` for ch+victim+room messages, `act2()` for ch+room. See cheatsheet for the pattern
+- **damage()**: Use `damage_visible()`. Check its `bool` return or `victim->position == POS_DEAD` in loops
+
+## Cheatsheet Maintenance
+
+After each integration, update `.github/agents/cheatsheet.md` with any new verified findings:
+
+- Type renames or struct field differences discovered
+- New slot numbers used
+- Any pattern that had to be looked up and confirmed from source
+
+## Phase 7 — Build, Verify, and Commit
+
+After cheatsheet is updated:
+
+1. **Build** — run `make` using the workspace build task (MSYS2 PATH required):
+
+   ```
+   make
+   ```
+
+   Check output for errors or warnings.
+
+2. **Fix errors** — if the build fails, diagnose from compiler output, fix with `edit`, and rebuild. Repeat until clean.
+
+3. **Compose a commit message** — small, scoped, plain English:
+   - One-line subject: what was added/changed, named specifically (e.g. `Adapted Acid Rain snippet for BaseMUD`)
+   - Optional short body bullet(s) for non-obvious findings (e.g. `- 8-hit loop; checks victim death each iteration`)
+   - Do NOT include file lists or boilerplate
+
+4. **Stage all changes**:
+
+   ```
+   git add -A
+   ```
+
+5. **Commit**:
+
+   ```
+   git commit -m "<subject>" -m "<body if needed>"
+   ```
+
+6. **Push**:
+   ```
+   git push
+   ```
+
+Only proceed to commit once the build is clean. Do not push a broken build.

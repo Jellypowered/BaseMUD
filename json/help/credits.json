@@ -1,0 +1,16 @@
+[{"help": {
+  "area": null,
+  "name": "credits",
+  "filename": "credits.are",
+  "pages": [
+    {
+      "keyword": "CREDITS",
+      "text": "The following people contributed code, snippets, or features to BaseMUD:
+              |
+              |Acid Rain spell --
+              |    GrayArea
+              |",
+      "hide_keywords": true
+    }
+  ]
+}}]
