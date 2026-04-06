@@ -14,17 +14,18 @@ This document covers the complete JSON schema for BaseMUD area, entity, config, 
    - [mobile](#mobile)
    - [shop (nested in mobile)](#shop-nested-in-mobile)
    - [object](#object)
-   - [Object values by item\_type](#object-values-by-item_type)
+   - [Object values by item_type](#object-values-by-item_type)
    - [affect (within affects)](#affect-within-affects)
-   - [extra\_description](#extra_description)
+   - [extra_description](#extra_description)
    - [social](#social)
    - [portal (config)](#portal-config)
-   - [help\_area](#help_area)
-   - [help (within help\_area)](#help-within-help_area)
+   - [help_area](#help_area)
+   - [help (within help_area)](#help-within-help_area)
 4. [Valid Enum Values](#valid-enum-values)
 5. [Flag Strings](#flag-strings)
 6. [Business Rules and Constraints](#business-rules-and-constraints)
-7. [Read-Only Fields](#read-only-fields)
+7. [Computed Fields](#computed-fields-never-write-these)
+8. [Config Tables: What You Can Edit Live](#config-tables-what-you-can-edit-live)
 
 ---
 
@@ -48,7 +49,7 @@ json/
     weapons.json       -- Weapon type names (read-only config)
     liquids.json       -- Liquid type names (read-only config)
     materials.json     -- Material names (read-only config)
-    <others>           -- Additional read-only config tables
+    <others>           -- Additional config tables (see editing guide)
   help/
     <name>.json        -- Help page collections
 ```
@@ -74,7 +75,7 @@ Fields marked **(opt)** are optional; all others are **required**. The server lo
 
 ### Anum (Area-Local Numbers)
 
-Rooms, mobiles, and objects are identified within their area by an integer `anum`. The server resolves these to global vnums at boot. **Always use anums within area files — never global vnums** for cross-references within the same area.
+Rooms, mobiles, and objects are identified within their area by an integer `anum`. The server resolves these to global vnums at boot. **Always use anums within area files ï¿½ never global vnums** for cross-references within the same area.
 
 Cross-area references (e.g. `key` vnum on a container or portal object) use the global vnum directly.
 
@@ -102,6 +103,7 @@ Description strings may contain ROM-style inline color codes: `{r` (red), `{b` (
 Social message strings use substitution placeholders: `$n` actor name, `$N` target name, `$m`/`$M` him/her (object), `$s`/`$S` his/her (possessive), `$e`/`$E` he/she, `$p` object name, `$P` secondary object name.
 
 ---
+
 ## Entity Schemas
 
 ### area
@@ -110,33 +112,33 @@ Social message strings use substitution placeholders: `$n` actor name, `$N` targ
 
 ```json
 {
-  "area": {
-    "name":       "midgaard",
-    "filename":   "midgaard",
-    "title":      "Midgaard",
-    "credits":    "Original Midgaard by Merc, enhanced by ROM.",
-    "min_vnum":   3000,
-    "max_vnum":   3299,
-    "builders":   "None",
-    "security":   9,
-    "low_range":  5,
-    "high_range": 95
-  }
+	"area": {
+		"name": "midgaard",
+		"filename": "midgaard",
+		"title": "Midgaard",
+		"credits": "Original Midgaard by Merc, enhanced by ROM.",
+		"min_vnum": 3000,
+		"max_vnum": 3299,
+		"builders": "None",
+		"security": 9,
+		"low_range": 5,
+		"high_range": 95
+	}
 }
 ```
 
-| Field | Type | Req | Notes |
-|---|---|---|---|
-| `name` | string | yes | Unique identifier. Must match the folder name under `json/areas/`. |
-| `filename` | string | yes | Base filename used when saving (no extension). |
-| `title` | string | yes | Human-readable title shown to players. |
-| `credits` | string | yes | Credit line displayed in area list. |
-| `min_vnum` | integer | yes | Lowest global vnum allocated to this area. |
-| `max_vnum` | integer | yes | Highest global vnum. Must be greater than `min_vnum`. |
-| `builders` | string | yes | Space-separated builder names, or `"None"`. |
-| `security` | integer | yes | OLC security level required to edit. Range: 0–9. |
-| `low_range` | integer | (opt) | Recommended minimum player level. Default: 0. |
-| `high_range` | integer | (opt) | Recommended maximum player level. Default: 0 (any). |
+| Field        | Type    | Req   | Notes                                                              |
+| ------------ | ------- | ----- | ------------------------------------------------------------------ |
+| `name`       | string  | yes   | Unique identifier. Must match the folder name under `json/areas/`. |
+| `filename`   | string  | yes   | Base filename used when saving (no extension).                     |
+| `title`      | string  | yes   | Human-readable title shown to players.                             |
+| `credits`    | string  | yes   | Credit line displayed in area list.                                |
+| `min_vnum`   | integer | yes   | Lowest global vnum allocated to this area.                         |
+| `max_vnum`   | integer | yes   | Highest global vnum. Must be greater than `min_vnum`.              |
+| `builders`   | string  | yes   | Space-separated builder names, or `"None"`.                        |
+| `security`   | integer | yes   | OLC security level required to edit. Range: 0ï¿½9.                   |
+| `low_range`  | integer | (opt) | Recommended minimum player level. Default: 0.                      |
+| `high_range` | integer | (opt) | Recommended maximum player level. Default: 0 (any).                |
 
 ---
 
@@ -165,22 +167,22 @@ Social message strings use substitution placeholders: `$n` actor name, `$N` targ
 }
 ```
 
-| Field | Type | Req | Notes |
-|---|---|---|---|
-| `area` | string | yes | Must match the area `name`. |
-| `anum` | integer | yes | Area-local number, unique within the area. |
-| `name` | string | yes | Short room name shown in the room title. |
-| `description` | string | yes | Long room description. |
-| `sector_type` | string (enum) | yes | See [sector_type](#sector_type). |
-| `room_flags` | string (flags) | (opt) | See [room\_flags](#room_flags). |
-| `heal_rate` | integer | (opt) | HP regen rate multiplier. Default: 100. |
-| `mana_rate` | integer | (opt) | Mana regen rate multiplier. Default: 100. |
-| `owner` | string | (opt) | Player name owning this room (personal rooms). |
-| `clan` | string (enum) | (opt) | Clan affiliation. See [clans](#clans). |
-| `portal` | string | (opt) | Named portal exit point on this room. See [Portal Naming](#portal-naming). |
-| `doors` | array | (opt) | Exits. See [exit](#exit-within-doors). |
-| `extra_description` | array | (opt) | Keyword-triggered descriptions. See [extra\_description](#extra_description). |
-| `resets` | array | (opt) | Spawn instructions. See [reset](#reset-within-resets). |
+| Field               | Type           | Req   | Notes                                                                        |
+| ------------------- | -------------- | ----- | ---------------------------------------------------------------------------- |
+| `area`              | string         | yes   | Must match the area `name`.                                                  |
+| `anum`              | integer        | yes   | Area-local number, unique within the area.                                   |
+| `name`              | string         | yes   | Short room name shown in the room title.                                     |
+| `description`       | string         | yes   | Long room description.                                                       |
+| `sector_type`       | string (enum)  | yes   | See [sector_type](#sector_type).                                             |
+| `room_flags`        | string (flags) | (opt) | See [room_flags](#room_flags).                                               |
+| `heal_rate`         | integer        | (opt) | HP regen rate multiplier. Default: 100.                                      |
+| `mana_rate`         | integer        | (opt) | Mana regen rate multiplier. Default: 100.                                    |
+| `owner`             | string         | (opt) | Player name owning this room (personal rooms).                               |
+| `clan`              | string (enum)  | (opt) | Clan affiliation. See [clans](#clans).                                       |
+| `portal`            | string         | (opt) | Named portal exit point on this room. See [Portal Naming](#portal-naming).   |
+| `doors`             | array          | (opt) | Exits. See [exit](#exit-within-doors).                                       |
+| `extra_description` | array          | (opt) | Keyword-triggered descriptions. See [extra_description](#extra_description). |
+| `resets`            | array          | (opt) | Spawn instructions. See [reset](#reset-within-resets).                       |
 
 ---
 
@@ -189,32 +191,35 @@ Social message strings use substitution placeholders: `$n` actor name, `$N` targ
 ```json
 { "dir": "north", "to": 54, "description": "You see a great hall." }
 ```
+
 ```json
 { "dir": "up", "description": "You see Mud School.", "portal": "midgaard-up-4" }
 ```
+
 ```json
 {
-  "dir": "east",
-  "to": 12,
-  "keyword": "iron door",
-  "exit_flags": "door closed locked",
-  "key": 3050
+	"dir": "east",
+	"to": 12,
+	"keyword": "iron door",
+	"exit_flags": "door closed locked",
+	"key": 3050
 }
 ```
 
-| Field | Type | Req | Notes |
-|---|---|---|---|
-| `dir` | string (enum) | yes | `"north"`, `"south"`, `"east"`, `"west"`, `"up"`, `"down"`. |
-| `to` | integer (anum) | (opt) | Anum of the destination room within the same area. Omit for portal exits. |
-| `description` | string | (opt) | Text shown when player looks in this direction. |
-| `keyword` | string | (opt) | Space-separated nouns identifying the door (used with open/close/lock). |
-| `exit_flags` | string (flags) | (opt) | See [exit\_flags](#exit_flags). |
-| `key` | integer (vnum) | (opt) | Global vnum of the key item. Use `0` for no key. |
-| `portal` | string | (opt) | Named portal exit point for cross-area links. See [Portal Naming](#portal-naming). |
+| Field         | Type           | Req   | Notes                                                                              |
+| ------------- | -------------- | ----- | ---------------------------------------------------------------------------------- |
+| `dir`         | string (enum)  | yes   | `"north"`, `"south"`, `"east"`, `"west"`, `"up"`, `"down"`.                        |
+| `to`          | integer (anum) | (opt) | Anum of the destination room within the same area. Omit for portal exits.          |
+| `description` | string         | (opt) | Text shown when player looks in this direction.                                    |
+| `keyword`     | string         | (opt) | Space-separated nouns identifying the door (used with open/close/lock).            |
+| `exit_flags`  | string (flags) | (opt) | See [exit_flags](#exit_flags).                                                     |
+| `key`         | integer (vnum) | (opt) | Global vnum of the key item. Use `0` for no key.                                   |
+| `portal`      | string         | (opt) | Named portal exit point for cross-area links. See [Portal Naming](#portal-naming). |
 
 An exit provides a destination via either `to` (same-area anum) or `portal` (cross-area). Exits with neither are rendered as walls in the description but do not allow passage.
 
 ---
+
 ### reset (within `resets`)
 
 Resets populate rooms with mobiles and objects each time the area resets. Each reset object has a `command` string and a `values` object:
@@ -223,100 +228,100 @@ Resets populate rooms with mobiles and objects each time the area resets. Each r
 { "command": "<type>", "values": { ... } }
 ```
 
-**Order is significant** — see [Reset Ownership](#reset-ownership-critical-for-editors).
+**Order is significant** ï¿½ see [Reset Ownership](#reset-ownership-critical-for-editors).
 
-#### `mobile` — spawn a mob in this room
-
-```json
-{
-  "command": "mobile",
-  "values": { "mob": 11, "global_limit": 1, "room_limit": 1 }
-}
-```
-
-| Field | Type | Notes |
-|---|---|---|
-| `mob` | integer (anum) | Anum of the mobile prototype to spawn. |
-| `global_limit` | integer | Max instances world-wide. `-1` = unlimited. |
-| `room_limit` | integer | Max instances in this specific room. |
-
-#### `object` — place an object in this room
+#### `mobile` ï¿½ spawn a mob in this room
 
 ```json
 {
-  "command": "object",
-  "values": { "obj": 32, "global_limit": 1, "room_limit": 0 }
+	"command": "mobile",
+	"values": { "mob": 11, "global_limit": 1, "room_limit": 1 }
 }
 ```
 
-| Field | Type | Notes |
-|---|---|---|
-| `obj` | integer (anum) | Anum of the object prototype. |
-| `global_limit` | integer | Max instances world-wide. `-1` = unlimited. |
-| `room_limit` | integer | Max instances in this room. |
+| Field          | Type           | Notes                                       |
+| -------------- | -------------- | ------------------------------------------- |
+| `mob`          | integer (anum) | Anum of the mobile prototype to spawn.      |
+| `global_limit` | integer        | Max instances world-wide. `-1` = unlimited. |
+| `room_limit`   | integer        | Max instances in this specific room.        |
 
-#### `give` — put an object in the preceding mobile's inventory
+#### `object` ï¿½ place an object in this room
 
 ```json
 {
-  "command": "give",
-  "values": { "obj": 7, "global_limit": 1 }
+	"command": "object",
+	"values": { "obj": 32, "global_limit": 1, "room_limit": 0 }
 }
 ```
 
-| Field | Type | Notes |
-|---|---|---|
-| `obj` | integer (anum) | Anum of the object prototype. |
-| `global_limit` | integer | Max instances world-wide. `-1` = unlimited. |
+| Field          | Type           | Notes                                       |
+| -------------- | -------------- | ------------------------------------------- |
+| `obj`          | integer (anum) | Anum of the object prototype.               |
+| `global_limit` | integer        | Max instances world-wide. `-1` = unlimited. |
+| `room_limit`   | integer        | Max instances in this room.                 |
+
+#### `give` ï¿½ put an object in the preceding mobile's inventory
+
+```json
+{
+	"command": "give",
+	"values": { "obj": 7, "global_limit": 1 }
+}
+```
+
+| Field          | Type           | Notes                                       |
+| -------------- | -------------- | ------------------------------------------- |
+| `obj`          | integer (anum) | Anum of the object prototype.               |
+| `global_limit` | integer        | Max instances world-wide. `-1` = unlimited. |
 
 The item is given to the nearest preceding `mobile` reset in the room's reset list.
 
-#### `equip` — equip an object on the preceding mobile
+#### `equip` ï¿½ equip an object on the preceding mobile
 
 ```json
 {
-  "command": "equip",
-  "values": { "obj": 5, "wear_loc": "wielded", "global_limit": 1 }
+	"command": "equip",
+	"values": { "obj": 5, "wear_loc": "wielded", "global_limit": 1 }
 }
 ```
 
-| Field | Type | Notes |
-|---|---|---|
-| `obj` | integer (anum) | Anum of the object prototype. |
-| `wear_loc` | string (enum) | Where to equip it. See [wear\_loc](#wear_loc). |
-| `global_limit` | integer | Max instances world-wide. `-1` = unlimited. |
+| Field          | Type           | Notes                                         |
+| -------------- | -------------- | --------------------------------------------- |
+| `obj`          | integer (anum) | Anum of the object prototype.                 |
+| `wear_loc`     | string (enum)  | Where to equip it. See [wear_loc](#wear_loc). |
+| `global_limit` | integer        | Max instances world-wide. `-1` = unlimited.   |
 
 The item is equipped on the nearest preceding `mobile` reset.
 
-#### `put` — place an object inside a container object
+#### `put` ï¿½ place an object inside a container object
 
 ```json
 {
-  "command": "put",
-  "values": { "obj": 15, "into": 10, "global_limit": 5, "put_count": 3 }
+	"command": "put",
+	"values": { "obj": 15, "into": 10, "global_limit": 5, "put_count": 3 }
 }
 ```
 
-| Field | Type | Notes |
-|---|---|---|
-| `obj` | integer (anum) | Anum of the object to place inside. |
-| `into` | integer (anum) | Anum of the container object prototype. |
-| `global_limit` | integer | Max instances world-wide. `-1` = unlimited. |
-| `put_count` | integer | Number of `obj` copies to place. |
+| Field          | Type           | Notes                                       |
+| -------------- | -------------- | ------------------------------------------- |
+| `obj`          | integer (anum) | Anum of the object to place inside.         |
+| `into`         | integer (anum) | Anum of the container object prototype.     |
+| `global_limit` | integer        | Max instances world-wide. `-1` = unlimited. |
+| `put_count`    | integer        | Number of `obj` copies to place.            |
 
 The container must have been placed in the room by a preceding `object` reset.
 
-#### `randomize` — shuffle exit directions in this room
+#### `randomize` ï¿½ shuffle exit directions in this room
 
 ```json
 {
-  "command": "randomize",
-  "values": { "dir_count": 4 }
+	"command": "randomize",
+	"values": { "dir_count": 4 }
 }
 ```
 
-| Field | Type | Notes |
-|---|---|---|
+| Field       | Type    | Notes                                               |
+| ----------- | ------- | --------------------------------------------------- |
 | `dir_count` | integer | Number of exits to randomize (starting from north). |
 
 ---
@@ -364,48 +369,48 @@ The container must have been placed in the room by a preceding `object` reset.
 }
 ```
 
-| Field | Type | Req | Notes |
-|---|---|---|---|
-| `area` | string | yes | Must match area `name`. |
-| `anum` | integer | yes | Area-local number, unique within the area. |
-| `name` | string | yes | Space-separated keyword list used to target the mob. |
-| `short_descr` | string | yes | Short description (e.g. in room listings). |
-| `long_descr` | string | yes | Description line shown when mob is standing in room. |
-| `description` | string | yes | Full description seen when player looks at mob. |
-| `race` | string (enum) | yes | See [races](#races). |
-| `alignment` | integer | yes | Range: -1000 (evil) to +1000 (good). |
-| `level` | integer | yes | Range: 1–60. |
-| `hitroll` | integer | yes | To-hit bonus. |
-| `hit_dice` | string (dice) | yes | HP formula, e.g. `"4d8+20"`. |
-| `mana_dice` | string (dice) | yes | Mana formula. |
-| `damage_dice` | string (dice) | yes | Damage formula. |
-| `attack_type` | string (enum) | yes | Default attack verb. See [attacks](#attacks). |
-| `ac` | object | yes | Armor class. Four integer keys: `pierce`, `bash`, `slash`, `magic`. Negative = harder to hit. |
-| `wealth` | integer | yes | Gold distributed at death. |
-| `size` | string (enum) | yes | See [sizes](#sizes). |
-| `start_pos` | string (enum) | (opt) | Starting position. Default: `"stand"`. See [positions](#positions). |
-| `default_pos` | string (enum) | (opt) | Position mob returns to. Default: `"stand"`. |
-| `sex` | string (enum) | (opt) | Default: `"neutral"`. See [sexes](#sexes). |
-| `material` | string (enum) | (opt) | Default: `"flesh"`. See [materials](#materials). |
-| `group` | integer | (opt) | Linked mob group ID. 0 = no group. |
-| `spec_fun` | string (enum) | (opt) | Special function. See [spec\_funs](#spec_funs). |
-| `mob_flags` | string (flags) | (opt) | See [mob\_flags](#mob_flags). |
-| `mob_flags_minus` | string (flags) | (opt) | Flags to clear (race inheritance override). |
-| `affected_by` | string (flags) | (opt) | Active affect bits. See [affect\_flags](#affect_flags). |
-| `affected_by_minus` | string (flags) | (opt) | Affect bits to clear. |
-| `offense` | string (flags) | (opt) | Combat behaviors. See [off\_flags](#off_flags). |
-| `offense_minus` | string (flags) | (opt) | Offense flags to clear. |
-| `immune` | string (flags) | (opt) | Damage immunities. See [res\_flags](#res_flags). |
-| `immune_minus` | string (flags) | (opt) | Immunities to clear. |
-| `resist` | string (flags) | (opt) | Damage resistances. Same flag table as `immune`. |
-| `resist_minus` | string (flags) | (opt) | Resistances to clear. |
-| `vulnerable` | string (flags) | (opt) | Damage vulnerabilities. Same flag table as `immune`. |
-| `vulnerable_minus` | string (flags) | (opt) | Vulnerabilities to clear. |
-| `form` | string (flags) | (opt) | Physical form descriptors. See [form\_flags](#form_flags). |
-| `form_minus` | string (flags) | (opt) | Form flags to clear. |
-| `parts` | string (flags) | (opt) | Body part flags. See [part\_flags](#part_flags). |
-| `parts_minus` | string (flags) | (opt) | Body parts to clear. |
-| `shop` | object | (opt) | Makes mob a shopkeeper. See [shop](#shop-nested-in-mobile). |
+| Field               | Type           | Req   | Notes                                                                                         |
+| ------------------- | -------------- | ----- | --------------------------------------------------------------------------------------------- |
+| `area`              | string         | yes   | Must match area `name`.                                                                       |
+| `anum`              | integer        | yes   | Area-local number, unique within the area.                                                    |
+| `name`              | string         | yes   | Space-separated keyword list used to target the mob.                                          |
+| `short_descr`       | string         | yes   | Short description (e.g. in room listings).                                                    |
+| `long_descr`        | string         | yes   | Description line shown when mob is standing in room.                                          |
+| `description`       | string         | yes   | Full description seen when player looks at mob.                                               |
+| `race`              | string (enum)  | yes   | See [races](#races).                                                                          |
+| `alignment`         | integer        | yes   | Range: -1000 (evil) to +1000 (good).                                                          |
+| `level`             | integer        | yes   | Range: 1ï¿½60.                                                                                  |
+| `hitroll`           | integer        | yes   | To-hit bonus.                                                                                 |
+| `hit_dice`          | string (dice)  | yes   | HP formula, e.g. `"4d8+20"`.                                                                  |
+| `mana_dice`         | string (dice)  | yes   | Mana formula.                                                                                 |
+| `damage_dice`       | string (dice)  | yes   | Damage formula.                                                                               |
+| `attack_type`       | string (enum)  | yes   | Default attack verb. See [attacks](#attacks).                                                 |
+| `ac`                | object         | yes   | Armor class. Four integer keys: `pierce`, `bash`, `slash`, `magic`. Negative = harder to hit. |
+| `wealth`            | integer        | yes   | Gold distributed at death.                                                                    |
+| `size`              | string (enum)  | yes   | See [sizes](#sizes).                                                                          |
+| `start_pos`         | string (enum)  | (opt) | Starting position. Default: `"stand"`. See [positions](#positions).                           |
+| `default_pos`       | string (enum)  | (opt) | Position mob returns to. Default: `"stand"`.                                                  |
+| `sex`               | string (enum)  | (opt) | Default: `"neutral"`. See [sexes](#sexes).                                                    |
+| `material`          | string (enum)  | (opt) | Default: `"flesh"`. See [materials](#materials).                                              |
+| `group`             | integer        | (opt) | Linked mob group ID. 0 = no group.                                                            |
+| `spec_fun`          | string (enum)  | (opt) | Special function. See [spec_funs](#spec_funs).                                                |
+| `mob_flags`         | string (flags) | (opt) | See [mob_flags](#mob_flags).                                                                  |
+| `mob_flags_minus`   | string (flags) | (opt) | Flags to clear (race inheritance override).                                                   |
+| `affected_by`       | string (flags) | (opt) | Active affect bits. See [affect_flags](#affect_flags).                                        |
+| `affected_by_minus` | string (flags) | (opt) | Affect bits to clear.                                                                         |
+| `offense`           | string (flags) | (opt) | Combat behaviors. See [off_flags](#off_flags).                                                |
+| `offense_minus`     | string (flags) | (opt) | Offense flags to clear.                                                                       |
+| `immune`            | string (flags) | (opt) | Damage immunities. See [res_flags](#res_flags).                                               |
+| `immune_minus`      | string (flags) | (opt) | Immunities to clear.                                                                          |
+| `resist`            | string (flags) | (opt) | Damage resistances. Same flag table as `immune`.                                              |
+| `resist_minus`      | string (flags) | (opt) | Resistances to clear.                                                                         |
+| `vulnerable`        | string (flags) | (opt) | Damage vulnerabilities. Same flag table as `immune`.                                          |
+| `vulnerable_minus`  | string (flags) | (opt) | Vulnerabilities to clear.                                                                     |
+| `form`              | string (flags) | (opt) | Physical form descriptors. See [form_flags](#form_flags).                                     |
+| `form_minus`        | string (flags) | (opt) | Form flags to clear.                                                                          |
+| `parts`             | string (flags) | (opt) | Body part flags. See [part_flags](#part_flags).                                               |
+| `parts_minus`       | string (flags) | (opt) | Body parts to clear.                                                                          |
+| `shop`              | object         | (opt) | Makes mob a shopkeeper. See [shop](#shop-nested-in-mobile).                                   |
 
 ---
 
@@ -413,25 +418,26 @@ The container must have been placed in the room by a preceding `object` reset.
 
 ```json
 {
-  "trades":      ["scroll", "wand", "staff", "potion"],
-  "profit_buy":  105,
-  "profit_sell": 15,
-  "open_hour":   0,
-  "close_hour":  23
+	"trades": ["scroll", "wand", "staff", "potion"],
+	"profit_buy": 105,
+	"profit_sell": 15,
+	"open_hour": 0,
+	"close_hour": 23
 }
 ```
 
-| Field | Type | Req | Notes |
-|---|---|---|---|
-| `trades` | array of string (enum) | yes | Item types the shop buys from players. Max 5 entries. Empty array = buys nothing. Uses [item\_type](#item_type) names. |
-| `profit_buy` | integer | yes | Buy price as % of list. E.g. `105` = 5% markup. |
-| `profit_sell` | integer | yes | Sell (to shop) price as % of list. E.g. `15` = shop pays 15%. |
-| `open_hour` | integer | yes | Opening hour 0–23. |
-| `close_hour` | integer | yes | Closing hour 0–23. |
+| Field         | Type                   | Req | Notes                                                                                                                 |
+| ------------- | ---------------------- | --- | --------------------------------------------------------------------------------------------------------------------- |
+| `trades`      | array of string (enum) | yes | Item types the shop buys from players. Max 5 entries. Empty array = buys nothing. Uses [item_type](#item_type) names. |
+| `profit_buy`  | integer                | yes | Buy price as % of list. E.g. `105` = 5% markup.                                                                       |
+| `profit_sell` | integer                | yes | Sell (to shop) price as % of list. E.g. `15` = shop pays 15%.                                                         |
+| `open_hour`   | integer                | yes | Opening hour 0ï¿½23.                                                                                                    |
+| `close_hour`  | integer                | yes | Closing hour 0ï¿½23.                                                                                                    |
 
-What the shop **sells** is determined by `give` resets on the mob — items placed in the mob's inventory via `give` resets appear as shop stock. `equip` resets on a shopkeeper mob equip items on the mob personally (not for sale).
+What the shop **sells** is determined by `give` resets on the mob ï¿½ items placed in the mob's inventory via `give` resets appear as shop stock. `equip` resets on a shopkeeper mob equip items on the mob personally (not for sale).
 
 ---
+
 ### object
 
 **File:** `json/areas/<area_name>/objects.json` | **Wrapping key:** `"object"`
@@ -465,24 +471,24 @@ What the shop **sells** is determined by `give` resets on the mob — items placed
 }
 ```
 
-| Field | Type | Req | Notes |
-|---|---|---|---|
-| `area` | string | yes | Must match area `name`. |
-| `anum` | integer | yes | Area-local number, unique within area. |
-| `name` | string | yes | Space-separated keyword list. |
-| `short_descr` | string | yes | Short description seen in room/inventory. |
-| `description` | string | yes | Text shown when object is on the floor. |
-| `item_type` | string (enum) | yes | See [item\_type](#item_type). |
-| `values` | object | yes | Per-type fields — see section below. |
-| `level` | integer | yes | Minimum level to use (0 = no restriction). |
-| `weight` | integer | yes | Weight in grams. |
-| `cost` | integer | yes | Base value in silver coins. |
-| `material` | string (enum) | (opt) | Default: `"generic"`. See [materials](#materials). |
-| `condition` | integer | (opt) | Condition 0–100. Default: 100 (perfect). Omitted when 100. |
-| `extra_flags` | string (flags) | (opt) | See [extra\_flags](#extra_flags). |
-| `wear_flags` | string (flags) | (opt) | See [wear\_flags](#wear_flags). Omit entirely for non-wearable items like furniture. |
-| `extra_description` | array | (opt) | See [extra\_description](#extra_description). |
-| `affects` | array | (opt) | See [affect](#affect-within-affects). |
+| Field               | Type           | Req   | Notes                                                                               |
+| ------------------- | -------------- | ----- | ----------------------------------------------------------------------------------- |
+| `area`              | string         | yes   | Must match area `name`.                                                             |
+| `anum`              | integer        | yes   | Area-local number, unique within area.                                              |
+| `name`              | string         | yes   | Space-separated keyword list.                                                       |
+| `short_descr`       | string         | yes   | Short description seen in room/inventory.                                           |
+| `description`       | string         | yes   | Text shown when object is on the floor.                                             |
+| `item_type`         | string (enum)  | yes   | See [item_type](#item_type).                                                        |
+| `values`            | object         | yes   | Per-type fields ï¿½ see section below.                                                |
+| `level`             | integer        | yes   | Minimum level to use (0 = no restriction).                                          |
+| `weight`            | integer        | yes   | Weight in grams.                                                                    |
+| `cost`              | integer        | yes   | Base value in silver coins.                                                         |
+| `material`          | string (enum)  | (opt) | Default: `"generic"`. See [materials](#materials).                                  |
+| `condition`         | integer        | (opt) | Condition 0ï¿½100. Default: 100 (perfect). Omitted when 100.                          |
+| `extra_flags`       | string (flags) | (opt) | See [extra_flags](#extra_flags).                                                    |
+| `wear_flags`        | string (flags) | (opt) | See [wear_flags](#wear_flags). Omit entirely for non-wearable items like furniture. |
+| `extra_description` | array          | (opt) | See [extra_description](#extra_description).                                        |
+| `affects`           | array          | (opt) | See [affect](#affect-within-affects).                                               |
 
 ---
 
@@ -494,21 +500,21 @@ The `values` object fields vary by `item_type`. Fields with defaults may be omit
 
 ```json
 {
-  "weapon_type": "sword",
-  "dice_num":    2,
-  "dice_size":   5,
-  "attack_type": "slash",
-  "flags":       "sharp"
+	"weapon_type": "sword",
+	"dice_num": 2,
+	"dice_size": 5,
+	"attack_type": "slash",
+	"flags": "sharp"
 }
 ```
 
-| Field | Type | Notes |
-|---|---|---|
-| `weapon_type` | string (enum) | See [weapon\_types](#weapon_types). |
-| `dice_num` | integer | Number of damage dice. |
-| `dice_size` | integer | Sides per damage die. |
-| `attack_type` | string (enum) | Attack verb. See [attacks](#attacks). |
-| `flags` | string (flags) | Weapon enhancements. See [weapon\_flags](#weapon_flags). (opt) |
+| Field         | Type           | Notes                                                         |
+| ------------- | -------------- | ------------------------------------------------------------- |
+| `weapon_type` | string (enum)  | See [weapon_types](#weapon_types).                            |
+| `dice_num`    | integer        | Number of damage dice.                                        |
+| `dice_size`   | integer        | Sides per damage die.                                         |
+| `attack_type` | string (enum)  | Attack verb. See [attacks](#attacks).                         |
+| `flags`       | string (flags) | Weapon enhancements. See [weapon_flags](#weapon_flags). (opt) |
 
 #### `armor`
 
@@ -516,32 +522,32 @@ The `values` object fields vary by `item_type`. Fields with defaults may be omit
 { "vs_pierce": 6, "vs_bash": 5, "vs_slash": 7, "vs_magic": 5 }
 ```
 
-| Field | Type | Notes |
-|---|---|---|
+| Field       | Type    | Notes                                        |
+| ----------- | ------- | -------------------------------------------- |
 | `vs_pierce` | integer | AC vs piercing (higher = better for wearer). |
-| `vs_bash` | integer | AC vs bashing. |
-| `vs_slash` | integer | AC vs slashing. |
-| `vs_magic` | integer | AC vs magical. |
+| `vs_bash`   | integer | AC vs bashing.                               |
+| `vs_slash`  | integer | AC vs slashing.                              |
+| `vs_magic`  | integer | AC vs magical.                               |
 
 #### `container`
 
 ```json
 {
-  "capacity":    50,
-  "flags":       "closeable",
-  "key":         3050,
-  "max_weight":  100,
-  "weight_mult": 75
+	"capacity": 50,
+	"flags": "closeable",
+	"key": 3050,
+	"max_weight": 100,
+	"weight_mult": 75
 }
 ```
 
-| Field | Type | Notes |
-|---|---|---|
-| `capacity` | integer | Max number of items. |
-| `flags` | string (flags) | See [container\_flags](#container_flags). (opt) |
-| `key` | integer (global vnum) | Key item vnum. `0` = no lock. |
-| `max_weight` | integer | Max weight of contents. `0` = no limit. |
-| `weight_mult` | integer | Percentage of contents weight added to container weight. `100` = full. |
+| Field         | Type                  | Notes                                                                  |
+| ------------- | --------------------- | ---------------------------------------------------------------------- |
+| `capacity`    | integer               | Max number of items.                                                   |
+| `flags`       | string (flags)        | See [container_flags](#container_flags). (opt)                         |
+| `key`         | integer (global vnum) | Key item vnum. `0` = no lock.                                          |
+| `max_weight`  | integer               | Max weight of contents. `0` = no limit.                                |
+| `weight_mult` | integer               | Percentage of contents weight added to container weight. `100` = full. |
 
 #### `drink` / `fountain`
 
@@ -549,12 +555,12 @@ The `values` object fields vary by `item_type`. Fields with defaults may be omit
 { "capacity": 16, "filled": 16, "liquid": "beer", "poisoned": false }
 ```
 
-| Field | Type | Notes |
-|---|---|---|
-| `capacity` | integer | Maximum liquid units. |
-| `filled` | integer | Current liquid units (0 = empty). |
-| `liquid` | string (enum) | See [liquids](#liquids). |
-| `poisoned` | boolean | Whether contents are poisoned. (opt, default false) |
+| Field      | Type          | Notes                                               |
+| ---------- | ------------- | --------------------------------------------------- |
+| `capacity` | integer       | Maximum liquid units.                               |
+| `filled`   | integer       | Current liquid units (0 = empty).                   |
+| `liquid`   | string (enum) | See [liquids](#liquids).                            |
+| `poisoned` | boolean       | Whether contents are poisoned. (opt, default false) |
 
 `fountain` uses the same schema but the object cannot be taken and refills each area reset.
 
@@ -564,10 +570,10 @@ The `values` object fields vary by `item_type`. Fields with defaults may be omit
 { "hunger": 18, "fullness": 12, "poisoned": false }
 ```
 
-| Field | Type | Notes |
-|---|---|---|
-| `hunger` | integer | Hunger points restored. |
-| `fullness` | integer | Fullness points restored. |
+| Field      | Type    | Notes                                              |
+| ---------- | ------- | -------------------------------------------------- |
+| `hunger`   | integer | Hunger points restored.                            |
+| `fullness` | integer | Fullness points restored.                          |
 | `poisoned` | boolean | Whether the food is poisoned. (opt, default false) |
 
 #### `light`
@@ -576,8 +582,8 @@ The `values` object fields vary by `item_type`. Fields with defaults may be omit
 { "duration": 250 }
 ```
 
-| Field | Type | Notes |
-|---|---|---|
+| Field      | Type    | Notes                                                                       |
+| ---------- | ------- | --------------------------------------------------------------------------- |
 | `duration` | integer | Hours of illumination. `-1` = permanent. All other value slots are ignored. |
 
 #### `wand` / `staff`
@@ -586,12 +592,12 @@ The `values` object fields vary by `item_type`. Fields with defaults may be omit
 { "level": 10, "recharge": 5, "charges": 5, "skill": "magic missile" }
 ```
 
-| Field | Type | Notes |
-|---|---|---|
-| `level` | integer | Effective spell level when cast. |
-| `recharge` | integer | Max charges after recharging. |
-| `charges` | integer | Current charges remaining. |
-| `skill` | string (enum) | Spell to cast. See [skills](#skills). |
+| Field      | Type          | Notes                                 |
+| ---------- | ------------- | ------------------------------------- |
+| `level`    | integer       | Effective spell level when cast.      |
+| `recharge` | integer       | Max charges after recharging.         |
+| `charges`  | integer       | Current charges remaining.            |
+| `skill`    | string (enum) | Spell to cast. See [skills](#skills). |
 
 #### `scroll` / `potion` / `pill`
 
@@ -599,13 +605,13 @@ The `values` object fields vary by `item_type`. Fields with defaults may be omit
 { "level": 15, "skill1": "cure light", "skill2": "bless", "skill3": "armor" }
 ```
 
-| Field | Type | Notes |
-|---|---|---|
-| `level` | integer | Effective spell level. |
+| Field    | Type          | Notes                                       |
+| -------- | ------------- | ------------------------------------------- |
+| `level`  | integer       | Effective spell level.                      |
 | `skill1` | string (enum) | (opt) Primary spell. See [skills](#skills). |
-| `skill2` | string (enum) | (opt) Second spell. |
-| `skill3` | string (enum) | (opt) Third spell. |
-| `skill4` | string (enum) | (opt) Fourth spell. |
+| `skill2` | string (enum) | (opt) Second spell.                         |
+| `skill3` | string (enum) | (opt) Third spell.                          |
+| `skill4` | string (enum) | (opt) Fourth spell.                         |
 
 #### `money`
 
@@ -617,41 +623,41 @@ The `values` object fields vary by `item_type`. Fields with defaults may be omit
 
 ```json
 {
-  "max_people":  4,
-  "max_weight":  500,
-  "flags":       "sit_on rest_on sleep_on",
-  "heal_rate":   150,
-  "mana_rate":   150
+	"max_people": 4,
+	"max_weight": 500,
+	"flags": "sit_on rest_on sleep_on",
+	"heal_rate": 150,
+	"mana_rate": 150
 }
 ```
 
-| Field | Type | Notes |
-|---|---|---|
-| `max_people` | integer | Maximum occupants. |
-| `max_weight` | integer | Maximum combined weight of occupants. |
-| `flags` | string (flags) | Allowed postures. See [furniture\_flags](#furniture_flags). |
-| `heal_rate` | integer | HP regen multiplier while using this furniture. |
-| `mana_rate` | integer | Mana regen multiplier. |
+| Field        | Type           | Notes                                                      |
+| ------------ | -------------- | ---------------------------------------------------------- |
+| `max_people` | integer        | Maximum occupants.                                         |
+| `max_weight` | integer        | Maximum combined weight of occupants.                      |
+| `flags`      | string (flags) | Allowed postures. See [furniture_flags](#furniture_flags). |
+| `heal_rate`  | integer        | HP regen multiplier while using this furniture.            |
+| `mana_rate`  | integer        | Mana regen multiplier.                                     |
 
 #### `portal` (portal-type object)
 
 ```json
 {
-  "charges":    -1,
-  "exit_flags": "door",
-  "gate_flags": "normal_exit go_with",
-  "to_vnum":    3001,
-  "key":        0
+	"charges": -1,
+	"exit_flags": "door",
+	"gate_flags": "normal_exit go_with",
+	"to_vnum": 3001,
+	"key": 0
 }
 ```
 
-| Field | Type | Notes |
-|---|---|---|
-| `charges` | integer | Uses remaining. `-1` = unlimited. |
-| `exit_flags` | string (flags) | See [exit\_flags](#exit_flags). |
-| `gate_flags` | string (flags) | See [gate\_flags](#gate_flags). |
-| `to_vnum` | integer (global vnum) | Global destination vnum. |
-| `key` | integer (global vnum) | Key item. `0` = no key needed. |
+| Field        | Type                  | Notes                             |
+| ------------ | --------------------- | --------------------------------- |
+| `charges`    | integer               | Uses remaining. `-1` = unlimited. |
+| `exit_flags` | string (flags)        | See [exit_flags](#exit_flags).    |
+| `gate_flags` | string (flags)        | See [gate_flags](#gate_flags).    |
+| `to_vnum`    | integer (global vnum) | Global destination vnum.          |
+| `key`        | integer (global vnum) | Key item. `0` = no key needed.    |
 
 #### `map`
 
@@ -659,8 +665,8 @@ The `values` object fields vary by `item_type`. Fields with defaults may be omit
 { "persist": true }
 ```
 
-| Field | Type | Notes |
-|---|---|---|
+| Field     | Type    | Notes                               |
+| --------- | ------- | ----------------------------------- |
 | `persist` | boolean | Whether the map survives after use. |
 
 #### No-value types
@@ -673,42 +679,45 @@ These item types carry no meaningful values. Provide `"values": {}`:
 
 ### affect (within `affects`)
 
-Affects modify the wearer while the object is equipped. Two mutually exclusive forms — use one or the other, never both in the same affect entry.
+Affects modify the wearer while the object is equipped. Two mutually exclusive forms ï¿½ use one or the other, never both in the same affect entry.
 
-**Stat affect** — adds or subtracts a numeric attribute:
+**Stat affect** ï¿½ adds or subtracts a numeric attribute:
 
 ```json
 { "level": 8, "apply": "strength", "modifier": 2 }
 ```
 
-**Bit affect** — toggles flag bits:
+**Bit affect** ï¿½ toggles flag bits:
 
 ```json
 { "level": 10, "bit_type": "affects", "bits": "flying haste" }
 ```
 
-| Field | Type | Req | Notes |
-|---|---|---|---|
-| `level` | integer | yes | Level at which the affect is applied. |
-| `apply` | string (enum) | one of | Attribute name. See [affect\_apply](#affect_apply). |
-| `modifier` | integer | one of | Amount to add (negative = subtract). |
-| `bit_type` | string (enum) | one of | Which flag set: `"affects"`, `"object"`, `"immune"`, `"resist"`, `"vuln"`, `"weapon"`. |
-| `bits` | string (flags) | one of | Flags to set. Flag table depends on `bit_type` — see [bit\_type flag mapping](#bit_type-flag-mapping). |
+| Field      | Type           | Req    | Notes                                                                                                 |
+| ---------- | -------------- | ------ | ----------------------------------------------------------------------------------------------------- |
+| `level`    | integer        | yes    | Level at which the affect is applied.                                                                 |
+| `apply`    | string (enum)  | one of | Attribute name. See [affect_apply](#affect_apply).                                                    |
+| `modifier` | integer        | one of | Amount to add (negative = subtract).                                                                  |
+| `bit_type` | string (enum)  | one of | Which flag set: `"affects"`, `"object"`, `"immune"`, `"resist"`, `"vuln"`, `"weapon"`.                |
+| `bits`     | string (flags) | one of | Flags to set. Flag table depends on `bit_type` ï¿½ see [bit_type flag mapping](#bit_type-flag-mapping). |
 
 ---
 
-### extra\_description
+### extra_description
 
 Used in both `room.extra_description` and `object.extra_description`:
 
 ```json
-{ "keyword": "plaque inscription", "description": "The plaque reads:\nBuilt in 1992." }
+{
+	"keyword": "plaque inscription",
+	"description": "The plaque reads:\nBuilt in 1992."
+}
 ```
 
-| Field | Type | Req | Notes |
-|---|---|---|---|
-| `keyword` | string | yes | Space-separated keywords. Player uses `look <keyword>` to see this. |
-| `description` | string | yes | Text displayed when a matching keyword is looked at. |
+| Field         | Type   | Req | Notes                                                               |
+| ------------- | ------ | --- | ------------------------------------------------------------------- |
+| `keyword`     | string | yes | Space-separated keywords. Player uses `look <keyword>` to see this. |
+| `description` | string | yes | Text displayed when a matching keyword is looked at.                |
 
 ---
 
@@ -718,33 +727,33 @@ Used in both `room.extra_description` and `object.extra_description`:
 
 ```json
 {
-  "social": {
-    "name":           "gack",
-    "char_no_arg":    "Gaaack!",
-    "others_no_arg":  "$n gacks with dismay!",
-    "char_found":     "Appalled, you gack at $N.",
-    "others_found":   "$n gacks at $N.",
-    "vict_found":     "$n gacks, and looks your way.",
-    "char_not_found": "That person is not here.",
-    "char_auto":      "*GACK!*",
-    "others_auto":    "Appalled, $n gacks at $mself!",
-    "min_pos":        "resting"
-  }
+	"social": {
+		"name": "gack",
+		"char_no_arg": "Gaaack!",
+		"others_no_arg": "$n gacks with dismay!",
+		"char_found": "Appalled, you gack at $N.",
+		"others_found": "$n gacks at $N.",
+		"vict_found": "$n gacks, and looks your way.",
+		"char_not_found": "That person is not here.",
+		"char_auto": "*GACK!*",
+		"others_auto": "Appalled, $n gacks at $mself!",
+		"min_pos": "resting"
+	}
 }
 ```
 
-| Field | Type | Req | Notes |
-|---|---|---|---|
-| `name` | string | yes | Command name (lowercase, single word). |
-| `char_no_arg` | string | (opt) | Shown to actor when used with no target. |
-| `others_no_arg` | string | (opt) | Shown to room when used with no target. |
-| `char_found` | string | (opt) | Shown to actor when targeting another player. |
-| `others_found` | string | (opt) | Shown to room when targeting another player. |
-| `vict_found` | string | (opt) | Shown to the target player. |
-| `char_not_found` | string | (opt) | Shown to actor when target is not found. |
-| `char_auto` | string | (opt) | Shown to actor when targeting themselves. |
-| `others_auto` | string | (opt) | Shown to room when targeting themselves. |
-| `min_pos` | string (enum) | (opt) | Minimum position to use. Default: `"resting"`. See [positions](#positions). |
+| Field            | Type          | Req   | Notes                                                                       |
+| ---------------- | ------------- | ----- | --------------------------------------------------------------------------- |
+| `name`           | string        | yes   | Command name (lowercase, single word).                                      |
+| `char_no_arg`    | string        | (opt) | Shown to actor when used with no target.                                    |
+| `others_no_arg`  | string        | (opt) | Shown to room when used with no target.                                     |
+| `char_found`     | string        | (opt) | Shown to actor when targeting another player.                               |
+| `others_found`   | string        | (opt) | Shown to room when targeting another player.                                |
+| `vict_found`     | string        | (opt) | Shown to the target player.                                                 |
+| `char_not_found` | string        | (opt) | Shown to actor when target is not found.                                    |
+| `char_auto`      | string        | (opt) | Shown to actor when targeting themselves.                                   |
+| `others_auto`    | string        | (opt) | Shown to room when targeting themselves.                                    |
+| `min_pos`        | string (enum) | (opt) | Minimum position to use. Default: `"resting"`. See [positions](#positions). |
 
 ---
 
@@ -759,11 +768,11 @@ Defines the link between named portal exit points referenced by rooms and exits.
 { "portal": { "two-way": false, "from": "arachnos-north-1", "to": "haon-room-1" } }
 ```
 
-| Field | Type | Req | Notes |
-|---|---|---|---|
+| Field     | Type    | Req | Notes                                       |
+| --------- | ------- | --- | ------------------------------------------- |
 | `two-way` | boolean | yes | If true, the link works in both directions. |
-| `from` | string | yes | Source portal exit name. |
-| `to` | string | yes | Destination portal exit name. |
+| `from`    | string  | yes | Source portal exit name.                    |
+| `to`      | string  | yes | Destination portal exit name.               |
 
 Named portal exit points appear in `room.portal` and `exit.portal` fields. A room or exit assigns its named exit point; the portals config wires two named points together.
 
@@ -771,40 +780,47 @@ Recommended naming convention: `"<area>-<direction>-<number>"` or `"<area>-room-
 
 ---
 
-### help\_area
+### help_area
 
 **File:** `json/help/<name>.json`
 
 ```json
 {
-  "help_area": {
-    "area":     "help",
-    "name":     "ROM Help",
-    "filename": "help",
-    "pages": [
-      { "help": { "keyword": "newbie beginner", "text": "Welcome!\n...", "level": 0 } }
-    ]
-  }
+	"help_area": {
+		"area": "help",
+		"name": "ROM Help",
+		"filename": "help",
+		"pages": [
+			{
+				"help": {
+					"keyword": "newbie beginner",
+					"text": "Welcome!\n...",
+					"level": 0
+				}
+			}
+		]
+	}
 }
 ```
 
-| Field | Type | Req | Notes |
-|---|---|---|---|
-| `area` | string | yes | Area name this collection belongs to. |
-| `name` | string | yes | Display name of the help collection. |
-| `filename` | string | yes | Base filename (no extension). |
-| `pages` | array | yes | Array of `{"help": {...}}` entries. |
+| Field      | Type   | Req | Notes                                 |
+| ---------- | ------ | --- | ------------------------------------- |
+| `area`     | string | yes | Area name this collection belongs to. |
+| `name`     | string | yes | Display name of the help collection.  |
+| `filename` | string | yes | Base filename (no extension).         |
+| `pages`    | array  | yes | Array of `{"help": {...}}` entries.   |
 
 ### help (within `help_area` pages)
 
-| Field | Type | Req | Notes |
-|---|---|---|---|
-| `keyword` | string | yes | Space-separated keywords. First keyword is the canonical name. |
-| `text` | string | yes | Help text body. |
-| `level` | integer | (opt) | Minimum level to view. `-1` = immortal only. Default: 0. |
+| Field           | Type    | Req   | Notes                                                                        |
+| --------------- | ------- | ----- | ---------------------------------------------------------------------------- |
+| `keyword`       | string  | yes   | Space-separated keywords. First keyword is the canonical name.               |
+| `text`          | string  | yes   | Help text body.                                                              |
+| `level`         | integer | (opt) | Minimum level to view. `-1` = immortal only. Default: 0.                     |
 | `hide_keywords` | boolean | (opt) | When true and `level >= 0`, entry is hidden from help lists. Default: false. |
 
 ---
+
 ## Valid Enum Values
 
 ### sector_type
@@ -877,7 +893,7 @@ Used in `object.values.liquid` for `drink` and `fountain` items:
 
 ### skills
 
-Used in `object.values.skill` (wand/staff) and `object.values.skill1`–`skill4` (scroll/potion/pill):
+Used in `object.values.skill` (wand/staff) and `object.values.skill1`ï¿½`skill4` (scroll/potion/pill):
 
 `acid blast`, `armor`, `bless`, `blindness`, `burning hands`, `call lightning`, `calm`, `cancellation`, `cause critical`, `cause light`, `cause serious`, `chain lightning`, `change sex`, `charm person`, `chill touch`, `colour spray`, `continual light`, `control weather`, `create food`, `create rose`, `create spring`, `create water`, `cure blindness`, `cure critical`, `cure disease`, `cure light`, `cure poison`, `cure serious`, `curse`, `demonfire`, `detect evil`, `detect good`, `detect hidden`, `detect invis`, `detect magic`, `detect poison`, `dispel evil`, `dispel good`, `dispel magic`, `earthquake`, `enchant armor`, `enchant weapon`, `energy drain`, `faerie fire`, `faerie fog`, `farsight`, `fireball`, `fireproof`, `flamestrike`, `fly`, `floating disc`, `frenzy`, `gate`, `giant strength`, `harm`, `haste`, `heal`, `heat metal`, `holy word`, `identify`, `infravision`, `invisibility`, `know alignment`, `lightning bolt`, `locate object`, `magic missile`, `mass healing`, `mass invis`, `nexus`, `pass door`, `plague`, `poison`, `portal`, `protection evil`, `protection good`, `ray of truth`, `recharge`, `refresh`, `remove curse`, `restore mana`, `sanctuary`, `shield`, `shocking grasp`, `sleep`, `slow`, `stone skin`, `summon`, `teleport`, `ventriloquate`, `weaken`, `word of recall`, `acid breath`, `fire breath`, `frost breath`, `gas breath`, `lightning breath`, `general purpose`, `high explosive`
 
@@ -987,25 +1003,26 @@ Used in `object.values.flags` for furniture:
 
 When using a bit affect, the `bits` field uses the flag table corresponding to `bit_type`:
 
-| `bit_type` | Flag table |
-|---|---|
+| `bit_type`  | Flag table     |
+| ----------- | -------------- |
 | `"affects"` | `affect_flags` |
-| `"object"` | `extra_flags` |
-| `"immune"` | `res_flags` |
-| `"resist"` | `res_flags` |
-| `"vuln"` | `res_flags` |
-| `"weapon"` | `weapon_flags` |
+| `"object"`  | `extra_flags`  |
+| `"immune"`  | `res_flags`    |
+| `"resist"`  | `res_flags`    |
+| `"vuln"`    | `res_flags`    |
+| `"weapon"`  | `weapon_flags` |
 
 ---
+
 ## Business Rules and Constraints
 
 ### Reset Ownership (Critical for Editors)
 
 Resets in `room.resets` form an ordered flat array. **Order is significant.** The server processes them top-to-bottom each time the area resets:
 
-- **`give`** resets are owned by the **nearest preceding `mobile` reset** — the item is placed in that mob's inventory.
-- **`equip`** resets are owned by the **nearest preceding `mobile` reset** — the item is equipped on that mob.
-- **`put`** resets are owned by the **nearest preceding `object` reset** that produced the `into` container — the item is placed inside that container.
+- **`give`** resets are owned by the **nearest preceding `mobile` reset** ï¿½ the item is placed in that mob's inventory.
+- **`equip`** resets are owned by the **nearest preceding `mobile` reset** ï¿½ the item is equipped on that mob.
+- **`put`** resets are owned by the **nearest preceding `object` reset** that produced the `into` container ï¿½ the item is placed inside that container.
 
 An editor must enforce this ordering and visually group dependent resets under their owner. Example valid sequence:
 
@@ -1044,6 +1061,7 @@ A shopkeeper mob `shop.trades` defines what item types the shop **buys from play
 ### AC Values
 
 Mobile armor class uses negative = better (harder to hit). Typical ranges:
+
 - Low-level mobs: 0 to -50
 - Mid-level mobs: -50 to -125
 - High-level mobs: -125 to -250
@@ -1054,11 +1072,12 @@ All dice fields must follow the exact format `"XdY+Z"` where X, Y, Z are integer
 
 ### Object `condition`
 
-Range: 0–100. 100 = perfect condition. The field is omitted from output when the value is 100 (the reader defaults to 100 when absent).
+Range: 0ï¿½100. 100 = perfect condition. The field is omitted from output when the value is 100 (the reader defaults to 100 when absent).
 
 ### Room `heal_rate` / `mana_rate`
 
 100 = normal regeneration speed. Common values:
+
 - 50 = half rate (dangerous/hostile room)
 - 100 = normal
 - 200 = double rate (safe haven)
@@ -1069,7 +1088,7 @@ A shop's `trades` array may contain at most **5 entries** (`MAX_TRADE`). Excess 
 
 ### Armor `vs_magic` (Fourth Value)
 
-The fourth field in `armor.values` is named `vs_magic`. Some older area files written before the named-values system may show this as `"value3"` — the reader accepts both names.
+The fourth field in `armor.values` is named `vs_magic`. Some older area files written before the named-values system may show this as `"value3"` ï¿½ the reader accepts both names.
 
 ### Object `values` for No-Value Types
 
@@ -1081,22 +1100,57 @@ When `hide_keywords: true` and `level >= 0`, the entry is hidden from help searc
 
 ---
 
-## Read-Only Fields
+## Computed Fields (Never Write These)
 
-The following fields are **computed at load time** and must not be written to or exposed as editable fields in an editor:
+The following fields are computed at server load time from surrounding context. Editors must not expose them as editable fields and must not write them to JSON:
 
-| Field | Entity | Notes |
-|---|---|---|
-| `room_vnum` | reset `values` (all commands) | Automatically set from the containing room's area+anum at load. |
-
-### Read-Only Config Tables
-
-All files in `json/config/` **except** `socials.json` and `portals.json` are generated from C source data and are **read-only**. An editor should read these files to populate dropdown lists but must never write back to them:
-
-- `attacks.json`, `dam_types.json`, `items.json`, `liquids.json`, `materials.json`, `positions.json`, `races.json`, `sectors.json`, `sexes.json`, `sizes.json`, `skills.json`, `specs.json`, `weapons.json`, `wear_locs.json`, and others.
-
-`socials.json` and `portals.json` are world data that editors may write.
+| Field       | Entity                        | Notes                                                        |
+| ----------- | ----------------------------- | ------------------------------------------------------------ |
+| `room_vnum` | reset `values` (all commands) | Automatically resolved from the containing room's area+anum. |
 
 ---
 
-*Generated from BaseMUD source: `src/json_objr.c`, `src/json_objw.c`, `src/flags.c`, `src/ext_flags.c`, `src/tables.c`, `src/types.c`.*
+## Config Tables: What You Can Edit Live
+
+All files in `json/config/` are **loaded from JSON at boot**, not baked into the binary. This means most of them are fully editable â€” you change the file and restart the server (or use `jreload`). However some tables have fixed-size C arrays, so there is an upper cap on how many entries they can hold.
+
+### Fully editable, no cap concerns
+
+These tables have ample room or are not size-constrained:
+
+| File                | Currently | Cap  | What it controls                                                              |
+| ------------------- | --------- | ---- | ----------------------------------------------------------------------------- |
+| `classes.json`      | 4         | 16   | Classes: name, stat, THAC0, HP gain, mana, guild rooms, default groups        |
+| `pc_races.json`     | 6         | 16   | Player-selectable races: stats, class exp modifiers, bonus skills             |
+| `skills.json`       | ~137      | 150  | Skills and spells: per-class level/effort, mana cost, beats, target, position |
+| `skill_groups.json` | 27        | 30   | Skill groups: member skills, per-class purchase cost                          |
+| `socials.json`      | many      | none | Emote commands (world data â€” fully writable)                                  |
+| `portals.json`      | many      | none | Inter-area portal links (world data â€” fully writable)                         |
+
+### Editable, but requires a recompile to add new entries
+
+These tables are full or nearly full. You can **modify existing entries** freely. To **add new entries** you must increment the corresponding `#define` in `src/defs.h` or `src/types.h` and recompile:
+
+| File             | Currently | Cap       | `#define` to raise              |
+| ---------------- | --------- | --------- | ------------------------------- |
+| `races.json`     | 30        | 30 (full) | `RACE_MAX` in `src/defs.h`      |
+| `liquids.json`   | 36        | 36 (full) | `LIQ_MAX` in `src/defs.h`       |
+| `materials.json` | 38        | 38 (full) | `MATERIAL_MAX` in `src/types.h` |
+
+### Read from JSON but not normally edited
+
+These config tables are populated directly from internal C data structures (lookup tables, app tables, etc.). They are loaded by JSON at boot, but their values are tightly coupled to hardcoded C behavior. Editing them without corresponding C changes will have no visible effect or may cause errors:
+
+`attacks.json`, `dam_types.json`, `items.json`, `positions.json`, `sectors.json`, `sexes.json`, `sizes.json`, `weapons.json`, `wear_locs.json`, `doors.json`, `str_app.json`, `dex_app.json`, `int_app.json`, `wis_app.json`, `con_app.json`, `skies.json`, `suns.json`, `days.json`, `months.json`, `hp_conds.json`, `colors.json`, `color_settings.json`, `conds.json`, `songs.json`, `pose.json`, `boards.json`
+
+### Adding new spells
+
+The skill data (level requirements, mana, beats, target) lives in `skills.json` and is fully live. However, the `spell_fun` field references a C function that must exist in `src/spell_dispatch.c`. You cannot add _new spell behavior_ without writing and compiling C code â€” but you can:
+
+- Freely adjust any existing spell's level requirements, mana cost, beats, and class availability
+- Create a new skill slot that reuses an existing `spell_fun` (e.g. a renamed version of an existing spell)
+- Leave `spell_fun` absent to create a passive or combat skill with no spell effect
+
+---
+
+_Generated from BaseMUD source: `src/json_objr.c`, `src/json_objw.c`, `src/json_tblr.c`, `src/flags.c`, `src/ext_flags.c`, `src/tables.c`, `src/types.c`, `src/defs.h`, `src/spell_dispatch.c`._
