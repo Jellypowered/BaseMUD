@@ -448,7 +448,7 @@
 #define SOCIAL_MAX 256
 #define SKILL_MAX 300
 #define SKILL_GROUP_MAX 64
-#define SPEC_MAX 23
+#define SPEC_MAX 24
 #define ATTRIBUTE_HIGHEST 25
 #define ATTACK_MAX 40
 #define BOARD_MAX 5

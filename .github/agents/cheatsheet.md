@@ -219,3 +219,23 @@ Keep this table updated:
 
 - `room_flags[]` is C-authoritative — to add a flag, edit `flags.h` and `flags.c`
 - `BIT_08` / `ROOM_UNUSED_FLAG_5` was `/* old: no_magic */` — repurposed as `ROOM_NOMAGIC`
+
+---
+
+## Spec Functions (`special.c` / `special.h`)
+
+- File: `src/special.c` / `src/special.h`
+- Declaration: `DECLARE_SPEC_FUN(spec_foo);` in `special.h`
+- Registration: add `{"spec_foo", spec_foo}` to `spec_table[]` in `tables.c`
+- `SPEC_MAX` (in `defs.h`) must be incremented when a new entry is added (currently 24 after `spec_assassin`)
+- Room iteration pattern:
+  ```c
+  for (victim = ch->in_room->people_first; victim != NULL; victim = v_next) {
+      v_next = victim->room_next;
+      // ... filter / continue / break
+  }
+  ```
+- Immortal check: `victim->level >= LEVEL_IMMORTAL` (no `IS_IMM` macro)
+- Class check: `victim->class == class_lookup_exact("thief")` — class is by JSON name, returns int index
+- Backstab skill: `SN(BACKSTAB)` (not `gsn_backstab`)
+- For `do_say` in spec functions use `do_function(ch, &do_say, buf)` (consistent with other spec usage)

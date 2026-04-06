@@ -126,7 +126,15 @@ After each integration, update `.github/agents/cheatsheet.md` with any new verif
 - New slot numbers used
 - Any pattern that had to be looked up and confirmed from source
 
+## Documentation Maintenance
+
+If any JSON-visible data changed (new flag name, new skill, new type, renamed entry in `json/meta/` or `json/config/`), update `doc/Json_Documentation.md` to reflect the change. Look for the relevant section by searching for nearby flag/type names and add or amend the entry in the same style as surrounding entries.
+
 ## Phase 7 — Build, Verify, and Commit
+
+**If you are running as a subagent** (invoked by another agent): do not attempt to build or commit yourself. Instead, report back to the calling agent with the composed commit message and instruct it to execute Phase 7.
+
+**If you are running as the main agent** (invoked directly by the user): proceed with the steps below.
 
 After cheatsheet is updated:
 

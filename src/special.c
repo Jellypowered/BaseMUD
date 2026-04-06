@@ -1014,3 +1014,60 @@ bool spec_questmaster(CHAR_T *ch)
         return spec_cast_mage(ch);
     return FALSE;
 }
+
+/* Written by Rox of Farside. */
+bool spec_assassin(CHAR_T *ch)
+{
+    char buf[MAX_STRING_LENGTH];
+    CHAR_T *victim;
+    CHAR_T *v_next;
+    int thief_class;
+
+    if (!IS_AWAKE(ch) || ch->fighting != NULL)
+        return FALSE;
+
+    thief_class = class_lookup_exact("thief");
+    for (victim = ch->in_room->people_first; victim != NULL; victim = v_next)
+    {
+        v_next = victim->room_next;
+        if (IS_NPC(victim) || victim == ch)
+            continue;
+        if (victim->level >= LEVEL_IMMORTAL)
+            continue;
+        if (thief_class >= 0 && victim->class == thief_class)
+            continue;
+        if (victim->level > ch->level + 7)
+            continue;
+        break;
+    }
+
+    if (victim == NULL)
+        return FALSE;
+
+    switch (number_range(1, 10))
+    {
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+        sprintf(buf, "Death is the true end...");
+        break;
+    case 6:
+        sprintf(buf, "Time to die....");
+        break;
+    case 7:
+        sprintf(buf, "Cabrone....");
+        break;
+    case 8:
+        sprintf(buf, "Welcome to your fate....");
+        break;
+    default:
+        sprintf(buf, "Ever dance with the devil....");
+        break;
+    }
+
+    do_function(ch, &do_say, buf);
+    multi_hit(ch, victim, SN(BACKSTAB));
+    return TRUE;
+}

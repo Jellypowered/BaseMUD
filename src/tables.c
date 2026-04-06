@@ -970,6 +970,7 @@ SPEC_T spec_table[SPEC_MAX + 1] = {
     {"spec_ogre_member", spec_ogre_member},
     {"spec_patrolman", spec_patrolman},
     {"spec_questmaster", spec_questmaster}, /* Vassago */
+    {"spec_assassin", spec_assassin},       /* Rox of Farside */
     {0}};
 
 COLOUR_SETTING_T colour_setting_table[COLOUR_SETTING_MAX + 1] = {

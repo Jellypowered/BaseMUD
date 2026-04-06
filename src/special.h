@@ -54,5 +54,6 @@ DECLARE_SPEC_FUN(spec_troll_member);
 DECLARE_SPEC_FUN(spec_ogre_member);
 DECLARE_SPEC_FUN(spec_patrolman);
 DECLARE_SPEC_FUN(spec_questmaster); /* Vassago */
+DECLARE_SPEC_FUN(spec_assassin);    /* Rox of Farside */
 
 #endif
