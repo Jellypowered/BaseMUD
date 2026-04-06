@@ -50,6 +50,7 @@
 #include "act_shop.h"
 #include "act_skills.h"
 #include "act_olc.h"
+#include "wizlist.h"
 
 #include "wiz_im.h"
 #include "wiz_l1.h"

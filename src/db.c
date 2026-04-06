@@ -30,6 +30,7 @@
 #include "affects.h"
 #include "areas.h"
 #include "ban.h"
+#include "wizlist.h"
 #include "board.h"
 #include "db_old.h"
 #include "extra_descrs.h"
@@ -156,6 +157,7 @@ void boot_db(void)
     board_load_all();
     board_save_all();
     ban_load_all();
+    wizlist_load_all();
 }
 
 void init_time_weather(void)

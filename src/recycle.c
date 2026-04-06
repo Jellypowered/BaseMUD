@@ -89,6 +89,7 @@ RECYCLE_BUNDLE(RECYCLE_NOTE_T, note, NOTE_T);
 RECYCLE_BUNDLE(RECYCLE_SOCIAL_T, social, SOCIAL_T);
 RECYCLE_BUNDLE(RECYCLE_PORTAL_EXIT_T, portal_exit, PORTAL_EXIT_T);
 RECYCLE_BUNDLE(RECYCLE_PORTAL_T, portal, PORTAL_T);
+RECYCLE_BUNDLE(RECYCLE_WIZ_T, wiz, WIZ_T);
 
 void *recycle_new(int type)
 {
@@ -262,6 +263,20 @@ DEFINE_DISPOSE_FUN(ban_dispose)
     str_free(&(ban->name));
     LIST2_REMOVE(ban, global_prev, global_next,
                  ban_first, ban_last);
+}
+
+DEFINE_INIT_FUN(wiz_init)
+{
+    WIZ_T *wiz = obj;
+    wiz->name = &str_empty[0];
+}
+
+DEFINE_DISPOSE_FUN(wiz_dispose)
+{
+    WIZ_T *wiz = obj;
+    str_free(&(wiz->name));
+    LIST2_REMOVE(wiz, global_prev, global_next,
+                 wiz_first, wiz_last);
 }
 
 DEFINE_INIT_FUN(descriptor_init)

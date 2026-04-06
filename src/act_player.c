@@ -39,6 +39,7 @@
 #include "recycle.h"
 #include "save.h"
 #include "utils.h"
+#include "wizlist.h"
 
 #include <string.h>
 #include <ctype.h>
@@ -64,6 +65,8 @@ DEFINE_DO_FUN (do_delete) {
             wiznet ("$N turns $Mself into line noise.", ch, NULL, 0, 0, 0);
             sprintf (strsave, "%s%s", PLAYER_DIR, str_capitalized (ch->name));
             stop_fighting (ch, TRUE);
+            if (ch->level > HERO)
+                wizlist_update (ch, 1);
             do_function (ch, &do_quit, "");
             unlink (strsave);
             return;

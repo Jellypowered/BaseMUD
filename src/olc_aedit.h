@@ -16,26 +16,26 @@
 
 #include "merc.h"
 
-#define AEDIT(fun)          bool fun(CHAR_T *ch, char *argument)
-#define EDIT_AREA(ch, area) (area = (AREA_T *) ch->desc->olc_edit)
+#define AEDIT(fun) bool fun(CHAR_T *ch, char *argument)
+#define EDIT_AREA(ch, area) (area = (AREA_T *)ch->desc->olc_edit)
 
 /* Sub-routines and filters. */
-bool aedit_check_range (int lower, int upper);
+bool aedit_check_range(int lower, int upper);
 
 /* Commands (areas). */
-AEDIT (aedit_show);
-AEDIT (aedit_reset);
-AEDIT (aedit_create);
-AEDIT (aedit_title);
-AEDIT (aedit_credits);
-AEDIT (aedit_repop_msg);
-AEDIT (aedit_file);
-AEDIT (aedit_age);
+AEDIT(aedit_show);
+AEDIT(aedit_reset);
+AEDIT(aedit_create);
+AEDIT(aedit_title);
+AEDIT(aedit_credits);
+AEDIT(aedit_repop_msg);
+AEDIT(aedit_file);
+AEDIT(aedit_age);
 /* AEDIT (aedit_recall); */
-AEDIT (aedit_security);
-AEDIT (aedit_builder);
-AEDIT (aedit_vnum);
-AEDIT (aedit_lvnum);
-AEDIT (aedit_uvnum);
+AEDIT(aedit_security);
+AEDIT(aedit_builder);
+AEDIT(aedit_vnum);
+AEDIT(aedit_lvnum);
+AEDIT(aedit_uvnum);
 
 #endif

@@ -79,6 +79,14 @@ struct ban_data
     OBJ_RECYCLE_T rec_data;
 };
 
+struct wiz_data
+{
+    WIZ_T *global_next, *global_prev;
+    sh_int level;
+    char *name;
+    OBJ_RECYCLE_T rec_data;
+};
+
 struct buf_type
 {
     sh_int state; /* error state of the buffer */

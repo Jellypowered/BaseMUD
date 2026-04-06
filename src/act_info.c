@@ -299,10 +299,7 @@ DEFINE_DO_FUN(do_story)
 {
     do_function(ch, &do_help, "story");
 }
-DEFINE_DO_FUN(do_wizlist)
-{
-    do_function(ch, &do_help, "wizlist");
-}
+/* do_wizlist is defined in wizlist.c */
 
 /* Not-RT(?) commands that are similar */
 DEFINE_DO_FUN(do_credits)

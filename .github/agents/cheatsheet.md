@@ -4,6 +4,42 @@ Verified findings from actual integrations. Update this file as new patterns are
 
 ---
 
+## Linked List Macros
+
+`LIST2_ADD` does **not exist** in BaseMUD. Use `LIST2_BACK` to append to the tail of a doubly-linked list:
+
+```c
+LIST2_BACK(node, prev_field, next_field, list_head, list_tail);
+```
+
+Use `LIST2_FRONT` to prepend. Use `LIST2_REMOVE` to unlink.
+
+---
+
+## File Handle for Reserved File
+
+BaseMUD uses `reserve_file` (not `fpReserve` as in ROM/ROT). Declared in `globals.h`, defined in `globals.c`.
+
+```c
+fclose(reserve_file);
+/* ... write ... */
+reserve_file = fopen(NULL_FILE, "r");
+```
+
+---
+
+## fread_word Signature
+
+BaseMUD's `fread_word` takes a buffer: `fread_word(fp, buf, size)`. For in-place string replacement use:
+
+```c
+fread_word_replace(fp, &ptr->name); // frees old string, dups new
+fread_word_dup(fp);                 // returns a str_dup'd copy
+fread_word_static(fp);              // returns static buffer (no alloc)
+```
+
+---
+
 ## Type Renames (ROM → BaseMUD)
 
 | ROM / MERC          | BaseMUD    |

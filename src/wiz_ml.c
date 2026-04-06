@@ -27,6 +27,8 @@
 
 #include "wiz_ml.h"
 
+#include "wizlist.h"
+
 #include "act_info.h"
 #include "chars.h"
 #include "comm.h"
@@ -90,6 +92,8 @@ DEFINE_DO_FUN(do_advance)
         int temp_prac;
         send_to_char("Lowering a player's level!\n\r", ch);
         send_to_char("**** OOOOHHHHHHHHHH  NNNNOOOO ****\n\r", victim);
+        if (victim->level > HERO || level > HERO)
+            wizlist_update (victim, level);
         temp_prac = victim->practice;
         victim->level = 1;
         victim->exp = player_get_exp_per_level(victim);
@@ -107,6 +111,8 @@ DEFINE_DO_FUN(do_advance)
     {
         send_to_char("Raising a player's level!\n\r", ch);
         send_to_char("**** OOOOHHHHHHHHHH  YYYYEEEESSS ****\n\r", victim);
+        if (victim->level > HERO || level > HERO)
+            wizlist_update (victim, level);
     }
     for (i = victim->level; i < level; i++)
     {

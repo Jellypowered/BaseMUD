@@ -34,44 +34,47 @@
 #include "rooms.h"
 #include "utils.h"
 
-void area_update_all (void) {
+void area_update_all(void)
+{
     AREA_T *area;
     for (area = area_first; area != NULL; area = area->global_next)
-        area_update (area);
+        area_update(area);
 }
 
-void area_update (AREA_T *area) {
+void area_update(AREA_T *area)
+{
     ROOM_INDEX_T *room_index;
 
     /* Increase area age. If it's less than 3 hours old, do nothing. */
     area->age++;
-    if (!area_should_update (area))
+    if (!area_should_update(area))
         return;
 
     /* Update confirmed! Perform an update. */
-    area_reset (area);
-    wiznetf (NULL, NULL, WIZ_RESETS, 0, 0,
-        "%s has just been reset.", area->title);
+    area_reset(area);
+    wiznetf(NULL, NULL, WIZ_RESETS, 0, 0,
+            "%s has just been reset.", area->title);
 
-    if (area->repop_msg && area->repop_msg[0] != '\0') {
+    if (area->repop_msg && area->repop_msg[0] != '\0')
+    {
         DESCRIPTOR_T *d;
-        for (d = descriptor_first; d != NULL; d = d->global_next) {
-            if (d->connected == CON_PLAYING
-                    && d->character->in_room != NULL
-                    && d->character->in_room->area == area)
-                send_to_char (area->repop_msg, d->character);
+        for (d = descriptor_first; d != NULL; d = d->global_next)
+        {
+            if (d->connected == CON_PLAYING && d->character->in_room != NULL && d->character->in_room->area == area)
+                send_to_char(area->repop_msg, d->character);
         }
     }
 
-    area->age = number_range (0, 3);
-    room_index = room_get_index (ROOM_VNUM_SCHOOL);
+    area->age = number_range(0, 3);
+    room_index = room_get_index(ROOM_VNUM_SCHOOL);
 
     /* Note: Mud School resets every 3 area ticks (not 15). */
     /* TODO: This is a pretty stupid hack for the school. There should be a
      *       specific reset age set for the area as well as a flag to ignore
      *       whether players have entered or not. The direct lookup to the
      *       school vnum is also pretty dumb! */
-    if (room_index != NULL && area == room_index->area) {
+    if (room_index != NULL && area == room_index->area)
+    {
         area->age = AREA_RESET_AFTER_PLAYERS_AGE - 3;
         area->had_players = TRUE;
     }
@@ -79,7 +82,8 @@ void area_update (AREA_T *area) {
         area->had_players = FALSE;
 }
 
-bool area_should_update (const AREA_T *area) {
+bool area_should_update(const AREA_T *area)
+{
     if (area->age < AREA_RESET_MINIMUM_AGE)
         return FALSE;
 
@@ -99,36 +103,42 @@ bool area_should_update (const AREA_T *area) {
 
 /* OLC
  * Reset one area. */
-void area_reset (AREA_T *area) {
+void area_reset(AREA_T *area)
+{
     ROOM_INDEX_T *room;
     int vnum;
     for (vnum = area->min_vnum; vnum <= area->max_vnum; vnum++)
-        if ((room = room_get_index (vnum)))
-            room_reset (room);
+        if ((room = room_get_index(vnum)))
+            room_reset(room);
 }
 
-void area_reinsert_resets_in_room_order_all (void) {
+void area_reinsert_resets_in_room_order_all(void)
+{
     AREA_T *area;
-    for (area = area_get_first(); area; area = area_get_next (area))
-        area_reinsert_resets_in_room_order (area);
+    for (area = area_get_first(); area; area = area_get_next(area))
+        area_reinsert_resets_in_room_order(area);
 }
 
-void area_reinsert_resets_in_room_order (AREA_T *area) {
+void area_reinsert_resets_in_room_order(AREA_T *area)
+{
     ROOM_INDEX_T *room;
     RESET_T *reset;
 
-    for (room = area->room_first; room; room = room->area_next) {
-        for (reset = room->reset_first; reset; reset = reset->room_next) {
-            if (reset->area != room->area) {
-                bugf ("area_reinsert_resets_in_room_order: Reset '%c' for room "
-                      "'%s' (%d) does not share the same area (???)",
-                    reset->command, room->name, room->vnum);
+    for (room = area->room_first; room; room = room->area_next)
+    {
+        for (reset = room->reset_first; reset; reset = reset->room_next)
+        {
+            if (reset->area != room->area)
+            {
+                bugf("area_reinsert_resets_in_room_order: Reset '%c' for room "
+                     "'%s' (%d) does not share the same area (???)",
+                     reset->command, room->name, room->vnum);
                 continue;
             }
 
             /* Remove and put back in. */
-            reset_to_area (reset, NULL);
-            reset_to_area (reset, area);
+            reset_to_area(reset, NULL);
+            reset_to_area(reset, area);
         }
     }
 }

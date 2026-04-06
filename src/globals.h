@@ -36,6 +36,7 @@ extern HELP_T *help_first, *help_last;
 extern SHOP_T *shop_first, *shop_last;
 extern AREA_T *area_first, *area_last;
 extern BAN_T *ban_first, *ban_last;
+extern WIZ_T *wiz_first, *wiz_last;
 extern HELP_AREA_T *had_first, *had_last;
 extern ANUM_T *anum_first, *anum_last;
 extern MPROG_CODE_T *mpcode_first, *mpcode_last;

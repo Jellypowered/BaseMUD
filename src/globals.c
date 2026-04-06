@@ -31,6 +31,7 @@ HELP_T *help_first, *help_last;
 SHOP_T *shop_first, *shop_last;
 AREA_T *area_first, *area_last;
 BAN_T *ban_first, *ban_last;
+WIZ_T *wiz_first, *wiz_last;
 HELP_AREA_T *had_first, *had_last;
 ANUM_T *anum_first, *anum_last;
 MPROG_CODE_T *mpcode_first, *mpcode_last;

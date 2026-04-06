@@ -81,6 +81,7 @@ DEC_RECYCLE_BUNDLE(note, NOTE_T);
 DEC_RECYCLE_BUNDLE(social, SOCIAL_T);
 DEC_RECYCLE_BUNDLE(portal_exit, PORTAL_EXIT_T);
 DEC_RECYCLE_BUNDLE(portal, PORTAL_T);
+DEC_RECYCLE_BUNDLE(wiz, WIZ_T);
 
 /* Function prototypes (recycle operations). */
 void *recycle_new(int type);
@@ -131,6 +132,8 @@ DECLARE_DISPOSE_FUN(social_dispose);
 DECLARE_DISPOSE_FUN(portal_exit_dispose);
 DECLARE_INIT_FUN(portal_dispose);
 DECLARE_DISPOSE_FUN(affect_dispose);
+DECLARE_INIT_FUN(wiz_init);
+DECLARE_DISPOSE_FUN(wiz_dispose);
 
 /* Functions related to specific recycleable objects. */
 long get_pc_id(void);

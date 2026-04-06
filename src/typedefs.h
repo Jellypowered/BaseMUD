@@ -39,6 +39,7 @@ typedef struct affect_data AFFECT_T;
 typedef struct area_data AREA_T;
 typedef struct ban_data BAN_T;
 typedef struct buf_type BUFFER_T;
+typedef struct wiz_data WIZ_T;
 typedef struct char_data CHAR_T;
 typedef struct descriptor_data DESCRIPTOR_T;
 typedef struct exit_data EXIT_T;

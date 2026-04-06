@@ -103,6 +103,7 @@
 #define TYPO_FILE AREA_DIR "typos.txt"        /* For 'typo'          */
 #define SHUTDOWN_FILE AREA_DIR "shutdown.txt" /* For 'shutdown'      */
 #define BAN_FILE AREA_DIR "ban.txt"
+#define WIZ_FILE AREA_DIR "wizlist.txt"
 #define MUSIC_FILE AREA_DIR "music.txt"
 #define OHELPS_FILE AREA_DIR "orphaned_helps.txt" /* Unmet 'help' requests */
 #define QMCONFIG_FILE AREA_DIR "qmconfig.rc"
@@ -531,7 +532,8 @@
 #define RECYCLE_SOCIAL_T 22
 #define RECYCLE_PORTAL_EXIT_T 23
 #define RECYCLE_PORTAL_T 24
-#define RECYCLE_MAX 25
+#define RECYCLE_WIZ_T    25
+#define RECYCLE_MAX 26
 
 /* Types of tables used for our master reference table. */
 #define TABLE_FLAGS 0

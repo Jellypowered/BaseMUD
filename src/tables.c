@@ -1762,6 +1762,7 @@ RECYCLE_T recycle_table[RECYCLE_MAX + 1] = {
     RECYCLE_N_ENTRY(RECYCLE_SOCIAL_T, social, SOCIAL_T, name, social_init, social_dispose),
     RECYCLE_N_ENTRY(RECYCLE_PORTAL_EXIT_T, portal_exit, PORTAL_EXIT_T, name, NULL, portal_exit_dispose),
     RECYCLE_ENTRY(RECYCLE_PORTAL_T, portal, PORTAL_T, NULL, portal_dispose),
+    RECYCLE_N_ENTRY(RECYCLE_WIZ_T, wiz, WIZ_T, name, wiz_init, wiz_dispose),
     {0}};
 
 /* wiznet table and prototype for future flag setting */
