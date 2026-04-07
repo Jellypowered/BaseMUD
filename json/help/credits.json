@@ -63,6 +63,9 @@
               |
               |Numeric prefix (N*item) for get/put/drop/give/buy/sell --
               |    TAKA (GhostMud)
+              |
+              |Colored, level-sorted WHO with IMM/MORT sections; colored COUNT and INVENTORY --
+              |    TAKA (GhostMud)
               |",
       "hide_keywords": true
     }

@@ -929,8 +929,8 @@ DEFINE_DO_FUN(do_who)
     char buf2[MAX_STRING_LENGTH];
     BUFFER_T *output;
     DESCRIPTOR_T *d;
-    int i, level_lower, level_upper;
-    int current_number, matches;
+    int i, wlevel, level_lower, level_upper;
+    int current_number, count_imm, count_mort, matches;
     bool restrict_class = FALSE;
     bool restrict_clan = FALSE;
     bool only_clan = FALSE;
@@ -1031,41 +1031,90 @@ DEFINE_DO_FUN(do_who)
         return;
     }
 
-    /* Now show matching chars.  */
+    /* Now show matching chars, sorted by level descending. */
     matches = 0;
-    buf[0] = '\0';
+    count_imm = 0;
+    count_mort = 0;
     output = buf_new();
-    for (d = descriptor_first; d != NULL; d = d->global_next)
+
+    /* Immortal section. */
+    buf_cat(output, "\n\r{W[ Immortals ]{x\n\r");
+    for (wlevel = MAX_LEVEL; wlevel >= LEVEL_IMMORTAL; wlevel--)
     {
-        CHAR_T *wch = CH(d);
+        for (d = descriptor_first; d != NULL; d = d->global_next)
+        {
+            CHAR_T *wch = CH(d);
 
-        /* Check for match against restrictions.
-         * Don't use trust as that exposes trusted mortals.  */
-        if (d->connected != CON_PLAYING)
-            continue;
-        if (!char_can_see_anywhere(ch, d->character))
-            continue;
-        if (!char_can_see_anywhere(ch, wch))
-            continue;
-        if (wch->level < level_lower || wch->level > level_upper)
-            continue;
-        if (only_immortal && wch->level < LEVEL_IMMORTAL)
-            continue;
-        if (restrict_class && !show_class[wch->class])
-            continue;
-        if (restrict_race && !show_race[wch->race])
-            continue;
-        if (only_clan && !player_has_clan(wch))
-            continue;
-        if (restrict_clan && !show_clan[wch->clan])
-            continue;
+            if (d->connected != CON_PLAYING)
+                continue;
+            if (!char_can_see_anywhere(ch, d->character))
+                continue;
+            if (!char_can_see_anywhere(ch, wch))
+                continue;
+            if (wch->level != wlevel)
+                continue;
+            if (wch->level < level_lower || wch->level > level_upper)
+                continue;
+            if (wch->level < LEVEL_IMMORTAL)
+                continue;
+            if (restrict_class && !show_class[wch->class])
+                continue;
+            if (restrict_race && !show_race[wch->race])
+                continue;
+            if (only_clan && !player_has_clan(wch))
+                continue;
+            if (restrict_clan && !show_clan[wch->clan])
+                continue;
 
-        matches++;
-        char_get_who_string(ch, wch, buf, sizeof(buf));
-        buf_cat(output, buf);
+            count_imm++;
+            matches++;
+            char_get_who_string(ch, wch, buf, sizeof(buf));
+            buf_cat(output, buf);
+        }
     }
 
-    sprintf(buf2, "\n\rPlayers found: %d\n\r", matches);
+    /* Mortal section (skip when only showing immortals). */
+    if (!only_immortal)
+    {
+        buf_cat(output, "\n\r{W[ Mortals ]{x\n\r");
+        for (wlevel = LEVEL_HERO; wlevel >= 1; wlevel--)
+        {
+            for (d = descriptor_first; d != NULL; d = d->global_next)
+            {
+                CHAR_T *wch = CH(d);
+
+                if (d->connected != CON_PLAYING)
+                    continue;
+                if (!char_can_see_anywhere(ch, d->character))
+                    continue;
+                if (!char_can_see_anywhere(ch, wch))
+                    continue;
+                if (wch->level != wlevel)
+                    continue;
+                if (wch->level < level_lower || wch->level > level_upper)
+                    continue;
+                if (wch->level >= LEVEL_IMMORTAL)
+                    continue;
+                if (restrict_class && !show_class[wch->class])
+                    continue;
+                if (restrict_race && !show_race[wch->race])
+                    continue;
+                if (only_clan && !player_has_clan(wch))
+                    continue;
+                if (restrict_clan && !show_clan[wch->clan])
+                    continue;
+
+                count_mort++;
+                matches++;
+                char_get_who_string(ch, wch, buf, sizeof(buf));
+                buf_cat(output, buf);
+            }
+        }
+    }
+
+    sprintf(buf2,
+            "\n\r{WPlayers found: {G%d {W({YImm: {G%d {W| {YMort: {G%d{W){x\n\r",
+            matches, count_imm, count_mort);
     buf_cat(output, buf2);
     page_to_char(buf_string(output), ch);
     buf_free(output);
@@ -1087,22 +1136,18 @@ DEFINE_DO_FUN(do_count)
     max_on = UMAX(count, max_on);
 
     if (max_on == count)
-    {
         printf_to_char(ch,
-                       "There are %d characters on, the most so far today.\n\r",
-                       count);
-    }
+            "{GThere are {W%d{G characters on, the most so far today.{x\n\r",
+            count);
     else
-    {
         printf_to_char(ch,
-                       "There are %d characters on, the most on today was %d.\n\r",
-                       count, max_on);
-    }
+            "{GThere are {W%d{G characters on, the most on today was {W%d{G.{x\n\r",
+            count, max_on);
 }
 
 DEFINE_DO_FUN(do_inventory)
 {
-    send_to_char("You are carrying:\n\r", ch);
+    send_to_char("{CYou are carrying:{x\n\r", ch);
     obj_list_show_to_char(ch->content_first, ch, TRUE, TRUE);
 }
 

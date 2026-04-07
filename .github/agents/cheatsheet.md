@@ -286,7 +286,31 @@ Keep this table updated:
 
 ---
 
-## JSON vs C Authority for Tables
+## Descriptor Iteration / WHO Patterns
+
+Iterating over all connected players:
+
+```c
+DESCRIPTOR_T *d;
+for (d = descriptor_first; d != NULL; d = d->global_next)
+{
+    CHAR_T *wch = CH(d);
+    if (d->connected != CON_PLAYING)
+        continue;
+    // d->character (raw), CH(d) = wch (follows d->original if set)
+}
+```
+
+- **Head**: `descriptor_first` (in `globals.h`)
+- **Next pointer**: `d->global_next`
+- **Character**: `CH(d)` macro (follows `d->original`); or `d->character` for raw char
+- `max_on` in `do_count` / `do_who` is a **static local** inside `act_info.c` — not a global
+- `char_get_who_string(ch, wch, buf, sizeof(buf))` formats one WHO line including flags/clan/title
+- **Inventory display**: `obj_list_show_to_char(ch->content_first, ch, TRUE, TRUE)`
+
+---
+
+
 
 | Table macro in `tables.c`       | Authority                          | Notes                                         |
 | ------------------------------- | ---------------------------------- | --------------------------------------------- |
