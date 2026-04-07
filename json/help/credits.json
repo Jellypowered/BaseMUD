@@ -66,6 +66,9 @@
               |
               |Colored, level-sorted WHO with IMM/MORT sections; colored COUNT and INVENTORY --
               |    TAKA (GhostMud)
+              |
+              |MMO-style stat diff compare command (armor/weapon/affect breakdown) --
+              |    TAKA (GhostMud)
               |",
       "hide_keywords": true
     }

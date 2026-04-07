@@ -8,6 +8,55 @@ Verified findings from actual integrations. Update this file as new patterns are
 
 BaseMUD objects use a union `v` for item values instead of `value[0..4]`:
 
+### Armor
+```c
+obj->v.armor.vs_pierce  // AC vs pierce
+obj->v.armor.vs_bash    // AC vs bash
+obj->v.armor.vs_slash   // AC vs slash
+obj->v.armor.vs_magic   // AC vs magic
+```
+
+### Weapon
+```c
+obj->v.weapon.weapon_type  // weapon class (sword, dagger, etc.)
+obj->v.weapon.attack_type  // attack verb index into attack_table[]
+obj->v.weapon.dice_num     // number of dice
+obj->v.weapon.dice_size    // faces per die
+obj->v.weapon.flags        // weapon flags (WEAPON_TWO_HANDS, etc.)
+obj->obj_index->new_format // TRUE = dice roll formula; FALSE = legacy flat values
+
+// Average damage:
+// new_format: dice_num * (dice_size + 1) / 2.0
+// old_format: (dice_num + dice_size) / 2.0
+```
+
+### Attack/Weapon name lookups
+```c
+weapon_get_name(obj->v.weapon.weapon_type)      // "sword", "dagger", etc.  (lookup.h)
+attack_table[obj->v.weapon.attack_type].name     // attack verb string (tables.h)
+str_if_null(weapon_get_name(...), "unknown")     // safe null fallback  (utils.h)
+```
+
+---
+
+## Affect Iteration on Objects
+
+```c
+// Prototype affects (skip if obj->enchanted == TRUE):
+for (paf = obj->obj_index->affect_first; paf; paf = paf->on_next)
+    // paf->apply, paf->modifier, paf->bits, paf->bit_type
+
+// Instance affects (enchantments etc.):
+for (paf = obj->affect_first; paf; paf = paf->on_next)
+    // same fields
+
+// Affect location name:
+affect_apply_name(paf->apply)   // "strength", "armor", etc.  (lookup.h)
+// APPLY_NONE == 0; APPLY_MAX == 26 (types.h)
+```
+
+---
+
 ```c
 // Food
 obj->v.food.hunger    // value[0]

@@ -1,0 +1,36 @@
+[{"help": {
+  "area": null,
+  "name": "compare",
+  "filename": "compare.are",
+  "pages": [
+    {
+      "keyword": "COMPARE NOCOMPARE",
+      "text": "Syntax:  compare <item>
+              |         compare <item1> <item2>
+              |
+              |COMPARE shows a detailed stat breakdown between two items you are carrying.
+              |
+              |If only one item is named, COMPARE automatically finds a worn item of the
+              |same type and wear location to compare against, labeling it as the currently
+              |equipped piece.
+              |
+              |For ARMOR, each AC field (pierce, bash, slash, magic) is shown side by side
+              |with a color-coded delta: {Ggreen{x means the first item is better, {Rred{x means
+              |it is worse, and {Wwhite{x means no difference.
+              |
+              |For WEAPONS, the weapon class and average damage per swing are shown.
+              |Average damage accounts for dice format (new vs old).
+              |
+              |AFFECTS from both the item prototype and any enchantments are compared by
+              |stat type.  Gains are shown in {Ggreen{x, losses in {Rred{x, and ties in {Wwhite{x.
+              |
+              |A one-line verdict is printed at the end using the standard better/worse/
+              |same phrasing.
+              |
+              |Examples:
+              |  compare sword              (auto-finds worn weapon)
+              |  compare longsword dagger   (explicit comparison)
+              |"
+    }
+  ]
+}}]

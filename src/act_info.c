@@ -1196,9 +1196,15 @@ DEFINE_DO_FUN(do_compare)
     char arg2[MAX_INPUT_LENGTH];
     OBJ_T *obj1;
     OBJ_T *obj2;
-    int value1;
-    int value2;
-    char *msg;
+    bool auto_found;
+    const char *msg;
+    AFFECT_T *paf;
+    int apply1[APPLY_MAX + 1];
+    int apply2[APPLY_MAX + 1];
+    int i;
+    bool any_affects;
+    int adiff;
+    const char *color;
 
     argument = one_argument(argument, arg1);
     BAIL_IF(arg1[0] == '\0',
@@ -1206,6 +1212,7 @@ DEFINE_DO_FUN(do_compare)
     BAIL_IF((obj1 = find_obj_own_inventory(ch, arg1)) == NULL,
             "You do not have that item.\n\r", ch);
 
+    auto_found = FALSE;
     argument = one_argument(argument, arg2);
     if (arg2[0] == '\0')
     {
@@ -1223,6 +1230,7 @@ DEFINE_DO_FUN(do_compare)
         }
         BAIL_IF(obj2 == NULL,
                 "You aren't wearing anything comparable.\n\r", ch);
+        auto_found = TRUE;
     }
     else
     {
@@ -1230,30 +1238,110 @@ DEFINE_DO_FUN(do_compare)
                 "You do not have that item.\n\r", ch);
     }
 
-    msg = NULL;
-    value1 = 0;
-    value2 = 0;
-
     if (obj1 == obj2)
-        msg = "You compare $p to itself.  It looks about the same.";
-    else if (obj1->item_type != obj2->item_type)
-        msg = "You can't compare $p and $P.";
-    else if (!item_is_comparable(obj1))
-        msg = "You can't compare $p and $P.";
-    else
     {
-        value1 = item_get_compare_value(obj1);
-        value2 = item_get_compare_value(obj2);
+        act("You compare $p to itself.  It looks about the same.",
+            ch, obj1, obj2, TO_CHAR);
+        return;
     }
 
-    if (msg == NULL)
+    if (obj1->item_type != obj2->item_type || !item_is_comparable(obj1))
     {
-        if (value1 == value2)
-            msg = "$p and $P look about the same.";
-        else if (value1 > value2)
-            msg = "$p looks better than $P.";
+        act("You can't compare $p and $P.", ch, obj1, obj2, TO_CHAR);
+        return;
+    }
+
+    if (auto_found)
+        printf_to_char(ch, "Currently equipped: {W%s{x\n\r", obj2->short_descr);
+
+    msg = NULL;
+    if (obj1->item_type == ITEM_ARMOR)
+    {
+        int p1 = obj1->v.armor.vs_pierce, p2 = obj2->v.armor.vs_pierce;
+        int b1 = obj1->v.armor.vs_bash,   b2 = obj2->v.armor.vs_bash;
+        int s1 = obj1->v.armor.vs_slash,  s2 = obj2->v.armor.vs_slash;
+        int m1 = obj1->v.armor.vs_magic,  m2 = obj2->v.armor.vs_magic;
+        int dp = p1 - p2, db = b1 - b2, ds = s1 - s2, dm = m1 - m2;
+        int dtotal = (p1 + b1 + s1 + m1) - (p2 + b2 + s2 + m2);
+
+        send_to_char("{YArmor comparison:{x\n\r", ch);
+        printf_to_char(ch, "  Pierce AC: {W%4d{x vs {W%4d{x  %s(%+d){x\n\r",
+            p1, p2, (dp > 0 ? "{G" : dp < 0 ? "{R" : "{W"), dp);
+        printf_to_char(ch, "  Bash   AC: {W%4d{x vs {W%4d{x  %s(%+d){x\n\r",
+            b1, b2, (db > 0 ? "{G" : db < 0 ? "{R" : "{W"), db);
+        printf_to_char(ch, "  Slash  AC: {W%4d{x vs {W%4d{x  %s(%+d){x\n\r",
+            s1, s2, (ds > 0 ? "{G" : ds < 0 ? "{R" : "{W"), ds);
+        printf_to_char(ch, "  Magic  AC: {W%4d{x vs {W%4d{x  %s(%+d){x\n\r",
+            m1, m2, (dm > 0 ? "{G" : dm < 0 ? "{R" : "{W"), dm);
+
+        msg = (dtotal == 0) ? "$p and $P look about the same." :
+              (dtotal  > 0) ? "$p looks better than $P."       :
+                              "$p looks worse than $P.";
+    }
+    else if (obj1->item_type == ITEM_WEAPON)
+    {
+        double avg1, avg2, wdiff;
+        const char *wtype1, *wtype2;
+
+        if (obj1->obj_index->new_format)
+            avg1 = obj1->v.weapon.dice_num * (obj1->v.weapon.dice_size + 1) / 2.0;
         else
-            msg = "$p looks worse than $P.";
+            avg1 = (obj1->v.weapon.dice_num + obj1->v.weapon.dice_size) / 2.0;
+
+        if (obj2->obj_index->new_format)
+            avg2 = obj2->v.weapon.dice_num * (obj2->v.weapon.dice_size + 1) / 2.0;
+        else
+            avg2 = (obj2->v.weapon.dice_num + obj2->v.weapon.dice_size) / 2.0;
+
+        wdiff  = avg1 - avg2;
+        wtype1 = str_if_null(weapon_get_name(obj1->v.weapon.weapon_type), "unknown");
+        wtype2 = str_if_null(weapon_get_name(obj2->v.weapon.weapon_type), "unknown");
+
+        send_to_char("{YWeapon comparison:{x\n\r", ch);
+        printf_to_char(ch, "  Weapon type: {W%-10s{x  {W%s{x\n\r", wtype1, wtype2);
+        printf_to_char(ch, "  Average dmg: {W%5.1f{x vs {W%5.1f{x  %s(%+.1f){x\n\r",
+            avg1, avg2,
+            (wdiff > 0.0 ? "{G" : wdiff < 0.0 ? "{R" : "{W"), wdiff);
+
+        msg = (wdiff == 0.0) ? "$p and $P look about the same." :
+              (wdiff  > 0.0) ? "$p looks better than $P."       :
+                               "$p looks worse than $P.";
+    }
+
+    /* Collect affects from proto (unless enchanted) and instance for each item */
+    memset(apply1, 0, sizeof(apply1));
+    memset(apply2, 0, sizeof(apply2));
+
+    if (!obj1->enchanted)
+        for (paf = obj1->obj_index->affect_first; paf; paf = paf->on_next)
+            if (paf->apply > APPLY_NONE && paf->apply <= APPLY_MAX)
+                apply1[paf->apply] += paf->modifier;
+    for (paf = obj1->affect_first; paf; paf = paf->on_next)
+        if (paf->apply > APPLY_NONE && paf->apply <= APPLY_MAX)
+            apply1[paf->apply] += paf->modifier;
+
+    if (!obj2->enchanted)
+        for (paf = obj2->obj_index->affect_first; paf; paf = paf->on_next)
+            if (paf->apply > APPLY_NONE && paf->apply <= APPLY_MAX)
+                apply2[paf->apply] += paf->modifier;
+    for (paf = obj2->affect_first; paf; paf = paf->on_next)
+        if (paf->apply > APPLY_NONE && paf->apply <= APPLY_MAX)
+            apply2[paf->apply] += paf->modifier;
+
+    any_affects = FALSE;
+    for (i = 1; i <= APPLY_MAX; i++)
+    {
+        if (apply1[i] == 0 && apply2[i] == 0)
+            continue;
+        if (!any_affects)
+        {
+            send_to_char("{YAffects:{x\n\r", ch);
+            any_affects = TRUE;
+        }
+        adiff = apply1[i] - apply2[i];
+        color = (adiff > 0) ? "{G" : (adiff < 0) ? "{R" : "{W";
+        printf_to_char(ch, "  %-18s {W%4d{x vs {W%4d{x  %s(%+d){x\n\r",
+            affect_apply_name(i), apply1[i], apply2[i], color, adiff);
     }
 
     act(msg, ch, obj1, obj2, TO_CHAR);
