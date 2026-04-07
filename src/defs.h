@@ -277,6 +277,7 @@
 #define OBJ_VNUM_DISC 23
 #define OBJ_VNUM_STEAK 24
 #define OBJ_VNUM_PORTAL 25
+#define OBJ_VNUM_PROTOPLASM 26
 
 #define OBJ_VNUM_ROSE 1001
 
@@ -414,6 +415,7 @@
 #define BOARD_NOTFOUND -1 /* Error code from board_lookup() and board_number */
 
 /* Connected state for a channel. */
+#define CON_ROLL_STATS   -15
 #define CON_GET_NAME -14
 #define CON_GET_OLD_PASSWORD -13
 #define CON_CONFIRM_NEW_NAME -12
@@ -438,7 +440,7 @@
 #define CON_NOTE_EXPIRE 7
 #define CON_NOTE_TEXT 8
 #define CON_NOTE_FINISH 9
-#define NANNY_MAX 24
+#define NANNY_MAX 25
 
 /* Character classes. */
 #define CLASS_NONE -1
@@ -685,8 +687,9 @@
 #define SKILL_MAP_BUTCHER 48
 #define SKILL_MAP_HUNT 49
 #define SKILL_MAP_CRITICAL_STRIKE 50
-#define SKILL_MAP_SILENCE 51
-#define SKILL_MAP_MAX 52
+#define SKILL_MAP_SILENCE   51
+#define SKILL_MAP_SPIT_ACID 52
+#define SKILL_MAP_MAX       53
 
 /* Stuff for providing a crash-proof buffer */
 #define MAX_BUF_LIST 11

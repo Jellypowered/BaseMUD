@@ -198,5 +198,15 @@
     "ac_bonus": 0,
     "wear_msg_self": "You release $p and it floats next to you.",
     "wear_msg_room": "$n releases $p to float next to $m."
+  }},
+  {"wear_loc": {
+    "type": 19,
+    "name": "tail",
+    "phrase": "on the tail",
+    "look_msg": "<worn on tail>",
+    "wear_flag": "weartail",
+    "ac_bonus": 100,
+    "wear_msg_self": "You wear $p on your tail.",
+    "wear_msg_room": "$n wears $p on $s tail."
   }}
 ]

@@ -378,6 +378,8 @@ const FLAG_T wear_flags[] = {
     {"hold", ITEM_HOLD, TRUE},
     {"nosac", ITEM_NO_SAC, TRUE},
     {"wearfloat", ITEM_WEAR_FLOAT, TRUE},
+    {"wearlight", ITEM_WEAR_LIGHT, TRUE},
+    {"weartail",  ITEM_WEAR_TAIL,  TRUE},
     {0}};
 
 const FLAG_T container_flags[] = {

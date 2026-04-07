@@ -254,6 +254,7 @@ const CMD_T cmd_table[] = {
     {"disarm", do_disarm, POS_FIGHTING, 0, LOG_NORMAL, 1},
     {"flee", do_flee, POS_FIGHTING, 0, LOG_NORMAL, 1},
     {"kick", do_kick, POS_FIGHTING, 0, LOG_NORMAL, 1},
+    {"spit", do_spit_acid, POS_FIGHTING, 0, LOG_NORMAL, 1},
     {"murde", do_murde, POS_FIGHTING, 0, LOG_NORMAL, 0},
     {"murder", do_murder, POS_FIGHTING, 5, LOG_ALWAYS, 1},
     {"rescue", do_rescue, POS_FIGHTING, 0, LOG_NORMAL, 0},

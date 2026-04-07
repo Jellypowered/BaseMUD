@@ -1,6 +1,6 @@
 ---
 description: "Use when: integrating a code snippet, porting code from another MUD, adapting external C code, adding a feature from a snippet or paste, merging legacy ROM/MERC/Circle/Diku code into BaseMUD. Handles snippet analysis, codebase investigation, clarifying questions, and implementation."
-tools: [read, search, edit, todo, run_in_terminal, get_changed_files]
+tools: [read, search, edit, todo]
 user-invocable: true
 argument-hint: "Paste or describe the snippet you want to integrate into BaseMUD."
 ---
@@ -69,7 +69,15 @@ Wait for the user to approve the plan before implementing.
 
 Implement the approved plan using the `edit` tool. After each file, confirm what was done. Use `todo` to track multi-file work.
 
-## Phase 6 — Credits
+## Phase 6 — Documentation
+
+Complete both sub-steps before proceeding to Phase 7.
+
+**Help entries**: Add a help entry in `json/help/` for every new player-visible command, spell, skill, system, or class. The format is a top-level JSON array of `{"help": {...}}` objects. Use `keyword` (uppercase, space-separated aliases), `text` (pipe-delimited lines starting with `|`), and optionally `"hide_keywords": true`. Add the command/spell/skill name as the primary keyword and `NO<NAME>` as a secondary keyword. If the integration adds a broader concept (e.g., a new connection state, a reroll screen, or an admin system), write a help page for that concept as well. See existing entries in `json/help/` for examples.
+
+**JSON documentation**: If any JSON-visible data changed (new flag name, new skill, new type, renamed entry in `json/meta/` or `json/config/`), update `doc/Json_Documentation.md` to reflect the change. Look for the relevant section by searching for nearby flag/type names and add or amend the entry in the same style as surrounding entries.
+
+## Phase 7 — Credits
 
 Update `json/help/credits.json` to record the contribution.
 
@@ -118,7 +126,7 @@ Before investigating, read `.github/agents/cheatsheet.md` — it contains verifi
 - **act() calls**: Use `act3()` for ch+victim+room messages, `act2()` for ch+room. See cheatsheet for the pattern
 - **damage()**: Use `damage_visible()`. Check its `bool` return or `victim->position == POS_DEAD` in loops
 
-## Cheatsheet Maintenance
+## Phase 8 — Cheatsheet Update
 
 After each integration, update `.github/agents/cheatsheet.md` with any new verified findings:
 
@@ -126,21 +134,13 @@ After each integration, update `.github/agents/cheatsheet.md` with any new verif
 - New slot numbers used
 - Any pattern that had to be looked up and confirmed from source
 
-## Documentation Maintenance
+## Phase 9 — Build, Verify, and Commit
 
-If any JSON-visible data changed (new flag name, new skill, new type, renamed entry in `json/meta/` or `json/config/`), update `doc/Json_Documentation.md` to reflect the change. Look for the relevant section by searching for nearby flag/type names and add or amend the entry in the same style as surrounding entries.
-
-**Help files**: When adding a new player-visible command, spell, or skill, add a help entry in `json/help/`. The format is a top-level JSON array of `{"help": {...}}` objects. Use `keyword` (uppercase, space-separated aliases), `text` (pipe-delimited lines starting with `|`), and optionally `"hide_keywords": true`. Add the command/spell name as the primary keyword and `NO<NAME>` as a secondary keyword. See existing entries in `json/help/` for examples.
-
-**Credits**: When adding a snippet from a known author, add the author and feature to `json/help/credits.json` in the same `|Feature --\n|    Author\n|` format.
-
-## Phase 7 — Build, Verify, and Commit
-
-**If you are running as a subagent** (invoked by another agent): do not attempt to build or commit yourself. Instead, report back to the calling agent with the composed commit message and instruct it to execute Phase 7.
+**If you are running as a subagent** (invoked by another agent): do not attempt to build or commit yourself. Instead, report back to the calling agent with the composed commit message and instruct it to execute Phase 9.
 
 **If you are running as the main agent** (invoked directly by the user): proceed with the steps below.
 
-After cheatsheet is updated:
+After completing Phase 8:
 
 1. **Build** — run `make` using the workspace build task (MSYS2 PATH required):
 

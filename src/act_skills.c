@@ -841,3 +841,38 @@ DEFINE_DO_FUN(do_butcher)
     }
     obj_extract(corpse);
 }
+
+DEFINE_DO_FUN(do_spit_acid)
+{
+    CHAR_T *victim;
+    int dam, chance;
+
+    if ((victim = ch->fighting) == NULL)
+    {
+        send_to_char("You aren't fighting anyone.\n\r", ch);
+        return;
+    }
+
+    chance = char_get_skill(ch, SN(SPIT_ACID));
+    if (chance == 0)
+    {
+        send_to_char("Better leave the acid spitting to the draconians.\n\r", ch);
+        return;
+    }
+
+    dam = number_range(1, ch->level + 10);
+    WAIT_STATE(ch, skill_table[SN(SPIT_ACID)].beats);
+
+    if (chance > number_percent())
+    {
+        damage_visible(ch, victim, number_range(dam, ch->level * 3),
+            SN(SPIT_ACID), DAM_ACID, NULL);
+        player_try_skill_improve(ch, SN(SPIT_ACID), TRUE, 1);
+    }
+    else
+    {
+        damage_visible(ch, victim, 0, SN(SPIT_ACID), DAM_ACID, NULL);
+        player_try_skill_improve(ch, SN(SPIT_ACID), FALSE, 1);
+    }
+    check_killer(ch, victim);
+}

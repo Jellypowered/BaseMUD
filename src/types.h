@@ -143,7 +143,8 @@
 #define WEAR_LOC_WIELD 16
 #define WEAR_LOC_HOLD 17
 #define WEAR_LOC_FLOAT 18
-#define WEAR_LOC_MAX 19
+#define WEAR_LOC_TAIL  19
+#define WEAR_LOC_MAX   20
 
 /* AC types */
 #define AC_PIERCE 0

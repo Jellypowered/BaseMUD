@@ -852,7 +852,7 @@ Used in `mobile.sex`:
 
 Used in `reset.equip.wear_loc`:
 
-`none`, `light`, `lfinger`, `rfinger`, `neck1`, `neck2`, `body`, `head`, `legs`, `feet`, `hands`, `arms`, `shield`, `about`, `waist`, `lwrist`, `rwrist`, `wielded`, `hold`, `floating`
+`none`, `light`, `lfinger`, `rfinger`, `neck1`, `neck2`, `body`, `head`, `legs`, `feet`, `hands`, `arms`, `shield`, `about`, `waist`, `lwrist`, `rwrist`, `wielded`, `hold`, `floating`, `tail`
 
 ### item_type
 
@@ -940,7 +940,7 @@ All multi-flag fields accept space-separated flag name strings. Omit the field e
 
 ### wear_flags
 
-`take`, `finger`, `neck`, `body`, `head`, `legs`, `feet`, `hands`, `arms`, `shield`, `about`, `waist`, `wrist`, `wield`, `hold`, `nosac`, `wearfloat`
+`take`, `finger`, `neck`, `body`, `head`, `legs`, `feet`, `hands`, `arms`, `shield`, `about`, `waist`, `wrist`, `wield`, `hold`, `nosac`, `wearfloat`, `wearlight`, `weartail`
 
 ### exit_flags
 

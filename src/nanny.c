@@ -719,6 +719,7 @@ DEFINE_NANNY_FUN(nanny_pick_weapon)
 {
     CHAR_T *ch = d->character;
     const WEAPON_T *weapon;
+    const PC_RACE_T *pc_race;
     char buf[MAX_STRING_LENGTH];
     int i;
 
@@ -743,9 +744,55 @@ DEFINE_NANNY_FUN(nanny_pick_weapon)
     }
 
     ch->pcdata->learned[weapon->skill_index] = 40;
-    write_to_buffer(d, "\n\r", 2);
-    do_function(ch, &do_help, "motd");
-    d->connected = CON_READ_MOTD;
+
+    /* Roll initial stats and let the player reroll if desired. */
+    pc_race = pc_race_get_by_race(ch->race);
+    for (i = 0; i < STAT_MAX; i++)
+        ch->perm_stat[i] = pc_race->stats[i] + number_range(0, 3);
+
+    write_to_buffer(d,
+        "\n\rYou may now roll for your character's stats.\n\r"
+        "Roll as often as you like.\n\r", 0);
+    snprintf(buf, sizeof(buf),
+        "\n\rStr: %d  Int: %d  Wis: %d  Dex: %d  Con: %d\n\rKeep? (Y/N) ",
+        ch->perm_stat[STAT_STR], ch->perm_stat[STAT_INT],
+        ch->perm_stat[STAT_WIS], ch->perm_stat[STAT_DEX],
+        ch->perm_stat[STAT_CON]);
+    write_to_buffer(d, buf, 0);
+    d->connected = CON_ROLL_STATS;
+}
+
+DEFINE_NANNY_FUN(nanny_roll_stats)
+{
+    CHAR_T *ch = d->character;
+    const PC_RACE_T *pc_race;
+    char buf[MAX_STRING_LENGTH];
+    int i;
+
+    if (UPPER(argument[0]) == 'N')
+    {
+        /* Reroll stats */
+        pc_race = pc_race_get_by_race(ch->race);
+        for (i = 0; i < STAT_MAX; i++)
+            ch->perm_stat[i] = pc_race->stats[i] + number_range(0, 3);
+        snprintf(buf, sizeof(buf),
+            "\n\rStr: %d  Int: %d  Wis: %d  Dex: %d  Con: %d\n\rKeep? (Y/N) ",
+            ch->perm_stat[STAT_STR], ch->perm_stat[STAT_INT],
+            ch->perm_stat[STAT_WIS], ch->perm_stat[STAT_DEX],
+            ch->perm_stat[STAT_CON]);
+        write_to_buffer(d, buf, 0);
+        return;
+    }
+
+    if (argument[0] == '\0' || UPPER(argument[0]) == 'Y')
+    {
+        write_to_buffer(d, "\n\r", 2);
+        do_function(ch, &do_help, "motd");
+        d->connected = CON_READ_MOTD;
+        return;
+    }
+
+    write_to_buffer(d, "Yes or No? ", 0);
 }
 
 DEFINE_NANNY_FUN(nanny_gen_groups)

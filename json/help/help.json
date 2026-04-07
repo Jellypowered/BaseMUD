@@ -339,8 +339,35 @@
       "text": "Syntax: equipment
               |Syntax: inventory
               |
-              |EQUIPMENT lists your equipment (armor, weapons, and held items).
-              |INVENTORY lists your inventory.
+              |EQUIPMENT displays all wear slots with colored labels showing what you are
+              |currently wearing.  Empty slots appear as '(empty)'.  Slots covered:
+              |Floating, Light, Head, Neck (x2), Body, Torso, Arms, Hands, Wrist (x2),
+              |Finger (x2), Waist, Primary, Shield, Held, Legs, Feet, and Tail.
+              |
+              |INVENTORY lists all items you are carrying but not wearing.
+              |"
+    },
+    {
+      "keyword": "SPIT ACID NOSPITACID",
+      "text": "Syntax: spit
+              |
+              |SPIT ACID is a natural ability available only to draconian characters.
+              |While in combat, the SPIT command sprays a stream of corrosive acid at your
+              |current opponent, dealing acid damage.  Proficiency improves with use.
+              |"
+    },
+    {
+      "keyword": "REROLL STATISTICS STAT-ROLL",
+      "text": "Syntax: y  (accept stats)
+              |Syntax: n  (reroll stats)
+              |
+              |During character creation, after selecting your starting weapon, you will
+              |be shown your rolled statistics: Str, Int, Wis, Dex, and Con.  These are
+              |based on your race's base values with a small random bonus applied.
+              |
+              |Type Y or press Enter to accept the stats shown and continue.
+              |Type N to discard the roll and generate a new set of statistics.
+              |You may reroll as many times as you wish.
               |"
     },
     {

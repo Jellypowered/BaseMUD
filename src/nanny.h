@@ -51,6 +51,7 @@ DECLARE_NANNY_FUN (nanny_get_new_class);
 DECLARE_NANNY_FUN (nanny_get_alignment);
 DECLARE_NANNY_FUN (nanny_default_choice);
 DECLARE_NANNY_FUN (nanny_pick_weapon);
+DECLARE_NANNY_FUN (nanny_roll_stats);
 DECLARE_NANNY_FUN (nanny_gen_groups);
 DECLARE_NANNY_FUN (nanny_gen_groups_done);
 DECLARE_NANNY_FUN (nanny_read_imotd);

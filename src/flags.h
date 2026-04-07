@@ -268,6 +268,7 @@
 #define ITEM_NO_SAC (BIT_16)
 #define ITEM_WEAR_FLOAT (BIT_17)
 #define ITEM_WEAR_LIGHT (BIT_18)
+#define ITEM_WEAR_TAIL  (BIT_19)
 
 /* weapon types */
 #define WEAPON_FLAMING (BIT_01)

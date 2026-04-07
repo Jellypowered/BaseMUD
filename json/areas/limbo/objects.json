@@ -340,6 +340,19 @@
   }},
   {"object": {
     "area": "limbo",
+    "anum": 26,
+    "name": "protoplasm",
+    "short_descr": "a mass of protoplasm",
+    "description": "A mass of raw protoplasm is lying here.",
+    "material": "none",
+    "item_type": "trash",
+    "values": {},
+    "level": 0,
+    "weight": 1,
+    "cost": 0
+  }},
+  {"object": {
+    "area": "limbo",
     "anum": 30,
     "name": "dummy object",
     "short_descr": "a dummy object",

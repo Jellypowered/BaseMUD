@@ -4169,5 +4169,20 @@
                   "usage_beats":  24,
                   "spell_fun":  "spell_resurrect"
               }
-}
-]
+},
+{
+    "skill":  {
+                  "name":  "spit acid",
+                  "classes":  {
+                                  "mage":     {"level": 53, "effort": 2},
+                                  "cleric":   {"level": 53, "effort": 2},
+                                  "thief":    {"level": 53, "effort": 2},
+                                  "warrior":  {"level": 53, "effort": 2}
+                              },
+                  "target":  "ignore",
+                  "min_position":  "standing",
+                  "slot":  535,
+                  "min_mana":  0,
+                  "usage_beats":  18,
+                  "noun_damage":  "acid spit"
+              }

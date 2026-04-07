@@ -1105,32 +1105,39 @@ DEFINE_DO_FUN(do_inventory)
     obj_list_show_to_char(ch->content_first, ch, TRUE, TRUE);
 }
 
+static const char *eq_worn_str (CHAR_T *ch, int wear_loc)
+{
+    OBJ_T *obj = char_get_eq_by_wear_loc(ch, wear_loc);
+    if (obj == NULL)
+        return "";
+    if (char_can_see_obj(ch, obj))
+        return obj_format_to_char(obj, ch, TRUE);
+    return "something";
+}
+
 DEFINE_DO_FUN(do_equipment)
 {
-    const WEAR_LOC_T *wear;
-    OBJ_T *obj;
-    int wear_loc;
-    bool found;
-
-    send_to_char("You are using:\n\r", ch);
-    found = FALSE;
-    for (wear_loc = 0; wear_loc < WEAR_LOC_MAX; wear_loc++)
-    {
-        if ((obj = char_get_eq_by_wear_loc(ch, wear_loc)) == NULL)
-            continue;
-        if ((wear = wear_loc_get(wear_loc)) == NULL)
-            continue;
-
-        printf_to_char(ch, "%-21s ", wear->look_msg);
-        if (char_can_see_obj(ch, obj))
-            printf_to_char(ch, "%s\n\r", obj_format_to_char(obj, ch, TRUE));
-        else
-            send_to_char("something.\n\r", ch);
-        found = TRUE;
-    }
-
-    if (!found)
-        send_to_char("Nothing.\n\r", ch);
+    send_to_char("\n\r{CYou are currently wearing:{x\n\r\n\r", ch);
+    printf_to_char(ch, "{CF{Wloatin{Cg  {g:{x %-40s\n\r", eq_worn_str(ch, WEAR_LOC_FLOAT));
+    printf_to_char(ch, "{CL{Wigh{Ct     {g:{x %-40s\n\r", eq_worn_str(ch, WEAR_LOC_LIGHT));
+    printf_to_char(ch, "{CH{Wea{Cd      {g:{x %-40s\n\r", eq_worn_str(ch, WEAR_LOC_HEAD));
+    printf_to_char(ch, "{CN{Wec{Ck      {g:{x %-40s\n\r", eq_worn_str(ch, WEAR_LOC_NECK_1));
+    printf_to_char(ch, "{CN{Wec{Ck      {g:{x %-40s\n\r", eq_worn_str(ch, WEAR_LOC_NECK_2));
+    printf_to_char(ch, "{CB{Wod{Cy      {g:{x %-40s\n\r", eq_worn_str(ch, WEAR_LOC_BODY));
+    printf_to_char(ch, "{CT{Wors{Co     {g:{x %-40s\n\r", eq_worn_str(ch, WEAR_LOC_ABOUT));
+    printf_to_char(ch, "{CA{Wrm{Cs      {g:{x %-40s\n\r", eq_worn_str(ch, WEAR_LOC_ARMS));
+    printf_to_char(ch, "{CH{Wand{Cs     {g:{x %-40s\n\r", eq_worn_str(ch, WEAR_LOC_HANDS));
+    printf_to_char(ch, "{CW{Wris{Ct     {g:{x %-40s\n\r", eq_worn_str(ch, WEAR_LOC_WRIST_L));
+    printf_to_char(ch, "{CW{Wris{Ct     {g:{x %-40s\n\r", eq_worn_str(ch, WEAR_LOC_WRIST_R));
+    printf_to_char(ch, "{CF{Winge{Cr    {g:{x %-40s\n\r", eq_worn_str(ch, WEAR_LOC_FINGER_L));
+    printf_to_char(ch, "{CF{Winge{Cr    {g:{x %-40s\n\r", eq_worn_str(ch, WEAR_LOC_FINGER_R));
+    printf_to_char(ch, "{CW{Wais{Ct     {g:{x %-40s\n\r", eq_worn_str(ch, WEAR_LOC_WAIST));
+    printf_to_char(ch, "{CP{Wrimar{Cy   {g:{x %-40s\n\r", eq_worn_str(ch, WEAR_LOC_WIELD));
+    printf_to_char(ch, "{CS{Whiel{Cd    {g:{x %-40s\n\r", eq_worn_str(ch, WEAR_LOC_SHIELD));
+    printf_to_char(ch, "{CH{Wel{Cd      {g:{x %-40s\n\r", eq_worn_str(ch, WEAR_LOC_HOLD));
+    printf_to_char(ch, "{CL{Weg{Cs      {g:{x %-40s\n\r", eq_worn_str(ch, WEAR_LOC_LEGS));
+    printf_to_char(ch, "{CF{Wee{Ct      {g:{x %-40s\n\r", eq_worn_str(ch, WEAR_LOC_FEET));
+    printf_to_char(ch, "{CT{Wai{Cl      {g:{x %-40s\n\r", eq_worn_str(ch, WEAR_LOC_TAIL));
 }
 
 DEFINE_DO_FUN(do_compare)

@@ -1089,6 +1089,7 @@ WEAR_LOC_T wear_loc_table[WEAR_LOC_MAX + 2] = {
     {WEAR_LOC_WIELD, "wielded", "wielded", "<wielded>", ITEM_WIELD, 0, "You wield $p.", "$n wields $p."},
     {WEAR_LOC_HOLD, "hold", "held in the hands", "<held>", ITEM_HOLD, 100, "You hold $p in your hand.", "$n holds $p in $s hand."},
     {WEAR_LOC_FLOAT, "floating", "floating nearby", "<floating nearby>", ITEM_WEAR_FLOAT, 0, "You release $p and it floats next to you.", "$n releases $p to float next to $m."},
+    {WEAR_LOC_TAIL, "tail", "on the tail", "<worn on tail>", ITEM_WEAR_TAIL, 100, "You wear $p on your tail.", "$n wears $p on $s tail."},
     {0},
 };
 
@@ -1585,6 +1586,8 @@ const NANNY_HANDLER_T nanny_table[NANNY_MAX + 1] = {
     {CON_NOTE_TEXT, "note_text", handle_con_note_text},
     {CON_NOTE_FINISH, "note_finish", handle_con_note_finish},
 
+    {CON_ROLL_STATS, "roll_stats", nanny_roll_stats},
+
     {-1, NULL}};
 
 const OBJ_MAP_T obj_map_table[ITEM_MAX + 1] = {
@@ -1738,6 +1741,7 @@ SKILL_MAP_T skill_map_table[SKILL_MAP_MAX + 1] = {
     {SKILL_MAP_HUNT, "hunt"},
     {SKILL_MAP_CRITICAL_STRIKE, "critical strike"},
     {SKILL_MAP_SILENCE, "silence"},
+    {SKILL_MAP_SPIT_ACID, "spit acid"},
 
     {0}};
 

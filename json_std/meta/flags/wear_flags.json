@@ -86,6 +86,16 @@
       "name": "wearfloat",
       "value": 16,
       "settable": true
+    },
+    {
+      "name": "wearlight",
+      "value": 17,
+      "settable": true
+    },
+    {
+      "name": "weartail",
+      "value": 18,
+      "settable": true
     }
   ]
 }}

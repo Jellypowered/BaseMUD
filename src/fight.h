@@ -49,6 +49,7 @@ bool can_attack_spell (CHAR_T *ch, CHAR_T *victim, bool area);
 bool do_filter_can_attack_real (CHAR_T *ch, CHAR_T *victim, bool area,
     bool quiet);
 void check_killer (CHAR_T *ch, CHAR_T *victim);
+void mob_rand_drop (CHAR_T *mob);
 bool check_parry (CHAR_T *ch, CHAR_T *victim);
 bool check_shield_block (CHAR_T *ch, CHAR_T *victim);
 bool check_dodge (CHAR_T *ch, CHAR_T *victim);

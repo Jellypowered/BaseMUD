@@ -721,6 +721,10 @@ bool damage_real(CHAR_T *ch, CHAR_T *victim, int dam, int dt, int dam_type,
             mp_percent_trigger(victim, ch, NULL, NULL, TRIG_DEATH);
         }
 
+        /* Random item drop from slain NPCs. */
+        if (IS_NPC(victim))
+            mob_rand_drop(victim);
+
         corpse = char_die(victim);
 
         /* Track PK kills and deaths. */
@@ -1968,7 +1972,7 @@ void disarm(CHAR_T *ch, CHAR_T *victim)
     act("{5You disarm $N!{x", ch, NULL, victim, TO_CHAR);
     act("{5$n disarms $N!{x", ch, NULL, victim, TO_OTHERS);
 
-    if (IS_OBJ_STAT(obj, ITEM_NODROP) || IS_OBJ_STAT(obj, ITEM_INVENTORY))
+if (IS_OBJ_STAT(obj, ITEM_NODROP) || IS_OBJ_STAT(obj, ITEM_INVENTORY))
         obj_give_to_char(obj, victim);
     else
     {
@@ -1976,4 +1980,233 @@ void disarm(CHAR_T *ch, CHAR_T *victim)
         if (IS_NPC(victim) && victim->wait == 0 && char_can_see_obj(victim, obj))
             char_take_obj(victim, obj, NULL);
     }
+}
+
+/* Random item generation on mob death.
+ * Adapted from Kline's (Matt Goff's) mob_rand_drop snippet.
+ * 3% chance per NPC kill. Item quality and stats scale with mob level.
+ */
+static const char *mob_rand_quality[6] = {
+    "{Dpoor{x", "{wcommon{x", "{Guncommon{x",
+    "{Cexceptional{x", "{Mepic{x", "{Rlegendary{x"
+};
+
+static const char *mob_rand_weapon[10] = {
+    "blade", "dagger", "sword", "mace", "club",
+    "whip", "spear", "axe", "staff", "hammer"
+};
+
+static const char *mob_rand_finger[1] = { "ring" };
+static const char *mob_rand_neck[3]   = { "necklace", "amulet", "choker" };
+static const char *mob_rand_body[2]   = { "chest guard", "breastplate" };
+static const char *mob_rand_head[3]   = { "helmet", "skullcap", "hat" };
+static const char *mob_rand_legs[3]   = { "leggings", "leg guards", "pants" };
+static const char *mob_rand_feet[3]   = { "boots", "shoes", "sandals" };
+static const char *mob_rand_hands[3]  = { "gloves", "gauntlets", "knuckles" };
+static const char *mob_rand_arms[2]   = { "arm guards", "sleeves" };
+static const char *mob_rand_shield[3] = { "buckler", "shield", "round shield" };
+static const char *mob_rand_about[3]  = { "cloak", "cape", "shawl" };
+static const char *mob_rand_waist[3]  = { "belt", "cord", "waistband" };
+static const char *mob_rand_wrist[3]  = { "bracer", "wrist guard", "bracelet" };
+static const char *mob_rand_float[3]  = { "gem", "spirit", "rune" };
+
+void mob_rand_drop(CHAR_T *mob)
+{
+    char slot[MAX_INPUT_LENGTH];
+    char best_plain[MAX_INPUT_LENGTH], best_color[MAX_INPUT_LENGTH];
+    char name_color[MAX_STRING_LENGTH];
+    OBJ_T *obj;
+    AFFECT_T af;
+    int level = mob->level;
+    int value = 0, i = 0, num_aff = 0;
+    int add_str = 0, add_dex = 0, add_int = 0, add_wis = 0, add_con = 0;
+    int add_mana = 0, add_hit = 0, add_move = 0, add_ac = 0;
+    int add_hr = 0, add_dr = 0, add_save = 0;
+    int add_best = 0, add_tot = 0;
+
+    if (number_percent() > 3)
+        return;
+    if (obj_get_index(OBJ_VNUM_PROTOPLASM) == NULL)
+        return;
+
+    obj = obj_create(obj_get_index(OBJ_VNUM_PROTOPLASM), 0);
+    obj->weight = UMAX(1, level / 10);
+    SET_BIT(obj->wear_flags, ITEM_TAKE);
+    slot[0] = '\0'; best_plain[0] = '\0'; best_color[0] = '\0';
+
+    if (number_range(1, 10) <= 3)
+    {
+        /* Weapon (30% chance) */
+        obj->item_type = ITEM_WEAPON;
+        SET_BIT(obj->wear_flags, ITEM_WIELD);
+        obj->v.weapon.weapon_type = 0;
+        obj->v.weapon.dice_num    = UMAX(1, level / 20);
+        obj->v.weapon.dice_size   = UMAX(2, level / 10);
+        obj->v.weapon.attack_type = 0;
+        obj->v.weapon.flags       = 0;
+        snprintf(slot, sizeof(slot), "%s",
+            mob_rand_weapon[number_range(0, 9)]);
+    }
+    else
+    {
+        /* Armor (70% chance) */
+        int ac = UMAX(1, level / 8);
+        obj->item_type = ITEM_ARMOR;
+        obj->v.armor.vs_pierce = ac;
+        obj->v.armor.vs_bash   = ac;
+        obj->v.armor.vs_slash  = ac;
+        obj->v.armor.vs_magic  = ac / 2;
+
+        switch (number_range(1, 15))
+        {
+            default:
+                obj_extract(obj);
+                return;
+            case 1: case 2:
+                SET_BIT(obj->wear_flags, ITEM_WEAR_FINGER);
+                snprintf(slot, sizeof(slot), "%s", mob_rand_finger[0]);
+                break;
+            case 3:
+                SET_BIT(obj->wear_flags, ITEM_WEAR_NECK);
+                snprintf(slot, sizeof(slot), "%s",
+                    mob_rand_neck[number_range(0, 2)]);
+                break;
+            case 4:
+                SET_BIT(obj->wear_flags, ITEM_WEAR_BODY);
+                snprintf(slot, sizeof(slot), "%s",
+                    mob_rand_body[number_range(0, 1)]);
+                break;
+            case 5:
+                SET_BIT(obj->wear_flags, ITEM_WEAR_HEAD);
+                snprintf(slot, sizeof(slot), "%s",
+                    mob_rand_head[number_range(0, 2)]);
+                break;
+            case 6:
+                SET_BIT(obj->wear_flags, ITEM_WEAR_LEGS);
+                snprintf(slot, sizeof(slot), "%s",
+                    mob_rand_legs[number_range(0, 2)]);
+                break;
+            case 7:
+                SET_BIT(obj->wear_flags, ITEM_WEAR_FEET);
+                snprintf(slot, sizeof(slot), "%s",
+                    mob_rand_feet[number_range(0, 2)]);
+                break;
+            case 8:
+                SET_BIT(obj->wear_flags, ITEM_WEAR_HANDS);
+                snprintf(slot, sizeof(slot), "%s",
+                    mob_rand_hands[number_range(0, 2)]);
+                break;
+            case 9:
+                SET_BIT(obj->wear_flags, ITEM_WEAR_ARMS);
+                snprintf(slot, sizeof(slot), "%s",
+                    mob_rand_arms[number_range(0, 1)]);
+                break;
+            case 10:
+                SET_BIT(obj->wear_flags, ITEM_WEAR_SHIELD);
+                snprintf(slot, sizeof(slot), "%s",
+                    mob_rand_shield[number_range(0, 2)]);
+                break;
+            case 11:
+                SET_BIT(obj->wear_flags, ITEM_WEAR_ABOUT);
+                snprintf(slot, sizeof(slot), "%s",
+                    mob_rand_about[number_range(0, 2)]);
+                break;
+            case 12:
+                SET_BIT(obj->wear_flags, ITEM_WEAR_WAIST);
+                snprintf(slot, sizeof(slot), "%s",
+                    mob_rand_waist[number_range(0, 2)]);
+                break;
+            case 13: case 14:
+                SET_BIT(obj->wear_flags, ITEM_WEAR_WRIST);
+                snprintf(slot, sizeof(slot), "%s",
+                    mob_rand_wrist[number_range(0, 2)]);
+                break;
+            case 15:
+                SET_BIT(obj->wear_flags, ITEM_WEAR_FLOAT);
+                snprintf(slot, sizeof(slot), "%s",
+                    mob_rand_float[number_range(0, 2)]);
+                break;
+        }
+    }
+
+    /* Generate random stat bonuses (up to 6 rolls, diminishing chance) */
+    for (i = 0; i < 6; i++)
+    {
+        if (number_percent() >= (num_aff * 10))
+        {
+            num_aff++;
+            value = UMAX(1, level / 10);
+            add_tot += value;
+
+            switch (number_range(1, 12))
+            {
+                case 1:  add_str  += value; break;
+                case 2:  add_dex  += value; break;
+                case 3:  add_int  += value; break;
+                case 4:  add_wis  += value; break;
+                case 5:  add_con  += value; break;
+                case 6:  add_mana += value; break;
+                case 7:  add_hit  += value; break;
+                case 8:  add_move += value; break;
+                case 9:  add_ac   -= value; break;
+                case 10: add_hr   += value; break;
+                case 11: add_dr   += value; break;
+                case 12: add_save -= value; break;
+                default: break;
+            }
+        }
+    }
+
+/* Macro helper: add affect and track dominant stat */
+#define RAND_APPLY(val, neg, apply_const, plain, color)                        \
+    if (val != 0) {                                                            \
+        int mag = (neg) ? -(val) : (val);                                      \
+        affect_init(&af, AFF_TO_AFFECTS, -1, level, -1, apply_const, val, 0); \
+        affect_copy_to_obj(&af, obj);                                          \
+        if (mag > add_best) {                                                  \
+            add_best = mag;                                                    \
+            snprintf(best_plain, sizeof(best_plain), "%s", plain);             \
+            snprintf(best_color, sizeof(best_color), "%s", color);             \
+        }                                                                      \
+    }
+
+    RAND_APPLY(add_str,  0, APPLY_STR,     "strength",     "{ystrength{x");
+    RAND_APPLY(add_dex,  0, APPLY_DEX,     "dexterity",    "{Gdexterity{x");
+    RAND_APPLY(add_int,  0, APPLY_INT,     "intellect",    "{Cintellect{x");
+    RAND_APPLY(add_wis,  0, APPLY_WIS,     "wisdom",       "{ywisdom{x");
+    RAND_APPLY(add_con,  0, APPLY_CON,     "constitution", "{rconstitution{x");
+    RAND_APPLY(add_mana, 0, APPLY_MANA,    "mana",         "{Cmana{x");
+    RAND_APPLY(add_hit,  0, APPLY_HIT,     "health",       "{Rhealth{x");
+    RAND_APPLY(add_move, 0, APPLY_MOVE,    "movement",     "{Gmovement{x");
+    RAND_APPLY(add_ac,   1, APPLY_AC,      "armor",        "{yarmor{x");
+    RAND_APPLY(add_hr,   0, APPLY_HITROLL, "striking",     "{wstriking{x");
+    RAND_APPLY(add_dr,   0, APPLY_DAMROLL, "damage",       "{Ddamage{x");
+    RAND_APPLY(add_save, 1, APPLY_SAVES,   "resistance",   "{Mresistance{x");
+#undef RAND_APPLY
+
+    if (best_plain[0] == '\0')
+    {
+        snprintf(best_plain, sizeof(best_plain), "power");
+        snprintf(best_color, sizeof(best_color), "power");
+    }
+
+    /* Quality tier based on total stat contribution */
+    {
+        const char *qual;
+        if      (add_tot < 3)  qual = mob_rand_quality[0];
+        else if (add_tot < 8)  qual = mob_rand_quality[1];
+        else if (add_tot < 15) qual = mob_rand_quality[2];
+        else if (add_tot < 25) qual = mob_rand_quality[3];
+        else if (add_tot < 40) qual = mob_rand_quality[4];
+        else                   qual = mob_rand_quality[5];
+
+        snprintf(name_color, sizeof(name_color), "%s %s of %s",
+                 qual, slot, best_color);
+    }
+
+    str_replace_dup(&obj->name, slot);
+    str_replace_dup(&obj->short_descr, name_color);
+    str_replace_dup(&obj->description, name_color);
+
+    obj_give_to_char(obj, mob);
 }
