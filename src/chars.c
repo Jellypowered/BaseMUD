@@ -1932,8 +1932,10 @@ void char_update_all(void)
         ch_next = ch->global_next;
         if (ch->desc != NULL && ch->desc->descriptor % 30 == save_number)
             save_char_obj(ch);
-        if (ch == ch_quit)
+        if (ch == ch_quit) {
+            send_to_char("Disconnecting you for being idle too long.\n\r", ch);
             do_function(ch, &do_quit, "");
+        }
     }
 }
 
