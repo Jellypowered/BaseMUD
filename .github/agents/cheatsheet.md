@@ -404,4 +404,8 @@ When adapting C snippets for BaseMUD on MinGW64:
 - **`get_obj_list(ch, name, room->contents)`** → `find_obj_room(ch, room, name)` (`find.h`); room's content list is `room->content_first`.
 - **`obj_from_char(obj)`** → `obj_take_from_char(obj)`; **`obj_to_obj`** → `obj_give_to_obj`; **`obj_to_room`** → `obj_give_to_room` (all in `objs.h`).
 - **`can_drop_obj(ch, obj)`** → `char_can_drop_obj(ch, obj)` (`chars.h`).
-- **AFF_DETER aggro bypass** — add `|| IS_AFFECTED(wch, AFF_DETER)` to the long condition chain in `update.c` where aggressive mobs pick targets.
+- **`AFF_DETER` aggro bypass** — add `|| IS_AFFECTED(wch, AFF_DETER)` to the long condition chain in `update.c` where aggressive mobs pick targets.
+- **`TO_ROOM` does not exist** — use `TO_NOTCHAR` for act messages sent to everyone except ch; `TO_CHAR`, `TO_VICT`, `TO_ALL` also exist.
+- **`can_see(ch, victim)`** → `char_can_see_anywhere(ch, victim)` (`chars.h`); room-scoped: `char_can_see_in_room`.
+- **`is_name(arg, victim->name)`** → `str_in_namelist(arg, victim->name)` (`utils.h`).
+- **`PERS(victim, ch)`** → `PERS_AW(victim, ch)` in BaseMUD (defined as `char_get_look_short_descr_anywhere`). Plain `PERS(ch)` exists but takes only one arg and returns the short_descr without visibility check.

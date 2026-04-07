@@ -743,12 +743,12 @@ DEFINE_DO_FUN (do_consider) {
         "Don't even think about it.\n\r", ch);
 
     diff = victim->level - ch->level;
-         if (diff <= -10) msg = "You can kill $N naked and weaponless.";
-    else if (diff <=  -5) msg = "$N is no match for you.";
-    else if (diff <=  -2) msg = "$N looks like an easy kill.";
-    else if (diff <=   1) msg = "The perfect match!";
-    else if (diff <=   4) msg = "$N says 'Do you feel lucky, punk?'.";
-    else if (diff <=   9) msg = "$N laughs at you mercilessly.";
-    else                  msg = "Death will thank you for your gift.";
+         if (diff <= -10) msg = "{GYou can kill {w$N {Gnaked and weaponless.{x";
+    else if (diff <=  -5) msg = "{W$N {Gis no match for you.{x";
+    else if (diff <=  -2) msg = "{W$N {Glooks like an easy kill.{x";
+    else if (diff <=   1) msg = "{YThe perfect match!{x";
+    else if (diff <=   4) msg = "{W$N {Gsays 'Do you feel lucky, punk?'{x.";
+    else if (diff <=   9) msg = "{W$N {Glaughs at you mercilessly.{x";
+    else                  msg = "{DDeath will thank you for your gift.{x";
     act (msg, ch, NULL, victim, TO_CHAR);
 }

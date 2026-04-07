@@ -1356,21 +1356,23 @@ DEFINE_DO_FUN(do_where)
 
     one_argument(argument, arg);
 
+    printf_to_char(ch, "\n{WIn Area: {M%s{x\n\n\r", ch->in_room->area->name);
+
     if (arg[0] == '\0')
     {
-        send_to_char("Players near you:\n\r", ch);
+        send_to_char("{GPlayers near you:{x\n\r", ch);
         found = FALSE;
         for (d = descriptor_first; d; d = d->global_next)
         {
             if (d->connected == CON_PLAYING && (victim = d->character) != NULL && !IS_NPC(victim) && victim->in_room != NULL && !IS_SET(victim->in_room->room_flags, ROOM_NOWHERE) && (room_is_owner(victim->in_room, ch) || !room_is_private(victim->in_room)) && victim->in_room->area == ch->in_room->area && char_can_see_anywhere(ch, victim))
             {
                 found = TRUE;
-                printf_to_char(ch, "%-28s %s\n\r",
+                printf_to_char(ch, "{W%-28s {G%s{x\n\r",
                                victim->name, victim->in_room->name);
             }
         }
         if (!found)
-            send_to_char("None\n\r", ch);
+            send_to_char("{GNone{x\n\r", ch);
     }
     else
     {
@@ -1380,13 +1382,13 @@ DEFINE_DO_FUN(do_where)
             if (victim->in_room != NULL && victim->in_room->area == ch->in_room->area && !IS_AFFECTED(victim, AFF_HIDE) && !IS_AFFECTED(victim, AFF_SNEAK) && char_can_see_anywhere(ch, victim) && str_in_namelist(arg, victim->name))
             {
                 found = TRUE;
-                printf_to_char(ch, "%-28s %s\n\r",
+                printf_to_char(ch, "{W%-28s {G%s{x\n\r",
                                PERS_AW(victim, ch), victim->in_room->name);
                 break;
             }
         }
         if (!found)
-            act("You didn't find any $T.", ch, NULL, arg, TO_CHAR);
+            act("{RYou didn't find any {w$T{R.{x", ch, NULL, arg, TO_CHAR);
     }
 }
 
@@ -1429,11 +1431,18 @@ DEFINE_DO_FUN(do_description)
 
 DEFINE_DO_FUN(do_report)
 {
-    char buf[MAX_INPUT_LENGTH];
-    sprintf(buf, "I have %d/%d hp %d/%d mana %d/%d mv %d xp.",
-            ch->hit, ch->max_hit, ch->mana, ch->max_mana,
-            ch->move, ch->max_move, ch->exp);
-    do_say(ch, buf);
+    char buf[MAX_STRING_LENGTH];
+
+    sprintf(buf,
+            "{GYou say 'I have {R%d{G/{W%d {Ghp {R%d{G/{W%d {Gmana {R%d{G/{W%d {Gmv {M%d {Gxp.{x'\n\r",
+            ch->hit, ch->max_hit,
+            ch->mana, ch->max_mana, ch->move, ch->max_move, ch->exp);
+    send_to_char(buf, ch);
+
+    sprintf(buf, "{W$n {Gsays 'I have {R%d{G/{W%d {Ghp {R%d{G/{W%d {Gmana {R%d{G/{W%d {Gmv {M%d {Gxp.'{x",
+            ch->hit, ch->max_hit,
+            ch->mana, ch->max_mana, ch->move, ch->max_move, ch->exp);
+    act(buf, ch, NULL, NULL, TO_NOTCHAR);
 }
 
 /* Contributed by Alander. */

@@ -69,6 +69,9 @@
               |
               |MMO-style stat diff compare command (armor/weapon/affect breakdown) --
               |    TAKA (GhostMud)
+              |
+              |Colored do_where (area header, player/room columns), do_consider (combat hints), and do_report (stat announcement) --
+              |    TAKA (GhostMud)
               |",
       "hide_keywords": true
     }
