@@ -29,3 +29,41 @@ the following prerequisites are absent from BaseMUD:
   - `check_improve(ch, gsn_search, TRUE/FALSE, 4)` and `WAIT_STATE(ch, 24)`
 - Register `do_search` in `src/interp.c`.
 - Add a JSON help entry in `json/help/`.
+
+### Example of do_search
+void do_search( CHAR_DATA *ch, char *argument )
+{
+	OBJ_DATA *obj;
+
+	if(IS_NPC(ch))
+		return;
+
+	if(ch->pcdata->learned[gsn_search] < 1)
+	{
+		send_to_char("{GYou search around making lots of noise.{x\n\r",ch);
+		return;
+	}
+
+	if(number_percent() < ch->pcdata->learned[gsn_search] )
+	{
+		check_improve(ch,gsn_search,TRUE,4);
+		send_to_char("{GYou search the room..{x\n\r",ch);
+		for(obj = ch->in_room->contents; obj != NULL; obj = obj->next_content)
+		{
+			if(IS_SET(obj->extra_flags,ITEM_HIDDEN) )
+			{
+				printf_to_char(ch,"{GYou reveal {W%s{x\n\r",obj->short_descr);
+				REMOVE_BIT(obj->extra_flags,ITEM_HIDDEN);
+			}
+		}
+		send_to_char("{GYou have searched everywhere.{x\n\r",ch);
+		WAIT_STATE(ch,24);
+	}
+	else
+		send_to_char("{GYou didn't uncover anything unusual.{x\n\r",ch);
+
+	check_improve(ch,gsn_search,FALSE,4);
+	WAIT_STATE(ch,24);
+
+	return;
+}
