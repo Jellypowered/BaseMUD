@@ -61,12 +61,12 @@ fread_word_static(fp);              // returns static buffer (no alloc)
 
 ## Type Renames (ROM â†’ BaseMUD)
 
-| ROM / MERC          | BaseMUD    |
-| ------------------- | ---------- |
-| `CHAR_DATA *`       | `CHAR_T *` |
-| `OBJ_DATA *`        | `OBJ_T *`  |
-| `ROOM_INDEX_DATA *` | `ROOM_T *` |
-| `AFFECT_DATA`       | `AFFECT_T` |
+| ROM / MERC          | BaseMUD         |
+| ------------------- | --------------- |
+| `CHAR_DATA *`       | `CHAR_T *`      |
+| `OBJ_DATA *`        | `OBJ_T *`       |
+| `ROOM_INDEX_DATA *` | `ROOM_INDEX_T *`|
+| `AFFECT_DATA`       | `AFFECT_T`      |
 
 ---
 
@@ -317,4 +317,8 @@ When adapting C snippets for BaseMUD on MinGW64:
 - **`dir_name[]`** — does not exist in BaseMUD; use `door_table[i].name` from `tables.h`.
 - **`get_room_index`** → `room_get_index`; **`ROOM_INDEX_DATA*`** → `ROOM_INDEX_T*`.
 - **`exit->u1.to_room`** → `exit->to_room`; **`exit_info`** → `exit_flags`.
+- **`get_obj_carry(ch, arg, ch)`** → `find_obj_own_inventory(ch, arg)` (`find.h`).
+- **`get_obj_list(ch, name, room->contents)`** → `find_obj_room(ch, room, name)` (`find.h`); room's content list is `room->content_first`.
+- **`obj_from_char(obj)`** → `obj_take_from_char(obj)`; **`obj_to_obj`** → `obj_give_to_obj`; **`obj_to_room`** → `obj_give_to_room` (all in `objs.h`).
+- **`can_drop_obj(ch, obj)`** → `char_can_drop_obj(ch, obj)` (`chars.h`).
 - **AFF_DETER aggro bypass** — add `|| IS_AFFECTED(wch, AFF_DETER)` to the long condition chain in `update.c` where aggressive mobs pick targets.

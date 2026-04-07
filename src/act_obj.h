@@ -69,5 +69,6 @@ DECLARE_DO_FUN (do_zap);
 DECLARE_DO_FUN (do_steal);
 DECLARE_DO_FUN (do_outfit);
 DECLARE_DO_FUN (do_play);
+DECLARE_DO_FUN (do_donate);
 
 #endif

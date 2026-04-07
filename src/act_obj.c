@@ -1114,3 +1114,47 @@ DEFINE_DO_FUN (do_play) {
     if (!item_play_effect (juke, ch, argument))
         send_to_char ("Nothing happens.\n\r", ch);
 }
+
+DEFINE_DO_FUN (do_donate) {
+    char arg[MAX_INPUT_LENGTH];
+    OBJ_T *pit, *obj;
+    ROOM_INDEX_T *altar;
+    int amount;
+
+    DO_REQUIRE_ARG (arg, "Donate what?\n\r");
+
+    BAIL_IF (ch->position == POS_FIGHTING,
+        "You're {Yfighting!{x\n\r", ch);
+    BAIL_IF ((obj = find_obj_own_inventory (ch, arg)) == NULL,
+        "You do not have that!\n\r", ch);
+    BAIL_IF (!char_can_drop_obj (ch, obj) && !IS_IMMORTAL (ch),
+        "Its stuck to you.\n\r", ch);
+    BAIL_IF (obj->item_type == ITEM_CORPSE_NPC ||
+             obj->item_type == ITEM_CORPSE_PC,
+        "You cannot donate that!\n\r", ch);
+    BAIL_IF (obj->timer > 0,
+        "You cannot donate that.\n\r", ch);
+
+    if (ch->in_room != room_get_index (ROOM_VNUM_ALTAR))
+        act ("$n donates {Y$p{x.", ch, obj, NULL, TO_NOTCHAR);
+    act ("You donate {Y$p{x.", ch, obj, NULL, TO_CHAR);
+
+    if (obj->cost > 0 && obj->level > 0 &&
+            ((!IS_OBJ_STAT (obj, ITEM_ANTI_EVIL) && IS_EVIL (ch)) ||
+             (!IS_OBJ_STAT (obj, ITEM_ANTI_GOOD) && IS_GOOD (ch)) ||
+             IS_NEUTRAL (ch))) {
+        amount = UMAX (1, obj->cost / 2);
+        printf_to_char (ch, "You receive {M%d silver{x for your donation.\n\r",
+            amount);
+        ch->silver += amount;
+    }
+
+    altar = room_get_index (ROOM_VNUM_ALTAR);
+    obj_take_from_char (obj);
+    if (altar == NULL)
+        obj_extract (obj);
+    else if ((pit = find_obj_room (ch, altar, "pit")) != NULL)
+        obj_give_to_obj (obj, pit);
+    else
+        obj_give_to_room (obj, altar);
+}

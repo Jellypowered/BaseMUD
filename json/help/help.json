@@ -795,6 +795,19 @@
               |"
     },
     {
+      "keyword": "DONATE NODONATE",
+      "text": "Syntax: donate <object>
+              |
+              |DONATE places an item from your inventory into the donation pit in the
+              |Temple of Midgaard.  Other players may retrieve donated items for free.
+              |
+              |If the item has monetary value and your alignment is compatible with the
+              |item, you will receive a small silver reward for your generosity.
+              |
+              |You may not donate corpses, cursed items, or items with an active timer.
+              |"
+    },
+    {
       "keyword": "SCROLL",
       "text": "Syntax: scroll
               |Syntax: scroll <number>
