@@ -562,6 +562,23 @@
               |are no longer shown on score (this can be changed by using 'show' command).
               |",
       "hide_keywords": true
+    },
+    {
+      "keyword": "NUMERIC PREFIX",
+      "text": "Several object commands support a numeric prefix using the N*item syntax,
+              |where N is the number of items to act on and item is the object name.
+              |
+              |  get 3*sword        -- get 3 swords from the room
+              |  get 3*sword bag    -- get 3 swords from a bag
+              |  put 2*potion sack  -- put 2 potions into a sack
+              |  drop 4*coin        -- drop 4 coins (deprecated; use 'drop N gold/silver')
+              |  give 2*dagger troll -- give 2 daggers to the troll
+              |  sell 3*scroll      -- sell 3 scrolls to the shopkeeper
+              |
+              |The prefix is optional; without it, the command acts on one item (or all
+              |items if 'all' or 'all.name' is used).
+              |",
+      "hide_keywords": true
     }
   ]
 }}]

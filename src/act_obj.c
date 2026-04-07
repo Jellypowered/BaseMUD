@@ -217,17 +217,21 @@ void do_get_room (CHAR_T *ch, char *argument) {
 DEFINE_DO_FUN (do_get) {
     char arg1[MAX_INPUT_LENGTH];
     char arg2[MAX_INPUT_LENGTH];
+    int number, i;
 
     DO_REQUIRE_ARG (arg1, "Get what?\n\r");
+    number = mult_argument (arg1, arg1);
     argument = one_argument (argument, arg2);
     if (!str_cmp (arg2, "from"))
         argument = one_argument (argument, arg2);
 
-    /* if there's a second argument, we're getting from a container. */
-    if (arg2[0] != '\0')
-        do_get_container (ch, arg1, arg2);
-    else
-        do_get_room (ch, arg1);
+    for (i = 0; i < number; i++) {
+        /* if there's a second argument, we're getting from a container. */
+        if (arg2[0] != '\0')
+            do_get_container (ch, arg1, arg2);
+        else
+            do_get_room (ch, arg1);
+    }
 }
 
 DEFINE_DO_FUN (do_put) {
@@ -235,10 +239,11 @@ DEFINE_DO_FUN (do_put) {
     OBJ_T *obj, *obj_start, *obj_next;
     char arg1[MAX_INPUT_LENGTH], *arg;
     char arg2[MAX_INPUT_LENGTH];
-    int type;
+    int type, number, i;
     bool found = FALSE, failed = FALSE;
 
     DO_REQUIRE_ARG (arg1, "Put what in what?\n\r");
+    number = mult_argument (arg1, arg1);
     DO_REQUIRE_ARG (arg2, "Put it in what?\n\r");
     if (do_filter_put_or_get_valid_container (ch, arg2, &container))
         return;
@@ -248,14 +253,27 @@ DEFINE_DO_FUN (do_put) {
     BAIL_IF (!item_can_put_objs (container),
         "That's not a container.\n\r", ch);
 
-    obj_start = (type != OBJ_SINGLE) ? ch->content_first
-        : find_obj_own_inventory (ch, arg);
+    if (type == OBJ_SINGLE) {
+        for (i = 0; i < number; i++) {
+            obj = find_obj_own_inventory (ch, arg);
+            if (obj == NULL) {
+                if (i == 0)
+                    act ("You are not carrying any $T.", ch, NULL, arg, TO_CHAR);
+                break;
+            }
+            if (do_filter_can_put_item (ch, obj, container, TRUE))
+                break;
+            do_put_single_item (ch, obj, container);
+        }
+        return;
+    }
 
+    obj_start = ch->content_first;
     for (obj = obj_start; obj != NULL; obj = obj_next) {
-        obj_next = (type == OBJ_SINGLE) ? NULL : obj->content_next;
+        obj_next = obj->content_next;
         if (type == OBJ_ALL_OF && !str_in_namelist (arg, obj->name))
             continue;
-        if (do_filter_can_put_item (ch, obj, container, type == OBJ_SINGLE)) {
+        if (do_filter_can_put_item (ch, obj, container, FALSE)) {
             failed = TRUE;
             continue;
         }
@@ -305,7 +323,7 @@ void do_drop_money (CHAR_T *ch, char *arg1, char *argument) {
 DEFINE_DO_FUN (do_drop) {
     char arg1[MAX_INPUT_LENGTH], *arg;
     OBJ_T *obj, *obj_start, *obj_next;
-    int type;
+    int type, number, i;
     bool found = FALSE, failed = FALSE;
 
     DO_REQUIRE_ARG (arg1, "Drop what?\n\r");
@@ -316,15 +334,30 @@ DEFINE_DO_FUN (do_drop) {
         return;
     }
 
+    number = mult_argument (arg1, arg1);
     arg = do_obj_parse_arg (arg1, &type);
-    obj_start = (type != OBJ_SINGLE) ? ch->content_first
-        : find_obj_own_inventory (ch, arg);
 
+    if (type == OBJ_SINGLE) {
+        for (i = 0; i < number; i++) {
+            obj = find_obj_own_inventory (ch, arg);
+            if (obj == NULL) {
+                if (i == 0)
+                    act ("You are not carrying any $T.", ch, NULL, arg, TO_CHAR);
+                break;
+            }
+            if (do_filter_can_drop_item (ch, obj, TRUE))
+                break;
+            do_drop_single_item (ch, obj);
+        }
+        return;
+    }
+
+    obj_start = ch->content_first;
     for (obj = obj_start; obj != NULL; obj = obj_next) {
-        obj_next = (type == OBJ_SINGLE) ? NULL : obj->content_next;
+        obj_next = obj->content_next;
         if (type == OBJ_ALL_OF && !str_in_namelist (arg, obj->name))
             continue;
-        if (do_filter_can_drop_item (ch, obj, type == OBJ_SINGLE)) {
+        if (do_filter_can_drop_item (ch, obj, FALSE)) {
             failed = TRUE;
             continue;
         }
@@ -451,6 +484,7 @@ DEFINE_DO_FUN (do_give) {
     char arg2[MAX_INPUT_LENGTH];
     CHAR_T *victim;
     OBJ_T *obj;
+    int number, i;
 
     DO_REQUIRE_ARG (arg1, "Give what to whom?\n\r");
     DO_REQUIRE_ARG (arg2, "Give it to whom?\n\r");
@@ -460,14 +494,21 @@ DEFINE_DO_FUN (do_give) {
         return;
     }
 
-    BAIL_IF ((obj = find_obj_own_inventory (ch, arg1)) == NULL,
-        "You do not have that item.\n\r", ch);
+    number = mult_argument (arg1, arg1);
     BAIL_IF ((victim = find_char_same_room (ch, arg2)) == NULL,
         "They aren't here.\n\r", ch);
-    if (do_filter_can_give_item (ch, obj, victim, TRUE))
-        return;
 
-    do_give_single_item (ch, obj, victim);
+    for (i = 0; i < number; i++) {
+        obj = find_obj_own_inventory (ch, arg1);
+        if (obj == NULL) {
+            if (i == 0)
+                send_to_char ("You do not have that item.\n\r", ch);
+            break;
+        }
+        if (do_filter_can_give_item (ch, obj, victim, TRUE))
+            break;
+        do_give_single_item (ch, obj, victim);
+    }
 }
 
 /* for poisoning weapons and food/drink */

@@ -498,12 +498,13 @@ DEFINE_DO_FUN(do_worth)
 {
     if (IS_NPC(ch))
     {
-        printf_to_char(ch, "You have %ld gold and %ld silver.\n\r",
+        printf_to_char(ch, "You have {Y%ld{x gold and {W%ld{x silver.\n\r",
                        ch->gold, ch->silver);
         return;
     }
     printf_to_char(ch,
-                   "You have %ld gold, %ld silver, and %d experience (%d exp to level).\n\r",
+                   "You have {Y%ld{x gold, {W%ld{x silver, "
+                   "and {G%d{x experience ({R%d{x exp to level).\n\r",
                    ch->gold, ch->silver, ch->exp, player_get_exp_to_next_level(ch));
 }
 
@@ -731,25 +732,25 @@ DEFINE_DO_FUN(do_affects)
     BAIL_IF(ch->affect_first == NULL,
             "You are not affected by any spells.\n\r", ch);
 
-    send_to_char("You are affected by the following spells:\n\r", ch);
+    send_to_char("{YYou are affected by the following spells:{x\n\r", ch);
     for (paf = ch->affect_first; paf != NULL; paf = paf->on_next)
     {
         if (paf_last == NULL || paf->type != paf_last->type)
-            printf_to_char(ch, "Spell: %-15s\n\r", skill_table[paf->type].name);
+            printf_to_char(ch, "{YSpell: {M%-15s{x\n\r", skill_table[paf->type].name);
         else if (ch->level < 20)
             continue;
 
         if (ch->level >= 20)
         {
             if (paf->apply == APPLY_NONE)
-                printf_to_char(ch, "   lasts ");
+                printf_to_char(ch, "   {Clasts {x");
             else
-                printf_to_char(ch, "   modifies %s by %d ",
+                printf_to_char(ch, "   {Cmodifies {W%s{x by {G%d{x ",
                                affect_apply_name(paf->apply), paf->modifier);
             if (paf->duration == -1)
-                send_to_char("permanently\n\r", ch);
+                send_to_char("{Gpermanently{x\n\r", ch);
             else
-                printf_to_char(ch, "for %d hours\n\r", paf->duration);
+                printf_to_char(ch, "{Bfor {W%d{x hours\n\r", paf->duration);
         }
         paf_last = paf;
     }

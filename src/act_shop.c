@@ -221,13 +221,13 @@ void do_buy_item (CHAR_T *ch, char *argument) {
         player_try_skill_improve (ch, SN(HAGGLE), TRUE, 4);
     }
     if (number > 1) {
-        sprintf (buf, "You buy $p[%d] for %d silver.", number, cost * number);
+        sprintf (buf, "You buy {C$p{x[%d] for {Y%d{x silver.", number, cost * number);
         act (buf, ch, obj, NULL, TO_CHAR);
         sprintf (buf, "$n buys $p[%d].", number);
         act (buf, ch, obj, NULL, TO_NOTCHAR);
     }
     else {
-        sprintf (buf, "You buy $p for %d silver.", cost);
+        sprintf (buf, "You buy {C$p{x for {Y%d{x silver.", cost);
         act (buf, ch, obj, NULL, TO_CHAR);
         act ("$n buys $p.", ch, obj, NULL, TO_NOTCHAR);
     }
@@ -358,28 +358,34 @@ DEFINE_DO_FUN (do_list) {
         do_list_items (ch, argument);
 }
 
-DEFINE_DO_FUN (do_sell) {
+static bool do_sell_one_item (CHAR_T *ch, CHAR_T *keeper, const char *arg) {
     char buf[MAX_STRING_LENGTH];
-    char arg[MAX_INPUT_LENGTH];
-    CHAR_T *keeper;
     OBJ_T *obj;
     int cost, roll;
 
-    DO_REQUIRE_ARG (arg, "Sell what?\n\r");
-    if (do_filter_get_keeper (ch, &keeper))
-        return;
-
-    BAIL_IF_ACT ((obj = find_obj_own_inventory (ch, arg)) == NULL,
-        "$N tells you 'You don't have that item'.", ch, NULL, keeper);
-    BAIL_IF (!char_can_drop_obj (ch, obj),
-        "You can't let go of it.\n\r", ch);
-    BAIL_IF_ACT (!char_can_see_obj (keeper, obj),
-        "$N doesn't see what you are offering.", ch, NULL, keeper);
-    BAIL_IF_ACT ((cost = mobile_get_obj_cost (keeper, obj, FALSE)) <= 0,
-        "$N looks uninterested in $p.", ch, obj, keeper);
-    BAIL_IF_ACT (cost > (keeper->silver + 100 * keeper->gold),
-        "$N tells you 'I'm afraid I don't have enough wealth to buy $p.",
-             ch, obj, keeper);
+    obj = find_obj_own_inventory (ch, arg);
+    if (obj == NULL) {
+        act ("$N tells you 'You don't have that item'.", ch, NULL, keeper, TO_CHAR);
+        return FALSE;
+    }
+    if (!char_can_drop_obj (ch, obj)) {
+        send_to_char ("You can't let go of it.\n\r", ch);
+        return FALSE;
+    }
+    if (!char_can_see_obj (keeper, obj)) {
+        act ("$N doesn't see what you are offering.", ch, NULL, keeper, TO_CHAR);
+        return FALSE;
+    }
+    cost = mobile_get_obj_cost (keeper, obj, FALSE);
+    if (cost <= 0) {
+        act ("$N looks uninterested in $p.", ch, obj, keeper, TO_CHAR);
+        return FALSE;
+    }
+    if (cost > (keeper->silver + 100 * keeper->gold)) {
+        act ("$N tells you 'I'm afraid I don't have enough wealth to buy $p.",
+             ch, obj, keeper, TO_CHAR);
+        return FALSE;
+    }
 
     act ("$n sells $p.", ch, obj, NULL, TO_NOTCHAR);
 
@@ -395,7 +401,7 @@ DEFINE_DO_FUN (do_sell) {
         player_try_skill_improve (ch, SN(HAGGLE), TRUE, 4);
     }
 
-    sprintf (buf, "You sell $p for %d silver and %d gold piece%s.",
+    sprintf (buf, "You sell {C$p{x for {Y%d{x silver and {Y%d{x gold piece%s.",
              cost - (cost / 100) * 100, cost / 100, cost == 1 ? "" : "s");
     act (buf, ch, obj, NULL, TO_CHAR);
 
@@ -416,6 +422,23 @@ DEFINE_DO_FUN (do_sell) {
         else
             obj->timer = number_range (50, 100);
         obj_give_to_keeper (obj, keeper);
+    }
+    return TRUE;
+}
+
+DEFINE_DO_FUN (do_sell) {
+    char arg[MAX_INPUT_LENGTH];
+    CHAR_T *keeper;
+    int number, i;
+
+    DO_REQUIRE_ARG (arg, "Sell what?\n\r");
+    number = mult_argument (arg, arg);
+    if (do_filter_get_keeper (ch, &keeper))
+        return;
+
+    for (i = 0; i < number; i++) {
+        if (!do_sell_one_item (ch, keeper, arg))
+            break;
     }
 }
 

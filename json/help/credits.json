@@ -57,6 +57,12 @@
               |
               |Resurrect spell --
               |    Dribble (aprocter@mail.coin.missouri.edu)
+              |
+              |Colored affects and worth display --
+              |    TAKA (GhostMud)
+              |
+              |Numeric prefix (N*item) for get/put/drop/give/buy/sell --
+              |    TAKA (GhostMud)
               |",
       "hide_keywords": true
     }

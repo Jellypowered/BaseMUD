@@ -234,7 +234,17 @@ Each has a matching `.h`. Add `DECLARE_SPELL_FUN` to the header, `DEFINE_SPELL_F
 
 ---
 
-## JSON System Overview
+## Numeric Prefix (`mult_argument`) Pattern
+
+`mult_argument` is available in `interp.c`/`interp.h`. It uses `*` as separator:
+- `"3*sword"` → returns 3, arg = `"sword"`
+- `"sword"` → returns 1, arg = `"sword"` (no prefix)
+- **Always use separate buffers** for in/out: `mult_argument(argument, arg)` where `argument` is the raw input and `arg` is the output buffer. In-place calls (`mult_argument(arg, arg)`) work in practice for short strings but are technically UB.
+- Already used in `do_buy_item` (act_shop.c). Also added to `do_get`, `do_put`, `do_drop`, `do_give`, `do_sell`.
+- For OBJ_SINGLE items, loop N times calling the single-item helper. OBJ_ALL/OBJ_ALL_OF paths are unchanged.
+
+---
+
 
 > Full schema reference: `doc/Json_Documentation.md`
 
