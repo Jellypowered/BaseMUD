@@ -1926,14 +1926,14 @@ void dam_message(CHAR_T *ch, CHAR_T *victim, int dam, int dt,
         {
             if (ch == victim)
             {
-                snprintf(buf1, sizeof(buf1), "{2Your %s%s {W({Y%d{W){x} %s you%c{x", "", attack, dam, vp, punct);
-                snprintf(buf3, sizeof(buf3), "{3$n's %s%s {W({Y%d{W){x} %s $m%c{x", "", attack, dam, vp, punct);
+                snprintf(buf1, sizeof(buf1), "{2Your %s%s {W({Y%d{W){x %s you%c{x", "", attack, dam, vp, punct);
+                snprintf(buf3, sizeof(buf3), "{3$n's %s%s {W({Y%d{W){x %s $m%c{x", "", attack, dam, vp, punct);
             }
             else
             {
-                snprintf(buf1, sizeof(buf1), "{2Your %s%s {W({Y%d{W){x} %s $N%c{x", "", attack, dam, vp, punct);
-                snprintf(buf2, sizeof(buf2), "{4$n's %s%s {W({Y%d{W){x} %s you%c{x", "", attack, dam, vp, punct);
-                snprintf(buf3, sizeof(buf3), "{3$n's %s%s {W({Y%d{W){x} %s $N%c{x", "", attack, dam, vp, punct);
+                snprintf(buf1, sizeof(buf1), "{2Your %s%s {W({Y%d{W){x %s $N%c{x", "", attack, dam, vp, punct);
+                snprintf(buf2, sizeof(buf2), "{4$n's %s%s {W({Y%d{W){x %s you%c{x", "", attack, dam, vp, punct);
+                snprintf(buf3, sizeof(buf3), "{3$n's %s%s {W({Y%d{W){x %s $N%c{x", "", attack, dam, vp, punct);
             }
         }
     }

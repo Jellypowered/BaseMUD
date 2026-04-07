@@ -297,7 +297,7 @@ void bust_a_prompt(CHAR_T *ch)
             CHAR_T *bvict = ch->fighting;
             if (bvict != NULL) {
                 int pct = (bvict->max_hit > 0)
-                    ? bvict->hit * 100 / bvict->max_hit : 0;
+                    ? UMAX(0, bvict->hit * 100 / bvict->max_hit) : 0;
                 if      (pct >= 65) sprintf (buf2, " {WEnemy: {G%d%%{x", pct);
                 else if (pct >= 25) sprintf (buf2, " {WEnemy: {Y%d%%{x", pct);
                 else                sprintf (buf2, " {WEnemy: {R%d%%{x", pct);
