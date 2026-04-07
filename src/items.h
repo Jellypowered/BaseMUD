@@ -113,6 +113,7 @@ bool item_get_recharge_values (OBJ_T *obj, flag_t *level,
 /* Action functions. */
 bool item_init (OBJ_T *obj, const OBJ_INDEX_T *obj_index, int level);
 bool item_look_in (const OBJ_T *obj, CHAR_T *ch);
+bool item_look_at (const OBJ_T *obj, CHAR_T *ch);
 bool item_examine (const OBJ_T *obj, CHAR_T *ch);
 bool item_eat_effect (OBJ_T *obj, CHAR_T *ch);
 bool item_drink_effect (OBJ_T *obj, CHAR_T *ch);

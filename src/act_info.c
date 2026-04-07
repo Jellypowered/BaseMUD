@@ -400,8 +400,18 @@ DEFINE_DO_FUN(do_look)
 
             CHECK_LOOK(pdesc1 != NULL, pdesc1, FALSE);
             CHECK_LOOK(pdesc2 != NULL, pdesc2, FALSE);
-            CHECK_LOOK(str_in_namelist(arg3, obj->name),
-                       obj->description, TRUE);
+            /* TODO[passive-lore-skill]: item_look_at currently shows basic
+             * type info to all players. Gate behind a passive skill in the
+             * future. Search: rg "TODO\[passive-lore-skill\]" */
+            if (str_in_namelist(arg3, obj->name)) {
+                if (++count == number) {
+                    send_to_char(obj->description, ch);
+                    send_to_char("\n\r", ch);
+                    item_look_at(obj, ch);
+                    return;
+                }
+                continue;
+            }
         }
     }
 

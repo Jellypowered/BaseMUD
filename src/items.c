@@ -939,10 +939,43 @@ bool item_look_in (const OBJ_T *obj, CHAR_T *ch) {
     }
 }
 
+/* TODO[passive-lore-skill]: item_look_at currently reveals light duration to all
+ * players. In the future this should be gated behind a passive skill check
+ * (e.g. Lore / Appraise) so that only skilled characters see detailed info.
+ * Search: rg "TODO\[passive-lore-skill\]" to find all stub sites. */
+bool item_look_at (const OBJ_T *obj, CHAR_T *ch) {
+    switch (obj->item_type) {
+        case ITEM_LIGHT:
+            if (obj->v.light.duration < 0)
+                send_to_char ("It glows with an eternal light.\n\r", ch);
+            else if (obj->v.light.duration == 0)
+                send_to_char ("It has no fuel remaining.\n\r", ch);
+            else
+                printf_to_char (ch, "It has about %ld tick%s of light remaining.\n\r",
+                    obj->v.light.duration,
+                    obj->v.light.duration == 1 ? "" : "s");
+            return TRUE;
+
+        default:
+            return FALSE;
+    }
+}
+
 bool item_examine (const OBJ_T *obj, CHAR_T *ch) {
     char buf[256];
 
     switch (obj->item_type) {
+        case ITEM_LIGHT:
+            if (obj->v.light.duration < 0)
+                send_to_char ("It glows with an eternal light.\n\r", ch);
+            else if (obj->v.light.duration == 0)
+                send_to_char ("It has burned out completely.\n\r", ch);
+            else
+                printf_to_char (ch, "It has %ld tick%s of light remaining.\n\r",
+                    obj->v.light.duration,
+                    obj->v.light.duration == 1 ? "" : "s");
+            return TRUE;
+
         case ITEM_JUKEBOX:
             music_list_jukebox_songs (obj, ch, "");
             return TRUE;

@@ -138,6 +138,17 @@ void spell_identify_perform_seeded (CHAR_T *ch, OBJ_T *obj, int power) {
         printf_to_char(ch, "Level: %d\n\r", obj->level);
 
     switch (obj->item_type) {
+        case ITEM_LIGHT:
+            if (KNOW_CHECK()) {
+                if (obj->v.light.duration < 0)
+                    send_to_char ("Duration: Infinite\n\r", ch);
+                else
+                    printf_to_char (ch, "Duration: %ld tick%s remaining\n\r",
+                        obj->v.light.duration,
+                        obj->v.light.duration == 1 ? "" : "s");
+            }
+            break;
+
         case ITEM_SCROLL:
         case ITEM_POTION:
         case ITEM_PILL: {
