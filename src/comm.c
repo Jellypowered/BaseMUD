@@ -269,10 +269,14 @@ void bust_a_prompt(CHAR_T *ch)
             break;
 
         /* Battle prompts by Ian McCormick / Gothar */
+        /* %b  = graphical enemy health bar
+         * %B  = enemy health percentage
+         * %bB = both combined (bar + compact percentage, no repeated "Enemy:") */
         case 'b':
         {
             CHAR_T *bvict = ch->fighting;
             if (bvict != NULL) {
+                bool combined = (*(str + 1) == 'B');
                 int pct = (bvict->max_hit > 0)
                     ? bvict->hit * 100 / bvict->max_hit : -1;
                 if      (pct >= 100) sprintf (buf2, "{WEnemy: [{R+++{Y+++{G++++{x]");
@@ -286,6 +290,15 @@ void bust_a_prompt(CHAR_T *ch)
                 else if (pct >=  15) sprintf (buf2, "{WEnemy: [{R++          {x]");
                 else if (pct >=   8) sprintf (buf2, "{WEnemy: [{R+           {x]");
                 else                 sprintf (buf2, "{WEnemy: [          {x]");
+                if (combined) {
+                    char pct_str[32];
+                    int cpct = UMAX(0, pct);
+                    if      (cpct >= 65) sprintf (pct_str, " {G%d%%{x", cpct);
+                    else if (cpct >= 25) sprintf (pct_str, " {Y%d%%{x", cpct);
+                    else                 sprintf (pct_str, " {R%d%%{x", cpct);
+                    strncat(buf2, pct_str, sizeof(buf2) - strlen(buf2) - 1);
+                    ++str; /* consume the 'B' */
+                }
                 i = buf2;
             }
             else
