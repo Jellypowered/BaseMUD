@@ -724,9 +724,9 @@
 
 /* prompt to use for new players or resetting prompt to default. */
 #ifdef BASEMUD_SENSIBLE_PROMPT
-#define DEFAULT_PROMPT "{W[%h/%H{Rhp{W %m/%M{Bmp{W %v/%V{Ymv{W]<%p>{x %b%B"
+#define DEFAULT_PROMPT "{W[%h/%H{Rhp{W %m/%M{Bmp{W %v/%V{Ymv{W]<%p>{x %bB"
 #else
-#define DEFAULT_PROMPT "{W[%hhp %mm %vmv]{x %b%B"
+#define DEFAULT_PROMPT "{W[%hhp %mm %vmv]{x %bB"
 #endif
 
 #endif
