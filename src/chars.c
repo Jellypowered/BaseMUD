@@ -1242,8 +1242,8 @@ void char_get_who_string(const CHAR_T *ch, const CHAR_T *wch, char *buf,
         class_name = class_get(wch->class)->who_name;
 
     /* get information we need. */
-    clan = clan_get(ch->clan);
-    pc_race = pc_race_get_by_race(ch->race);
+    clan = clan_get(wch->clan);
+    pc_race = pc_race_get_by_race(wch->race);
 
     /* Format it up. */
     snprintf(buf, len, "[%2d %6s %s] %s%s%s%s%s%s%s%s\n\r",
