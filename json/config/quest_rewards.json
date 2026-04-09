@@ -1,62 +1,30 @@
 [
-  {
-    "quest_reward": {
-      "id":       "amulet",
-      "label":    "Amulet of Moongate",
-      "keywords": "amulet",
-      "cost":     750,
-      "type":     "object",
-      "value":    200
-    }
-  },
-  {
-    "quest_reward": {
-      "id":       "shield",
-      "label":    "Shield of Moongate",
-      "keywords": "shield",
-      "cost":     750,
-      "type":     "object",
-      "value":    201
-    }
-  },
-  {
-    "quest_reward": {
-      "id":       "sword",
-      "label":    "Sword of Moongate",
-      "keywords": "sword",
-      "cost":     850,
-      "type":     "object",
-      "value":    202
-    }
-  },
-  {
-    "quest_reward": {
-      "id":       "throne",
-      "label":    "Throne of Moongate",
-      "keywords": "throne chair",
-      "cost":     1000,
-      "type":     "object",
-      "value":    203
-    }
-  },
-  {
-    "quest_reward": {
-      "id":       "practices",
-      "label":    "30 Practices",
-      "keywords": "practices pracs prac practice",
-      "cost":     500,
-      "type":     "practices",
-      "value":    30
-    }
-  },
-  {
-    "quest_reward": {
-      "id":       "gold",
-      "label":    "350,000 gold pieces",
-      "keywords": "gold gp",
-      "cost":     500,
-      "type":     "gold",
-      "value":    350000
-    }
-  }
+  {"quest_reward": {"id": "amulet",     "label": "Amulet of Moongate (neck/caster)",        "keywords": "amulet",     "cost": 750,  "type": "object", "value": 200}},
+  {"quest_reward": {"id": "shield",     "label": "Shield of Moongate (shield/physical)",     "keywords": "shield",     "cost": 750,  "type": "object", "value": 201}},
+  {"quest_reward": {"id": "sword",      "label": "Sword of Moongate (weapon/warrior)",       "keywords": "sword",      "cost": 850,  "type": "object", "value": 202}},
+  {"quest_reward": {"id": "throne",     "label": "Throne of Moongate (furniture/regen)",     "keywords": "throne chair", "cost": 1000, "type": "object", "value": 203}},
+  {"quest_reward": {"id": "breastplate","label": "Breastplate of Moongate (body)",           "keywords": "breastplate chest", "cost": 700, "type": "object", "value": 209}},
+  {"quest_reward": {"id": "helm",       "label": "Helm of Moongate (head)",                  "keywords": "helm helmet", "cost": 600, "type": "object", "value": 210}},
+  {"quest_reward": {"id": "legguards",  "label": "Legguards of Moongate (legs)",             "keywords": "legguards legs", "cost": 650, "type": "object", "value": 211}},
+  {"quest_reward": {"id": "boots",      "label": "Boots of Moongate (feet)",                 "keywords": "boots feet", "cost": 600,  "type": "object", "value": 212}},
+  {"quest_reward": {"id": "gauntlets",  "label": "Gauntlets of Moongate (hands)",            "keywords": "gauntlets gloves hands", "cost": 600, "type": "object", "value": 213}},
+  {"quest_reward": {"id": "vambraces",  "label": "Vambraces of Moongate (arms)",             "keywords": "vambraces arms", "cost": 600, "type": "object", "value": 214}},
+  {"quest_reward": {"id": "cloak",      "label": "Cloak of Moongate (about)",                "keywords": "cloak about", "cost": 650, "type": "object", "value": 215}},
+  {"quest_reward": {"id": "belt",       "label": "Belt of Moongate (waist)",                 "keywords": "belt waist", "cost": 600,  "type": "object", "value": 216}},
+  {"quest_reward": {"id": "aegis",      "label": "Aegis of Moongate (shield/caster)",        "keywords": "aegis",      "cost": 700,  "type": "object", "value": 217}},
+  {"quest_reward": {"id": "pendant",    "label": "Pendant of Moongate (neck/physical)",      "keywords": "pendant",    "cost": 650,  "type": "object", "value": 218}},
+  {"quest_reward": {"id": "talisman",   "label": "Talisman of Moongate (neck/caster)",       "keywords": "talisman",   "cost": 650,  "type": "object", "value": 219}},
+  {"quest_reward": {"id": "band",       "label": "Band of Moongate (ring/physical)",         "keywords": "band ring",  "cost": 600,  "type": "object", "value": 220}},
+  {"quest_reward": {"id": "signet",     "label": "Signet of Moongate (ring/caster)",         "keywords": "signet",     "cost": 600,  "type": "object", "value": 221}},
+  {"quest_reward": {"id": "bracer",     "label": "Bracer of Moongate (wrist/physical)",      "keywords": "bracer wrist", "cost": 600, "type": "object", "value": 222}},
+  {"quest_reward": {"id": "cuff",       "label": "Cuff of Moongate (wrist/caster)",          "keywords": "cuff",       "cost": 600,  "type": "object", "value": 223}},
+  {"quest_reward": {"id": "fist",       "label": "Fist of Moongate (hold/physical)",         "keywords": "fist",       "cost": 700,  "type": "object", "value": 224}},
+  {"quest_reward": {"id": "tome",       "label": "Tome of Moongate (hold/caster)",           "keywords": "tome",       "cost": 700,  "type": "object", "value": 225}},
+  {"quest_reward": {"id": "mace",       "label": "Mace of Moongate (weapon/cleric)",         "keywords": "mace",       "cost": 850,  "type": "object", "value": 226}},
+  {"quest_reward": {"id": "dagger",     "label": "Dagger of Moongate (weapon/thief)",        "keywords": "dagger",     "cost": 800,  "type": "object", "value": 227}},
+  {"quest_reward": {"id": "staff",      "label": "Staff of Moongate (weapon/mage)",          "keywords": "staff",      "cost": 900,  "type": "object", "value": 228}},
+  {"quest_reward": {"id": "orb",        "label": "Orb of Moongate (float/all)",              "keywords": "orb float",  "cost": 650,  "type": "object", "value": 229}},
+  {"quest_reward": {"id": "practices",  "label": "30 Practices",                             "keywords": "practices pracs prac practice", "cost": 500, "type": "practices", "value": 30}},
+  {"quest_reward": {"id": "gold",       "label": "350,000 gold pieces",                      "keywords": "gold gp",    "cost": 500,  "type": "gold",   "value": 350000}}
 ]
+

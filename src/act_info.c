@@ -724,6 +724,27 @@ DEFINE_DO_FUN(do_score)
 
     if (!IS_NPC(ch))
     {
+        int threshold = UMAX(1, player_get_exp_per_level(ch) / 20);
+        send_to_char("{B================================================================={x\n\r", ch);
+        sprintf(buf, "[{1Quest{x]  Chances: {C%d{x   Points: {Y%d{x\n\r"
+                     "          Progress: {Y%d{x / {Y%d{x xp to next chance\n\r"
+                     "          Cooldown: ",
+            ch->quest_chances, ch->questpoints,
+            ch->quest_xp_prog, threshold);
+        send_to_char(buf, ch);
+        if (ch->nextquest > 1)
+        {
+            sprintf(buf, "{R%d min{x\n\r", ch->nextquest);
+            send_to_char(buf, ch);
+        }
+        else if (ch->nextquest == 1)
+            send_to_char("{Rless than 1 min{x\n\r", ch);
+        else
+            send_to_char("{GReady{x\n\r", ch);
+    }
+
+    if (!IS_NPC(ch))
+    {
         sprintf(buf, "[{1PK Stats{x] Kills: {Y%d{x  Deaths: {Y%d{x\n\r",
             ch->pcdata->pkkills, ch->pcdata->pkdeaths);
         send_to_char(buf, ch);

@@ -571,6 +571,8 @@ struct char_data
     sh_int countdown;
     sh_int questobj;
     sh_int questmob;
+    int  quest_chances;   /* stored quest chances (spend to request) */
+    int  quest_xp_prog;   /* xp accumulated toward next chance */
 
     /* stats */
     sh_int perm_stat[STAT_MAX];

@@ -349,7 +349,7 @@ const FLAG_T extra_flags[] = {
     {"nopurge", ITEM_NOPURGE, TRUE},
     {"rotdeath", ITEM_ROT_DEATH, TRUE},
     {"visdeath", ITEM_VIS_DEATH, TRUE},
-    {"unused_extra_1", ITEM_UNUSED_FLAG_1, FALSE},
+    {"reward", ITEM_REWARD, TRUE},
     {"nonmetal", ITEM_NONMETAL, TRUE},
     {"nolocate", ITEM_NOLOCATE, TRUE},
     {"meltdrop", ITEM_MELT_DROP, TRUE},

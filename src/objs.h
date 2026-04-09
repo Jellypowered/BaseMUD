@@ -79,6 +79,7 @@ char *obj_format_to_char (const OBJ_T *obj, const CHAR_T *ch, bool is_short);
 void obj_list_show_to_char (const OBJ_T *list, CHAR_T *ch, bool is_short,
     bool show_nothing);
 void obj_enchant (OBJ_T *obj);
+void obj_reward_scale (OBJ_T *obj, int level);
 void obj_poof (OBJ_T *obj);
 void obj_update_all (void);
 void obj_update (OBJ_T *obj);

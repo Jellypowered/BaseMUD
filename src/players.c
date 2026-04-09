@@ -298,6 +298,22 @@ void player_gain_exp(CHAR_T *ch, int gain)
     if (IS_NPC(ch) || ch->level >= LEVEL_HERO)
         return;
 
+    /* Award quest chances: 1 per 5% of exp-per-level earned (rolls over). */
+    if (gain > 0) {
+        int threshold = UMAX(1, player_get_exp_per_level(ch) / 20);
+        int earned    = 0;
+        ch->quest_xp_prog += gain;
+        while (ch->quest_xp_prog >= threshold) {
+            ch->quest_xp_prog -= threshold;
+            ch->quest_chances++;
+            earned++;
+        }
+        if (earned == 1)
+            send_to_char("{CYou have earned a quest chance!{x\n\r", ch);
+        else if (earned > 1)
+            printf_to_char(ch, "{CYou have earned %d quest chances!{x\n\r", earned);
+    }
+
     ch->exp = UMAX(player_get_exp_per_level(ch), ch->exp + gain);
     while (ch->level < LEVEL_HERO && ch->exp >=
                                          player_get_exp_per_level(ch) * (ch->level + 1))
@@ -313,6 +329,19 @@ void player_gain_exp(CHAR_T *ch, int gain)
         affect_strip_char(ch, SN(BLINDNESS));
         affect_strip_char(ch, SN(SLEEP));
         affect_strip_char(ch, SN(CURSE));
+
+        /* Re-scale any worn REWARD items to the new level. */
+        {
+            int loc;
+            for (loc = 0; loc < WEAR_LOC_MAX; loc++) {
+                OBJ_T *worn = char_get_eq_by_wear_loc(ch, loc);
+                if (worn != NULL && IS_OBJ_STAT(worn, ITEM_REWARD)) {
+                    char_unequip_obj(ch, worn);
+                    obj_reward_scale(worn, ch->level);
+                    char_equip_obj(ch, worn, loc);
+                }
+            }
+        }
 
         ch->hit = ch->max_hit;
         ch->mana = ch->max_mana;

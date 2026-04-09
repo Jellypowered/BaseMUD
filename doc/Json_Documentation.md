@@ -936,7 +936,13 @@ All multi-flag fields accept space-separated flag name strings. Omit the field e
 
 ### extra_flags
 
-`glow`, `hum`, `dark`, `lock`, `evil`, `invis`, `magic`, `nodrop`, `bless`, `antigood`, `antievil`, `antineutral`, `noremove`, `inventory`, `nopurge`, `rotdeath`, `visdeath`, `nonmetal`, `nolocate`, `meltdrop`, `hadtimer`, `sellextract`, `burnproof`, `nouncurse`, `corroded`
+`glow`, `hum`, `dark`, `lock`, `evil`, `invis`, `magic`, `nodrop`, `bless`, `antigood`, `antievil`, `antineutral`, `noremove`, `inventory`, `nopurge`, `rotdeath`, `visdeath`, `nonmetal`, `nolocate`, `meltdrop`, `hadtimer`, `sellextract`, `burnproof`, `nouncurse`, `corroded`, `reward`
+
+> **`reward`** — Quest heirloom flag. Marks an object as a scaling heirloom reward.
+> When a character levels up, every equipped `reward` item is automatically re-scaled to
+> the new level via `obj_reward_scale()`. Stats are proportional to level: ~25% at
+> level 1, 100% at level 45, with a small bonus above 45 and a ±1 variance above
+> level 10. Combine with `nopurge` on prototypes so heirlooms survive world resets.
 
 ### wear_flags
 

@@ -624,6 +624,58 @@ void obj_enchant (OBJ_T *obj) {
     }
 }
 
+/* Scale all affects on an ITEM_REWARD object to the given player level.
+ * Called at purchase time and on each level-up while worn.
+ * Curve: 25% at L1, linear to 100% at L45, soft +2%/level above 45.
+ * Variance: 0 for L<=10, else number_range(-1,1) jitter per modifier (re-rolled each call).
+ * All non-zero prototype modifiers floor at 1 after scaling. */
+static int obj_reward_scale_pct (int level) {
+    if (level <= 1)  return 25;
+    if (level <= 44) return 25 + (75 * (level - 1)) / 44;
+    if (level == 45) return 100;
+    return 100 + 2 * (level - 45);
+}
+
+static int obj_reward_variance (int level) {
+    if (level <= 10)
+        return 0;
+    return number_range (-1, 1);
+}
+
+void obj_reward_scale (OBJ_T *obj, int level) {
+    AFFECT_T *paf, *paf_next, *af_new;
+    int pct, var;
+
+    if (!IS_OBJ_STAT (obj, ITEM_REWARD))
+        return;
+
+    /* Remove all existing instance affects. */
+    for (paf = obj->affect_first; paf != NULL; paf = paf_next) {
+        paf_next = paf->on_next;
+        affect_remove (paf);
+    }
+
+    obj->enchanted = TRUE;
+    pct = obj_reward_scale_pct (UMAX (1, UMIN (level, 51)));
+    var = obj_reward_variance (level);
+
+    /* Copy prototype affects with scaled modifiers. */
+    for (paf = obj->obj_index->affect_first; paf; paf = paf->on_next) {
+        int sign, mag, scaled;
+        af_new = affect_new ();
+        affect_copy (af_new, paf);
+        af_new->type = UMAX (0, af_new->type);
+        if (paf->modifier != 0) {
+            sign   = (paf->modifier > 0) ? 1 : -1;
+            mag    = abs (paf->modifier);
+            scaled = UMAX (1, (mag * pct + 50) / 100);
+            scaled = UMAX (1, scaled + var); /* var is ±1 or 0; floor at 1 */
+            af_new->modifier = sign * scaled;
+        }
+        affect_to_obj_back (af_new, obj);
+    }
+}
+
 /* Former macros. */
 bool obj_can_wear_flag (const OBJ_T *obj, flag_t wear_flag) {
     if (IS_SET ((obj)->wear_flags, wear_flag))

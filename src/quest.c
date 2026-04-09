@@ -22,6 +22,7 @@
 #include "lookup.h"
 #include "mobiles.h"
 #include "objs.h"
+#include "players.h"
 #include "tables.h"
 #include "utils.h"
 
@@ -102,11 +103,21 @@ void do_quest(CHAR_T *ch, char *argument)
         }
         else
             send_to_char("You aren't currently on a quest.\n\r", ch);
+
+        /* Always show XP progress toward next quest chance. */
+        {
+            int threshold = UMAX(1, player_get_exp_per_level(ch) / 20);
+            sprintf(buf, "Quest chances: {C%d{x  ({Y%d{x / {Y%d{x xp to next)\n\r",
+                ch->quest_chances, ch->quest_xp_prog, threshold);
+            send_to_char(buf, ch);
+        }
         return;
     }
     if (!strcmp(arg1, "points"))
     {
-        sprintf(buf, "You have %d quest points.\n\r", ch->questpoints);
+        sprintf(buf, "You have {Y%d{x quest point%s and {C%d{x quest chance%s.\n\r",
+            ch->questpoints, ch->questpoints == 1 ? "" : "s",
+            ch->quest_chances, ch->quest_chances == 1 ? "" : "s");
         send_to_char(buf, ch);
         return;
     }
@@ -225,6 +236,8 @@ void do_quest(CHAR_T *ch, char *argument)
                 obj = obj_create(idx, ch->level);
             if (obj != NULL)
             {
+                if (IS_OBJ_STAT(obj, ITEM_REWARD))
+                    obj_reward_scale(obj, ch->level);
                 act("$N gives $p to $n.", ch, obj, questman, TO_OTHERS);
                 act("$N gives you $p.", ch, obj, questman, TO_CHAR);
                 obj_give_to_char(obj, ch);
@@ -276,6 +289,17 @@ void do_quest(CHAR_T *ch, char *argument)
             do_say(questman, buf);
             return;
         }
+        if (ch->quest_chances <= 0)
+        {
+            int threshold = UMAX(1, player_get_exp_per_level(ch) / 20);
+            sprintf(buf, "You haven't earned a quest chance yet, %s.", ch->name);
+            do_say(questman, buf);
+            sprintf(buf, "Kill some monsters and come back! (%d / %d xp to next chance)",
+                ch->quest_xp_prog, threshold);
+            do_say(questman, buf);
+            return;
+        }
+        ch->quest_chances--;
 
         sprintf(buf, "Thank you, brave %s!", ch->name);
         do_say(questman, buf);

@@ -72,6 +72,13 @@
               |
               |Colored do_where (area header, player/room columns), do_consider (combat hints), and do_report (stat announcement) --
               |    TAKA (GhostMud)
+              |
+              |Quest system (QUEST command suite, questmaster interaction) --
+              |    Vassago
+              |
+              |Quest heirloom scaling system (ITEM_REWARD flag, obj_reward_scale, quest
+              |  charge accumulation, level-up rescaling, full heirloom prototype set) --
+              |    BaseMUD original
               |",
       "hide_keywords": true
     }

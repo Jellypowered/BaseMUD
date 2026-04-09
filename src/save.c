@@ -182,6 +182,10 @@ void fwrite_char(CHAR_T *ch, FILE *fp)
     fprintf(fp, "Exp  %d\n", ch->exp);
     if (ch->questpoints != 0)
         fprintf(fp, "QuestPnts %d\n", ch->questpoints);
+    if (ch->quest_chances != 0)
+        fprintf(fp, "QuestChance %d\n", ch->quest_chances);
+    if (ch->quest_xp_prog != 0)
+        fprintf(fp, "QuestXpProg %d\n", ch->quest_xp_prog);
     if (ch->nextquest != 0)
         fprintf(fp, "QuestNext %d\n", ch->nextquest);
     else if (ch->countdown != 0)
@@ -1117,8 +1121,10 @@ void fread_char(CHAR_T *ch, FILE *fp)
             break;
 
         case 'Q':
-            KEY("QuestPnts", ch->questpoints, fread_number(fp));
-            KEY("QuestNext", ch->nextquest, fread_number(fp));
+            KEY("QuestPnts",    ch->questpoints,   fread_number(fp));
+            KEY("QuestChance",  ch->quest_chances,  fread_number(fp));
+            KEY("QuestXpProg",  ch->quest_xp_prog,  fread_number(fp));
+            KEY("QuestNext",    ch->nextquest,      fread_number(fp));
             break;
         case 'R':
             KEY("Race", ch->race, race_lookup(fread_string_static(fp)));

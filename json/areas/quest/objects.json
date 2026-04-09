@@ -2,69 +2,69 @@
   {"object": {
     "area": "quest",
     "anum": 0,
-    "name": "amulet moongate quest",
+    "name": "amulet moongate heirloom quest reward",
     "short_descr": "the Amulet of Moongate",
     "description": "A brilliantly crafted amulet bearing the seal of Moongate rests here.",
     "material": "gold",
     "item_type": "jewelry",
     "values": {},
-    "level": 35,
+    "level": 1,
     "weight": 5,
     "cost": 50000,
-    "extra_flags": "glow magic",
+    "extra_flags": "glow magic reward nopurge",
     "wear_flags": "take neck",
     "affects": [
-      {"level": 35, "apply": "wisdom",       "modifier": 2},
-      {"level": 35, "apply": "intelligence", "modifier": 2},
-      {"level": 35, "apply": "armor class",  "modifier": -8}
+      {"level": 1, "apply": "wisdom",       "modifier": 1},
+      {"level": 1, "apply": "intelligence", "modifier": 1},
+      {"level": 1, "apply": "armor class",  "modifier": -2}
     ]
   }},
   {"object": {
     "area": "quest",
     "anum": 1,
-    "name": "shield moongate quest",
+    "name": "shield moongate heirloom physical quest reward",
     "short_descr": "the Shield of Moongate",
     "description": "A gleaming shield bearing the crest of Moongate stands propped against the wall.",
     "material": "mithril",
     "item_type": "armor",
     "values": {
-      "vs_pierce": 7,
-      "vs_bash": 8,
-      "vs_slash": 7,
-      "vs_magic": 3
+      "vs_pierce": 2,
+      "vs_bash": 2,
+      "vs_slash": 2,
+      "vs_magic": 1
     },
-    "level": 35,
+    "level": 1,
     "weight": 150,
     "cost": 50000,
-    "extra_flags": "glow magic",
+    "extra_flags": "glow magic reward nopurge",
     "wear_flags": "take shield",
     "affects": [
-      {"level": 35, "apply": "armor class", "modifier": -10},
-      {"level": 35, "apply": "strength",    "modifier": 1}
+      {"level": 1, "apply": "armor class", "modifier": -3},
+      {"level": 1, "apply": "strength",    "modifier": 1}
     ]
   }},
   {"object": {
     "area": "quest",
     "anum": 2,
-    "name": "sword moongate quest",
+    "name": "sword moongate heirloom warrior quest reward",
     "short_descr": "the Sword of Moongate",
     "description": "A magnificent sword with a blade of pure moonsilver lies here, humming softly.",
     "material": "mithril",
     "item_type": "weapon",
     "values": {
       "weapon_type": "sword",
-      "dice_num": 5,
-      "dice_size": 6,
+      "dice_num": 1,
+      "dice_size": 8,
       "attack_type": "slash"
     },
-    "level": 35,
+    "level": 1,
     "weight": 80,
     "cost": 65000,
-    "extra_flags": "glow magic",
+    "extra_flags": "glow magic reward nopurge",
     "wear_flags": "take wield",
     "affects": [
-      {"level": 35, "apply": "damage roll", "modifier": 4},
-      {"level": 35, "apply": "hit roll",    "modifier": 3}
+      {"level": 1, "apply": "damage roll", "modifier": 1},
+      {"level": 1, "apply": "hit roll",    "modifier": 1}
     ]
   }},
   {"object": {
@@ -163,5 +163,485 @@
     "cost": 0,
     "extra_flags": "rotdeath",
     "wear_flags": "take"
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 9,
+    "name": "breastplate moongate heirloom quest reward",
+    "short_descr": "the Breastplate of Moongate",
+    "description": "A finely forged breastplate gleaming with moonlight lies here.",
+    "material": "mithril",
+    "item_type": "armor",
+    "values": {
+      "vs_pierce": 2,
+      "vs_bash": 2,
+      "vs_slash": 2,
+      "vs_magic": 1
+    },
+    "level": 1,
+    "weight": 200,
+    "cost": 60000,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take body",
+    "affects": [
+      {"level": 1, "apply": "armor class", "modifier": -2},
+      {"level": 1, "apply": "strength",    "modifier": 1}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 10,
+    "name": "helm moongate heirloom quest reward",
+    "short_descr": "the Helm of Moongate",
+    "description": "A crested helm bearing the moongate crest gleams here.",
+    "material": "mithril",
+    "item_type": "armor",
+    "values": {
+      "vs_pierce": 1,
+      "vs_bash": 1,
+      "vs_slash": 1,
+      "vs_magic": 1
+    },
+    "level": 1,
+    "weight": 60,
+    "cost": 50000,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take head",
+    "affects": [
+      {"level": 1, "apply": "armor class",  "modifier": -1},
+      {"level": 1, "apply": "constitution", "modifier": 1}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 11,
+    "name": "legguards moongate heirloom quest reward",
+    "short_descr": "the Legguards of Moongate",
+    "description": "Solid legguards etched with the moongate seal lie here.",
+    "material": "mithril",
+    "item_type": "armor",
+    "values": {
+      "vs_pierce": 2,
+      "vs_bash": 2,
+      "vs_slash": 2,
+      "vs_magic": 1
+    },
+    "level": 1,
+    "weight": 150,
+    "cost": 55000,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take legs",
+    "affects": [
+      {"level": 1, "apply": "armor class", "modifier": -2},
+      {"level": 1, "apply": "strength",    "modifier": 1}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 12,
+    "name": "boots moongate heirloom quest reward",
+    "short_descr": "the Boots of Moongate",
+    "description": "Swift boots bearing the moongate crest sit here gleaming.",
+    "material": "leather",
+    "item_type": "armor",
+    "values": {
+      "vs_pierce": 1,
+      "vs_bash": 1,
+      "vs_slash": 1,
+      "vs_magic": 1
+    },
+    "level": 1,
+    "weight": 30,
+    "cost": 50000,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take feet",
+    "affects": [
+      {"level": 1, "apply": "armor class", "modifier": -1},
+      {"level": 1, "apply": "dexterity",   "modifier": 1}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 13,
+    "name": "gauntlets moongate heirloom quest reward",
+    "short_descr": "the Gauntlets of Moongate",
+    "description": "A pair of gauntlets engraved with the moongate seal lies here.",
+    "material": "mithril",
+    "item_type": "armor",
+    "values": {
+      "vs_pierce": 1,
+      "vs_bash": 1,
+      "vs_slash": 1,
+      "vs_magic": 1
+    },
+    "level": 1,
+    "weight": 40,
+    "cost": 50000,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take hands",
+    "affects": [
+      {"level": 1, "apply": "armor class", "modifier": -1},
+      {"level": 1, "apply": "dexterity",   "modifier": 1}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 14,
+    "name": "vambraces moongate heirloom quest reward",
+    "short_descr": "the Vambraces of Moongate",
+    "description": "Sturdy vambraces bearing the moongate crest rest here.",
+    "material": "mithril",
+    "item_type": "armor",
+    "values": {
+      "vs_pierce": 1,
+      "vs_bash": 1,
+      "vs_slash": 1,
+      "vs_magic": 1
+    },
+    "level": 1,
+    "weight": 45,
+    "cost": 50000,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take arms",
+    "affects": [
+      {"level": 1, "apply": "armor class",  "modifier": -1},
+      {"level": 1, "apply": "constitution", "modifier": 1}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 15,
+    "name": "cloak moongate heirloom quest reward",
+    "short_descr": "the Cloak of Moongate",
+    "description": "A shimmering cloak that seems to shift with moonlight rests here.",
+    "material": "silk",
+    "item_type": "armor",
+    "values": {
+      "vs_pierce": 2,
+      "vs_bash": 2,
+      "vs_slash": 2,
+      "vs_magic": 1
+    },
+    "level": 1,
+    "weight": 20,
+    "cost": 55000,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take about",
+    "affects": [
+      {"level": 1, "apply": "armor class", "modifier": -2},
+      {"level": 1, "apply": "saving throw", "modifier": -1}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 16,
+    "name": "belt moongate heirloom quest reward",
+    "short_descr": "the Belt of Moongate",
+    "description": "A broad belt set with a moongate seal buckle lies here.",
+    "material": "leather",
+    "item_type": "armor",
+    "values": {
+      "vs_pierce": 1,
+      "vs_bash": 1,
+      "vs_slash": 1,
+      "vs_magic": 1
+    },
+    "level": 1,
+    "weight": 15,
+    "cost": 50000,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take waist",
+    "affects": [
+      {"level": 1, "apply": "armor class",  "modifier": -1},
+      {"level": 1, "apply": "hit points",   "modifier": 2}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 17,
+    "name": "aegis moongate heirloom caster shield quest reward",
+    "short_descr": "the Aegis of Moongate",
+    "description": "A ritual shield glowing with arcane energy stands propped here.",
+    "material": "mithril",
+    "item_type": "armor",
+    "values": {
+      "vs_pierce": 1,
+      "vs_bash": 1,
+      "vs_slash": 1,
+      "vs_magic": 2
+    },
+    "level": 1,
+    "weight": 80,
+    "cost": 700,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take shield",
+    "affects": [
+      {"level": 1, "apply": "armor class",  "modifier": -2},
+      {"level": 1, "apply": "wisdom",       "modifier": 1},
+      {"level": 1, "apply": "intelligence", "modifier": 1}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 18,
+    "name": "pendant moongate heirloom physical neck quest reward",
+    "short_descr": "the Pendant of Moongate",
+    "description": "A heavy pendant on a silver chain bearing the moongate seal lies here.",
+    "material": "silver",
+    "item_type": "jewelry",
+    "values": {},
+    "level": 1,
+    "weight": 5,
+    "cost": 60000,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take neck",
+    "affects": [
+      {"level": 1, "apply": "strength",  "modifier": 1},
+      {"level": 1, "apply": "hit roll",  "modifier": 1}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 19,
+    "name": "talisman moongate heirloom caster neck quest reward",
+    "short_descr": "the Talisman of Moongate",
+    "description": "An arcane talisman etched with moongate runes lies here glowing softly.",
+    "material": "crystal",
+    "item_type": "jewelry",
+    "values": {},
+    "level": 1,
+    "weight": 3,
+    "cost": 600,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take neck",
+    "affects": [
+      {"level": 1, "apply": "wisdom",       "modifier": 1},
+      {"level": 1, "apply": "intelligence", "modifier": 1}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 20,
+    "name": "band moongate heirloom physical ring quest reward",
+    "short_descr": "the Band of Moongate",
+    "description": "A heavy ring stamped with the moongate seal lies here.",
+    "material": "mithril",
+    "item_type": "jewelry",
+    "values": {},
+    "level": 1,
+    "weight": 2,
+    "cost": 55000,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take finger",
+    "affects": [
+      {"level": 1, "apply": "hit roll",    "modifier": 1},
+      {"level": 1, "apply": "damage roll", "modifier": 1}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 21,
+    "name": "signet moongate heirloom caster ring quest reward",
+    "short_descr": "the Signet of Moongate",
+    "description": "A slender ring carved with arcane moongate runes rests here.",
+    "material": "gold",
+    "item_type": "jewelry",
+    "values": {},
+    "level": 1,
+    "weight": 1,
+    "cost": 55000,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take finger",
+    "affects": [
+      {"level": 1, "apply": "intelligence", "modifier": 1},
+      {"level": 1, "apply": "mana",         "modifier": 5}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 22,
+    "name": "bracer moongate heirloom physical wrist quest reward",
+    "short_descr": "the Bracer of Moongate",
+    "description": "A thick bracer engraved with the moongate crest lies here.",
+    "material": "mithril",
+    "item_type": "armor",
+    "values": {
+      "vs_pierce": 1,
+      "vs_bash": 1,
+      "vs_slash": 1,
+      "vs_magic": 1
+    },
+    "level": 1,
+    "weight": 20,
+    "cost": 55000,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take wrist",
+    "affects": [
+      {"level": 1, "apply": "hit roll",    "modifier": 1},
+      {"level": 1, "apply": "armor class", "modifier": -1}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 23,
+    "name": "cuff moongate heirloom caster wrist quest reward",
+    "short_descr": "the Cuff of Moongate",
+    "description": "A slender cuff etched with arcane moongate runes rests here.",
+    "material": "silver",
+    "item_type": "armor",
+    "values": {
+      "vs_pierce": 1,
+      "vs_bash": 1,
+      "vs_slash": 1,
+      "vs_magic": 1
+    },
+    "level": 1,
+    "weight": 10,
+    "cost": 55000,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take wrist",
+    "affects": [
+      {"level": 1, "apply": "intelligence", "modifier": 1},
+      {"level": 1, "apply": "wisdom",       "modifier": 1}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 24,
+    "name": "fist moongate heirloom physical hold quest reward",
+    "short_descr": "the Fist of Moongate",
+    "description": "A weighted off-hand weapon bearing the moongate seal gleams here.",
+    "material": "mithril",
+    "item_type": "weapon",
+    "values": {
+      "weapon_type": "mace",
+      "dice_num": 1,
+      "dice_size": 4,
+      "attack_type": "pound"
+    },
+    "level": 1,
+    "weight": 30,
+    "cost": 55000,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take hold",
+    "affects": [
+      {"level": 1, "apply": "damage roll", "modifier": 2}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 25,
+    "name": "tome moongate heirloom caster hold quest reward",
+    "short_descr": "the Tome of Moongate",
+    "description": "An ancient tome glowing with stored magical energy rests here.",
+    "material": "leather",
+    "item_type": "treasure",
+    "values": {},
+    "level": 1,
+    "weight": 15,
+    "cost": 650,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take hold",
+    "affects": [
+      {"level": 1, "apply": "intelligence", "modifier": 2},
+      {"level": 1, "apply": "mana",         "modifier": 10}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 26,
+    "name": "mace moongate heirloom cleric quest reward",
+    "short_descr": "the Mace of Moongate",
+    "description": "A blessed mace bearing the moongate seal gleams with holy light here.",
+    "material": "mithril",
+    "item_type": "weapon",
+    "values": {
+      "weapon_type": "mace",
+      "dice_num": 1,
+      "dice_size": 6,
+      "attack_type": "pound"
+    },
+    "level": 1,
+    "weight": 70,
+    "cost": 850,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take wield",
+    "affects": [
+      {"level": 1, "apply": "hit roll", "modifier": 1},
+      {"level": 1, "apply": "wisdom",   "modifier": 1}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 27,
+    "name": "dagger moongate heirloom thief quest reward",
+    "short_descr": "the Dagger of Moongate",
+    "description": "A razor-edged dagger of moonsilver gleams coldly here.",
+    "material": "mithril",
+    "item_type": "weapon",
+    "values": {
+      "weapon_type": "dagger",
+      "dice_num": 2,
+      "dice_size": 3,
+      "attack_type": "pierce"
+    },
+    "level": 1,
+    "weight": 20,
+    "cost": 800,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take wield",
+    "affects": [
+      {"level": 1, "apply": "hit roll", "modifier": 2}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 28,
+    "name": "staff moongate heirloom mage quest reward",
+    "short_descr": "the Staff of Moongate",
+    "description": "A gnarled staff crackling with arcane moonlight stands here.",
+    "material": "wood",
+    "item_type": "weapon",
+    "values": {
+      "weapon_type": "staff",
+      "dice_num": 1,
+      "dice_size": 5,
+      "attack_type": "pound"
+    },
+    "level": 1,
+    "weight": 50,
+    "cost": 850,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take wield",
+    "affects": [
+      {"level": 1, "apply": "hit roll",    "modifier": 1},
+      {"level": 1, "apply": "damage roll", "modifier": 1},
+      {"level": 1, "apply": "intelligence","modifier": 1}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 29,
+    "name": "orb moongate heirloom float quest reward",
+    "short_descr": "the Orb of Moongate",
+    "description": "A radiant orb drifting slowly in mid-air catches your eye here.",
+    "material": "crystal",
+    "item_type": "light",
+    "values": {
+      "duration": -1
+    },
+    "level": 1,
+    "weight": 1,
+    "cost": 55000,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take float",
+    "affects": [
+      {"level": 1, "apply": "strength",     "modifier": 1},
+      {"level": 1, "apply": "intelligence", "modifier": 1},
+      {"level": 1, "apply": "wisdom",       "modifier": 1},
+      {"level": 1, "apply": "dexterity",    "modifier": 1},
+      {"level": 1, "apply": "armor class",  "modifier": -1}
+    ]
   }}
 ]
+

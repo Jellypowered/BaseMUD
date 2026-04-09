@@ -12,10 +12,10 @@
               |
               |Available commands:
               |
-              |  {Yquest points{x            Show how many quest points you have
+              |  {Yquest points{x            Show quest points AND charges
               |  {Yquest info{x              Show details of your current quest
               |  {Yquest time{x              Show time remaining on your current quest
-              |  {Yquest request{x           Ask the questmaster for a new quest
+              |  {Yquest request{x           Spend a quest charge to start a new quest
               |  {Yquest complete{x          Report a completed quest to the questmaster
               |  {Yquest list{x              List available rewards and their costs
               |  {Yquest buy{x <item>        Spend quest points on a reward
@@ -23,18 +23,25 @@
               |All quest commands (except POINTS, INFO, and TIME) require you to be in the
               |same room as a questmaster NPC.
               |
-              |See also: QUEST REQUEST, QUEST COMPLETE, QUEST LIST, QUEST BUY, QUEST POINTS
+              |See also: QUEST REQUEST, QUEST COMPLETE, QUEST LIST, QUEST BUY, QUEST POINTS,
+              |          QUEST HEIRLOOM, QUEST CHANCES
               |"
     },
     {
       "keyword": "QUEST POINTS NOQUEST POINTS",
       "text": "Syntax: quest points
               |
-              |Displays how many quest points you currently have accumulated. Quest points
-              |are earned by completing quests and can be spent at a questmaster using
-              |QUEST BUY.
+              |Displays two resources:
               |
-              |See also: QUEST, QUEST BUY
+              |  {YQuest Points{x    Accumulated currency for buying rewards (QUEST BUY).
+              |  {YQuest Charges{x   Charges you must spend before the questmaster will
+              |                   assign you a new quest (QUEST REQUEST).
+              |
+              |Charges are earned automatically as you gain experience — roughly one
+              |charge per 5%% of a level's worth of XP. They accumulate without limit
+              |and roll over across levels.
+              |
+              |See also: QUEST, QUEST BUY, QUEST CHANCES
               |"
     },
     {
@@ -70,6 +77,10 @@
               |Asks the questmaster in your current room to assign you a quest. You must not
               |already be on a quest or in the cooldown period between quests.
               |
+              |{YRequirement:{x  You need at least one quest charge to request a quest.
+              |Charges are earned automatically from XP (see QUEST CHANCES). The questmaster
+              |will show your current progress if you do not have a charge ready.
+              |
               |You will be sent on one of two types of quest:
               |
               |  {YSlay quest{x   Find and kill a specific NPC somewhere in the world.
@@ -78,7 +89,7 @@
               |The questmaster will tell you the name of the target and the general area
               |where it can be found. You then have 10-30 minutes to complete the task.
               |
-              |See also: QUEST, QUEST COMPLETE, QUEST INFO, QUEST TIME
+              |See also: QUEST, QUEST COMPLETE, QUEST INFO, QUEST TIME, QUEST CHANCES
               |"
     },
     {
@@ -124,10 +135,57 @@
               |  {Ygold{x        Transfers gold coins directly to you.
               |  {Ypractices{x   Adds practice sessions to your total.
               |
+              |{YHeirloom items{x (those marked with the REWARD flag) are scaled to your
+              |current level at the moment you buy them, and will re-scale automatically
+              |every time you gain a level. See QUEST HEIRLOOM for details.
+              |
               |If the requested object cannot be created (e.g. missing vnum), your quest
               |points are refunded automatically.
               |
-              |See also: QUEST, QUEST LIST, QUEST POINTS
+              |See also: QUEST, QUEST LIST, QUEST POINTS, QUEST HEIRLOOM
+              |"
+      "keyword": "QUEST HEIRLOOM NOQUEST HEIRLOOM QUEST REWARD NOQUEST REWARD",
+      "text": "Quest heirlooms are special items purchased from a questmaster (QUEST BUY)
+              |that grow with your character instead of becoming obsolete.
+              |
+              |{YScaling:{x  When you buy a heirloom it is created at your current level.
+              |The stat bonuses are scaled proportionally — roughly 25%% of maximum power
+              |at level 1, growing linearly to 100%% at level 45, then a small bonus above
+              |level 45. Each time you gain a level, every worn heirloom you have equipped
+              |is automatically re-scaled to your new level.
+              |
+              |{YVariance:{x  Above level 10 each scale roll introduces a small random
+              |adjustment (+1 or -1) on each stat, so identical items may differ slightly.
+              |
+              |{YMaintenance:{x  Because heirlooms scale on level-up they work best when
+              |kept equipped. Unequipped heirlooms in your inventory are NOT re-scaled
+              |until you equip them and level again (or sell and re-buy them).
+              |
+              |{YNoPurge:{x  Heirlooms will not be deleted when the world resets.
+              |
+              |See also: QUEST, QUEST BUY, QUEST LIST
+              |"        
+    },
+    {
+      "keyword": "QUEST CHANCES NOQUEST CHANCES",
+      "text": "Quest charges (also called quest chances) are a second resource tracked by
+              |the quest system alongside quest points.
+              |
+              |{YHow charges are earned:{x
+              |  Automatically as you gain experience. Roughly one charge is awarded per
+              |  5%% of a level's worth of XP earned. Charges accumulate across levels with
+              |  no maximum.
+              |
+              |{YHow charges are spent:{x
+              |  One charge is consumed each time you successfully request a quest from a
+              |  questmaster (QUEST REQUEST). The questmaster will refuse to assign a quest
+              |  if you have zero charges, and will show your progress toward the next one.
+              |
+              |{YChecking your charges:{x
+              |  Use QUEST POINTS or SCORE to see how many charges you currently have and
+              |  how much XP progress you have toward the next one.
+              |
+              |See also: QUEST, QUEST POINTS, QUEST REQUEST, SCORE
               |"
     }
   ]
