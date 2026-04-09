@@ -943,6 +943,7 @@ DEFINE_JSON_READ_FUN(json_tblr_quest_config)
                             "reward_level_divisor",
                             "purge_quest_chance", "purge_count_min", "purge_count_max",
                             "collect_quest_chance", "collect_count_min", "collect_count_max",
+                            "xp_reward_divisor", "train_chance",
                             NULL))
         return NULL;
     READ_PROP_INT(quest_config.quest_timer_min,       "quest_timer_min");
@@ -965,5 +966,7 @@ DEFINE_JSON_READ_FUN(json_tblr_quest_config)
     READ_PROP_INT(quest_config.collect_quest_chance,  "collect_quest_chance");
     READ_PROP_INT(quest_config.collect_count_min,     "collect_count_min");
     READ_PROP_INT(quest_config.collect_count_max,     "collect_count_max");
+    READ_PROP_INT(quest_config.xp_reward_divisor,     "xp_reward_divisor");
+    READ_PROP_INT(quest_config.train_chance,          "train_chance");
     return &quest_config;
 }

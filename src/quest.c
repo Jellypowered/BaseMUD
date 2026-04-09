@@ -32,6 +32,7 @@
 /* Local functions */
 
 void generate_quest args((CHAR_T * ch, CHAR_T *questman));
+void quest_give_reward args((CHAR_T *ch, CHAR_T *questman, int n_targets));
 void quest_update args((void));
 bool quest_level_diff args((int clevel, int mlevel));
 bool chance args((int num));
@@ -44,6 +45,58 @@ bool chance(int num)
         return TRUE;
     else
         return FALSE;
+}
+
+/* Award quest completion rewards: XP, gold, QP, rare practice, very rare train.
+ * n_targets: 1 for classic quests, N for purge/collection multi-target quests.
+ * Bonus: +25% per extra target beyond 1. */
+void quest_give_reward(CHAR_T *ch, CHAR_T *questman, int n_targets)
+{
+    char buf[MAX_STRING_LENGTH];
+    int n          = UMAX(1, n_targets);
+    int divisor    = UMAX(1, quest_config.reward_level_divisor);
+    int xp_div     = UMAX(1, quest_config.xp_reward_divisor);
+    int reward, pointreward, xpreward;
+
+    reward      = number_range(quest_config.gold_min, quest_config.gold_max)
+                      * UMAX(1, ch->level) / divisor;
+    pointreward = number_range(quest_config.qp_min, quest_config.qp_max)
+                      * UMAX(1, ch->level) / divisor;
+    xpreward    = player_get_exp_per_level(ch) / xp_div;
+
+    /* Multi-target bonus: +25% per extra target */
+    if (n > 1)
+    {
+        reward      += reward      * (n - 1) / 4;
+        pointreward += pointreward * (n - 1) / 4;
+        xpreward    += xpreward    * (n - 1) / 4;
+    }
+
+    sprintf(buf, "Congratulations on completing your quest!");
+    do_say(questman, buf);
+    sprintf(buf, "As a reward, I give you %d quest points, %d gold, and %d experience.",
+            pointreward, reward, xpreward);
+    do_say(questman, buf);
+
+    player_gain_exp(ch, xpreward);
+    ch->gold        += reward;
+    ch->questpoints += pointreward;
+
+    /* Rare: bonus practice points */
+    if (chance(quest_config.practice_chance))
+    {
+        int prac = number_range(quest_config.practice_min, quest_config.practice_max);
+        sprintf(buf, "You also gain %d practice%s!\n\r", prac, prac == 1 ? "" : "s");
+        send_to_char(buf, ch);
+        ch->practice += prac;
+    }
+
+    /* Very rare: a training session */
+    if (chance(quest_config.train_chance))
+    {
+        ch->train += 1;
+        send_to_char("A moment of inspiration grants you a training session!\n\r", ch);
+    }
 }
 
 /* The main quest function */
@@ -277,6 +330,14 @@ void do_quest(CHAR_T *ch, char *argument)
             sprintf(buf, "$N transfers %d gold pieces to you.", qr->value);
             act(buf, ch, NULL, questman, TO_CHAR);
         }
+        else if (!strcmp(qr->type, "quest_chance"))
+        {
+            ch->quest_chances += qr->value;
+            act("$N grants $n an additional quest chance.", ch, NULL, questman, TO_OTHERS);
+            sprintf(buf, "$N grants you %d additional quest chance%s.",
+                qr->value, qr->value == 1 ? "" : "s");
+            act(buf, ch, NULL, questman, TO_CHAR);
+        }
         else
         {
             /* Unknown special reward type — log and refund. */
@@ -351,33 +412,7 @@ void do_quest(CHAR_T *ch, char *argument)
         {
             if (ch->questmob == -1 && ch->countdown > 0)
             {
-                int reward, pointreward, pracreward;
-                int n_kills = UMAX(1, ch->questcount_max);
-
-                reward = number_range(quest_config.gold_min, quest_config.gold_max)
-                    * UMAX(1, ch->level) / UMAX(1, quest_config.reward_level_divisor);
-                pointreward = number_range(quest_config.qp_min, quest_config.qp_max)
-                    * UMAX(1, ch->level) / UMAX(1, quest_config.reward_level_divisor);
-
-                /* Bonus for purge quests: +25% per extra kill required */
-                if (n_kills > 1)
-                {
-                    reward += reward * (n_kills - 1) / 4;
-                    pointreward += pointreward * (n_kills - 1) / 4;
-                }
-
-                sprintf(buf, "Congratulations on completing your quest!");
-                do_say(questman, buf);
-                sprintf(buf, "As a reward, I am giving you %d quest points, and %d gold.", pointreward, reward);
-                do_say(questman, buf);
-                if (chance(quest_config.practice_chance))
-                {
-                    pracreward = number_range(quest_config.practice_min, quest_config.practice_max);
-                    sprintf(buf, "You gain %d practices!\n\r", pracreward);
-                    send_to_char(buf, ch);
-                    ch->practice += pracreward;
-                }
-
+                quest_give_reward(ch, questman, UMAX(1, ch->questcount_max));
                 EXT_UNSET(ch->ext_plr, PLR_QUESTOR);
                 ch->questgiver = NULL;
                 ch->countdown = 0;
@@ -386,9 +421,6 @@ void do_quest(CHAR_T *ch, char *argument)
                 ch->questcount = 0;
                 ch->questcount_max = 0;
                 ch->nextquest = quest_config.cooldown_success;
-                ch->gold += reward;
-                ch->questpoints += pointreward;
-
                 return;
             }
             else if (ch->questobj > 0 && ch->countdown > 0)
@@ -401,20 +433,7 @@ void do_quest(CHAR_T *ch, char *argument)
 
                 if (have >= needed)
                 {
-                    int reward, pointreward, pracreward;
                     int to_extract = needed;
-
-                    reward = number_range(quest_config.gold_min, quest_config.gold_max)
-                        * UMAX(1, ch->level) / UMAX(1, quest_config.reward_level_divisor);
-                    pointreward = number_range(quest_config.qp_min, quest_config.qp_max)
-                        * UMAX(1, ch->level) / UMAX(1, quest_config.reward_level_divisor);
-
-                    /* Bonus for collection quests: +25% per extra item */
-                    if (needed > 1)
-                    {
-                        reward += reward * (needed - 1) / 4;
-                        pointreward += pointreward * (needed - 1) / 4;
-                    }
 
                     for (obj = ch->content_first; obj != NULL && to_extract > 0; obj = obj_next)
                     {
@@ -428,18 +447,7 @@ void do_quest(CHAR_T *ch, char *argument)
                         }
                     }
 
-                    sprintf(buf, "Congratulations on completing your quest!");
-                    do_say(questman, buf);
-                    sprintf(buf, "As a reward, I am giving you %d quest points, and %d gold.", pointreward, reward);
-                    do_say(questman, buf);
-                    if (chance(quest_config.practice_chance))
-                    {
-                        pracreward = number_range(quest_config.practice_min, quest_config.practice_max);
-                        sprintf(buf, "You gain %d practices!\n\r", pracreward);
-                        send_to_char(buf, ch);
-                        ch->practice += pracreward;
-                    }
-
+                    quest_give_reward(ch, questman, UMAX(1, ch->questcount_max));
                     EXT_UNSET(ch->ext_plr, PLR_QUESTOR);
                     ch->questgiver = NULL;
                     ch->countdown = 0;
@@ -448,8 +456,6 @@ void do_quest(CHAR_T *ch, char *argument)
                     ch->questcount = 0;
                     ch->questcount_max = 0;
                     ch->nextquest = quest_config.cooldown_success;
-                    ch->gold += reward;
-                    ch->questpoints += pointreward;
                     return;
                 }
                 else
@@ -548,48 +554,99 @@ void generate_quest(CHAR_T *ch, CHAR_T *questman)
 
     if (chance(quest_config.obj_quest_chance))
     {
-        int objvnum = 0;
-        int i, n_items;
+        /* Scan obj_index_hash for a level-appropriate, takeable, non-special item
+         * using reservoir sampling so every qualifying item has an equal chance. */
+        OBJ_INDEX_T *chosen_idx = NULL;
+        bool is_collection = chance(quest_config.collect_quest_chance);
+        int n_items = is_collection
+            ? number_range(quest_config.collect_count_min, quest_config.collect_count_max)
+            : 1;
 
-        if (quest_token_count > 0)
-            objvnum = quest_token_table[number_range(0, quest_token_count - 1)].vnum;
-
-        /* Collection quest: place multiple copies of the same item */
-        n_items = 1;
-        if (chance(quest_config.collect_quest_chance))
-            n_items = number_range(quest_config.collect_count_min, quest_config.collect_count_max);
-
-        for (i = 0; i < n_items; i++)
         {
-            questitem = obj_create(obj_get_index(objvnum), ch->level);
-            obj_give_to_room(questitem, room);
+            OBJ_INDEX_T *cand;
+            int n_cand = 0, bucket;
+
+            for (bucket = 0; bucket < MAX_KEY_HASH; bucket++)
+            {
+                for (cand = obj_index_hash[bucket]; cand != NULL; cand = cand->hash_next)
+                {
+                    /* Must be takeable */
+                    if (!(cand->wear_flags & ITEM_TAKE))
+                        continue;
+                    /* Skip special-purpose or plot items */
+                    if (cand->extra_flags &
+                        (ITEM_NOPURGE | ITEM_INVENTORY | ITEM_REWARD | ITEM_NODROP | ITEM_NOLOCATE))
+                        continue;
+                    /* Skip unsuitable item types */
+                    switch (cand->item_type)
+                    {
+                        case ITEM_TRASH:      case ITEM_CORPSE_NPC: case ITEM_CORPSE_PC:
+                        case ITEM_MONEY:      case ITEM_FOUNTAIN:   case ITEM_PORTAL:
+                        case ITEM_ROOM_KEY:   case ITEM_BOAT:       case ITEM_JUKEBOX:
+                        case ITEM_DRINK_CON:  case ITEM_FOOD:       case ITEM_KEY:
+                        case ITEM_WARP_STONE: case ITEM_MAP:        case ITEM_NONE:
+                            continue;
+                        default:
+                            break;
+                    }
+                    /* Level check: item level 0 suits any character;
+                     * otherwise must be within appropriate bands */
+                    if (cand->level != 0 && !quest_level_diff(ch->level, cand->level))
+                        continue;
+                    /* Reservoir sample */
+                    n_cand++;
+                    if (number_range(1, n_cand) == 1)
+                        chosen_idx = cand;
+                }
+            }
         }
-        ch->questobj = questitem->obj_index->vnum;
-        ch->questcount = 0;
-        ch->questcount_max = n_items;
 
-        if (n_items > 1)
+        /* If no world item found and it's a single-item quest, fall back to
+         * a treasury quest token. */
+        if (chosen_idx == NULL && !is_collection)
         {
-            sprintf(buf, "The royal treasury has been thoroughly looted! Thieves made off with %d %s!",
-                n_items, questitem->short_descr);
+            int objvnum = 0;
+            if (quest_token_count > 0)
+                objvnum = quest_token_table[number_range(0, quest_token_count - 1)].vnum;
+            chosen_idx = obj_get_index(objvnum);
+        }
+
+        if (chosen_idx != NULL)
+        {
+            int i;
+
+            for (i = 0; i < n_items; i++)
+            {
+                questitem = obj_create(chosen_idx, ch->level);
+                obj_give_to_room(questitem, room);
+            }
+            ch->questobj      = chosen_idx->vnum;
+            ch->questcount    = 0;
+            ch->questcount_max = n_items;
+
+            if (n_items > 1)
+            {
+                sprintf(buf, "Reports say %d %s have gone missing in the region!",
+                    n_items, chosen_idx->short_descr);
+                do_say(questman, buf);
+                do_say(questman, "Track them all down and bring them to me!");
+            }
+            else
+            {
+                sprintf(buf, "Vile pilferers have stolen %s! Find it and bring it back!",
+                    chosen_idx->short_descr);
+                do_say(questman, buf);
+            }
+
+            sprintf(buf, "Look in the general area of %s for %s!", room->area->name, room->name);
             do_say(questman, buf);
-            do_say(questman, "My court wizardess has tracked them to one location - bring them all back!");
+            return;
         }
-        else
-        {
-            sprintf(buf, "Vile pilferers have stolen %s from the royal treasury!", questitem->short_descr);
-            do_say(questman, buf);
-            do_say(questman, "My court wizardess, with her magic mirror, has pinpointed its location.");
-        }
-
-        sprintf(buf, "Look in the general area of %s for %s!", room->area->name, room->name);
-        do_say(questman, buf);
-        return;
+        /* No suitable item found - fall through to mob quest */
     }
 
     /* Quest to kill a mob */
 
-    else
     {
         int n_kills = 1;
         if (chance(quest_config.purge_quest_chance))

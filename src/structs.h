@@ -717,6 +717,8 @@ struct quest_config_type
     int collect_quest_chance;/* % of obj-recovery quests that become collection (multi-item) quests */
     int collect_count_min;   /* min items needed in a collection quest */
     int collect_count_max;   /* max items needed in a collection quest */
+    int xp_reward_divisor;  /* quest XP award = exp_per_level / this (e.g. 4 = 25% of a level) */
+    int train_chance;       /* % chance of awarding 1 training session on quest completion */
 };
 
 /* Extra description data for a room or object. */

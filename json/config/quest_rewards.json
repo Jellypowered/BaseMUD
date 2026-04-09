@@ -25,6 +25,7 @@
   {"quest_reward": {"id": "staff",      "label": "Staff of Moongate (weapon/mage)",          "keywords": "staff",      "cost": 900,  "type": "object", "value": 228}},
   {"quest_reward": {"id": "orb",        "label": "Orb of Moongate (float/all)",              "keywords": "orb float",  "cost": 650,  "type": "object", "value": 229}},
   {"quest_reward": {"id": "practices",  "label": "30 Practices",                             "keywords": "practices pracs prac practice", "cost": 500, "type": "practices", "value": 30}},
-  {"quest_reward": {"id": "gold",       "label": "350,000 gold pieces",                      "keywords": "gold gp",    "cost": 500,  "type": "gold",   "value": 350000}}
+  {"quest_reward": {"id": "gold",       "label": "350,000 gold pieces",                      "keywords": "gold gp",    "cost": 500,  "type": "gold",   "value": 350000}},
+  {"quest_reward": {"id": "chance",     "label": "1 Quest Chance (skip cooldown)",           "keywords": "chance quest_chance",          "cost": 300, "type": "quest_chance", "value": 1}}
 ]
 
