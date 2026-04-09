@@ -12,51 +12,80 @@ Syntax: qmconfig [show|ansiprompt|ansicolor|telnetga] [on|off]
         telnetga   - do new logins have telnetga enabled?
 ~
 0 COLOUR COLOR ANSI~
-Syntax: colour    Toggles colour mode on/off
+Syntax: colour               -- show status and theme
+        colour on / off      -- enable or disable ANSI colour
+        colour codes         -- list all colour code letters
+        colour all           -- show all configurable settings
+        colour <field> <col> -- change one setting
+        colour <field> default
 
-        You may also talk in colour; the format is like this:
-        the 'escape character' to specify a colour is the left
-        handed brace '{{', following
-        that you should use one of the following letters,  
-        {r{{r     red      {c{{c     cyan
-        {g{{g     green    {y{{y     yellow
-        {b{{b     blue     {w{{w     white
-        {m{{m     magenta  {x{{x     clear(reset colour)
-        {{{{     {{ char   {{*     beep
-        {{/     newline
-        When using colour, it looks better if you finish the line
-        with whatever colour it would normally be in, such as a
-        gossip, the colour is magenta, so:
-                {mLope gossips '{ghello,{r world{m'{x
-        looks better than:
-                {mLope gossips '{ghello,{r world'{x
+Basic colour codes (use in say, gossip, tells, etc.):
+  {r{{r{x  red         {R{{R{x  hi-red      {D{{D{x  dark grey
+  {g{{g{x  green       {G{{G{x  hi-green
+  {b{{b{x  blue
+  {c{{c{x  cyan        {C{{C{x  hi-cyan
+  {y{{y{x  yellow      {Y{{Y{x  hi-yellow
+  {m{{m{x  magenta     {M{{M{x  hi-magenta
+  {w{{w{x  white       {W{{W{x  hi-white
+  {x{{x    reset       {!{{!{x  blink
+  {{{{     '{{' char   {{*      beep        {{/  newline
 
-        ColoUr is written by Lope (ant@solace.mh.se)
+Some codes (e.g. {{B, {{5, {{F, {{T) map to your personal channel
+colour settings.  See 'help colour2' for the full field list.
+
+Use '{Ctheme{x' to switch presets (classic / modern / sharp).
 ~
 0 COLOUR2 COLOR2 ANSI2~
 Syntax: colour <field> <colour>
+Syntax: colour <field> default
+Syntax: colour all
 
-        You may configure your colour setting for personal preference.
-        current setting are indicated by colour.
+Configure per-channel and display colours.  Type 'colour all' to see your
+current settings grouped by category, or 'help colour' for code letters.
 
-fields are:                                    
-  {ttext         {aauction      {dgossip       {emusic        {qquestion
-  {fanswer       {hclass_text   {Hclass_name   {iimmtalk_text
+{C--- Channels ---{x
+  {ttext          {aauction       {Aauction_text  {dgossip        {9gossip_text
+  {emusic         {Emusic_text    {qquestion      {Qquestion_text
+  {fanswer        {Fanswer_text   {hquote         {Hquote_text
+  {iimmtalk_text  {Iimmtalk_type  {jinfo
+  {6say           {7say_text      {ktell           {Ktell_text
+  {lreply         {Lreply_text    {ngtell_text     {Ngtell_type{x
 
-{Iimmtalk_type
-  {jinfo         {ktell         {lreply        {ngtell_text   {Ngtell_type
-  {Zwiznet       {sroom_title   {Sroom_text    {oroom_exits
+{C--- Room ---{x
+  {Bwiznet    {sroom_title  {Sroom_text  {oroom_exits  {Oroom_things
+  {pprompt{x
 
-{Oroom_things
-  {pprompt       {1fight_death  {2fight_yhit   {3fight_ohit   {4fight_thit
-  {5fight_skill{x
+{C--- Combat ---{x
+  {1fight_death  {2fight_yhit  {3fight_ohit  {4fight_thit  {5fight_skill{x
 
-   colours are: ( Hi- )
-   {rred          {ggreen        {bblue         {yyellow       {mmagenta
-   {ccyan         {wwhite{x
+{C--- Display ---{x
+  {Thelp_title{x
 
-eg. to make the gossip channel red type 'colour gossip red'
-    to make your hits in fights magenta type 'colour fight_yhit magenta'
+Colours (use 'hi-' prefix for bright variants):
+  {rred     {ggreen   {bblue    {yyellow   {mmagenta  {ccyan   {wwhite{x
+  hi-red    hi-green  hi-blue   hi-yellow  hi-magenta hi-cyan  hi-white
+
+eg. colour gossip red
+    colour fight_yhit hi-green
+    colour help_title yellow
+~
+
+0 THEME~
+Syntax: theme
+Syntax: theme <name>
+
+THEME switches your colour preset.  Available presets:
+
+  {Yclassic{x  -- Warm retro terminal: greens, ambers, muted tones.
+  {Ymodern{x   -- Clean dark-terminal: cyans, bright whites, crisp greens.
+  {Ysharp{x    -- Maximum contrast: bold primaries for easy scanning.
+
+THEME without an argument shows your current preset and the list above.
+
+Changing any individual colour with 'colour' marks your theme as '{Ycustom{x'.
+Use 'theme <name>' to restore a preset at any time.
+
+See also: '{Ccolour{x', '{Ccolour2{x'.
 ~
 
 
@@ -311,11 +340,11 @@ DROP, GET and PUT understand the object names 'ALL' for all objects and
 ~
 
 0 EQUIPMENT INVENTORY~
-Syntax: equipment
-Syntax: inventory
+Syntax: {Cequipment{x
+Syntax: {Cinventory{x
 
-EQUIPMENT lists your equipment (armor, weapons, and held items).
-INVENTORY lists your inventory.
+{CEQUIPMENT{x lists your equipment (armor, weapons, and held items).
+{CINVENTORY{x lists your inventory.
 ~
 
 0 COMPARE~
@@ -597,13 +626,15 @@ within your area, including monsters.
 ~
 
 0 HELP~
-Syntax: help
-Syntax: help <keyword>
+Syntax: {Chelp{x
+Syntax: {Chelp{x <keyword>
 
-HELP without any arguments shows a one-page command summary.
+{CHELP{x without any arguments shows a one-page command summary.
 
-HELP <keyword> shows a page of help on that keyword.  The keywords include
-all the commands, spells, and skills listed in the game.
+{CHELP{x <keyword> shows help on that topic.  Keywords include commands,
+spells, skills, and general topics.
+
+Type '{Chelp summary{x' for an overview of common commands.
 ~
 
 0 DESCRIPTION DESC~
@@ -803,20 +834,19 @@ There is no RENT in this mud.  Just SAVE and QUIT whenever you want to leave.
 ~
 
 0 RECALL /~
-Syntax: RECALL
+Syntax: {CRECALL{x
 
-RECALL prays to Mota for miraculous transportation from where you are
-back to the Temple of Midgaard.  '/' is a synonym for RECALL.
+RECALL prays to Mota for miraculous transportation back to the Temple
+of Midgaard.  '/' is a synonym for RECALL.
 
-If you RECALL during combat, you will lose experience (more than for fleeing),
-and you will have a chance of failing (again, more than for fleeing).  This
-chance is based on your recall skill, although a 100% recall does not 
-insure success.
+If you RECALL during combat, you will lose experience and have a chance
+of failing.  This chance is based on your recall skill; {Ya 100% recall
+skill does not guarantee success.{x
 
 RECALL costs half of your movement points.
 
-RECALL doesn't work in certain god-forsaken rooms.  Characters afflicted by a
-curse may not recall at all.
+{YRECALL doesn't work in certain rooms.{x  Characters afflicted by a
+{Rcurse{x may not recall at all.
 ~
 
 -1 SPLIT~
@@ -844,37 +874,31 @@ In order to STEAL successfully, you must practice the appropriate skill.
 ~
 
 0 PRACTICE~
-Syntax: PRACTICE
-Syntax: PRACTICE <skill|spell>
+Syntax: {CPRACTICE{x
+Syntax: {CPRACTICE{x <skill|spell>
 
-PRACTICE without an argument tells you your current ability level in all
-the skills and spells available to you.  You can check this anywhere.
+PRACTICE without an argument shows your current ability in all skills
+and spells available to you.  You can check this anywhere.
 
-PRACTICE with an argument practice that skill or spell.  Your learning
-percentage varies from 0% (unlearned) to a some maximum between 80% and 100%,
-depending on your class.  You must be at a guild master to practice.
+PRACTICE with an argument practices that skill or spell.  Learning
+ranges from {Y0%{x (unlearned) to a maximum of {Y80-100%{x depending on
+your class.  You must be at a guild master to practice.
 
-The higher your intelligence, the more you will learn at each practice
-session.  The higher your wisdom, the more practice sessions you will
-have each time you gain a level.  Unused sessions are saved until you
-do use them.
+The higher your {Cintelligence{x, the more you learn per session.
+The higher your {Cwisdom{x, the more practice sessions you gain per
+level.  Unused sessions are saved.
 ~
 
 0 TRAIN~
-Syntax: train <str int wis dex con hp mana>
+Syntax: {Ctrain{x <str int wis dex con hp mana>
 
-TRAIN increases one of your attributes.  When you start the game, your
-character has standard attributes based on your class, and several
-initial training sessions.  You can increase your attributes by
-using these sessions at a trainer (there are several in town).
+TRAIN increases one of your attributes at a trainer (several in town).
+Each session improves an attribute by 1, or increases hp/mana by {Y10{x.
+You receive one session per level.
 
-It takes one training session to improve an attribute, or to increase
-mana or hp by 10.  You receive one session per level.
-
-The best attributes to train first are WIS and CON.  WIS gives you more
-practice when you gain a level.  CON gives you more hit points.
-In the long run, your character will be most powerful if you train
-WIS and CON both to 18 before practising or training anything else.
+{YTrain {CWIS{Y and {CCON{Y first.{x  {CWIS{x gives more practice sessions per
+level.  {CCON{x gives more hit points.  Your character will be strongest
+if both are trained to {Y18{x before practising or training anything else.
 ~
 
 60 ADVANCE~

@@ -1017,6 +1017,7 @@ COLOUR_SETTING_T colour_setting_table[COLOUR_SETTING_MAX + 1] = {
     {COLOUR_FIGHT_OHIT, "fight_ohit", '3', CC_BACK_DEFAULT | CC_YELLOW},
     {COLOUR_FIGHT_THIT, "fight_thit", '4', CC_BACK_DEFAULT | CC_RED},
     {COLOUR_FIGHT_SKILL, "fight_skill", '5', CC_BACK_DEFAULT | CC_BRIGHT_WHITE},
+    {COLOUR_HELP_TITLE,  "help_title",  'T', CC_BACK_DEFAULT | CC_BRIGHT_CYAN},
     {0}};
 
 COLOUR_T colour_table[] = {

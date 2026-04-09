@@ -70,6 +70,7 @@ static const COLOUR_THEME_DEF_T colour_theme_defs[] = {
         { "reply",       "yellow back-none nobeep"    },
         { "reply_text",  "hi-yellow back-none nobeep" },
         { "fight_skill", "yellow back-none nobeep"    },
+        { "help_title",  "yellow back-none nobeep"    },
         { NULL, NULL }
       }
     },
@@ -86,6 +87,7 @@ static const COLOUR_THEME_DEF_T colour_theme_defs[] = {
         { "reply_text",  "hi-white back-none nobeep"  },
         { "wiznet",      "hi-cyan back-none nobeep"   },
         { "immtalk_text","hi-cyan back-none nobeep"   },
+        { "help_title",  "hi-cyan back-none nobeep"   },
         { NULL, NULL }
       }
     },
@@ -103,6 +105,7 @@ static const COLOUR_THEME_DEF_T colour_theme_defs[] = {
         { "reply_text",  "hi-white back-none nobeep"  },
         { "fight_ohit",  "hi-yellow back-none nobeep" },
         { "fight_skill", "hi-white back-none nobeep"  },
+        { "help_title",  "hi-white back-none nobeep"  },
         { NULL, NULL }
       }
     },
@@ -387,7 +390,11 @@ DEFINE_DO_FUN (do_colour) {
             do_colour_one (ch, &(colour_setting_table[i]),
                 colour, use_default, buf);
         strcat (buf, "\n\r{C--- Combat ----------------------------------{x\n\r");
-        for (i = 30; i < COLOUR_SETTING_MAX; i++)
+        for (i = 30; i < COLOUR_HELP_TITLE; i++)
+            do_colour_one (ch, &(colour_setting_table[i]),
+                colour, use_default, buf);
+        strcat (buf, "\n\r{C--- Display ---------------------------------{x\n\r");
+        for (i = COLOUR_HELP_TITLE; i < COLOUR_SETTING_MAX; i++)
             do_colour_one (ch, &(colour_setting_table[i]),
                 colour, use_default, buf);
         page_to_char (buf, ch);

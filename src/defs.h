@@ -502,7 +502,8 @@
 #define COLOUR_FIGHT_OHIT 32
 #define COLOUR_FIGHT_THIT 33
 #define COLOUR_FIGHT_SKILL 34
-#define COLOUR_SETTING_MAX 35
+#define COLOUR_HELP_TITLE  35
+#define COLOUR_SETTING_MAX 36
 
 /* This file holds the copyover data */
 #define COPYOVER_FILE "copyover.data"

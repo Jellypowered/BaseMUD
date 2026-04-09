@@ -869,11 +869,12 @@ DEFINE_DO_FUN(do_help)
             /* add seperator if found */
             if (found)
                 buf_cat(output,
-                        "\n\r============================================================\n\r\n\r");
+                        "\n\r{g============================================================{x\n\r\n\r");
             if (help->level >= 0 && str_cmp(argall, "imotd"))
             {
+                buf_cat(output, "{T");
                 buf_cat(output, help->keyword);
-                buf_cat(output, "\n\r");
+                buf_cat(output, "{x\n\r");
             }
 
             /* Strip leading '.' to allow initial blanks. */
@@ -891,7 +892,7 @@ DEFINE_DO_FUN(do_help)
 
     if (!found)
     {
-        send_to_char("No help on that word.\n\r", ch);
+        send_to_char("{YNo help on that word.{x\n\r", ch);
         /* Let's log unmet help requests so studious IMP's can improve their help files ;-)
          * But to avoid idiots, we will check the length of the help request, and trim to
          * a reasonable length (set it by redefining MAX_CMD_LEN in merc.h).  -- JR */

@@ -208,5 +208,11 @@
     "name": "fight_skill",
     "color_char": "5",
     "default_color": "magenta back-none nobeep"
+  }},
+  {"color_setting": {
+    "index": 35,
+    "name": "help_title",
+    "color_char": "T",
+    "default_color": "hi-cyan back-none nobeep"
   }}
 ]
