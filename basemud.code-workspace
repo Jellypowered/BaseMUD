@@ -1,0 +1,13 @@
+{
+    "folders": [
+        {
+            "name": "MUDEditor",
+            "path": "MUDEditor"
+        },
+        {
+            "name": "BaseMUD",
+            "path": "."
+        }
+    ],
+    "settings": {}
+}
