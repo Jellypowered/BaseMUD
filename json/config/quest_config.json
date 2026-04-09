@@ -12,5 +12,11 @@
   "practice_max":          6,
   "obj_quest_chance":     40,
   "xp_chance_divisor":    20,
-  "reward_level_divisor": 30
+  "reward_level_divisor": 30,
+  "purge_quest_chance":    30,
+  "purge_count_min":        2,
+  "purge_count_max":        5,
+  "collect_quest_chance":  25,
+  "collect_count_min":      2,
+  "collect_count_max":      4
 }}]

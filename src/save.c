@@ -194,6 +194,10 @@ void fwrite_char(CHAR_T *ch, FILE *fp)
         fprintf(fp, "QuestMob %d\n", ch->questmob);
     if (ch->questobj != 0)
         fprintf(fp, "QuestObj %d\n", ch->questobj);
+    if (ch->questcount != 0)
+        fprintf(fp, "QuestCount %d\n", ch->questcount);
+    if (ch->questcount_max != 0)
+        fprintf(fp, "QuestCountMax %d\n", ch->questcount_max);
     if (EXT_IS_NONZERO(ch->ext_mob))
         fprintf(fp, "Mob  %s\n", fwrite_ext_flags_static(mob_flags, ch->ext_mob));
     if (EXT_IS_NONZERO(ch->ext_plr))
@@ -1132,6 +1136,8 @@ void fread_char(CHAR_T *ch, FILE *fp)
             KEY("QuestCountdown", ch->countdown,      fread_number(fp));
             KEY("QuestMob",       ch->questmob,       fread_number(fp));
             KEY("QuestObj",       ch->questobj,       fread_number(fp));
+            KEY("QuestCount",     ch->questcount,     fread_number(fp));
+            KEY("QuestCountMax",  ch->questcount_max, fread_number(fp));
             break;
         case 'R':
             KEY("Race", ch->race, race_lookup(fread_string_static(fp)));

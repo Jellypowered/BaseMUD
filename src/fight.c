@@ -1458,9 +1458,21 @@ void group_gain(CHAR_T *ch, CHAR_T *victim)
         {
             if (ch->questmob == victim->mob_index->vnum)
             {
-                send_to_char("You have almost completed your QUEST!\n\r", ch);
-                send_to_char("Return to the questmaster before your time runs out!\n\r", ch);
-                ch->questmob = -1;
+                int needed = UMAX(1, ch->questcount_max);
+                ch->questcount++;
+                if (ch->questcount >= needed)
+                {
+                    send_to_char("You have almost completed your QUEST!\n\r", ch);
+                    send_to_char("Return to the questmaster before your time runs out!\n\r", ch);
+                    ch->questmob = -1;
+                }
+                else
+                {
+                    char qbuf[MAX_STRING_LENGTH];
+                    sprintf(qbuf, "Quest progress: %d/%d slain. Keep going!\n\r",
+                            ch->questcount, needed);
+                    send_to_char(qbuf, ch);
+                }
             }
         }
 

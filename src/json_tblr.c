@@ -940,21 +940,30 @@ DEFINE_JSON_READ_FUN(json_tblr_quest_config)
                             "qp_min", "qp_max",
                             "practice_chance", "practice_min", "practice_max",
                             "obj_quest_chance", "xp_chance_divisor",
-                            "reward_level_divisor", NULL))
+                            "reward_level_divisor",
+                            "purge_quest_chance", "purge_count_min", "purge_count_max",
+                            "collect_quest_chance", "collect_count_min", "collect_count_max",
+                            NULL))
         return NULL;
-    READ_PROP_INT(quest_config.quest_timer_min,      "quest_timer_min");
-    READ_PROP_INT(quest_config.quest_timer_max,      "quest_timer_max");
-    READ_PROP_INT(quest_config.cooldown_success,     "cooldown_success");
-    READ_PROP_INT(quest_config.cooldown_none,        "cooldown_none");
-    READ_PROP_INT(quest_config.gold_min,             "gold_min");
-    READ_PROP_INT(quest_config.gold_max,             "gold_max");
-    READ_PROP_INT(quest_config.qp_min,               "qp_min");
-    READ_PROP_INT(quest_config.qp_max,               "qp_max");
-    READ_PROP_INT(quest_config.practice_chance,      "practice_chance");
-    READ_PROP_INT(quest_config.practice_min,         "practice_min");
-    READ_PROP_INT(quest_config.practice_max,         "practice_max");
-    READ_PROP_INT(quest_config.obj_quest_chance,     "obj_quest_chance");
-    READ_PROP_INT(quest_config.xp_chance_divisor,    "xp_chance_divisor");
-    READ_PROP_INT(quest_config.reward_level_divisor, "reward_level_divisor");
+    READ_PROP_INT(quest_config.quest_timer_min,       "quest_timer_min");
+    READ_PROP_INT(quest_config.quest_timer_max,       "quest_timer_max");
+    READ_PROP_INT(quest_config.cooldown_success,      "cooldown_success");
+    READ_PROP_INT(quest_config.cooldown_none,         "cooldown_none");
+    READ_PROP_INT(quest_config.gold_min,              "gold_min");
+    READ_PROP_INT(quest_config.gold_max,              "gold_max");
+    READ_PROP_INT(quest_config.qp_min,                "qp_min");
+    READ_PROP_INT(quest_config.qp_max,                "qp_max");
+    READ_PROP_INT(quest_config.practice_chance,       "practice_chance");
+    READ_PROP_INT(quest_config.practice_min,          "practice_min");
+    READ_PROP_INT(quest_config.practice_max,          "practice_max");
+    READ_PROP_INT(quest_config.obj_quest_chance,      "obj_quest_chance");
+    READ_PROP_INT(quest_config.xp_chance_divisor,     "xp_chance_divisor");
+    READ_PROP_INT(quest_config.reward_level_divisor,  "reward_level_divisor");
+    READ_PROP_INT(quest_config.purge_quest_chance,    "purge_quest_chance");
+    READ_PROP_INT(quest_config.purge_count_min,       "purge_count_min");
+    READ_PROP_INT(quest_config.purge_count_max,       "purge_count_max");
+    READ_PROP_INT(quest_config.collect_quest_chance,  "collect_quest_chance");
+    READ_PROP_INT(quest_config.collect_count_min,     "collect_count_min");
+    READ_PROP_INT(quest_config.collect_count_max,     "collect_count_max");
     return &quest_config;
 }

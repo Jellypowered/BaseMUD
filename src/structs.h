@@ -571,6 +571,8 @@ struct char_data
     sh_int countdown;
     sh_int questobj;
     sh_int questmob;
+    sh_int questcount;     /* kills done / items collected toward questcount_max */
+    sh_int questcount_max; /* total needed for this quest (1 = classic single-target) */
     int  quest_chances;   /* stored quest chances (spend to request) */
     int  quest_xp_prog;   /* xp accumulated toward next chance */
 
@@ -709,6 +711,12 @@ struct quest_config_type
     int obj_quest_chance;     /* % chance of object quest vs mob kill quest */
     int xp_chance_divisor;    /* divisor for XP-to-quest-chance threshold */
     int reward_level_divisor; /* "baseline" level for reward scaling (reward * level / divisor) */
+    int purge_quest_chance;  /* % of mob-kill quests that become purge (multi-kill) quests */
+    int purge_count_min;     /* min kills required in a purge quest */
+    int purge_count_max;     /* max kills required in a purge quest */
+    int collect_quest_chance;/* % of obj-recovery quests that become collection (multi-item) quests */
+    int collect_count_min;   /* min items needed in a collection quest */
+    int collect_count_max;   /* max items needed in a collection quest */
 };
 
 /* Extra description data for a room or object. */

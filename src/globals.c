@@ -129,7 +129,9 @@ QUEST_CONFIG_T quest_config = {
     1,  6,    /* practice_min, practice_max */
     40,       /* obj_quest_chance */
     20,       /* xp_chance_divisor */
-    30        /* reward_level_divisor: reward * level / divisor; divisor=30 means level-30 char gets baseline */
+    30,       /* reward_level_divisor: reward * level / divisor; divisor=30 means level-30 char gets baseline */
+    30,  2, 5,  /* purge_quest_chance, purge_count_min, purge_count_max */
+    25,  2, 4   /* collect_quest_chance, collect_count_min, collect_count_max */
 };
 
 /* Memory stuff. */

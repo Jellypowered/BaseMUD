@@ -81,7 +81,17 @@ void do_quest(CHAR_T *ch, char *argument)
                 questinfoobj = obj_get_index(ch->questobj);
                 if (questinfoobj != NULL)
                 {
-                    sprintf(buf, "You are on a quest to recover the fabled %s!\n\r", questinfoobj->name);
+                    if (ch->questcount_max > 1)
+                    {
+                        int have = 0;
+                        OBJ_T *scan;
+                        for (scan = ch->content_first; scan != NULL; scan = scan->content_next)
+                            if (scan->obj_index->vnum == ch->questobj) have++;
+                        sprintf(buf, "You are on a quest to collect %d %s! (%d/%d in your inventory)\n\r",
+                            ch->questcount_max, questinfoobj->name, have, ch->questcount_max);
+                    }
+                    else
+                        sprintf(buf, "You are on a quest to recover the fabled %s!\n\r", questinfoobj->name);
                     send_to_char(buf, ch);
                 }
                 else
@@ -93,7 +103,12 @@ void do_quest(CHAR_T *ch, char *argument)
                 questinfo = mobile_get_index(ch->questmob);
                 if (questinfo != NULL)
                 {
-                    sprintf(buf, "You are on a quest to slay the dreaded %s!\n\r", questinfo->short_descr);
+                    if (ch->questcount_max > 1)
+                        sprintf(buf, "You must slay %d %s! (%d/%d slain)\n\r",
+                            ch->questcount_max, questinfo->short_descr,
+                            ch->questcount, ch->questcount_max);
+                    else
+                        sprintf(buf, "You are on a quest to slay the dreaded %s!\n\r", questinfo->short_descr);
                     send_to_char(buf, ch);
                 }
                 else
@@ -305,6 +320,8 @@ void do_quest(CHAR_T *ch, char *argument)
         do_say(questman, buf);
         ch->questmob = 0;
         ch->questobj = 0;
+        ch->questcount = 0;
+        ch->questcount_max = 0;
 
         generate_quest(ch, questman);
 
@@ -335,11 +352,19 @@ void do_quest(CHAR_T *ch, char *argument)
             if (ch->questmob == -1 && ch->countdown > 0)
             {
                 int reward, pointreward, pracreward;
+                int n_kills = UMAX(1, ch->questcount_max);
 
                 reward = number_range(quest_config.gold_min, quest_config.gold_max)
                     * UMAX(1, ch->level) / UMAX(1, quest_config.reward_level_divisor);
                 pointreward = number_range(quest_config.qp_min, quest_config.qp_max)
                     * UMAX(1, ch->level) / UMAX(1, quest_config.reward_level_divisor);
+
+                /* Bonus for purge quests: +25% per extra kill required */
+                if (n_kills > 1)
+                {
+                    reward += reward * (n_kills - 1) / 4;
+                    pointreward += pointreward * (n_kills - 1) / 4;
+                }
 
                 sprintf(buf, "Congratulations on completing your quest!");
                 do_say(questman, buf);
@@ -358,6 +383,8 @@ void do_quest(CHAR_T *ch, char *argument)
                 ch->countdown = 0;
                 ch->questmob = 0;
                 ch->questobj = 0;
+                ch->questcount = 0;
+                ch->questcount_max = 0;
                 ch->nextquest = quest_config.cooldown_success;
                 ch->gold += reward;
                 ch->questpoints += pointreward;
@@ -366,29 +393,40 @@ void do_quest(CHAR_T *ch, char *argument)
             }
             else if (ch->questobj > 0 && ch->countdown > 0)
             {
-                bool obj_found = FALSE;
+                int needed = UMAX(1, ch->questcount_max);
+                int have = 0;
 
-                for (obj = ch->content_first; obj != NULL; obj = obj_next)
-                {
-                    obj_next = obj->content_next;
+                for (obj = ch->content_first; obj != NULL; obj = obj->content_next)
+                    if (obj->obj_index->vnum == ch->questobj) have++;
 
-                    if (obj != NULL && obj->obj_index->vnum == ch->questobj)
-                    {
-                        obj_found = TRUE;
-                        break;
-                    }
-                }
-                if (obj_found == TRUE)
+                if (have >= needed)
                 {
                     int reward, pointreward, pracreward;
+                    int to_extract = needed;
 
                     reward = number_range(quest_config.gold_min, quest_config.gold_max)
                         * UMAX(1, ch->level) / UMAX(1, quest_config.reward_level_divisor);
                     pointreward = number_range(quest_config.qp_min, quest_config.qp_max)
                         * UMAX(1, ch->level) / UMAX(1, quest_config.reward_level_divisor);
 
-                    act("You hand $p to $N.", ch, obj, questman, TO_CHAR);
-                    act("$n hands $p to $N.", ch, obj, questman, TO_OTHERS);
+                    /* Bonus for collection quests: +25% per extra item */
+                    if (needed > 1)
+                    {
+                        reward += reward * (needed - 1) / 4;
+                        pointreward += pointreward * (needed - 1) / 4;
+                    }
+
+                    for (obj = ch->content_first; obj != NULL && to_extract > 0; obj = obj_next)
+                    {
+                        obj_next = obj->content_next;
+                        if (obj->obj_index->vnum == ch->questobj)
+                        {
+                            act("You hand $p to $N.", ch, obj, questman, TO_CHAR);
+                            act("$n hands $p to $N.", ch, obj, questman, TO_OTHERS);
+                            obj_extract(obj);
+                            to_extract--;
+                        }
+                    }
 
                     sprintf(buf, "Congratulations on completing your quest!");
                     do_say(questman, buf);
@@ -407,19 +445,28 @@ void do_quest(CHAR_T *ch, char *argument)
                     ch->countdown = 0;
                     ch->questmob = 0;
                     ch->questobj = 0;
+                    ch->questcount = 0;
+                    ch->questcount_max = 0;
                     ch->nextquest = quest_config.cooldown_success;
                     ch->gold += reward;
                     ch->questpoints += pointreward;
-                    obj_extract(obj);
                     return;
                 }
                 else
                 {
-                    sprintf(buf, "You haven't completed the quest yet, but there is still time!");
-                    do_say(questman, buf);
+                    if (needed > 1)
+                    {
+                        sprintf(buf, "You still need %d more of those! (%d/%d collected)",
+                            needed - have, have, needed);
+                        do_say(questman, buf);
+                    }
+                    else
+                    {
+                        sprintf(buf, "You haven't completed the quest yet, but there is still time!");
+                        do_say(questman, buf);
+                    }
                     return;
                 }
-                return;
             }
             else if ((ch->questmob > 0 || ch->questobj > 0) && ch->countdown >
                                                                    0)
@@ -446,7 +493,7 @@ void generate_quest(CHAR_T *ch, CHAR_T *questman)
 {
     CHAR_T *victim;
     ROOM_INDEX_T *room;
-    OBJ_T *questitem;
+    OBJ_T *questitem = NULL;
     char buf[MAX_STRING_LENGTH];
 
     /*  Randomly selects a mob from the world mob list. If you don't
@@ -502,21 +549,38 @@ void generate_quest(CHAR_T *ch, CHAR_T *questman)
     if (chance(quest_config.obj_quest_chance))
     {
         int objvnum = 0;
+        int i, n_items;
 
         if (quest_token_count > 0)
             objvnum = quest_token_table[number_range(0, quest_token_count - 1)].vnum;
 
-        questitem = obj_create(obj_get_index(objvnum), ch->level);
-        obj_give_to_room(questitem, room);
+        /* Collection quest: place multiple copies of the same item */
+        n_items = 1;
+        if (chance(quest_config.collect_quest_chance))
+            n_items = number_range(quest_config.collect_count_min, quest_config.collect_count_max);
+
+        for (i = 0; i < n_items; i++)
+        {
+            questitem = obj_create(obj_get_index(objvnum), ch->level);
+            obj_give_to_room(questitem, room);
+        }
         ch->questobj = questitem->obj_index->vnum;
+        ch->questcount = 0;
+        ch->questcount_max = n_items;
 
-        sprintf(buf, "Vile pilferers have stolen %s from the royal treasury!", questitem->short_descr);
-        do_say(questman, buf);
-        do_say(questman, "My court wizardess, with her magic mirror, has pinpointed its location.");
-
-        /* I changed my area names so that they have just the name of the area
-           and none of the level stuff. You may want to comment these next two
-           lines. - Vassago */
+        if (n_items > 1)
+        {
+            sprintf(buf, "The royal treasury has been thoroughly looted! Thieves made off with %d %s!",
+                n_items, questitem->short_descr);
+            do_say(questman, buf);
+            do_say(questman, "My court wizardess has tracked them to one location - bring them all back!");
+        }
+        else
+        {
+            sprintf(buf, "Vile pilferers have stolen %s from the royal treasury!", questitem->short_descr);
+            do_say(questman, buf);
+            do_say(questman, "My court wizardess, with her magic mirror, has pinpointed its location.");
+        }
 
         sprintf(buf, "Look in the general area of %s for %s!", room->area->name, room->name);
         do_say(questman, buf);
@@ -527,22 +591,51 @@ void generate_quest(CHAR_T *ch, CHAR_T *questman)
 
     else
     {
-        switch (number_range(0, 1))
-        {
-        case 0:
-            sprintf(buf, "An enemy of mine, %s, is making vile threats against the crown.", victim->short_descr);
-            do_say(questman, buf);
-            sprintf(buf, "This threat must be eliminated!");
-            do_say(questman, buf);
-            break;
+        int n_kills = 1;
+        if (chance(quest_config.purge_quest_chance))
+            n_kills = number_range(quest_config.purge_count_min, quest_config.purge_count_max);
 
-        case 1:
-            sprintf(buf, "Rune's most heinous criminal, %s, has escaped from the dungeon!", victim->short_descr);
-            do_say(questman, buf);
-            sprintf(buf, "Since the escape, %s has murdered %d civillians!", victim->short_descr, number_range(2, 20));
-            do_say(questman, buf);
-            do_say(questman, "The penalty for this crime is death, and you are to deliver the sentence!");
-            break;
+        ch->questcount = 0;
+        ch->questcount_max = n_kills;
+        ch->questmob = victim->mob_index->vnum;
+
+        if (n_kills > 1)
+        {
+            switch (number_range(0, 1))
+            {
+            case 0:
+                sprintf(buf, "%s and their ilk are overrunning the countryside!", victim->short_descr);
+                do_say(questman, buf);
+                sprintf(buf, "Slay %d of them to restore peace!", n_kills);
+                do_say(questman, buf);
+                break;
+            case 1:
+                sprintf(buf, "A pack of %s is terrorising the region!", victim->short_descr);
+                do_say(questman, buf);
+                sprintf(buf, "I need you to hunt down and slay %d of them!", n_kills);
+                do_say(questman, buf);
+                break;
+            }
+        }
+        else
+        {
+            switch (number_range(0, 1))
+            {
+            case 0:
+                sprintf(buf, "An enemy of mine, %s, is making vile threats against the crown.", victim->short_descr);
+                do_say(questman, buf);
+                sprintf(buf, "This threat must be eliminated!");
+                do_say(questman, buf);
+                break;
+
+            case 1:
+                sprintf(buf, "Rune's most heinous criminal, %s, has escaped from the dungeon!", victim->short_descr);
+                do_say(questman, buf);
+                sprintf(buf, "Since the escape, %s has murdered %d civillians!", victim->short_descr, number_range(2, 20));
+                do_say(questman, buf);
+                do_say(questman, "The penalty for this crime is death, and you are to deliver the sentence!");
+                break;
+            }
         }
 
         if (room->name != NULL)
@@ -557,7 +650,6 @@ void generate_quest(CHAR_T *ch, CHAR_T *questman)
             sprintf(buf, "That location is in the general area of %s.", room->area->name);
             do_say(questman, buf);
         }
-        ch->questmob = victim->mob_index->vnum;
     }
     return;
 }
@@ -622,6 +714,8 @@ void quest_update(void)
                     ch->questgiver = NULL;
                     ch->countdown = 0;
                     ch->questmob = 0;
+                    ch->questcount = 0;
+                    ch->questcount_max = 0;
                 }
                 if (ch->countdown > 0 && ch->countdown < 6)
                 {
