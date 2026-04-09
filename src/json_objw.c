@@ -609,6 +609,8 @@ JSON_T *json_objw_area(const char *name, const AREA_T *area)
         json_prop_integer(new, "low_range", area->low_range);
     if (area->high_range != 0)
         json_prop_integer(new, "high_range", area->high_range);
+    if (IS_SET(area->area_flags, AREA_HIDDEN))
+        json_prop_boolean(new, "hidden", TRUE);
 
     return new;
 }

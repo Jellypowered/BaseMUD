@@ -162,6 +162,8 @@ const TABLE_T master_table[TABLE_MAX + 1] = {
     TTABLE(item_table, "items", "Item types and properties.", "item", "config", json_tblw_item, json_tblr_item, item_dispose),
     TTABLE_DYNAMIC(&liq_table, "liquids", "Liquid types.", "liquid", "config", json_tblw_liq, json_tblr_liq, liq_dispose, &liq_count, &liq_cap, liq_invalidate_max),
     TTABLE_DYNAMIC(&material_table, "materials", "Material properties", "material", "config", json_tblw_material, json_tblr_material, material_dispose, &material_count, &material_cap, NULL),
+    TTABLE_DYNAMIC(&quest_reward_table, "quest_rewards", "Quest reward records.", "quest_reward", "config", json_tblw_quest_reward, json_tblr_quest_reward, quest_reward_dispose, &quest_reward_count, &quest_reward_cap, NULL),
+    TTABLE_DYNAMIC(&quest_token_table, "quest_tokens", "Quest token object vnums.", "quest_token", "config", json_tblw_quest_token, json_tblr_quest_token, quest_token_dispose, &quest_token_count, &quest_token_cap, NULL),
     TTABLE(month_table, "months", "Months of the year.", "month", "config", json_tblw_month, json_tblr_month, month_dispose),
     TTABLE_DYNAMIC(&pose_table, "pose", "Poses based on class and level", "pose", "config", json_tblw_pose, json_tblr_pose, pose_dispose, &pose_count, &pose_cap, NULL),
     TTABLE(position_table, "positions", "Character positions.", "position", "config", json_tblw_position, json_tblr_position, position_dispose),
@@ -1097,6 +1099,14 @@ WEAR_LOC_T wear_loc_table[WEAR_LOC_MAX + 2] = {
 MATERIAL_T *material_table = NULL;
 int material_count = 0, material_cap = 0;
 
+/* Quest reward table - loaded from JSON. */
+QUEST_REWARD_T *quest_reward_table = NULL;
+int quest_reward_count = 0, quest_reward_cap = 0;
+
+/* Quest token table - loaded from JSON. */
+QUEST_TOKEN_T *quest_token_table = NULL;
+int quest_token_count = 0, quest_token_cap = 0;
+
 /* Technically not const, but this is a good place to have it! */
 BOARD_T board_table[BOARD_MAX + 1] = {
     {"General", "General discussion", 0, 2, "all", DEF_INCLUDE, 21, NULL, FALSE},
@@ -1281,6 +1291,20 @@ DEFINE_DISPOSE_FUN(material_dispose)
 {
     MATERIAL_T *material = obj;
     str_free(&(material->name));
+}
+
+DEFINE_DISPOSE_FUN(quest_reward_dispose)
+{
+    QUEST_REWARD_T *qr = obj;
+    str_free(&(qr->id));
+    str_free(&(qr->label));
+    str_free(&(qr->keywords));
+    str_free(&(qr->type));
+}
+
+DEFINE_DISPOSE_FUN(quest_token_dispose)
+{
+    (void)obj; /* no heap strings to free */
 }
 
 DEFINE_DISPOSE_FUN(sector_dispose)

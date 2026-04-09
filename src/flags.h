@@ -443,6 +443,7 @@
 #define AREA_CHANGED (BIT_01) /* Area has been modified. */
 #define AREA_ADDED (BIT_02)   /* Area has been added to. */
 #define AREA_LOADING (BIT_03) /* Used for counting in db.c */
+#define AREA_HIDDEN (BIT_04)  /* Area is hidden from normal listings. */
 
 /* Damage flags. */
 #define DAM_MAGICAL (BIT_01)

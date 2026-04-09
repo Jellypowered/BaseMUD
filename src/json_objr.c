@@ -704,6 +704,7 @@ AREA_T *json_objr_area(const JSON_T *json)
                             "min_vnum", "max_vnum", "builders", "security",
 
                             "*low_range", "*high_range", "*repop_msg",
+                            "*hidden",
 
                             NULL))
         return NULL;
@@ -726,6 +727,13 @@ AREA_T *json_objr_area(const JSON_T *json)
     area->age = AREA_RESET_ALWAYS_AGE;
     area->nplayer = 0;
     area->area_flags = 0;
+
+    {
+        bool hidden = FALSE;
+        READ_PROP_BOOL(hidden, "hidden");
+        if (hidden)
+            SET_BIT(area->area_flags, AREA_HIDDEN);
+    }
 
     NO_NULL_STR(area->name);
     NO_NULL_STR(area->filename);

@@ -1,0 +1,134 @@
+[{"help": {
+  "area": null,
+  "name": "quest",
+  "filename": "quest.are",
+  "pages": [
+    {
+      "keyword": "QUEST NOQUEST",
+      "text": "Syntax: quest <command> [argument]
+              |
+              |The quest system lets you earn quest points by completing tasks assigned by
+              |a questmaster mob, then spend those points on special rewards.
+              |
+              |Available commands:
+              |
+              |  {Yquest points{x            Show how many quest points you have
+              |  {Yquest info{x              Show details of your current quest
+              |  {Yquest time{x              Show time remaining on your current quest
+              |  {Yquest request{x           Ask the questmaster for a new quest
+              |  {Yquest complete{x          Report a completed quest to the questmaster
+              |  {Yquest list{x              List available rewards and their costs
+              |  {Yquest buy{x <item>        Spend quest points on a reward
+              |
+              |All quest commands (except POINTS, INFO, and TIME) require you to be in the
+              |same room as a questmaster NPC.
+              |
+              |See also: QUEST REQUEST, QUEST COMPLETE, QUEST LIST, QUEST BUY, QUEST POINTS
+              |"
+    },
+    {
+      "keyword": "QUEST POINTS NOQUEST POINTS",
+      "text": "Syntax: quest points
+              |
+              |Displays how many quest points you currently have accumulated. Quest points
+              |are earned by completing quests and can be spent at a questmaster using
+              |QUEST BUY.
+              |
+              |See also: QUEST, QUEST BUY
+              |"
+    },
+    {
+      "keyword": "QUEST INFO NOQUEST INFO",
+      "text": "Syntax: quest info
+              |
+              |Displays the details of your active quest, including whether you are hunting
+              |a mob or recovering an object. If your quest is complete and you need to
+              |return to the questmaster, this command will remind you.
+              |
+              |See also: QUEST, QUEST TIME
+              |"
+    },
+    {
+      "keyword": "QUEST TIME NOQUEST TIME",
+      "text": "Syntax: quest time
+              |
+              |Shows the time remaining on your current quest. Each quest has a countdown of
+              |10-30 minutes. If you do not complete and report the quest before time runs
+              |out, you will not receive a reward and must wait before being given another
+              |quest.
+              |
+              |If you are not on a quest, shows how many minutes remain before you may
+              |request another one (normally 10 minutes between quests).
+              |
+              |See also: QUEST, QUEST INFO
+              |"
+    },
+    {
+      "keyword": "QUEST REQUEST NOQUEST REQUEST",
+      "text": "Syntax: quest request
+              |
+              |Asks the questmaster in your current room to assign you a quest. You must not
+              |already be on a quest or in the cooldown period between quests.
+              |
+              |You will be sent on one of two types of quest:
+              |
+              |  {YSlay quest{x   Find and kill a specific NPC somewhere in the world.
+              |  {YItem quest{x   Recover a stolen item and return it to the questmaster.
+              |
+              |The questmaster will tell you the name of the target and the general area
+              |where it can be found. You then have 10-30 minutes to complete the task.
+              |
+              |See also: QUEST, QUEST COMPLETE, QUEST INFO, QUEST TIME
+              |"
+    },
+    {
+      "keyword": "QUEST COMPLETE NOQUEST COMPLETE",
+      "text": "Syntax: quest complete
+              |
+              |Reports a finished quest to the questmaster who assigned it. You must return
+              |to the same questmaster who sent you on the quest.
+              |
+              |  {YSlay quest{x   You must have killed the target mob before reporting.
+              |  {YItem quest{x   You must be carrying the quest item when you report.
+              |
+              |On success you receive a gold reward (2500-45000 coins), quest points
+              |(25-75), and a 15% chance of 1-6 bonus practice sessions. A 10-minute
+              |cooldown then applies before you can request another quest.
+              |
+              |See also: QUEST, QUEST REQUEST
+              |"
+    },
+    {
+      "keyword": "QUEST LIST NOQUEST LIST",
+      "text": "Syntax: quest list
+              |
+              |Displays all rewards currently available for purchase from the questmaster,
+              |along with their quest point costs. Use QUEST BUY to purchase an item.
+              |
+              |Rewards are defined in json/config/quest_rewards.json and can be updated
+              |without recompiling.
+              |
+              |See also: QUEST, QUEST BUY, QUEST POINTS
+              |"
+    },
+    {
+      "keyword": "QUEST BUY NOQUEST BUY",
+      "text": "Syntax: quest buy <item>
+              |
+              |Spends quest points to purchase a reward from the questmaster. The <item>
+              |argument matches any alias listed for the reward (see QUEST LIST).
+              |
+              |Reward types:
+              |
+              |  {Yobject{x      Creates an item and places it in your inventory.
+              |  {Ygold{x        Transfers gold coins directly to you.
+              |  {Ypractices{x   Adds practice sessions to your total.
+              |
+              |If the requested object cannot be created (e.g. missing vnum), your quest
+              |points are refunded automatically.
+              |
+              |See also: QUEST, QUEST LIST, QUEST POINTS
+              |"
+    }
+  ]
+}}]

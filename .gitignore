@@ -18,5 +18,6 @@ Makefile.bak
 /callgrind.sh
 /obj
 /romtmp
+/MUDEditor
 /.vscode
 /.kilo

@@ -630,3 +630,22 @@ DEFINE_JSON_WRITE_FUN(json_tblw_song)
 
     return new;
 }
+
+DEFINE_JSON_WRITE_FUN(json_tblw_quest_reward)
+{
+    JSON_TBLW_START(QUEST_REWARD_T, qr, qr->id == NULL);
+    json_prop_string(new, "id",       JSTR(qr->id));
+    json_prop_string(new, "label",    JSTR(qr->label));
+    json_prop_string(new, "keywords", JSTR(qr->keywords));
+    json_prop_integer(new, "cost",    qr->cost);
+    json_prop_string(new, "type",     JSTR(qr->type));
+    json_prop_integer(new, "value",   qr->value);
+    return new;
+}
+
+DEFINE_JSON_WRITE_FUN(json_tblw_quest_token)
+{
+    JSON_TBLW_START(QUEST_TOKEN_T, qt, qt->vnum <= 0);
+    json_prop_integer(new, "vnum", qt->vnum);
+    return new;
+}

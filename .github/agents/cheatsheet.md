@@ -366,8 +366,49 @@ for (d = descriptor_first; d != NULL; d = d->global_next)
 | `TFLAGS` / `TXFLAGS` / `TTYPES` | **C** (`flags.h`, `flags.c`, etc.) | No reader; `json/meta/` is a generated export |
 | `TTABLE` / `TTABLE_DYNAMIC`     | **JSON** (`json/config/`)          | Has a `jread` function; edit JSON not C       |
 
-- `room_flags[]` is C-authoritative â€” to add a flag, edit `flags.h` and `flags.c`
-- `BIT_08` / `ROOM_UNUSED_FLAG_5` was `/* old: no_magic */` â€” repurposed as `ROOM_NOMAGIC`
+- `room_flags[]` is C-authoritative — to add a flag, edit `flags.h` and `flags.c`
+- `BIT_08` / `ROOM_UNUSED_FLAG_5` was `/* old: no_magic */` — repurposed as `ROOM_NOMAGIC`
+
+### Adding a `TTABLE_DYNAMIC` config table
+
+Required files for each new dynamic table (e.g. `foo`):
+
+1. `defs.h` — increment `TABLE_MAX`; current value after quest_token: **80**
+2. `typedefs.h` — `typedef struct foo_type FOO_T;`
+3. `structs.h` — `struct foo_type { ... };`
+4. `tables.h` — `extern FOO_T *foo_table; extern int foo_count, foo_cap; DECLARE_DISPOSE_FUN(foo_dispose);`
+5. `tables.c` — `TTABLE_DYNAMIC(...)` entry + global variable definitions + `DEFINE_DISPOSE_FUN(foo_dispose)`
+6. `json_tblr.h/.c` — `DECLARE/DEFINE_JSON_READ_FUN(json_tblr_foo)`
+7. `json_tblw.h/.c` — `DECLARE/DEFINE_JSON_WRITE_FUN(json_tblw_foo)`
+
+**Critical stem rule**: The second argument to `JSON_TBLR_START_DYNAMIC(TYPE, stem)` must match the *prefix* of the three globals. If your globals are `quest_token_count / quest_token_cap / quest_token_table`, the stem must be `quest_token` — the macro expands `stem_count`, `stem_cap`, `stem_table`. A mismatch causes a linker error pointing at the wrong symbol.
+
+**No-heap dispose**: If the struct contains no heap-allocated strings or pointers, `DEFINE_DISPOSE_FUN` is a no-op: `DEFINE_DISPOSE_FUN(foo_dispose) { (void)obj; }`. No `free_string` calls needed.
+
+**Writer skip condition**: `JSON_TBLW_START(TYPE, alias, skip_condition)` — set the skip condition to filter out sentinel/default entries (e.g. `qt->vnum <= 0`).
+
+---
+
+## Area `hidden` Field
+
+Areas support a `"hidden": true` boolean in their `area.json`. When set, the area is excluded from `do_areas` / `do_alist` output and is invisible to players. Useful for internal/system areas (e.g. `json/areas/quest/`). Not present in stock ROM/MERC — BaseMUD addition.
+
+---
+
+## Furniture Object Values (item_type: furniture)
+
+BaseMUD furniture uses named keys in the `"values"` object — **not** ROM's `rest_bonus`/`sit_bonus`/`sleep_bonus`:
+
+```json
+"values": { "heal_rate": 200, "mana_rate": 200 }
+```
+
+| Key         | Meaning                              |
+| ----------- | ------------------------------------ |
+| `heal_rate` | HP regeneration rate (100 = normal)  |
+| `mana_rate` | Mana regeneration rate (100 = normal)|
+
+Omit both for a decorative piece with no bonus.
 
 ---
 

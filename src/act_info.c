@@ -1476,30 +1476,109 @@ DEFINE_DO_FUN(do_commands)
         send_to_char("\n\r", ch);
 }
 
+/* Comparator for do_areas: sort by low_range ascending, then high_range ascending. */
+static int area_level_cmp(const void *a, const void *b)
+{
+    const AREA_T *a1 = *(const AREA_T **)a;
+    const AREA_T *a2 = *(const AREA_T **)b;
+    if (a1->low_range != a2->low_range)
+        return a1->low_range - a2->low_range;
+    return a1->high_range - a2->high_range;
+}
+
+/*
+ * do_areas: sorted area list with optional level-range filter.
+ *   areas           - all areas (mortals capped at LEVEL_IMMORTAL-1)
+ *   areas 30        - areas whose range includes level 30
+ *   areas 30 45     - areas with low_range >= 30 and high_range <= 45
+ * Hidden areas are never shown to mortals.
+ * Based on TAKA's Ghost Dancer MUD implementation, adapted for BaseMUD.
+ */
 DEFINE_DO_FUN(do_areas)
 {
     char buf[MAX_STRING_LENGTH];
-    AREA_T *area1, *area2;
-    int i, areas_half;
+    char arg1[MAX_INPUT_LENGTH];
+    char arg2[MAX_INPUT_LENGTH];
+    AREA_T *area;
+    AREA_T **sorted;
+    int count, lo_level, hi_level, col, i;
+    bool found;
+    bool is_immortal = (!IS_NPC(ch) && ch->level >= LEVEL_IMMORTAL);
 
-    BAIL_IF(argument[0] != '\0',
-            "No argument is used with this command.\n\r", ch);
+    argument = one_argument(argument, arg1);
+    argument = one_argument(argument, arg2);
 
-    areas_half = (TOP(RECYCLE_AREA_T) + 1) / 2;
-    area1 = area_first;
-    area2 = area_first;
-    for (i = 0; i < areas_half; i++)
-        area2 = area2->global_next;
+    /* Determine filter range.
+     * One arg: both lo and hi set to arg.
+     * Two args: lo from arg1, hi from arg2.
+     * No args:  lo=0, hi=MAX_LEVEL for immortals, LEVEL_IMMORTAL-1 for mortals. */
+    lo_level = (arg1[0] != '\0' && is_number(arg1))
+                   ? URANGE(1, atoi(arg1), MAX_LEVEL)
+                   : 0;
+    hi_level = (arg2[0] != '\0' && is_number(arg2))
+                   ? URANGE(1, atoi(arg2), MAX_LEVEL)
+               : (arg1[0] != '\0' && is_number(arg1))
+                   ? lo_level
+               : is_immortal
+                   ? MAX_LEVEL
+                   : LEVEL_IMMORTAL - 1;
 
-    for (i = 0; i < areas_half; i++)
+    /* Collect matching areas (skip hidden unless immortal). */
+    count = 0;
+    for (area = area_first; area; area = area->global_next)
     {
-        sprintf(buf, "%-39s%-39s\n\r",
-                area1->credits, (area2 != NULL) ? area2->credits : "");
-        send_to_char_bw(buf, ch);
-        area1 = area1->global_next;
-        if (area2 != NULL)
-            area2 = area2->global_next;
+        if (!is_immortal && IS_SET(area->area_flags, AREA_HIDDEN))
+            continue;
+        if (area->low_range  > hi_level && area->low_range  != 0)
+            continue;
+        if (area->high_range < lo_level && area->high_range != 0)
+            continue;
+        count++;
     }
+
+    if (count == 0)
+    {
+        send_to_char("{RNo areas meeting those criteria.{x\n\r", ch);
+        return;
+    }
+
+    sorted = calloc(count, sizeof(AREA_T *));
+    i = 0;
+    for (area = area_first; area; area = area->global_next)
+    {
+        if (!is_immortal && IS_SET(area->area_flags, AREA_HIDDEN))
+            continue;
+        if (area->low_range  > hi_level && area->low_range  != 0)
+            continue;
+        if (area->high_range < lo_level && area->high_range != 0)
+            continue;
+        sorted[i++] = area;
+    }
+    qsort(sorted, count, sizeof(AREA_T *), area_level_cmp);
+
+    col = 0;
+    found = FALSE;
+    for (i = 0; i < count; i++)
+    {
+        area = sorted[i];
+        found = TRUE;
+        sprintf(buf, "{C[{M%3d{C] {C({G%-3d{W-{G%3d{C) {W%-18.18s {x",
+                area->vnum,
+                area->low_range,
+                area->high_range,
+                area->name);
+        send_to_char(buf, ch);
+        if (col)
+            send_to_char_bw("\n\r", ch);
+        col = !col;
+    }
+    if (col)
+        send_to_char("\n\r", ch);
+
+    free(sorted);
+
+    if (!found)
+        send_to_char("{RNo areas meeting those criteria.{x\n\r", ch);
 }
 
 DEFINE_DO_FUN(do_scan_short)

@@ -901,3 +901,29 @@ DEFINE_JSON_READ_FUN(json_tblr_spec)
     READ_PROP_STRP(spec->name, "name");
     return spec;
 }
+
+DEFINE_JSON_READ_FUN(json_tblr_quest_reward)
+{
+    char buf[MAX_STRING_LENGTH];
+    JSON_TBLR_START_DYNAMIC(QUEST_REWARD_T, quest_reward);
+    if (!json_import_expect("quest_reward", json,
+                            "id", "label", "keywords", "cost",
+                            "type", "value", NULL))
+        return NULL;
+    READ_PROP_STRP(quest_reward->id, "id");
+    READ_PROP_STRP(quest_reward->label, "label");
+    READ_PROP_STRP(quest_reward->keywords, "keywords");
+    READ_PROP_INT(quest_reward->cost, "cost");
+    READ_PROP_STRP(quest_reward->type, "type");
+    READ_PROP_INT(quest_reward->value, "value");
+    return quest_reward;
+}
+
+DEFINE_JSON_READ_FUN(json_tblr_quest_token)
+{
+    JSON_TBLR_START_DYNAMIC(QUEST_TOKEN_T, quest_token);
+    if (!json_import_expect("quest_token", json, "vnum", NULL))
+        return NULL;
+    READ_PROP_INT(quest_token->vnum, "vnum");
+    return quest_token;
+}

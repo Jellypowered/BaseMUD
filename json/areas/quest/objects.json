@@ -1,0 +1,167 @@
+[
+  {"object": {
+    "area": "quest",
+    "anum": 0,
+    "name": "amulet moongate quest",
+    "short_descr": "the Amulet of Moongate",
+    "description": "A brilliantly crafted amulet bearing the seal of Moongate rests here.",
+    "material": "gold",
+    "item_type": "jewelry",
+    "values": {},
+    "level": 35,
+    "weight": 5,
+    "cost": 50000,
+    "extra_flags": "glow magic",
+    "wear_flags": "take neck",
+    "affects": [
+      {"level": 35, "apply": "wisdom",       "modifier": 2},
+      {"level": 35, "apply": "intelligence", "modifier": 2},
+      {"level": 35, "apply": "armor class",  "modifier": -8}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 1,
+    "name": "shield moongate quest",
+    "short_descr": "the Shield of Moongate",
+    "description": "A gleaming shield bearing the crest of Moongate stands propped against the wall.",
+    "material": "mithril",
+    "item_type": "armor",
+    "values": {
+      "vs_pierce": 7,
+      "vs_bash": 8,
+      "vs_slash": 7,
+      "vs_magic": 3
+    },
+    "level": 35,
+    "weight": 150,
+    "cost": 50000,
+    "extra_flags": "glow magic",
+    "wear_flags": "take shield",
+    "affects": [
+      {"level": 35, "apply": "armor class", "modifier": -10},
+      {"level": 35, "apply": "strength",    "modifier": 1}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 2,
+    "name": "sword moongate quest",
+    "short_descr": "the Sword of Moongate",
+    "description": "A magnificent sword with a blade of pure moonsilver lies here, humming softly.",
+    "material": "mithril",
+    "item_type": "weapon",
+    "values": {
+      "weapon_type": "sword",
+      "dice_num": 5,
+      "dice_size": 6,
+      "attack_type": "slash"
+    },
+    "level": 35,
+    "weight": 80,
+    "cost": 65000,
+    "extra_flags": "glow magic",
+    "wear_flags": "take wield",
+    "affects": [
+      {"level": 35, "apply": "damage roll", "modifier": 4},
+      {"level": 35, "apply": "hit roll",    "modifier": 3}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 3,
+    "name": "throne moongate quest",
+    "short_descr": "the Throne of Moongate",
+    "description": "An ornate throne inlaid with moonstone and gold stands here radiating warmth.",
+    "material": "wood",
+    "item_type": "furniture",
+    "values": {
+      "heal_rate": 200,
+      "mana_rate": 200
+    },
+    "level": 35,
+    "weight": 500,
+    "cost": 80000,
+    "extra_flags": "glow magic",
+    "wear_flags": "take",
+    "affects": [
+      {"level": 35, "apply": "constitution", "modifier": 2},
+      {"level": 35, "apply": "hit points",   "modifier": 30}
+    ]
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 4,
+    "name": "crown jewels rune token quest",
+    "short_descr": "the Crown Jewels of Rune",
+    "description": "The stolen Crown Jewels of Rune lie here, waiting to be returned.",
+    "material": "gold",
+    "item_type": "treasure",
+    "values": {},
+    "level": 1,
+    "weight": 5,
+    "cost": 0,
+    "extra_flags": "rotdeath",
+    "wear_flags": "take"
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 5,
+    "name": "sigil fallen king token quest",
+    "short_descr": "the Sigil of the Fallen King",
+    "description": "The ancient Sigil of the Fallen King has been left here.",
+    "material": "bronze",
+    "item_type": "treasure",
+    "values": {},
+    "level": 1,
+    "weight": 2,
+    "cost": 0,
+    "extra_flags": "rotdeath",
+    "wear_flags": "take"
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 6,
+    "name": "orb ancient power token quest",
+    "short_descr": "the Orb of Ancient Power",
+    "description": "A swirling crystal orb pulses with a faint inner light.",
+    "material": "crystal",
+    "item_type": "treasure",
+    "values": {},
+    "level": 1,
+    "weight": 8,
+    "cost": 0,
+    "extra_flags": "rotdeath",
+    "wear_flags": "take"
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 7,
+    "name": "sacred seal rune token quest",
+    "short_descr": "the Sacred Seal of Rune",
+    "description": "The Sacred Seal of Rune, stolen from the royal vault, rests here.",
+    "material": "bronze",
+    "item_type": "treasure",
+    "values": {},
+    "level": 1,
+    "weight": 3,
+    "cost": 0,
+    "extra_flags": "rotdeath",
+    "wear_flags": "take"
+  }},
+  {"object": {
+    "area": "quest",
+    "anum": 8,
+    "name": "heart realm token quest",
+    "short_descr": "the Heart of the Realm",
+    "description": "A gem pulsing with the lifeblood of the realm rests here, stolen away.",
+    "material": "crystal",
+    "item_type": "treasure",
+    "values": {},
+    "level": 1,
+    "weight": 1,
+    "cost": 0,
+    "extra_flags": "rotdeath",
+    "wear_flags": "take"
+  }}
+]

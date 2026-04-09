@@ -546,7 +546,7 @@
 #define TABLE_UNIQUE 3
 #define TABLE_INTERNAL 4
 
-#define TABLE_MAX 78
+#define TABLE_MAX 80
 #define TABLE_LENGTH_DYNAMIC -1
 
 /* Types of portals. */

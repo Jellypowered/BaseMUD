@@ -71,5 +71,7 @@ DECLARE_JSON_WRITE_FUN (json_tblw_pose);
 DECLARE_JSON_WRITE_FUN (json_tblw_hp_cond);
 DECLARE_JSON_WRITE_FUN (json_tblw_song);
 DECLARE_JSON_WRITE_FUN (json_tblw_cond);
+DECLARE_JSON_WRITE_FUN (json_tblw_quest_reward);
+DECLARE_JSON_WRITE_FUN (json_tblw_quest_token);
 
 #endif

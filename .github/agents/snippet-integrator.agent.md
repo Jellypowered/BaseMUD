@@ -14,6 +14,28 @@ You are a BaseMUD integration specialist. Your job is to receive code snippets (
 - DO NOT add features or refactoring beyond what the snippet requires
 - DO NOT use the terminal; use read and search tools only for investigation
 
+## Reference — BaseMUD Conventions
+
+**Read `.github/agents/cheatsheet.md` before Phase 2.** It contains verified findings from prior integrations and will prevent redundant searching.
+
+Key conventions to keep in mind throughout all phases:
+
+- **Build**: MSYS2/MinGW64, gcc 15.2; new .c files auto-picked up by Makefile wildcard
+- **Flags**: Bit flags are defined in `src/flags.h` and name-registered in `src/flags.c`. These are C-authoritative — `json/meta/flags/` is a generated export, not a config input. Any new or renamed flag requires edits to both files. Do not rely on the JSON meta to drive the C constant.
+- **Strings**: Check string allocation patterns (BaseMUD may differ from ROM's `str_alloc`/`free_string`)
+- **JSON**: All config and area data is JSON. Schema reference: `doc/Json_Documentation.md`. Check `json/config/` and `json/areas/` for counterparts when adding features
+- **Headers**: Each `.c` file has a matching `.h`; new symbols go in the appropriate header
+- **Struct fields**: BaseMUD struct definitions may have added, renamed, or removed fields vs. stock ROM/MERC
+
+## Reference — Default Conventions (apply unless user overrides)
+
+- **New spells/skills**: Add a JSON entry in `json/config/skills.json` with `"classes": {}` (unassigned/dormant). Do NOT assign class levels — the user will do this later via the web editor
+- **Slot numbers**: Must be globally unique. Check the slot table in `cheatsheet.md` and use the next available number. Update the cheatsheet after use
+- **act() calls**: Use `act3()` for ch+victim+room messages, `act2()` for ch+room. See cheatsheet for the pattern
+- **damage()**: Use `damage_visible()`. Check its `bool` return or `victim->position == POS_DEAD` in loops
+
+---
+
 ## Phase 1 — Snippet Analysis
 
 When a snippet is provided:
@@ -107,24 +129,6 @@ Update `json/help/credits.json` to record the contribution.
 **If it already exists**, append a new entry to the `text` of the `CREDITS` page, following the same `Feature --\n    Name` format. Do not modify other pages or entries.
 
 The feature description should be concise and plain-English (e.g., `Acid Rain spell`, `Extended affects system from MERC 2.2`). No code, no filenames, no URLs.
-
-## BaseMUD Conventions to Check
-
-Before investigating, read `.github/agents/cheatsheet.md` — it contains verified findings from prior integrations and will save redundant searching.
-
-- **Build**: MSYS2/MinGW64, gcc 15.2; new .c files auto-picked up by Makefile wildcard
-- **Flags**: Bit flags are defined in `src/flags.h` and name-registered in `src/flags.c`. These are C-authoritative — `json/meta/flags/` is a generated export, not a config input. Any new or renamed flag requires edits to both files. Do not rely on the JSON meta to drive the C constant.
-- **Strings**: Check string allocation patterns (BaseMUD may differ from ROM's `str_alloc`/`free_string`)
-- **JSON**: All config and area data is JSON. Schema reference: `doc/Json_Documentation.md`. Check `json/config/` and `json/areas/` for counterparts when adding features
-- **Headers**: Each `.c` file has a matching `.h`; new symbols go in the appropriate header
-- **Struct fields**: BaseMUD struct definitions may have added, renamed, or removed fields vs. stock ROM/MERC
-
-## Default Conventions (apply unless user overrides)
-
-- **New spells/skills**: Add a JSON entry in `json/config/skills.json` with `"classes": {}` (unassigned/dormant). Do NOT assign class levels — the user will do this later via the web editor
-- **Slot numbers**: Must be globally unique. Check the slot table in `cheatsheet.md` and use the next available number. Update the cheatsheet after use
-- **act() calls**: Use `act3()` for ch+victim+room messages, `act2()` for ch+room. See cheatsheet for the pattern
-- **damage()**: Use `damage_visible()`. Check its `bool` return or `victim->position == POS_DEAD` in loops
 
 ## Phase 8 — Cheatsheet Update
 

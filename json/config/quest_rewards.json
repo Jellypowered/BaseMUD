@@ -1,0 +1,62 @@
+[
+  {
+    "quest_reward": {
+      "id":       "amulet",
+      "label":    "Amulet of Moongate",
+      "keywords": "amulet",
+      "cost":     750,
+      "type":     "object",
+      "value":    200
+    }
+  },
+  {
+    "quest_reward": {
+      "id":       "shield",
+      "label":    "Shield of Moongate",
+      "keywords": "shield",
+      "cost":     750,
+      "type":     "object",
+      "value":    201
+    }
+  },
+  {
+    "quest_reward": {
+      "id":       "sword",
+      "label":    "Sword of Moongate",
+      "keywords": "sword",
+      "cost":     850,
+      "type":     "object",
+      "value":    202
+    }
+  },
+  {
+    "quest_reward": {
+      "id":       "throne",
+      "label":    "Throne of Moongate",
+      "keywords": "throne chair",
+      "cost":     1000,
+      "type":     "object",
+      "value":    203
+    }
+  },
+  {
+    "quest_reward": {
+      "id":       "practices",
+      "label":    "30 Practices",
+      "keywords": "practices pracs prac practice",
+      "cost":     500,
+      "type":     "practices",
+      "value":    30
+    }
+  },
+  {
+    "quest_reward": {
+      "id":       "gold",
+      "label":    "350,000 gold pieces",
+      "keywords": "gold gp",
+      "cost":     500,
+      "type":     "gold",
+      "value":    350000
+    }
+  }
+]

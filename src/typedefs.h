@@ -107,6 +107,8 @@ typedef struct wear_loc_type WEAR_LOC_T;
 typedef struct recycle_type RECYCLE_T;
 typedef struct obj_recycle_data OBJ_RECYCLE_T;
 typedef struct material_type MATERIAL_T;
+typedef struct quest_reward_type QUEST_REWARD_T;
+typedef struct quest_token_type  QUEST_TOKEN_T;
 typedef struct flag_stat_type FLAG_STAT_T;
 typedef struct table_type TABLE_T;
 typedef struct portal_exit_type PORTAL_EXIT_T;

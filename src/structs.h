@@ -673,6 +673,22 @@ struct liq_type
     sh_int serving_size;
 };
 
+/* Quest reward record - loaded from json/config/quest_rewards.json at boot. */
+struct quest_reward_type
+{
+    char *id;        /* identifier / primary keyword for 'quest buy <id>' */
+    char *label;     /* display text shown in 'quest list' */
+    char *keywords;  /* full namelist for 'quest buy' matching */
+    int   cost;      /* quest point cost */
+    char *type;      /* "object", "gold", "practices" (open-ended) */
+    int   value;     /* object vnum, gold amount, or practice count */
+};
+
+struct quest_token_type
+{
+    int   vnum;      /* object vnum for this quest token type */
+};
+
 /* Extra description data for a room or object. */
 struct extra_descr_data
 {

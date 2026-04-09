@@ -290,6 +290,7 @@ const FLAG_T area_flags[] = {
     {"changed", AREA_CHANGED, TRUE},
     {"added", AREA_ADDED, TRUE},
     {"loading", AREA_LOADING, FALSE},
+    {"hidden", AREA_HIDDEN, TRUE},
     {0}};
 
 const FLAG_T exit_flags[] = {

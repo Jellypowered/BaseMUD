@@ -1131,6 +1131,8 @@ These tables use heap-allocated storage and all internal per-entry sub-arrays ar
 | `portals.json`      | many      | Inter-area portal links (world data — fully writable)                                                                                                                                                                    |
 | `greetings.json`    | 1–4+      | Login greeting screens shown to connecting players. Up to 4 are chosen randomly at connect time. Supports `{x` color codes. Live-editable via `jreload greetings`. See [greetings](#greetings) schema below.            |
 | `races.json`        | 30        | Race definitions: flags, stats, ext flags. Fully dynamic; `RACE_MAX` has been removed from the codebase. `race_count` is used wherever race limits are needed.                                                           |
+| `quest_rewards.json` | 6        | Quest rewards purchasable with quest points. Each entry has an id, label, keyword aliases, cost, type, and value. See [quest_reward](#quest_reward) schema below.                                                      |
+| `quest_tokens.json`  | 5        | Object vnums used as random quest item targets. A random entry is chosen when a player is assigned an item recovery quest. See [quest_token](#quest_token) schema below.                                               |
 
 > **Note on remaining fixed-size sub-array limits:** The `shop.trades` array is dynamically allocated and sized to `MAX_TRADE = 16` entries per shop; adding more than 16 trade types requires raising `MAX_TRADE` in `src/defs.h` and recompiling. Songs loaded from `music.txt` are capped at `MAX_SONG_LINES = 100` lyrics per song.
 
@@ -1190,6 +1192,58 @@ The server will abort at boot if `greeting_count == 0` (i.e. the file is missing
   }
 ]
 ```
+
+---
+
+### quest_reward
+
+**File:** `json/config/quest_rewards.json`  
+**Wrapping key:** `"quest_reward"`
+
+Defines items and other rewards that players can purchase with accumulated quest points. The list is read into `quest_reward_table[]` at boot and drives both `quest list` and `quest buy` output.
+
+```json
+{
+  "quest_reward": {
+    "id":       "amulet",
+    "label":    "Amulet of Moongate",
+    "keywords": "amulet",
+    "cost":     750,
+    "type":     "object",
+    "value":    200
+  }
+}
+```
+
+| Field      | Type    | Req | Notes                                                                                                                                      |
+| ---------- | ------- | --- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`       | string  | yes | Unique string key. Used as a display identifier in the editor.                                                                             |
+| `label`    | string  | yes | Human-readable name shown in `quest list` output.                                                                                          |
+| `keywords` | string  | yes | Space-separated namelist matched by `quest buy <keyword>`. Must include at least one alias.                                                |
+| `cost`     | integer | yes | Quest points required to purchase.                                                                                                         |
+| `type`     | string  | yes | Reward category: `"object"` (gives item by vnum), `"gold"` (awards gold coins), or `"practices"` (adds practice sessions).               |
+| `value`    | integer | yes | Meaning depends on `type`: object vnum / gold amount / practice count.                                                                     |
+
+---
+
+### quest_token
+
+**File:** `json/config/quest_tokens.json`  
+**Wrapping key:** `"quest_token"`
+
+Defines the pool of object vnums used as quest item targets for recovery quests. When a player is assigned an item quest, the server picks a random entry from this list and spawns that object in a random room for the player to retrieve.
+
+All token objects live in the hidden `quest` area (vnums 204–208).
+
+```json
+{"quest_token": {"vnum": 204}}
+```
+
+| Field  | Type    | Req | Notes                                            |
+| ------ | ------- | --- | ------------------------------------------------ |
+| `vnum` | integer | yes | Global vnum of the object to use as quest token. |
+
+> **Note:** Object vnums must exist in a loaded area. The quest token objects (204–208, item_type `treasure`, extra_flag `rotdeath`) are defined in `json/areas/quest/objects.json`.
 
 ---
 

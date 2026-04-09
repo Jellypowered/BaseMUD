@@ -673,30 +673,87 @@ DEFINE_DO_FUN (do_resets) {
 
 /*****************************************************************************
  Name:      do_alist
- Purpose:   Normal command to list areas and display area information.
+ Purpose:   Immortal command to list all areas (including hidden) with color,
+            sorted by level range. Shows implied difficulty.
  Called by: interpreter(interp.c)
  ****************************************************************************/
+
+/* Comparator for do_alist: sort by low_range ascending, then high_range. */
+static int alist_area_cmp (const void *a, const void *b)
+{
+    const AREA_T *a1 = *(const AREA_T **)a;
+    const AREA_T *a2 = *(const AREA_T **)b;
+    if (a1->low_range != a2->low_range)
+        return a1->low_range - a2->low_range;
+    return a1->high_range - a2->high_range;
+}
+
 DEFINE_DO_FUN (do_alist) {
     char buf[MAX_STRING_LENGTH];
-    char result[MAX_STRING_LENGTH * 2];    /* May need tweaking. */
     AREA_T *area;
+    AREA_T **sorted;
+    int count, i;
 
     if (IS_NPC (ch))
         return;
-
-    sprintf (result, "[%3s] [%-27s] (%-5s-%5s) [%-10s] %3s [%-10s]\n\r",
-             "Num", "Area Name", "lvnum", "uvnum", "Filename", "Sec",
-             "Builders");
-
-    for (area = area_first; area; area = area->global_next) {
-        sprintf (buf,
-                 "[%3d] %-29.29s (%-5d-%5d) %-12.12s [%d] [%-10.10s]\n\r",
-                 area->vnum, area->title, area->min_vnum, area->max_vnum,
-                 area->filename, area->security, area->builders);
-        strcat (result, buf);
+    if (ch->level < LEVEL_IMMORTAL) {
+        send_to_char ("You must be an immortal to use this command.\n\r", ch);
+        return;
     }
 
-    send_to_char (result, ch);
+    /* Collect all areas (including hidden). */
+    count = 0;
+    for (area = area_first; area; area = area->global_next)
+        count++;
+
+    if (count == 0) {
+        send_to_char ("No areas loaded.\n\r", ch);
+        return;
+    }
+
+    sorted = calloc (count, sizeof (AREA_T *));
+    i = 0;
+    for (area = area_first; area; area = area->global_next)
+        sorted[i++] = area;
+    qsort (sorted, count, sizeof (AREA_T *), alist_area_cmp);
+
+    send_to_char ("{W[Num] [---Level Range---] [----Area Name----------] "
+                  "[--Filename--] Sec [Builders  ] Flags{x\n\r", ch);
+
+    for (i = 0; i < count; i++) {
+        const char *diff;
+        area = sorted[i];
+
+        /* Implied difficulty from level range. */
+        if (area->low_range == 0 && area->high_range == 0)
+            diff = "{Dall  ";
+        else if (area->high_range <= 10)
+            diff = "{Gnewb ";
+        else if (area->high_range <= 25)
+            diff = "{Geasy ";
+        else if (area->high_range <= 40)
+            diff = "{Ymid  ";
+        else if (area->high_range <= 55)
+            diff = "{Rhard ";
+        else
+            diff = "{Rimm  ";
+
+        sprintf (buf,
+                 "[{C%3d{x] ({G%3d{x-{G%3d{x) %s{x %-24.24s %-14.14s [%d] %-10.10s %s%s{x\n\r",
+                 area->vnum,
+                 area->low_range,
+                 area->high_range,
+                 diff,
+                 area->title,
+                 area->filename,
+                 area->security,
+                 area->builders,
+                 IS_SET (area->area_flags, AREA_HIDDEN) ? "{D[hidden]{x " : "",
+                 IS_SET (area->area_flags, AREA_CHANGED) ? "{Y[changed]{x" : "");
+        send_to_char (buf, ch);
+    }
+
+    free (sorted);
 }
 
 /*****************************************************************************
