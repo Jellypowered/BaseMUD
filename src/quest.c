@@ -55,14 +55,16 @@ void quest_give_reward(CHAR_T *ch, CHAR_T *questman, int n_targets)
     char buf[MAX_STRING_LENGTH];
     int n          = UMAX(1, n_targets);
     int divisor    = UMAX(1, quest_config.reward_level_divisor);
-    int xp_div     = UMAX(1, quest_config.xp_reward_divisor);
+    int xp_pct     = number_range(
+                         URANGE(1, quest_config.xp_reward_min_pct, 5),
+                         URANGE(1, quest_config.xp_reward_max_pct, 5));
     int reward, pointreward, xpreward;
 
     reward      = number_range(quest_config.gold_min, quest_config.gold_max)
                       * UMAX(1, ch->level) / divisor;
     pointreward = number_range(quest_config.qp_min, quest_config.qp_max)
                       * UMAX(1, ch->level) / divisor;
-    xpreward    = player_get_exp_per_level(ch) / xp_div;
+    xpreward    = player_get_exp_per_level(ch) * xp_pct / 100;
 
     /* Multi-target bonus: +25% per extra target */
     if (n > 1)
