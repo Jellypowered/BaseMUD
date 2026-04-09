@@ -147,7 +147,7 @@
     "index": 24,
     "name": "wiznet",
     "color_char": "B",
-    "default_color": "green back-none nobeep"
+    "default_color": "hi-blue back-none nobeep"
   }},
   {"color_setting": {
     "index": 25,
@@ -207,6 +207,6 @@
     "index": 34,
     "name": "fight_skill",
     "color_char": "5",
-    "default_color": "hi-white back-none nobeep"
+    "default_color": "magenta back-none nobeep"
   }}
 ]

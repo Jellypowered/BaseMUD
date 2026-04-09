@@ -27,6 +27,22 @@
 
 /*   QuickMUD - The Lazy Man's ROM - $Id: act_comm.c,v 1.2 2000/12/01 10:48:33 ring0 Exp $ */
 
+/* TODO: colour coverage revisit list
+ * The following files have minimal or no inline colour codes and are
+ * candidates for a future colour-enrichment pass:
+ *   src/update.c         -- non-interactive (tick messages); low priority
+ *   src/act_move.c       -- door/lock/unlock messages; see 'Rich Colorization' plan
+ *   src/spell_create.c   -- created item names ($p) in spells
+ *   src/spell_off.c      -- partial coverage; remaining damage/miss strings
+ *   src/wiz_l2.c-wiz_l8.c -- admin command output headers
+ *   src/act_olc.c        -- OLC builder output (immortal-only; lower priority)
+ * Semantic colour guide (for any new inline codes):
+ *   {C item/object names    {y mob/NPC names      {W player names
+ *   {G success/positive     {R failure/danger     {Y warnings/numbers
+ *   {g direction names      {x always reset after coloured segment
+ */
+
+
 #include "colour.h"
 
 #include "chars.h"
@@ -169,9 +185,8 @@ int colour_code_to_ansi(CHAR_T *ch, bool use_colour,
     case 'R':
         CTA(BD | CC_BRIGHT_RED);
         break;
-    case 'B':
-        CTA(BD | CC_BRIGHT_BLUE);
-        break;
+    /* 'B' is NOT hard-coded here -- it falls through to colour_setting_get_by_char()
+     * so the 'wiznet' channel setting (default: hi-blue) is actually configurable. */
     case 'C':
         CTA(BD | CC_BRIGHT_CYAN);
         break;
@@ -188,17 +203,16 @@ int colour_code_to_ansi(CHAR_T *ch, bool use_colour,
         CTA(BD | CC_BRIGHT_WHITE);
         break;
 
-    case '5':
-        CTA(BD | CC_MAGENTA);
-        break; /* {5 now maps to magenta */
+    /* '5' is NOT hard-coded here -- it falls through to colour_setting_get_by_char()
+     * so the 'fight_skill' channel setting (default: magenta) is actually configurable. */
 
     case 'x':
         CTA(CC_CLEAR);
         break;
 
-    case 'F':
-        strcpy(code, "\x1b[5m");
-        break; /* {F = blink */
+    /* 'F' is NOT hard-coded here -- it falls through to colour_setting_get_by_char()
+     * so the 'answer_text' channel setting (default: hi-white) is actually configurable.
+     * Use {! for blink. */
     case '!':
         strcpy(code, "\x1b[5m");
         break; /* {! = blink */

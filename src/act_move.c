@@ -632,7 +632,7 @@ DEFINE_DO_FUN (do_recall) {
         lose = (ch->desc != NULL) ? 25 : 50;
         player_gain_exp (ch, 0 - lose);
         player_try_skill_improve (ch, SN(RECALL), TRUE, 4);
-        printf_to_char (ch, "You recall from combat!  You lose %d exps.\n\r",
+        printf_to_char (ch, "{RYou recall from combat!{x  You lose {Y%d{x exps.\n\r",
             lose);
         stop_fighting (ch, TRUE);
     }

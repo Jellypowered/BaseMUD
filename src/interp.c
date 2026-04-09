@@ -166,6 +166,7 @@ const CMD_T cmd_table[] = {
     /*  {"channels",    do_channels,    POS_DEAD,     0,  LOG_NORMAL, 1 }, */
     {"colour", do_colour, POS_DEAD, 0, LOG_NORMAL, 1},
     {"color", do_colour, POS_DEAD, 0, LOG_NORMAL, 1},
+    {"theme", do_theme, POS_DEAD, 0, LOG_NORMAL, 1},
     {"combine", do_combine, POS_DEAD, 0, LOG_NORMAL, 1},
     {"compact", do_compact, POS_DEAD, 0, LOG_NORMAL, 1},
     {"description", do_description, POS_DEAD, 0, LOG_NORMAL, 1},

@@ -38,11 +38,157 @@
 #include "interp.h"
 #include "lookup.h"
 #include "memory.h"
+#include "players.h"
 #include "tables.h"
 #include "utils.h"
 
 #include <stdlib.h>
 #include <string.h>
+
+/* =========================================================================
+ * Colour theme support
+ * ========================================================================= */
+
+typedef struct theme_override_type {
+    const char *setting;   /* colour_setting name */
+    const char *colour;    /* colour_to_full_name-compatible string */
+} THEME_OVR_T;
+
+typedef struct colour_theme_def_type {
+    const char *name;
+    const char *description;
+    THEME_OVR_T overrides[14]; /* {NULL,NULL} sentinel-terminated */
+} COLOUR_THEME_DEF_T;
+
+static const COLOUR_THEME_DEF_T colour_theme_defs[] = {
+    { "classic",
+      "Warm retro terminal -- greens, ambers, and muted tones.",
+      {
+        { "room_title",  "yellow back-none nobeep"    },
+        { "tell",        "yellow back-none nobeep"    },
+        { "tell_text",   "hi-yellow back-none nobeep" },
+        { "reply",       "yellow back-none nobeep"    },
+        { "reply_text",  "hi-yellow back-none nobeep" },
+        { "fight_skill", "yellow back-none nobeep"    },
+        { NULL, NULL }
+      }
+    },
+    { "modern",
+      "Clean dark-terminal look -- cyans, bright whites, and crisp greens.",
+      {
+        { "room_title",  "hi-cyan back-none nobeep"   },
+        { "room_exits",  "hi-green back-none nobeep"  },
+        { "say",         "cyan back-none nobeep"      },
+        { "say_text",    "hi-white back-none nobeep"  },
+        { "tell",        "hi-green back-none nobeep"  },
+        { "tell_text",   "hi-white back-none nobeep"  },
+        { "reply",       "hi-green back-none nobeep"  },
+        { "reply_text",  "hi-white back-none nobeep"  },
+        { "wiznet",      "hi-cyan back-none nobeep"   },
+        { "immtalk_text","hi-cyan back-none nobeep"   },
+        { NULL, NULL }
+      }
+    },
+    { "sharp",
+      "Maximum contrast -- bold primaries for easy scanning.",
+      {
+        { "room_title",  "hi-white back-none nobeep"  },
+        { "room_exits",  "hi-green back-none nobeep"  },
+        { "room_things", "hi-cyan back-none nobeep"   },
+        { "say",         "hi-green back-none nobeep"  },
+        { "say_text",    "hi-white back-none nobeep"  },
+        { "tell",        "hi-yellow back-none nobeep" },
+        { "tell_text",   "hi-white back-none nobeep"  },
+        { "reply",       "hi-yellow back-none nobeep" },
+        { "reply_text",  "hi-white back-none nobeep"  },
+        { "fight_ohit",  "hi-yellow back-none nobeep" },
+        { "fight_skill", "hi-white back-none nobeep"  },
+        { NULL, NULL }
+      }
+    },
+    { NULL, NULL, { { NULL, NULL } } }
+};
+
+/* Apply a named theme to a character, resetting to defaults first.
+ * Passing an unknown or NULL name sets only the theme label to "custom". */
+void theme_apply (CHAR_T *ch, const char *name) {
+    const COLOUR_THEME_DEF_T *theme = NULL;
+    const THEME_OVR_T *ovr;
+    int t;
+
+    if (IS_NPC(ch) || ch->pcdata == NULL)
+        return;
+
+    /* Find the theme by name. */
+    for (t = 0; colour_theme_defs[t].name != NULL; t++) {
+        if (!str_cmp(colour_theme_defs[t].name, name)) {
+            theme = &colour_theme_defs[t];
+            break;
+        }
+    }
+
+    /* Reset all colours to their defaults, then overlay the theme. */
+    player_reset_colour(ch);
+
+    if (theme != NULL) {
+        for (ovr = theme->overrides; ovr->setting != NULL; ovr++) {
+            const COLOUR_SETTING_T *s = colour_setting_get_by_name(ovr->setting);
+            if (s != NULL)
+                ch->pcdata->colour[s->index] = colour_from_full_name(ovr->colour);
+        }
+    }
+
+    /* Record the active theme name. */
+    str_free(&ch->pcdata->colour_theme);
+    ch->pcdata->colour_theme = str_dup(theme != NULL ? name : "custom");
+}
+
+DEFINE_DO_FUN (do_theme) {
+    char arg[MAX_INPUT_LENGTH];
+    int t;
+
+    BAIL_IF(IS_NPC(ch), "NPCs can't use themes.\n\r", ch);
+
+    one_argument(argument, arg);
+
+    /* No args -- list available themes */
+    if (arg[0] == '\0') {
+        const char *current = (ch->pcdata->colour_theme != NULL)
+                                ? ch->pcdata->colour_theme : "custom";
+        printf_to_char(ch,
+            "{CColour Themes{x  (current: {Y%s{x)\n\r"
+            "----------------------------------------------\n\r",
+            current);
+        for (t = 0; colour_theme_defs[t].name != NULL; t++) {
+            bool active = !str_cmp(colour_theme_defs[t].name, current);
+            printf_to_char(ch, "  {%s%-10s{x  %s\n\r",
+                active ? "Y" : "w",
+                colour_theme_defs[t].name,
+                colour_theme_defs[t].description);
+        }
+        send_to_char(
+            "----------------------------------------------\n\r"
+            "Usage: {Ctheme <name>{x\n\r"
+            "Manual 'colour' adjustments change theme to {Ycustom{x.\n\r",
+            ch);
+        return;
+    }
+
+    /* Apply the named theme */
+    for (t = 0; colour_theme_defs[t].name != NULL; t++) {
+        if (!str_cmp(colour_theme_defs[t].name, arg)) {
+            theme_apply(ch, colour_theme_defs[t].name);
+            printf_to_char(ch,
+                "Theme set to {Y%s{x: %s\n\r",
+                colour_theme_defs[t].name,
+                colour_theme_defs[t].description);
+            return;
+        }
+    }
+
+    printf_to_char(ch,
+        "Unknown theme '%s'. Type '{Ctheme{x' for a list.\n\r", arg);
+}
 
 void do_colour_one (CHAR_T *ch, const COLOUR_SETTING_T *setting,
     const COLOUR_T *colour, bool use_default, char *buf)
@@ -70,6 +216,12 @@ void do_colour_one (CHAR_T *ch, const COLOUR_SETTING_T *setting,
     if (colour != NULL) {
         *col_flag &= ~(colour->mask);
         *col_flag |= colour->code;
+    }
+
+    /* Manual colour change -- break away from any active preset theme. */
+    if ((colour != NULL || use_default) && ch->pcdata != NULL) {
+        str_free(&ch->pcdata->colour_theme);
+        ch->pcdata->colour_theme = str_dup("custom");
     }
 
     /* Show us the colour... /in colour!/ */
@@ -164,8 +316,10 @@ DEFINE_DO_FUN (do_colour) {
 
     argument = one_argument (argument, arg1);
     if (!*arg1) {
+        const char *theme_name = (ch->pcdata && ch->pcdata->colour_theme)
+            ? ch->pcdata->colour_theme : "custom";
         printf_to_char (ch,
-            "Colour is currently %s.\n\r"
+            "Colour is currently %s.  Theme: {Y%s{x\n\r"
             "Colour syntax:\n\r"
             "    colour on\n\r"
             "    colour off\n\r"
@@ -173,8 +327,10 @@ DEFINE_DO_FUN (do_colour) {
             "    colour <field>|all\n\r"
             "    colour <field>|all default\n\r"
             "    colour <field>|all <colour>\n\r"
-            "    colour <field>|all beep|nobeep\n\r",
-            EXT_IS_SET (ch->ext_plr, PLR_COLOUR) ? "ON" : "OFF");
+            "    colour <field>|all beep|nobeep\n\r"
+            "Use '{Ctheme{x' to switch presets.\n\r",
+            EXT_IS_SET (ch->ext_plr, PLR_COLOUR) ? "ON" : "OFF",
+            theme_name);
         return;
     }
 
@@ -217,7 +373,21 @@ DEFINE_DO_FUN (do_colour) {
     buf[0] = '\0';
     if (!str_cmp (arg1, "all")) {
         int i;
-        for (i = 0; i < COLOUR_SETTING_MAX; i++)
+        const char *theme_name = (ch->pcdata && ch->pcdata->colour_theme)
+            ? ch->pcdata->colour_theme : "custom";
+        strcat (buf, "{CTheme:{x {Y");
+        strcat (buf, theme_name);
+        strcat (buf, "{x  ('{Ctheme{x' to switch presets)\n\r\n\r");
+        strcat (buf, "{C--- Channels --------------------------------{x\n\r");
+        for (i = 0; i < 24; i++)
+            do_colour_one (ch, &(colour_setting_table[i]),
+                colour, use_default, buf);
+        strcat (buf, "\n\r{C--- Room -------------------------------------{x\n\r");
+        for (i = 24; i < 30; i++)
+            do_colour_one (ch, &(colour_setting_table[i]),
+                colour, use_default, buf);
+        strcat (buf, "\n\r{C--- Combat ----------------------------------{x\n\r");
+        for (i = 30; i < COLOUR_SETTING_MAX; i++)
             do_colour_one (ch, &(colour_setting_table[i]),
                 colour, use_default, buf);
         page_to_char (buf, ch);

@@ -115,7 +115,7 @@ void do_drop_single_item (CHAR_T *ch, OBJ_T *obj) {
         "$p: You can't let go of it.", ch, obj, NULL);
 
     obj_give_to_room (obj, ch->in_room);
-    act2 ("You drop $p.",
+    act2 ("You drop {C$p{x.",
           "$n drops $p.", ch, obj, NULL, 0, POS_RESTING);
 
     if (IS_OBJ_STAT (obj, ITEM_MELT_DROP)) {
@@ -770,9 +770,9 @@ DEFINE_DO_FUN (do_sacrifice) {
 #endif
 
     if (silver == 1)
-        send_to_char ("Mota gives you one silver coin for your sacrifice.\n\r", ch);
+        send_to_char ("Mota gives you {yone{x silver coin for your sacrifice.\n\r", ch);
     else {
-        printf_to_char (ch, "Mota gives you %d silver coins for your sacrifice.\n\r",
+        printf_to_char (ch, "Mota gives you {y%d{x silver coins for your sacrifice.\n\r",
             silver);
     }
 
@@ -805,7 +805,7 @@ DEFINE_DO_FUN (do_junk) {
         "You can't let go of it.\n\r", ch);
 
     act ("$n junks $p.", ch, obj, NULL, TO_NOTCHAR);
-    act ("You junk $p.", ch, obj, NULL, TO_CHAR);
+    act ("You junk {C$p{x.", ch, obj, NULL, TO_CHAR);
     obj_extract (obj);
 }
 

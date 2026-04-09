@@ -469,7 +469,7 @@ DEFINE_TRAIN_STAT_FUN(train_stat_do_stat)
 
     if (!silent)
     {
-        act("Your $T increases!", ch, NULL, ts->name, TO_CHAR);
+        act("{GYour $T increases!{x", ch, NULL, ts->name, TO_CHAR);
         act("$n's $T increases!", ch, NULL, ts->name, TO_NOTCHAR);
     }
     return 0;
@@ -491,7 +491,7 @@ DEFINE_TRAIN_STAT_FUN(train_stat_do_hp_mana)
     }
     if (!silent)
     {
-        act("Your $T increases!", ch, NULL, ts->name, TO_CHAR);
+        act("{GYour $T increases!{x", ch, NULL, ts->name, TO_CHAR);
         act("$n's $T increases!", ch, NULL, ts->name, TO_NOTCHAR);
     }
     return 0;
@@ -573,13 +573,13 @@ DEFINE_DO_FUN(do_practice)
     ch->pcdata->learned[sn] += char_int_learn_rate(ch) / UMAX(1, rating);
     if (ch->pcdata->learned[sn] < adept)
     {
-        act2("You practice $T.", "$n practices $T.",
+        act2("You practice {C$T{x.", "$n practices $T.",
              ch, NULL, skill_table[sn].name, 0, POS_RESTING);
     }
     else
     {
         ch->pcdata->learned[sn] = adept;
-        act2("You are now learned at $T.", "$n is now learned at $T.",
+        act2("{GYou are now learned at {C$T{x{G!{x", "$n is now learned at $T.",
              ch, NULL, skill_table[sn].name, 0, POS_RESTING);
     }
 }

@@ -36,6 +36,7 @@
 #include "nanny.h"
 
 #include "act_board.h"
+#include "act_conf.h"
 #include "act_info.h"
 #include "act_obj.h"
 #include "act_skills.h"
@@ -1051,6 +1052,9 @@ DEFINE_NANNY_FUN(nanny_read_motd)
             EXT_SET(ch->ext_plr, PLR_COLOUR);
         if (mud_telnetga)
             SET_BIT(ch->comm, COMM_TELNET_GA);
+
+        /* Apply the default colour theme for new characters. */
+        theme_apply(ch, "modern");
 
         ch->perm_stat[class_table[ch->class].attr_prime] += 3;
 

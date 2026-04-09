@@ -651,7 +651,8 @@ struct pc_data
     time_t *last_note; /* BOARD_MAX entries (heap) */
     NOTE_T *in_progress;
     int security;   /* OLC - Builder security */
-    flag_t *colour; /* COLOUR_SETTING_MAX entries (heap) */
+    flag_t *colour;       /* COLOUR_SETTING_MAX entries (heap) */
+    char *colour_theme;    /* active colour theme name, or "custom" */
     int pkkills;    /* PK kills */
     int pkdeaths;   /* PK deaths */
 

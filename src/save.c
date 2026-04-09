@@ -262,6 +262,8 @@ void fwrite_char(CHAR_T *ch, FILE *fp)
                 ch->pcdata->cond_hours[2], ch->pcdata->cond_hours[3]);
         for (i = 0; i < COLOUR_SETTING_MAX; i++)
             fprintf(fp, "Colour %d %ld\n", i, ch->pcdata->colour[i]);
+        if (ch->pcdata->colour_theme != NULL)
+            fprintf(fp, "CTheme %s~\n", ch->pcdata->colour_theme);
 
         /* write alias */
         for (pos = 0; pos < MAX_ALIAS; pos++)
@@ -505,6 +507,7 @@ bool load_char_obj(DESCRIPTOR_T *d, char *name)
     ch->pcdata->bamfin = str_dup("");
     ch->pcdata->bamfout = str_dup("");
     ch->pcdata->title = str_dup("");
+    ch->pcdata->colour_theme = str_dup("modern");
     for (stat = 0; stat < STAT_MAX; stat++)
         ch->perm_stat[stat] = 13;
     ch->pcdata->cond_hours[COND_THIRST] = COND_HOURS_MAX;
@@ -1003,6 +1006,8 @@ void fread_char(CHAR_T *ch, FILE *fp)
                 ch->pcdata->colour[fread_number(fp)] = fread_flag(fp, NULL);
                 match = TRUE;
             }
+
+            KEYS("CTheme", ch->pcdata->colour_theme, fread_string_dup(fp));
             break;
 
         case 'D':

@@ -6,7 +6,7 @@
     "look_msg": "<in inventory>",
     "wear_flag": null,
     "ac_bonus": 0,
-    "wear_msg_self": "You wear $p nowhere (??).",
+    "wear_msg_self": "You wear {C$p{x nowhere (??).",
     "wear_msg_room": "$n wears $p nowhere (??)."
   }},
   {"wear_loc": {
@@ -16,7 +16,7 @@
     "look_msg": "<used as light>",
     "wear_flag": null,
     "ac_bonus": 0,
-    "wear_msg_self": "You light $p and hold it.",
+    "wear_msg_self": "You light {C$p{x and hold it.",
     "wear_msg_room": "$n lights $p and holds it."
   }},
   {"wear_loc": {
@@ -26,7 +26,7 @@
     "look_msg": "<worn on L-finger>",
     "wear_flag": "finger",
     "ac_bonus": 0,
-    "wear_msg_self": "You wear $p on your left finger.",
+    "wear_msg_self": "You wear {C$p{x on your left finger.",
     "wear_msg_room": "$n wears $p on $s left finger."
   }},
   {"wear_loc": {
@@ -36,7 +36,7 @@
     "look_msg": "<worn on R-finger>",
     "wear_flag": "finger",
     "ac_bonus": 0,
-    "wear_msg_self": "You wear $p on your right finger.",
+    "wear_msg_self": "You wear {C$p{x on your right finger.",
     "wear_msg_room": "$n wears $p on $s right finger."
   }},
   {"wear_loc": {
@@ -46,7 +46,7 @@
     "look_msg": "<worn around neck 1>",
     "wear_flag": "neck",
     "ac_bonus": 100,
-    "wear_msg_self": "You wear $p around your neck.",
+    "wear_msg_self": "You wear {C$p{x around your neck.",
     "wear_msg_room": "$n wears $p around $s neck."
   }},
   {"wear_loc": {
@@ -56,7 +56,7 @@
     "look_msg": "<worn around neck 2>",
     "wear_flag": "neck",
     "ac_bonus": 100,
-    "wear_msg_self": "You wear $p around your neck.",
+    "wear_msg_self": "You wear {C$p{x around your neck.",
     "wear_msg_room": "$n wears $p around $s neck."
   }},
   {"wear_loc": {
@@ -66,7 +66,7 @@
     "look_msg": "<worn on torso>",
     "wear_flag": "body",
     "ac_bonus": 300,
-    "wear_msg_self": "You wear $p on your torso.",
+    "wear_msg_self": "You wear {C$p{x on your torso.",
     "wear_msg_room": "$n wears $p on $s torso."
   }},
   {"wear_loc": {
@@ -76,7 +76,7 @@
     "look_msg": "<worn on head>",
     "wear_flag": "head",
     "ac_bonus": 200,
-    "wear_msg_self": "You wear $p on your head.",
+    "wear_msg_self": "You wear {C$p{x on your head.",
     "wear_msg_room": "$n wears $p on $s head."
   }},
   {"wear_loc": {
@@ -86,7 +86,7 @@
     "look_msg": "<worn on legs>",
     "wear_flag": "legs",
     "ac_bonus": 200,
-    "wear_msg_self": "You wear $p on your legs.",
+    "wear_msg_self": "You wear {C$p{x on your legs.",
     "wear_msg_room": "$n wears $p on $s legs."
   }},
   {"wear_loc": {
@@ -96,7 +96,7 @@
     "look_msg": "<worn on feet>",
     "wear_flag": "feet",
     "ac_bonus": 100,
-    "wear_msg_self": "You wear $p on your feet.",
+    "wear_msg_self": "You wear {C$p{x on your feet.",
     "wear_msg_room": "$n wears $p on $s feet."
   }},
   {"wear_loc": {
@@ -106,7 +106,7 @@
     "look_msg": "<worn on hands>",
     "wear_flag": "hands",
     "ac_bonus": 100,
-    "wear_msg_self": "You wear $p on your hands.",
+    "wear_msg_self": "You wear {C$p{x on your hands.",
     "wear_msg_room": "$n wears $p on $s hands."
   }},
   {"wear_loc": {
@@ -116,7 +116,7 @@
     "look_msg": "<worn on arms>",
     "wear_flag": "arms",
     "ac_bonus": 100,
-    "wear_msg_self": "You wear $p on your arms.",
+    "wear_msg_self": "You wear {C$p{x on your arms.",
     "wear_msg_room": "$n wears $p on $s arms."
   }},
   {"wear_loc": {
@@ -126,7 +126,7 @@
     "look_msg": "<worn as shield>",
     "wear_flag": "shield",
     "ac_bonus": 100,
-    "wear_msg_self": "You wear $p as a shield.",
+    "wear_msg_self": "You wear {C$p{x as a shield.",
     "wear_msg_room": "$n wears $p as a shield."
   }},
   {"wear_loc": {
@@ -136,7 +136,7 @@
     "look_msg": "<worn about body>",
     "wear_flag": "about",
     "ac_bonus": 200,
-    "wear_msg_self": "You wear $p about your torso.",
+    "wear_msg_self": "You wear {C$p{x about your torso.",
     "wear_msg_room": "$n wears $p about $s torso."
   }},
   {"wear_loc": {
@@ -146,7 +146,7 @@
     "look_msg": "<worn about waist>",
     "wear_flag": "waist",
     "ac_bonus": 100,
-    "wear_msg_self": "You wear $p about your waist.",
+    "wear_msg_self": "You wear {C$p{x about your waist.",
     "wear_msg_room": "$n wears $p about $s waist."
   }},
   {"wear_loc": {
@@ -156,7 +156,7 @@
     "look_msg": "<worn around L-wrist>",
     "wear_flag": "wrist",
     "ac_bonus": 100,
-    "wear_msg_self": "You wear $p around your left wrist.",
+    "wear_msg_self": "You wear {C$p{x around your left wrist.",
     "wear_msg_room": "$n wears $p around $s left wrist."
   }},
   {"wear_loc": {
@@ -166,7 +166,7 @@
     "look_msg": "<worn around R-wrist>",
     "wear_flag": "wrist",
     "ac_bonus": 100,
-    "wear_msg_self": "You wear $p around your right wrist.",
+    "wear_msg_self": "You wear {C$p{x around your right wrist.",
     "wear_msg_room": "$n wears $p around $s right wrist."
   }},
   {"wear_loc": {
@@ -176,7 +176,7 @@
     "look_msg": "<wielded>",
     "wear_flag": "wield",
     "ac_bonus": 0,
-    "wear_msg_self": "You wield $p.",
+    "wear_msg_self": "You wield {C$p{x.",
     "wear_msg_room": "$n wields $p."
   }},
   {"wear_loc": {
@@ -186,7 +186,7 @@
     "look_msg": "<held>",
     "wear_flag": "hold",
     "ac_bonus": 100,
-    "wear_msg_self": "You hold $p in your hand.",
+    "wear_msg_self": "You hold {C$p{x in your hand.",
     "wear_msg_room": "$n holds $p in $s hand."
   }},
   {"wear_loc": {
@@ -196,7 +196,7 @@
     "look_msg": "<floating nearby>",
     "wear_flag": "wearfloat",
     "ac_bonus": 0,
-    "wear_msg_self": "You release $p and it floats next to you.",
+    "wear_msg_self": "You release {C$p{x and it floats next to you.",
     "wear_msg_room": "$n releases $p to float next to $m."
   }},
   {"wear_loc": {
@@ -206,7 +206,7 @@
     "look_msg": "<worn on tail>",
     "wear_flag": "weartail",
     "ac_bonus": 100,
-    "wear_msg_self": "You wear $p on your tail.",
+    "wear_msg_self": "You wear {C$p{x on your tail.",
     "wear_msg_room": "$n wears $p on $s tail."
   }}
 ]

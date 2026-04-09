@@ -1062,13 +1062,13 @@ void char_take_obj(CHAR_T *ch, OBJ_T *obj, OBJ_T *container)
             obj->timer = 0;
         }
 
-        act2("You get $p from $P.", "$n gets $p from $P.",
+        act2("You get {C$p{x from {c$P{x.", "$n gets {C$p{x from $P.",
              ch, obj, container, 0, POS_RESTING);
         REMOVE_BIT(obj->extra_flags, ITEM_HAD_TIMER);
     }
     else
     {
-        act2("You get $p.", "$n gets $p.",
+        act2("You get {C$p{x.", "$n gets $p.",
              ch, obj, container, 0, POS_RESTING);
     }
 
@@ -1133,7 +1133,7 @@ bool char_wear_obj(CHAR_T *ch, OBJ_T *obj, bool replace)
         if (replace)
         {
             printf_to_char(ch,
-                           "You must be level %d to use this object.\n\r", obj->level);
+                           "{RYou must be level %d to use this object.{x\n\r", obj->level);
             act("$n tries to use $p, but is too inexperienced.",
                 ch, obj, NULL, TO_NOTCHAR);
         }
@@ -1210,19 +1210,19 @@ bool char_wear_obj(CHAR_T *ch, OBJ_T *obj, bool replace)
             char *msg;
             int skill = char_get_weapon_skill(ch, sn);
             if (skill >= 100)
-                msg = "$p feels like a part of you!";
+                msg = "{G$p feels like a part of you!{x";
             else if (skill > 85)
-                msg = "You feel quite confident with $p.";
+                msg = "{G$p feels like an extension of yourself.{x";
             else if (skill > 70)
-                msg = "You are skilled with $p.";
+                msg = "{gYou are skilled with $p.{x";
             else if (skill > 50)
                 msg = "Your skill with $p is adequate.";
             else if (skill > 25)
-                msg = "$p feels a little clumsy in your hands.";
+                msg = "{Y$p feels a little clumsy in your hands.{x";
             else if (skill > 1)
-                msg = "You fumble and almost drop $p.";
+                msg = "{YYou fumble and almost drop $p.{x";
             else
-                msg = "You don't even know which end is up on $p.";
+                msg = "{RYou don't even know which end is up on $p.{x";
             act(msg, ch, obj, NULL, TO_CHAR);
         }
     }

@@ -445,6 +445,7 @@ DEFINE_DISPOSE_FUN(pcdata_dispose)
     str_free(&(pcdata->bamfin));
     str_free(&(pcdata->bamfout));
     str_free(&(pcdata->title));
+    str_free(&(pcdata->colour_theme));
     buf_free(pcdata->buffer);
 
     for (alias = 0; alias < MAX_ALIAS; alias++)
