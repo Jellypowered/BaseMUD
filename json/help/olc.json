@@ -384,6 +384,34 @@
               |   value 3    unused
               |   value 4    unused
               |"
+    },
+    {
+      "keyword": "JRELOAD",
+      "level": 60,
+      "text": "Syntax: jreload list
+              |Syntax: jreload <table_name>
+              |Syntax: jreload areas <area_name>
+              |Syntax: jreload help <file_name>
+              |Syntax: jreload quest_config
+              |
+              |Live-reload JSON data without restarting the server. All uses are
+              |logged at LOG_ALWAYS.
+              |
+              |  jreload list               - List all reloadable config table names.
+              |  jreload <table_name>       - Reload a config table from json/config/
+              |                               (use 'jreload list' to see valid names).
+              |  jreload areas <name>       - Force-reload all JSON files for one area
+              |                               (rooms, mobs, objects, resets, area meta).
+              |                               Name must match the folder under json/areas/.
+              |  jreload help <name>        - Reload one help bundle from json/help/<name>.json
+              |                               e.g. 'jreload help quest', 'jreload help olc'.
+              |                               Stale pages from the previous load are removed.
+              |  jreload quest_config       - Reload json/config/quest_config.json (quest
+              |                               tuning parameters). Only affects new quests
+              |                               started after the reload.
+              |
+              |See also: ALIST AEDIT OLC EDIT
+              |"
     }
   ]
 }}]

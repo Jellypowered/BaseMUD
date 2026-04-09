@@ -140,6 +140,7 @@ Social message strings use substitution placeholders: `$n` actor name, `$N` targ
 | `security`   | integer | yes   | OLC security level required to edit. Range: 0�9.                   |
 | `low_range`  | integer | (opt) | Recommended minimum player level. Default: 0.                      |
 | `high_range` | integer | (opt) | Recommended maximum player level. Default: 0 (any).                |
+| `hidden`     | boolean | (opt) | When `true`, the area is excluded from the `areas` list shown to players. Useful for internal/system areas (e.g. quest token storage). Default: `false`. |
 
 ---
 
@@ -930,9 +931,11 @@ All multi-flag fields accept space-separated flag name strings. Omit the field e
 
 ### mob_flags
 
-`sentinel`, `scavenger`, `aggressive`, `stay_area`, `wimpy`, `pet`, `train`, `practice`, `undead`, `cleric`, `mage`, `thief`, `warrior`, `noalign`, `nopurge`, `outdoors`, `indoors`, `healer`, `gain`, `update_always`, `changer`
+`sentinel`, `scavenger`, `aggressive`, `stay_area`, `wimpy`, `pet`, `train`, `practice`, `undead`, `cleric`, `mage`, `thief`, `warrior`, `noalign`, `nopurge`, `outdoors`, `indoors`, `healer`, `gain`, `update_always`, `changer`, `noquest`
 
 > `npc` is set automatically and should not be included in mob_flags.
+
+> **`noquest`** — Prevents a mobile from being assigned as a quest target. Set this on mobs that shouldn't be killable for quests (shopkeepers, guards, quest-givers, etc.).
 
 ### extra_flags
 
@@ -1120,6 +1123,30 @@ The following fields are computed at server load time from surrounding context. 
 ## Config Tables: What You Can Edit Live
 
 All files in `json/config/` are **loaded from JSON at boot**, not baked into the binary. This means most of them are fully editable — you change the file and restart the server (or use `jreload`). However some tables have fixed-size C arrays, so there is an upper cap on how many entries they can hold.
+
+### jreload Reference
+
+`jreload` is an implementor-only (level 60) command for live-reloading JSON data without restarting the server. It is always logged.
+
+```
+jreload list                -- list all reloadable config table names
+jreload <table_name>        -- reload a config table (e.g. jreload greetings)
+jreload areas <name>        -- force-reload all JSON files for one area (e.g. jreload areas midgaard)
+jreload help <name>         -- reload a help JSON file (e.g. jreload help quest)
+jreload quest_config        -- reload quest system parameters (quest_config.json)
+```
+
+| Subcommand               | What it reloads                                               |
+| ------------------------ | ------------------------------------------------------------- |
+| `list`                   | Prints all table names accepted by `jreload <table_name>`.   |
+| `<table_name>`           | Any config table in `json/config/` (see `jreload list`).     |
+| `areas <name>`           | All JSON entity files for the named area (rooms, mobs, objects, resets, area meta). The area name must match the folder under `json/areas/`. |
+| `help <name>`            | One help bundle from `json/help/<name>.json` (e.g. `quest`, `olc`, `rom`). All pages in the file are re-read; stale pages are removed. |
+| `quest_config`           | `json/config/quest_config.json` — quest tuning parameters.   |
+
+> Quests already in progress use parameter values that were active when the quest was assigned. `jreload quest_config` only affects **new** quests started after the reload.
+
+
 
 ### Fully editable, no cap concerns
 
