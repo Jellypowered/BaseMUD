@@ -825,11 +825,12 @@ void do_jsave_table(CHAR_T *ch, const char *arg)
     json_export_table(table, JSON_EXPORT_MODE_SAVE);
 }
 
-#define DO_JRELOAD_SYNTAX                                         \
-    "Syntax for 'jreload':\n\r"                                   \
-    "    jreload list              -- show reloadable tables\n\r" \
-    "    jreload <table_name>      -- reload a config table\n\r"  \
-    "    jreload areas <name>      -- force-reload an area\n\r"
+#define DO_JRELOAD_SYNTAX                                               \
+    "Syntax for 'jreload':\n\r"                                         \
+    "    jreload list              -- show reloadable tables\n\r"       \
+    "    jreload <table_name>      -- reload a config table\n\r"        \
+    "    jreload areas <name>      -- force-reload an area\n\r"         \
+    "    jreload help <name>       -- reload a help file (e.g. quest)\n\r"
 
 DEFINE_DO_FUN(do_jreload)
 {
@@ -874,6 +875,24 @@ DEFINE_DO_FUN(do_jreload)
 #else
         send_to_char("Hotreload is not enabled in this build.\n\r", ch);
 #endif
+        return;
+    }
+
+    /* Reload a help file by name (e.g. jreload help quest). */
+    if (!str_prefix(arg1, "help"))
+    {
+        int count;
+        BAIL_IF(arg2[0] == '\0', DO_JRELOAD_SYNTAX, ch);
+        printf_to_char(ch, "[jreload] Reloading help file '%s'...\n\r", arg2);
+        wiznetf(ch, NULL, 0, 0, 0,
+                "[jreload] $N is reloading help file '%s'.", arg2);
+        count = json_reload_help_area(arg2);
+        if (count == 0)
+            printf_to_char(ch, "[jreload] Failed - check logs.\n\r");
+        else
+            printf_to_char(ch, "[jreload] Done - %d object(s) loaded.\n\r", count);
+        log_f("[jreload] help '%s' reloaded by %s (%d objects).",
+              arg2, ch->name, count);
         return;
     }
 

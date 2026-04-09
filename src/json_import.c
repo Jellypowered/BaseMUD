@@ -413,6 +413,38 @@ int json_reload_table(const TABLE_T *table)
     return imported;
 }
 
+/* Reload a help area by its JSON name (e.g. "quest" for help/quest.json).
+ * Frees the old HELP_AREA_T and all its pages, then re-imports from disk.
+ * Returns the number of objects imported (1 + page count) on success, 0 on
+ * failure. */
+int json_reload_help_area(const char *name)
+{
+    HELP_AREA_T *had;
+    JSON_T *json;
+    char path[1024];
+    int imported;
+
+    /* Find the existing help area by JSON name. */
+    for (had = had_first; had; had = had->global_next)
+        if (had->name != NULL && strcmp(had->name, name) == 0)
+            break;
+
+    /* Free the old data so clean copies are loaded. */
+    if (had != NULL)
+        had_free(had);
+
+    snprintf(path, sizeof(path), "%s%s.json", JSON_HELP_DIR, name);
+    if ((json = json_read_file(path)) == NULL)
+    {
+        bugf("json_reload_help_area: could not read '%s'", path);
+        return 0;
+    }
+
+    imported = json_import_objects(json);
+    json_free(json);
+    return imported;
+}
+
 #ifdef BASEMUD_JSON_HOTRELOAD
 /* Load a single area directory - the JSON import step only, no linking. */
 void json_import_area(const char *dir_path, int *out_imported)
