@@ -144,6 +144,8 @@
               |
               |See also: QUEST, QUEST LIST, QUEST POINTS, QUEST HEIRLOOM
               |"
+    },
+    {
       "keyword": "QUEST HEIRLOOM NOQUEST HEIRLOOM QUEST REWARD NOQUEST REWARD",
       "text": "Quest heirlooms are special items purchased from a questmaster (QUEST BUY)
               |that grow with your character instead of becoming obsolete.

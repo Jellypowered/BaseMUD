@@ -457,7 +457,7 @@ void generate_quest(CHAR_T *ch, CHAR_T *questman)
         if (!IS_NPC(victim))
             continue;
 
-        if (quest_level_diff(ch->level, victim->level) == TRUE && !IS_SET(victim->res_flags, RES_SUMMON) && victim->mob_index != NULL && victim->mob_index->shop == NULL && !EXT_IS_SET(victim->ext_mob, MOB_PET) && !IS_AFFECTED(victim, AFF_CHARM) && chance(15))
+        if (quest_level_diff(ch->level, victim->level) == TRUE && !IS_SET(victim->res_flags, RES_SUMMON) && victim->mob_index != NULL && victim->mob_index->shop == NULL && !EXT_IS_SET(victim->ext_mob, MOB_PET) && !EXT_IS_SET(victim->ext_mob, MOB_NOQUEST) && !IS_AFFECTED(victim, AFF_CHARM) && chance(15))
             break;
     }
 
@@ -465,7 +465,6 @@ void generate_quest(CHAR_T *ch, CHAR_T *questman)
     {
         do_say(questman, "I'm sorry, but I don't have any quests for you at this time.");
         do_say(questman, "Try again later.");
-        ch->nextquest = 2;
         ch->nextquest = 2;
         return;
     }
@@ -559,9 +558,9 @@ bool quest_level_diff(int clevel, int mlevel)
         return TRUE;
     else if (clevel > 59 && clevel < 100 && mlevel > 120 && mlevel < 200)
         return TRUE;
-    else if (clevel > 99 && clevel < 199 && mlevel > 180 && mlevel < 350)
+    else if (clevel > 99 && clevel < 200 && mlevel > 180 && mlevel < 350)
         return TRUE;
-    else if (clevel > 200 && mlevel > 315)
+    else if (clevel >= 200 && mlevel > 315)
         return TRUE;
     else
         return FALSE;

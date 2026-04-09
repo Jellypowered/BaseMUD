@@ -43,7 +43,7 @@
 #define MOB_PET 8       /* Auto set for pets  */
 #define MOB_TRAIN 9     /* Can train PC's     */
 #define MOB_PRACTICE 10 /* Can practice PC's  */
-#define MOB_UNUSED_FLAG_3 11
+#define MOB_NOQUEST 11      /* Excluded from quest generation */
 #define MOB_UNUSED_FLAG_4 12
 #define MOB_UNUSED_FLAG_5 13
 #define MOB_UNDEAD 14

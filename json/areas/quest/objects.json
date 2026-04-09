@@ -82,7 +82,7 @@
     "level": 35,
     "weight": 500,
     "cost": 80000,
-    "extra_flags": "glow magic",
+    "extra_flags": "glow magic reward nopurge",
     "wear_flags": "take",
     "affects": [
       {"level": 35, "apply": "constitution", "modifier": 2},

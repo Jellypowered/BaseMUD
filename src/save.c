@@ -188,8 +188,12 @@ void fwrite_char(CHAR_T *ch, FILE *fp)
         fprintf(fp, "QuestXpProg %d\n", ch->quest_xp_prog);
     if (ch->nextquest != 0)
         fprintf(fp, "QuestNext %d\n", ch->nextquest);
-    else if (ch->countdown != 0)
-        fprintf(fp, "QuestNext %d\n", 10);
+    if (ch->countdown != 0)
+        fprintf(fp, "QuestCountdown %d\n", ch->countdown);
+    if (ch->questmob != 0)
+        fprintf(fp, "QuestMob %d\n", ch->questmob);
+    if (ch->questobj != 0)
+        fprintf(fp, "QuestObj %d\n", ch->questobj);
     if (EXT_IS_NONZERO(ch->ext_mob))
         fprintf(fp, "Mob  %s\n", fwrite_ext_flags_static(mob_flags, ch->ext_mob));
     if (EXT_IS_NONZERO(ch->ext_plr))
@@ -1121,10 +1125,13 @@ void fread_char(CHAR_T *ch, FILE *fp)
             break;
 
         case 'Q':
-            KEY("QuestPnts",    ch->questpoints,   fread_number(fp));
-            KEY("QuestChance",  ch->quest_chances,  fread_number(fp));
-            KEY("QuestXpProg",  ch->quest_xp_prog,  fread_number(fp));
-            KEY("QuestNext",    ch->nextquest,      fread_number(fp));
+            KEY("QuestPnts",      ch->questpoints,   fread_number(fp));
+            KEY("QuestChance",    ch->quest_chances,  fread_number(fp));
+            KEY("QuestXpProg",    ch->quest_xp_prog,  fread_number(fp));
+            KEY("QuestNext",      ch->nextquest,      fread_number(fp));
+            KEY("QuestCountdown", ch->countdown,      fread_number(fp));
+            KEY("QuestMob",       ch->questmob,       fread_number(fp));
+            KEY("QuestObj",       ch->questobj,       fread_number(fp));
             break;
         case 'R':
             KEY("Race", ch->race, race_lookup(fread_string_static(fp)));

@@ -47,7 +47,7 @@ const EXT_FLAG_DEF_T mob_flags[] = {
     {"pet", MOB_PET, TRUE},
     {"train", MOB_TRAIN, TRUE},
     {"practice", MOB_PRACTICE, TRUE},
-    {"unused_act_3", MOB_UNUSED_FLAG_3, FALSE},
+    {"noquest", MOB_NOQUEST, TRUE},
     {"unused_act_4", MOB_UNUSED_FLAG_4, FALSE},
     {"unused_act_5", MOB_UNUSED_FLAG_5, FALSE},
     {"undead", MOB_UNDEAD, TRUE},
