@@ -691,6 +691,26 @@ struct quest_token_type
     int   vnum;      /* object vnum for this quest token type */
 };
 
+/* Quest system parameters - loaded from json/config/quest_config.json at boot.
+ * All fields fall back to hard-coded defaults if the file is absent. */
+struct quest_config_type
+{
+    int quest_timer_min;      /* minimum quest time limit (minutes) */
+    int quest_timer_max;      /* maximum quest time limit (minutes) */
+    int cooldown_success;     /* cooldown after successful quest (minutes) */
+    int cooldown_none;        /* cooldown when no quest available (minutes) */
+    int gold_min;             /* minimum gold reward */
+    int gold_max;             /* maximum gold reward */
+    int qp_min;               /* minimum quest point reward */
+    int qp_max;               /* maximum quest point reward */
+    int practice_chance;      /* % chance of bonus practices on completion */
+    int practice_min;         /* minimum bonus practices */
+    int practice_max;         /* maximum bonus practices */
+    int obj_quest_chance;     /* % chance of object quest vs mob kill quest */
+    int mob_scan_stop_chance; /* per-mob stop probability during world scan */
+    int xp_chance_divisor;    /* divisor for XP-to-quest-chance threshold */
+};
+
 /* Extra description data for a room or object. */
 struct extra_descr_data
 {

@@ -1,0 +1,16 @@
+[{"quest_config": {
+  "quest_timer_min":      10,
+  "quest_timer_max":      30,
+  "cooldown_success":     10,
+  "cooldown_none":         2,
+  "gold_min":           2500,
+  "gold_max":          45000,
+  "qp_min":               25,
+  "qp_max":               75,
+  "practice_chance":      15,
+  "practice_min":          1,
+  "practice_max":          6,
+  "obj_quest_chance":     40,
+  "mob_scan_stop_chance": 15,
+  "xp_chance_divisor":    20
+}}]

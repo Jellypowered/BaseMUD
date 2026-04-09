@@ -25,6 +25,7 @@
  *  ROM license, in the file Rom24/doc/rom.license                         *
  ***************************************************************************/
 
+#include "globals.h"
 #include "json_tblr.h"
 
 #include "colour.h"
@@ -926,4 +927,34 @@ DEFINE_JSON_READ_FUN(json_tblr_quest_token)
         return NULL;
     READ_PROP_INT(quest_token->vnum, "vnum");
     return quest_token;
+}
+
+DEFINE_JSON_READ_FUN(json_tblr_quest_config)
+{
+    char buf[MAX_STRING_LENGTH];
+    (void)buf; /* suppress unused-variable warning */
+    if (!json_import_expect("quest_config", json,
+                            "quest_timer_min", "quest_timer_max",
+                            "cooldown_success", "cooldown_none",
+                            "gold_min", "gold_max",
+                            "qp_min", "qp_max",
+                            "practice_chance", "practice_min", "practice_max",
+                            "obj_quest_chance", "mob_scan_stop_chance",
+                            "xp_chance_divisor", NULL))
+        return NULL;
+    READ_PROP_INT(quest_config.quest_timer_min,      "quest_timer_min");
+    READ_PROP_INT(quest_config.quest_timer_max,      "quest_timer_max");
+    READ_PROP_INT(quest_config.cooldown_success,     "cooldown_success");
+    READ_PROP_INT(quest_config.cooldown_none,        "cooldown_none");
+    READ_PROP_INT(quest_config.gold_min,             "gold_min");
+    READ_PROP_INT(quest_config.gold_max,             "gold_max");
+    READ_PROP_INT(quest_config.qp_min,               "qp_min");
+    READ_PROP_INT(quest_config.qp_max,               "qp_max");
+    READ_PROP_INT(quest_config.practice_chance,      "practice_chance");
+    READ_PROP_INT(quest_config.practice_min,         "practice_min");
+    READ_PROP_INT(quest_config.practice_max,         "practice_max");
+    READ_PROP_INT(quest_config.obj_quest_chance,     "obj_quest_chance");
+    READ_PROP_INT(quest_config.mob_scan_stop_chance, "mob_scan_stop_chance");
+    READ_PROP_INT(quest_config.xp_chance_divisor,    "xp_chance_divisor");
+    return &quest_config;
 }

@@ -830,7 +830,8 @@ void do_jsave_table(CHAR_T *ch, const char *arg)
     "    jreload list              -- show reloadable tables\n\r"       \
     "    jreload <table_name>      -- reload a config table\n\r"        \
     "    jreload areas <name>      -- force-reload an area\n\r"         \
-    "    jreload help <name>       -- reload a help file (e.g. quest)\n\r"
+    "    jreload help <name>       -- reload a help file (e.g. quest)\n\r" \
+    "    jreload quest_config      -- reload quest system parameters\n\r"
 
 DEFINE_DO_FUN(do_jreload)
 {
@@ -893,6 +894,20 @@ DEFINE_DO_FUN(do_jreload)
             printf_to_char(ch, "[jreload] Done - %d object(s) loaded.\n\r", count);
         log_f("[jreload] help '%s' reloaded by %s (%d objects).",
               arg2, ch->name, count);
+        return;
+    }
+
+    /* Reload quest system config parameters. */
+    if (!str_cmp(arg1, "quest_config"))
+    {
+        printf_to_char(ch, "[jreload] Reloading quest_config.json...\n\r");
+        wiznetf(ch, NULL, 0, 0, 0,
+                "[jreload] $N is reloading quest_config.json.");
+        if (!json_reload_quest_config())
+            printf_to_char(ch, "[jreload] Failed - check logs.\n\r");
+        else
+            printf_to_char(ch, "[jreload] Done.\n\r");
+        log_f("[jreload] quest_config reloaded by %s.", ch->name);
         return;
     }
 

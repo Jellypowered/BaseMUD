@@ -300,7 +300,7 @@ void player_gain_exp(CHAR_T *ch, int gain)
 
     /* Award quest chances: 1 per 5% of exp-per-level earned (rolls over). */
     if (gain > 0) {
-        int threshold = UMAX(1, player_get_exp_per_level(ch) / 20);
+        int threshold = UMAX(1, player_get_exp_per_level(ch) / quest_config.xp_chance_divisor);
         int earned    = 0;
         ch->quest_xp_prog += gain;
         while (ch->quest_xp_prog >= threshold) {

@@ -106,7 +106,7 @@ void do_quest(CHAR_T *ch, char *argument)
 
         /* Always show XP progress toward next quest chance. */
         {
-            int threshold = UMAX(1, player_get_exp_per_level(ch) / 20);
+            int threshold = UMAX(1, player_get_exp_per_level(ch) / quest_config.xp_chance_divisor);
             sprintf(buf, "Quest chances: {C%d{x  ({Y%d{x / {Y%d{x xp to next)\n\r",
                 ch->quest_chances, ch->quest_xp_prog, threshold);
             send_to_char(buf, ch);
@@ -291,7 +291,7 @@ void do_quest(CHAR_T *ch, char *argument)
         }
         if (ch->quest_chances <= 0)
         {
-            int threshold = UMAX(1, player_get_exp_per_level(ch) / 20);
+            int threshold = UMAX(1, player_get_exp_per_level(ch) / quest_config.xp_chance_divisor);
             sprintf(buf, "You haven't earned a quest chance yet, %s.", ch->name);
             do_say(questman, buf);
             sprintf(buf, "Kill some monsters and come back! (%d / %d xp to next chance)",
@@ -310,7 +310,7 @@ void do_quest(CHAR_T *ch, char *argument)
 
         if (ch->questmob > 0 || ch->questobj > 0)
         {
-            ch->countdown = number_range(10, 30);
+            ch->countdown = number_range(quest_config.quest_timer_min, quest_config.quest_timer_max);
             EXT_SET(ch->ext_plr, PLR_QUESTOR);
             sprintf(buf, "You have %d minutes to complete this quest.", ch->countdown);
             do_say(questman, buf);
@@ -336,16 +336,16 @@ void do_quest(CHAR_T *ch, char *argument)
             {
                 int reward, pointreward, pracreward;
 
-                reward = number_range(2500, 45000);
-                pointreward = number_range(25, 75);
+                reward = number_range(quest_config.gold_min, quest_config.gold_max);
+                pointreward = number_range(quest_config.qp_min, quest_config.qp_max);
 
                 sprintf(buf, "Congratulations on completing your quest!");
                 do_say(questman, buf);
                 sprintf(buf, "As a reward, I am giving you %d quest points, and %d gold.", pointreward, reward);
                 do_say(questman, buf);
-                if (chance(15))
+                if (chance(quest_config.practice_chance))
                 {
-                    pracreward = number_range(1, 6);
+                    pracreward = number_range(quest_config.practice_min, quest_config.practice_max);
                     sprintf(buf, "You gain %d practices!\n\r", pracreward);
                     send_to_char(buf, ch);
                     ch->practice += pracreward;
@@ -356,7 +356,7 @@ void do_quest(CHAR_T *ch, char *argument)
                 ch->countdown = 0;
                 ch->questmob = 0;
                 ch->questobj = 0;
-                ch->nextquest = 10;
+                ch->nextquest = quest_config.cooldown_success;
                 ch->gold += reward;
                 ch->questpoints += pointreward;
 
@@ -380,8 +380,8 @@ void do_quest(CHAR_T *ch, char *argument)
                 {
                     int reward, pointreward, pracreward;
 
-                    reward = number_range(2500, 45000);
-                    pointreward = number_range(25, 75);
+                    reward = number_range(quest_config.gold_min, quest_config.gold_max);
+                    pointreward = number_range(quest_config.qp_min, quest_config.qp_max);
 
                     act("You hand $p to $N.", ch, obj, questman, TO_CHAR);
                     act("$n hands $p to $N.", ch, obj, questman, TO_OTHERS);
@@ -390,9 +390,9 @@ void do_quest(CHAR_T *ch, char *argument)
                     do_say(questman, buf);
                     sprintf(buf, "As a reward, I am giving you %d quest points, and %d gold.", pointreward, reward);
                     do_say(questman, buf);
-                    if (chance(15))
+                    if (chance(quest_config.practice_chance))
                     {
-                        pracreward = number_range(1, 6);
+                        pracreward = number_range(quest_config.practice_min, quest_config.practice_max);
                         sprintf(buf, "You gain %d practices!\n\r", pracreward);
                         send_to_char(buf, ch);
                         ch->practice += pracreward;
@@ -403,7 +403,7 @@ void do_quest(CHAR_T *ch, char *argument)
                     ch->countdown = 0;
                     ch->questmob = 0;
                     ch->questobj = 0;
-                    ch->nextquest = 10;
+                    ch->nextquest = quest_config.cooldown_success;
                     ch->gold += reward;
                     ch->questpoints += pointreward;
                     obj_extract(obj);
@@ -456,8 +456,7 @@ void generate_quest(CHAR_T *ch, CHAR_T *questman)
     {
         if (!IS_NPC(victim))
             continue;
-
-        if (quest_level_diff(ch->level, victim->level) == TRUE && !IS_SET(victim->res_flags, RES_SUMMON) && victim->mob_index != NULL && victim->mob_index->shop == NULL && !EXT_IS_SET(victim->ext_mob, MOB_PET) && !EXT_IS_SET(victim->ext_mob, MOB_NOQUEST) && !IS_AFFECTED(victim, AFF_CHARM) && chance(15))
+        if (quest_level_diff(ch->level, victim->level) == TRUE && !IS_SET(victim->res_flags, RES_SUMMON) && victim->mob_index != NULL && victim->mob_index->shop == NULL && !EXT_IS_SET(victim->ext_mob, MOB_PET) && !EXT_IS_SET(victim->ext_mob, MOB_NOQUEST) && !IS_AFFECTED(victim, AFF_CHARM) && chance(quest_config.mob_scan_stop_chance))
             break;
     }
 
@@ -465,7 +464,7 @@ void generate_quest(CHAR_T *ch, CHAR_T *questman)
     {
         do_say(questman, "I'm sorry, but I don't have any quests for you at this time.");
         do_say(questman, "Try again later.");
-        ch->nextquest = 2;
+        ch->nextquest = quest_config.cooldown_none;
         return;
     }
 
@@ -475,13 +474,13 @@ void generate_quest(CHAR_T *ch, CHAR_T *questman)
         do_say(questman, buf);
         sprintf(buf, "Try again later.");
         do_say(questman, buf);
-        ch->nextquest = 2;
+        ch->nextquest = quest_config.cooldown_none;
         return;
     }
 
     /*  40% chance it will send the player on a 'recover item' quest. */
 
-    if (chance(40))
+    if (chance(quest_config.obj_quest_chance))
     {
         int objvnum = 0;
 
@@ -595,7 +594,7 @@ void quest_update(void)
                 {
                     char buf[MAX_STRING_LENGTH];
 
-                    ch->nextquest = 10;
+                    ch->nextquest = quest_config.cooldown_success;
                     sprintf(buf, "You have run out of time for your quest!"
                                  "\n\rYou may quest again in %d minutes.\n\r",
                             ch->nextquest);

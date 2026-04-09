@@ -107,4 +107,7 @@ extern size_t new_buf_size;
 /* JSON hot-reload. */
 extern int reload_immunity_pulses;
 
+/* Quest system configuration - loaded from json/config/quest_config.json. */
+extern QUEST_CONFIG_T quest_config;
+
 #endif

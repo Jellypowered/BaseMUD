@@ -118,6 +118,20 @@ flag_t music_queue[MAX_SONG_GLOBAL];
 /* JSON hot-reload. */
 int reload_immunity_pulses = 0;
 
+/* Quest system configuration - defaults match original hardcoded values.
+ * Overwritten at boot by json/config/quest_config.json. */
+QUEST_CONFIG_T quest_config = {
+    10, 30,   /* quest_timer_min, quest_timer_max */
+    10,  2,   /* cooldown_success, cooldown_none */
+    2500, 45000, /* gold_min, gold_max */
+    25, 75,   /* qp_min, qp_max */
+    15,       /* practice_chance */
+    1,  6,    /* practice_min, practice_max */
+    40,       /* obj_quest_chance */
+    15,       /* mob_scan_stop_chance */
+    20        /* xp_chance_divisor */
+};
+
 /* Memory stuff. */
 char str_empty[1];
 size_t new_buf_size = BASE_BUF;

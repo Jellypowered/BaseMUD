@@ -76,5 +76,6 @@ DECLARE_JSON_READ_FUN(json_tblr_wear_loc);
 DECLARE_JSON_READ_FUN(json_tblr_wis_app);
 DECLARE_JSON_READ_FUN(json_tblr_quest_reward);
 DECLARE_JSON_READ_FUN(json_tblr_quest_token);
+DECLARE_JSON_READ_FUN(json_tblr_quest_config);
 
 #endif

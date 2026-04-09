@@ -33,6 +33,7 @@
 #include "json.h"
 #include "json_objr.h"
 #include "json_read.h"
+#include "json_tblr.h"
 #include "lookup.h"
 #include "memory.h"
 #include "tables.h"
@@ -89,6 +90,8 @@ int json_import_objects(JSON_T *json)
                 return 0;
             return 1 + help_area_count_pages(had);
         }
+        if (strcmp(json->name, "quest_config") == 0)
+            return json_tblr_quest_config(json, json->name) ? 1 : 0;
         if ((table = master_table_get_by_obj_name(json->name)) != NULL)
         {
             if (table->json_read_func)
@@ -437,6 +440,26 @@ int json_reload_help_area(const char *name)
     if ((json = json_read_file(path)) == NULL)
     {
         bugf("json_reload_help_area: could not read '%s'", path);
+        return 0;
+    }
+
+    imported = json_import_objects(json);
+    json_free(json);
+    return imported;
+}
+
+/* Reload quest_config.json into the global quest_config struct.
+ * Returns 1 on success, 0 on failure. */
+int json_reload_quest_config(void)
+{
+    JSON_T *json;
+    char path[1024];
+    int imported;
+
+    snprintf(path, sizeof(path), "%sconfig/quest_config.json", JSON_DIR);
+    if ((json = json_read_file(path)) == NULL)
+    {
+        bugf("json_reload_quest_config: could not read '%s'", path);
         return 0;
     }
 
