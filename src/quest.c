@@ -336,8 +336,10 @@ void do_quest(CHAR_T *ch, char *argument)
             {
                 int reward, pointreward, pracreward;
 
-                reward = number_range(quest_config.gold_min, quest_config.gold_max);
-                pointreward = number_range(quest_config.qp_min, quest_config.qp_max);
+                reward = number_range(quest_config.gold_min, quest_config.gold_max)
+                    * UMAX(1, ch->level) / UMAX(1, quest_config.reward_level_divisor);
+                pointreward = number_range(quest_config.qp_min, quest_config.qp_max)
+                    * UMAX(1, ch->level) / UMAX(1, quest_config.reward_level_divisor);
 
                 sprintf(buf, "Congratulations on completing your quest!");
                 do_say(questman, buf);
@@ -380,8 +382,10 @@ void do_quest(CHAR_T *ch, char *argument)
                 {
                     int reward, pointreward, pracreward;
 
-                    reward = number_range(quest_config.gold_min, quest_config.gold_max);
-                    pointreward = number_range(quest_config.qp_min, quest_config.qp_max);
+                    reward = number_range(quest_config.gold_min, quest_config.gold_max)
+                        * UMAX(1, ch->level) / UMAX(1, quest_config.reward_level_divisor);
+                    pointreward = number_range(quest_config.qp_min, quest_config.qp_max)
+                        * UMAX(1, ch->level) / UMAX(1, quest_config.reward_level_divisor);
 
                     act("You hand $p to $N.", ch, obj, questman, TO_CHAR);
                     act("$n hands $p to $N.", ch, obj, questman, TO_OTHERS);
@@ -452,12 +456,27 @@ void generate_quest(CHAR_T *ch, CHAR_T *questman)
         quest the mob is not used. This is done to assure the level
         of difficulty for the area isn't too great for the player. */
 
-    for (victim = char_first; victim != NULL; victim = victim->global_next)
+    /*  Uniformly selects a qualifying mob from the world mob list using
+        reservoir sampling (size 1). Each qualifying mob has an equal chance
+        of being chosen regardless of its position in the global list.
+        To exclude a mob from quests, flag it MOB_NOQUEST or make it
+        immune to summon. */
+
     {
-        if (!IS_NPC(victim))
-            continue;
-        if (quest_level_diff(ch->level, victim->level) == TRUE && !IS_SET(victim->res_flags, RES_SUMMON) && victim->mob_index != NULL && victim->mob_index->shop == NULL && !EXT_IS_SET(victim->ext_mob, MOB_PET) && !EXT_IS_SET(victim->ext_mob, MOB_NOQUEST) && !IS_AFFECTED(victim, AFF_CHARM) && chance(quest_config.mob_scan_stop_chance))
-            break;
+        CHAR_T *cand;
+        int n_candidates = 0;
+        victim = NULL;
+        for (cand = char_first; cand != NULL; cand = cand->global_next)
+        {
+            if (!IS_NPC(cand))
+                continue;
+            if (quest_level_diff(ch->level, cand->level) == TRUE && !IS_SET(cand->res_flags, RES_SUMMON) && cand->mob_index != NULL && cand->mob_index->shop == NULL && !EXT_IS_SET(cand->ext_mob, MOB_PET) && !EXT_IS_SET(cand->ext_mob, MOB_NOQUEST) && !IS_AFFECTED(cand, AFF_CHARM))
+            {
+                n_candidates++;
+                if (number_range(1, n_candidates) == 1)
+                    victim = cand;
+            }
+        }
     }
 
     if (victim == NULL)

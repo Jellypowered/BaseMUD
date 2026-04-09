@@ -707,8 +707,8 @@ struct quest_config_type
     int practice_min;         /* minimum bonus practices */
     int practice_max;         /* maximum bonus practices */
     int obj_quest_chance;     /* % chance of object quest vs mob kill quest */
-    int mob_scan_stop_chance; /* per-mob stop probability during world scan */
     int xp_chance_divisor;    /* divisor for XP-to-quest-chance threshold */
+    int reward_level_divisor; /* "baseline" level for reward scaling (reward * level / divisor) */
 };
 
 /* Extra description data for a room or object. */

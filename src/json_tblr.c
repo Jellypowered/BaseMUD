@@ -939,8 +939,8 @@ DEFINE_JSON_READ_FUN(json_tblr_quest_config)
                             "gold_min", "gold_max",
                             "qp_min", "qp_max",
                             "practice_chance", "practice_min", "practice_max",
-                            "obj_quest_chance", "mob_scan_stop_chance",
-                            "xp_chance_divisor", NULL))
+                            "obj_quest_chance", "xp_chance_divisor",
+                            "reward_level_divisor", NULL))
         return NULL;
     READ_PROP_INT(quest_config.quest_timer_min,      "quest_timer_min");
     READ_PROP_INT(quest_config.quest_timer_max,      "quest_timer_max");
@@ -954,7 +954,7 @@ DEFINE_JSON_READ_FUN(json_tblr_quest_config)
     READ_PROP_INT(quest_config.practice_min,         "practice_min");
     READ_PROP_INT(quest_config.practice_max,         "practice_max");
     READ_PROP_INT(quest_config.obj_quest_chance,     "obj_quest_chance");
-    READ_PROP_INT(quest_config.mob_scan_stop_chance, "mob_scan_stop_chance");
     READ_PROP_INT(quest_config.xp_chance_divisor,    "xp_chance_divisor");
+    READ_PROP_INT(quest_config.reward_level_divisor, "reward_level_divisor");
     return &quest_config;
 }

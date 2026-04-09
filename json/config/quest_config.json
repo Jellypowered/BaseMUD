@@ -11,6 +11,6 @@
   "practice_min":          1,
   "practice_max":          6,
   "obj_quest_chance":     40,
-  "mob_scan_stop_chance": 15,
-  "xp_chance_divisor":    20
+  "xp_chance_divisor":    20,
+  "reward_level_divisor": 30
 }}]
