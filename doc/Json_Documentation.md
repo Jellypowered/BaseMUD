@@ -1139,6 +1139,7 @@ These tables use heap-allocated storage and all internal per-entry sub-arrays ar
 | `races.json`        | 30        | Race definitions: flags, stats, ext flags. Fully dynamic; `RACE_MAX` has been removed from the codebase. `race_count` is used wherever race limits are needed.                                                           |
 | `quest_rewards.json` | 6        | Quest rewards purchasable with quest points. Each entry has an id, label, keyword aliases, cost, type, and value. See [quest_reward](#quest_reward) schema below.                                                      |
 | `quest_tokens.json`  | 5        | Object vnums used as random quest item targets. A random entry is chosen when a player is assigned an item recovery quest. See [quest_token](#quest_token) schema below.                                               |
+| `quest_config.json`  | 1        | Singleton object of 23 integer tuning parameters for the quest system (timers, rewards, type chances). Hot-reloadable via `jreload quest_config`. See [quest_config](#quest_config) schema below.                      |
 
 > **Note on remaining fixed-size sub-array limits:** The `shop.trades` array is dynamically allocated and sized to `MAX_TRADE = 16` entries per shop; adding more than 16 trade types requires raising `MAX_TRADE` in `src/defs.h` and recompiling. Songs loaded from `music.txt` are capped at `MAX_SONG_LINES = 100` lyrics per song.
 
@@ -1227,8 +1228,8 @@ Defines items and other rewards that players can purchase with accumulated quest
 | `label`    | string  | yes | Human-readable name shown in `quest list` output.                                                                                          |
 | `keywords` | string  | yes | Space-separated namelist matched by `quest buy <keyword>`. Must include at least one alias.                                                |
 | `cost`     | integer | yes | Quest points required to purchase.                                                                                                         |
-| `type`     | string  | yes | Reward category: `"object"` (gives item by vnum), `"gold"` (awards gold coins), or `"practices"` (adds practice sessions).               |
-| `value`    | integer | yes | Meaning depends on `type`: object vnum / gold amount / practice count.                                                                     |
+| `type`     | string  | yes | Reward category: `"object"` (gives item by vnum), `"gold"` (awards gold), `"practices"` (adds practice sessions), or `"quest_chance"` (grants extra quest charges). |
+| `value`    | integer | yes | Meaning depends on `type`: object vnum / gold amount / practice count / number of charges.                                                 |
 
 ---
 
@@ -1250,6 +1251,62 @@ All token objects live in the hidden `quest` area (vnums 204–208).
 | `vnum` | integer | yes | Global vnum of the object to use as quest token. |
 
 > **Note:** Object vnums must exist in a loaded area. The quest token objects (204–208, item_type `treasure`, extra_flag `rotdeath`) are defined in `json/areas/quest/objects.json`.
+
+---
+
+### quest_config
+
+**File:** `json/config/quest_config.json`  
+**Wrapping key:** `"quest_config"`  
+**Live-reload:** `jreload quest_config`
+
+A singleton object containing all 23 integer tuning parameters for the quest system. Loaded at boot into the `quest_config` global struct and hot-reloadable without restart.
+
+```json
+[{"quest_config": {
+  "quest_timer_min": 10, "quest_timer_max": 30,
+  "cooldown_success": 10, "cooldown_none": 2,
+  "gold_min": 2500, "gold_max": 45000,
+  "qp_min": 25, "qp_max": 75,
+  "practice_chance": 15, "practice_min": 1, "practice_max": 6,
+  "obj_quest_chance": 40, "xp_chance_divisor": 20,
+  "reward_level_divisor": 30,
+  "purge_quest_chance": 30, "purge_count_min": 2, "purge_count_max": 5,
+  "collect_quest_chance": 25, "collect_count_min": 2, "collect_count_max": 4,
+  "xp_reward_min_pct": 1, "xp_reward_max_pct": 2,
+  "train_chance": 5
+}}]
+```
+
+| Field                  | Type    | Default | Notes                                                                                                             |
+| ---------------------- | ------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
+| `quest_timer_min`      | integer | 10      | Minimum quest duration in minutes.                                                                                |
+| `quest_timer_max`      | integer | 30      | Maximum quest duration in minutes.                                                                                |
+| `cooldown_success`     | integer | 10      | Minutes before a player can request another quest after completing one.                                           |
+| `cooldown_none`        | integer | 2       | Minutes before a player can try again when the questmaster has no quest available.                                |
+| `gold_min`             | integer | 2500    | Baseline minimum gold reward before level scaling.                                                                |
+| `gold_max`             | integer | 45000   | Baseline maximum gold reward before level scaling.                                                                |
+| `qp_min`               | integer | 25      | Baseline minimum quest points before level scaling.                                                               |
+| `qp_max`               | integer | 75      | Baseline maximum quest points before level scaling.                                                               |
+| `practice_chance`      | integer | 15      | Percent chance to award bonus practice sessions on completion.                                                    |
+| `practice_min`         | integer | 1       | Minimum bonus practices when triggered.                                                                           |
+| `practice_max`         | integer | 6       | Maximum bonus practices when triggered.                                                                           |
+| `obj_quest_chance`     | integer | 40      | Percent chance that a quest becomes an item recovery/collection quest instead of a mob slay.                      |
+| `xp_chance_divisor`    | integer | 20      | Threshold divisor: players earn a quest charge every `exp_per_level / xp_chance_divisor` XP from kills.          |
+| `reward_level_divisor` | integer | 30      | Gold and QP are multiplied by `player_level / reward_level_divisor`. At this level = baseline reward.             |
+| `purge_quest_chance`   | integer | 30      | When a mob quest is generated, percent chance it becomes a multi-kill (purge) quest.                              |
+| `purge_count_min`      | integer | 2       | Minimum number of mobs to kill for a purge quest.                                                                 |
+| `purge_count_max`      | integer | 5       | Maximum number of mobs to kill for a purge quest.                                                                 |
+| `collect_quest_chance` | integer | 25      | When an item quest is generated, percent chance it becomes a multi-item collection quest.                         |
+| `collect_count_min`    | integer | 2       | Minimum number of items to collect for a collection quest.                                                        |
+| `collect_count_max`    | integer | 4       | Maximum number of items to collect for a collection quest.                                                        |
+| `xp_reward_min_pct`    | integer | 1       | Minimum XP awarded as a percentage of `exp_per_level`. Hard-capped at 5.                                          |
+| `xp_reward_max_pct`    | integer | 2       | Maximum XP awarded as a percentage of `exp_per_level`. Hard-capped at 5.                                          |
+| `train_chance`         | integer | 5       | Percent chance to award 1 training session on completion.                                                         |
+
+**Reward scaling:** Gold, QP, and XP rewards are all affected by the player's level. For gold and QP the formula is `baseline * level / reward_level_divisor`. Multi-target quests (purge/collection) add +25% per extra target beyond 1.
+
+**Hot-reload:** Changes to `quest_config.json` take effect immediately for all new quests after `jreload quest_config` — no restart required. Quests already in progress use the values that were active when the quest was assigned.
 
 ---
 

@@ -81,13 +81,17 @@
               |Charges are earned automatically from XP (see QUEST CHANCES). The questmaster
               |will show your current progress if you do not have a charge ready.
               |
-              |You will be sent on one of two types of quest:
+              |You will be sent on one of four types of quest:
               |
-              |  {YSlay quest{x   Find and kill a specific NPC somewhere in the world.
-              |  {YItem quest{x   Recover a stolen item and return it to the questmaster.
+              |  {YSlay quest{x        Find and kill a specific NPC somewhere in the world.
+              |  {YPurge quest{x        Hunt down and slay multiple NPCs of the same type.
+              |  {YItem quest{x         Recover a stolen item and return it to the questmaster.
+              |  {YCollection quest{x   Gather multiple copies of the same item.
               |
               |The questmaster will tell you the name of the target and the general area
               |where it can be found. You then have 10-30 minutes to complete the task.
+              |For multi-target quests, progress is displayed as you complete each kill
+              |or collect each item.
               |
               |See also: QUEST, QUEST COMPLETE, QUEST INFO, QUEST TIME, QUEST CHANCES
               |"
@@ -99,12 +103,22 @@
               |Reports a finished quest to the questmaster who assigned it. You must return
               |to the same questmaster who sent you on the quest.
               |
-              |  {YSlay quest{x   You must have killed the target mob before reporting.
-              |  {YItem quest{x   You must be carrying the quest item when you report.
+              |  {YSlay / Purge quest{x      Kill the required mob(s) before reporting.
+              |  {YItem / Collection quest{x  Carry all required items when you report.
+              |                           (They are handed to the questmaster automatically.)
               |
-              |On success you receive a gold reward (2500-45000 coins), quest points
-              |(25-75), and a 15% chance of 1-6 bonus practice sessions. A 10-minute
-              |cooldown then applies before you can request another quest.
+              |On success you receive:
+              |
+              |  {YGold{x         2500-45000 coins, scaled by your level.
+              |  {YQuest points{x  25-75 points, scaled by your level.
+              |  {YExperience{x    1-2% of your next level's XP requirement.
+              |  {YPractices{x     ~15% chance to also receive 1-6 bonus practice sessions.
+              |  {YTraining{x      ~5% chance to receive 1 training session.
+              |
+              |Multi-target quests (purge / collection) award +25% to all rewards per
+              |extra target beyond the first.
+              |
+              |A 10-minute cooldown applies before you can request another quest.
               |
               |See also: QUEST, QUEST REQUEST
               |"
@@ -131,9 +145,10 @@
               |
               |Reward types:
               |
-              |  {Yobject{x      Creates an item and places it in your inventory.
-              |  {Ygold{x        Transfers gold coins directly to you.
-              |  {Ypractices{x   Adds practice sessions to your total.
+              |  {Yobject{x         Creates an item and places it in your inventory.
+              |  {Ygold{x           Transfers gold coins directly to you.
+              |  {Ypractices{x      Adds practice sessions to your total.
+              |  {Yquest_chance{x   Grants one or more additional quest charges.
               |
               |{YHeirloom items{x (those marked with the REWARD flag) are scaled to your
               |current level at the moment you buy them, and will re-scale automatically
@@ -142,7 +157,7 @@
               |If the requested object cannot be created (e.g. missing vnum), your quest
               |points are refunded automatically.
               |
-              |See also: QUEST, QUEST LIST, QUEST POINTS, QUEST HEIRLOOM
+              |See also: QUEST, QUEST LIST, QUEST POINTS, QUEST HEIRLOOM, QUEST CHANCES
               |"
     },
     {
