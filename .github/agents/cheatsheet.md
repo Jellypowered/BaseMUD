@@ -451,7 +451,33 @@ Omit both for a decorative piece with no bonus.
 
 ---
 
-## Spec Functions (`special.c` / `special.h`)
+## Building BaseMUD (MSYS2 on Windows)
+
+`make` is not in the default PowerShell PATH. Use the MSYS2 task:
+
+```
+C:\msys64\usr\bin\env.exe PATH=/mingw64/bin:/usr/bin make
+```
+
+In VS Code, use `create_and_run_task` with that command and `group: "build"`. The Makefile auto-discovers all `src/*.c` files via `wildcard`, so new source files are picked up without editing Makefile.
+
+---
+
+## Pocket Dungeon System (Phase implementation notes)
+
+- **Vnum layout**: template area 19900–19999; instances 20000–24999 (50 slots × 100 vnums)
+- **`door_table[dir].reverse`** — use this instead of `REV_DIR(dir)` macro; `door_get()` is undeclared in most TUs
+- **Portal gate flags**: permanent portals use `SET_BIT(obj->v.portal.gate_flags, GATE_PERMANENT)` — *not* `extra_flags`
+- **GATE_PERMANENT** guard in `objs.c obj_update()`: skip timer decrement when portal has this flag
+- **`area_dispose`** cascades: frees rooms via `room_index_free` which calls `room_index_dispose` → calls `room_index_from_hash` and `room_to_area(room, NULL)` automatically. Do not manually remove rooms from hash before calling `area_free()`.
+- **`room_index_dispose`** calls `char_free` on any characters still in the room — always evacuate PCs (and extract mobs) before `area_free()`
+- **`pd_update_all()`** is called from `update_handler()` in `update.c` alongside `quest_update()`
+- **`AREA_INSTANCE (BIT_05)`** and **`AREA_HIDDEN`** flags: `area_init` sets `AREA_ADDED` — overwrite after `area_new()`
+- **`room_create_exit(room, dir)`** creates an exit and attaches it to the room; then `exit_to_room_index_to(ex, dest)` links the destination
+
+---
+
+
 
 - File: `src/special.c` / `src/special.h`
 - Declaration: `DECLARE_SPEC_FUN(spec_foo);` in `special.h`

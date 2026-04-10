@@ -1,0 +1,9 @@
+[{"pd_config": {
+  "autopurge":          true,
+  "empty_timeout_mins": 120,
+  "max_instances":       50,
+  "vnum_base":        20000,
+  "vnum_size":          100,
+  "max_members":         10,
+  "scaling_formula":      1
+}}]

@@ -1,0 +1,11 @@
+[{"area": {
+  "name": "pocketdungeon",
+  "filename": "pocketdungeon.are",
+  "title": "Pocket Dungeon Template",
+  "credits": "{ 1 60} Pocket Dungeon",
+  "min_vnum": 19900,
+  "max_vnum": 19999,
+  "builders": "None",
+  "security": 9,
+  "hidden": true
+}}]

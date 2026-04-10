@@ -110,4 +110,11 @@ extern int reload_immunity_pulses;
 /* Quest system configuration - loaded from json/config/quest_config.json. */
 extern QUEST_CONFIG_T quest_config;
 
+/* Pocket Dungeon system. */
+extern PD_CONFIG_T    pd_config;
+extern PD_INSTANCE_T *pd_instance_first;
+extern PD_INSTANCE_T *pd_instance_last;
+extern PD_SEED_T     *pd_seed_first;
+extern PD_SEED_T     *pd_seed_last;
+
 #endif

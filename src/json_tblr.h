@@ -77,5 +77,7 @@ DECLARE_JSON_READ_FUN(json_tblr_wis_app);
 DECLARE_JSON_READ_FUN(json_tblr_quest_reward);
 DECLARE_JSON_READ_FUN(json_tblr_quest_token);
 DECLARE_JSON_READ_FUN(json_tblr_quest_config);
+DECLARE_JSON_READ_FUN(json_tblr_pd_config);
+DECLARE_JSON_READ_FUN(json_tblr_pd_seed);
 
 #endif

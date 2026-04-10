@@ -286,6 +286,7 @@
 #define GATE_GOWITH (BIT_03)
 #define GATE_BUGGY (BIT_04)
 #define GATE_RANDOM (BIT_05)
+#define GATE_PERMANENT (BIT_06) /* Portal never expires (used by pd return portals). */
 
 /* furniture flags */
 #define STAND_AT (BIT_01)
@@ -440,10 +441,11 @@
 #define TRIG_SURR (BIT_16)
 
 /* Area flags. */
-#define AREA_CHANGED (BIT_01) /* Area has been modified. */
-#define AREA_ADDED (BIT_02)   /* Area has been added to. */
-#define AREA_LOADING (BIT_03) /* Used for counting in db.c */
-#define AREA_HIDDEN (BIT_04)  /* Area is hidden from normal listings. */
+#define AREA_CHANGED   (BIT_01) /* Area has been modified. */
+#define AREA_ADDED     (BIT_02) /* Area has been added to. */
+#define AREA_LOADING   (BIT_03) /* Used for counting in db.c */
+#define AREA_HIDDEN    (BIT_04) /* Area is hidden from normal listings. */
+#define AREA_INSTANCE  (BIT_05) /* Area is a live pocket dungeon instance. */
 
 /* Damage flags. */
 #define DAM_MAGICAL (BIT_01)

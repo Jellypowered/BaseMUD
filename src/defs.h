@@ -538,7 +538,16 @@
 #define RECYCLE_PORTAL_EXIT_T 23
 #define RECYCLE_PORTAL_T 24
 #define RECYCLE_WIZ_T 25
-#define RECYCLE_MAX 26
+#define RECYCLE_PD_INSTANCE_T 26
+#define RECYCLE_PD_SEED_T 27
+#define RECYCLE_MAX 28
+
+/* Pocket Dungeon vnum layout. */
+#define AREA_INSTANCE_BASE_VNUM  20000
+#define AREA_INSTANCE_VNUM_SIZE  100
+#define AREA_INSTANCE_MAX        50
+#define ROOM_VNUM_PD_TEMPLATE_BASE 19900
+#define ROOM_VNUM_PD_TEMPLATE_MAX  19999
 
 /* Types of tables used for our master reference table. */
 #define TABLE_FLAGS 0

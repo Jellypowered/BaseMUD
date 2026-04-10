@@ -1,0 +1,38 @@
+[
+  {"pd_seed": {
+    "name":           "crypt",
+    "title":          "Ancient Crypt",
+    "room_names":     ["dusty crypt chamber", "collapsed vault", "forsaken ossuary",
+                       "crumbling antechamber", "bone-strewn passage"],
+    "mob_vnums":      [19900, 19901],
+    "item_vnums":     [19950, 19951],
+    "room_count_min": 4,
+    "room_count_max": 8,
+    "mob_density":    2,
+    "loot_density":   1
+  }},
+  {"pd_seed": {
+    "name":           "cave",
+    "title":          "Dark Cave",
+    "room_names":     ["rocky cavern", "dripping grotto", "narrow tunnel",
+                       "underground lake shore", "crystal passage"],
+    "mob_vnums":      [19902, 19903],
+    "item_vnums":     [19952, 19953],
+    "room_count_min": 4,
+    "room_count_max": 8,
+    "mob_density":    2,
+    "loot_density":   1
+  }},
+  {"pd_seed": {
+    "name":           "ruins",
+    "title":          "Ancient Ruins",
+    "room_names":     ["crumbling hall", "shattered courtyard", "buried library",
+                       "collapsed throne room", "overgrown garden"],
+    "mob_vnums":      [19904, 19905],
+    "item_vnums":     [19954, 19955],
+    "room_count_min": 5,
+    "room_count_max": 9,
+    "mob_density":    2,
+    "loot_density":   1
+  }}
+]

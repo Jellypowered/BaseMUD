@@ -79,6 +79,10 @@
               |Quest heirloom scaling system (ITEM_REWARD flag, obj_reward_scale, quest
               |  charge accumulation, level-up rescaling, full heirloom prototype set) --
               |    BaseMUD original
+              |
+              |Pocket Dungeon system (instanced procedural areas, party entry, autopurge,
+              |  GATE_PERMANENT portals, AREA_INSTANCE flag, dungeon/pocketdungeon commands) --
+              |    BaseMUD original
               |",
       "hide_keywords": true
     }

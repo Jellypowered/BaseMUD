@@ -287,10 +287,11 @@ const FLAG_T mprog_flags[] = {
     {0}};
 
 const FLAG_T area_flags[] = {
-    {"changed", AREA_CHANGED, TRUE},
-    {"added", AREA_ADDED, TRUE},
-    {"loading", AREA_LOADING, FALSE},
-    {"hidden", AREA_HIDDEN, TRUE},
+    {"changed",  AREA_CHANGED,  TRUE},
+    {"added",    AREA_ADDED,    TRUE},
+    {"loading",  AREA_LOADING,  FALSE},
+    {"hidden",   AREA_HIDDEN,   TRUE},
+    {"instance", AREA_INSTANCE, TRUE},
     {0}};
 
 const FLAG_T exit_flags[] = {
@@ -437,6 +438,7 @@ const FLAG_T gate_flags[] = {
     {"go_with", GATE_GOWITH, TRUE},
     {"buggy", GATE_BUGGY, TRUE},
     {"random", GATE_RANDOM, TRUE},
+    {"permanent", GATE_PERMANENT, TRUE},
     {0}};
 
 const FLAG_T furniture_flags[] = {

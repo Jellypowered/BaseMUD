@@ -136,6 +136,21 @@ QUEST_CONFIG_T quest_config = {
     5           /* train_chance: 5% chance to award 1 training session */
 };
 
+/* Pocket Dungeon system - defaults overwritten at boot by pocket_dungeon_config.json. */
+PD_CONFIG_T pd_config = {
+    TRUE, /* autopurge */
+    120,  /* empty_timeout_mins */
+    50,   /* max_instances */
+    20000,/* vnum_base */
+    100,  /* vnum_size */
+    10,   /* max_members */
+    1     /* scaling_formula: 1 = max group level */
+};
+PD_INSTANCE_T *pd_instance_first = NULL;
+PD_INSTANCE_T *pd_instance_last  = NULL;
+PD_SEED_T     *pd_seed_first     = NULL;
+PD_SEED_T     *pd_seed_last      = NULL;
+
 /* Memory stuff. */
 char str_empty[1];
 size_t new_buf_size = BASE_BUF;

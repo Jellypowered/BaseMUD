@@ -92,6 +92,10 @@ int json_import_objects(JSON_T *json)
         }
         if (strcmp(json->name, "quest_config") == 0)
             return json_tblr_quest_config(json, json->name) ? 1 : 0;
+        if (strcmp(json->name, "pd_config") == 0)
+            return json_tblr_pd_config(json, json->name) ? 1 : 0;
+        if (strcmp(json->name, "pd_seed") == 0)
+            return json_tblr_pd_seed(json, json->name) ? 1 : 0;
         if ((table = master_table_get_by_obj_name(json->name)) != NULL)
         {
             if (table->json_read_func)
@@ -460,6 +464,24 @@ int json_reload_quest_config(void)
     if ((json = json_read_file(path)) == NULL)
     {
         bugf("json_reload_quest_config: could not read '%s'", path);
+        return 0;
+    }
+
+    imported = json_import_objects(json);
+    json_free(json);
+    return imported;
+}
+
+int json_reload_pd_config(void)
+{
+    JSON_T *json;
+    char path[1024];
+    int imported;
+
+    snprintf(path, sizeof(path), "%sconfig/pocket_dungeon_config.json", JSON_DIR);
+    if ((json = json_read_file(path)) == NULL)
+    {
+        bugf("json_reload_pd_config: could not read '%s'", path);
         return 0;
     }
 

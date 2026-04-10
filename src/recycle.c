@@ -90,6 +90,8 @@ RECYCLE_BUNDLE(RECYCLE_SOCIAL_T, social, SOCIAL_T);
 RECYCLE_BUNDLE(RECYCLE_PORTAL_EXIT_T, portal_exit, PORTAL_EXIT_T);
 RECYCLE_BUNDLE(RECYCLE_PORTAL_T, portal, PORTAL_T);
 RECYCLE_BUNDLE(RECYCLE_WIZ_T, wiz, WIZ_T);
+RECYCLE_BUNDLE(RECYCLE_PD_INSTANCE_T, pd_instance, PD_INSTANCE_T);
+RECYCLE_BUNDLE(RECYCLE_PD_SEED_T, pd_seed, PD_SEED_T);
 
 void *recycle_new(int type)
 {
@@ -277,6 +279,48 @@ DEFINE_DISPOSE_FUN(wiz_dispose)
     str_free(&(wiz->name));
     LIST2_REMOVE(wiz, global_prev, global_next,
                  wiz_first, wiz_last);
+}
+
+DEFINE_INIT_FUN(pd_instance_init)
+{
+    PD_INSTANCE_T *inst = obj;
+    int i;
+    inst->theme = &str_empty[0];
+    for (i = 0; i < MAX_INSTANCE_MEMBERS; i++)
+        inst->members[i] = NULL;
+}
+
+DEFINE_DISPOSE_FUN(pd_instance_dispose)
+{
+    PD_INSTANCE_T *inst = obj;
+    int i;
+    str_free(&(inst->theme));
+    for (i = 0; i < inst->member_count; i++)
+        str_free(&(inst->members[i]));
+    LIST2_REMOVE(inst, global_prev, global_next,
+                 pd_instance_first, pd_instance_last);
+}
+
+DEFINE_INIT_FUN(pd_seed_init)
+{
+    PD_SEED_T *seed = obj;
+    int i;
+    seed->name  = &str_empty[0];
+    seed->title = &str_empty[0];
+    for (i = 0; i < PD_MAX_ROOM_NAMES; i++)
+        seed->room_names[i] = NULL;
+}
+
+DEFINE_DISPOSE_FUN(pd_seed_dispose)
+{
+    PD_SEED_T *seed = obj;
+    int i;
+    str_free(&(seed->name));
+    str_free(&(seed->title));
+    for (i = 0; i < seed->room_name_count; i++)
+        str_free(&(seed->room_names[i]));
+    LIST2_REMOVE(seed, global_prev, global_next,
+                 pd_seed_first, pd_seed_last);
 }
 
 DEFINE_INIT_FUN(descriptor_init)

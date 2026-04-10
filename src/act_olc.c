@@ -280,6 +280,8 @@ DEFINE_DO_FUN (do_aedit) {
 
     BAIL_IF (area == NULL,
         "REdit: There is no default room to edit.\n\r", ch);
+    BAIL_IF (IS_SET(area->area_flags, AREA_INSTANCE),
+        "AEdit: Cannot edit a live dungeon instance area.\n\r", ch);
 
     ch->desc->olc_edit = (void *) area;
     ch->desc->editor = ED_AREA;

@@ -49,9 +49,11 @@
 #include "act_player.h"
 #include "act_shop.h"
 #include "act_skills.h"
+#include "act_instance.h"
 #include "act_olc.h"
 #include "wizlist.h"
 #include "hunt.h"
+#include "wiz_instance.h"
 
 #include "wiz_im.h"
 #include "wiz_l1.h"
@@ -104,6 +106,7 @@ const CMD_T cmd_table[] = {
     {"@", do_order_all, POS_RESTING, 0, LOG_NORMAL, 1},
 #endif
     {"practice", do_practice, POS_SLEEPING, 0, LOG_NORMAL, 1},
+    {"dungeon", do_dungeon, POS_STANDING, 0, LOG_NORMAL, 1},
     {"quest", do_quest, POS_RESTING, 0, LOG_NORMAL, 1},
     {"rest", do_rest, POS_SLEEPING, 0, LOG_NORMAL, 1},
     {"scan", do_scan_short, POS_STANDING, 0, LOG_NORMAL, 1},
@@ -350,6 +353,7 @@ const CMD_T cmd_table[] = {
     {"mwhere", do_mwhere, POS_DEAD, IM, LOG_NORMAL, 1},
     {"owhere", do_owhere, POS_DEAD, IM, LOG_NORMAL, 1},
     {"peace", do_peace, POS_DEAD, L5, LOG_NORMAL, 1},
+    {"pocketdungeon", do_pocketdungeon, POS_DEAD, IM, LOG_NORMAL, 1},
     {"echo", do_recho, POS_DEAD, L6, LOG_ALWAYS, 1},
     {"return", do_return, POS_DEAD, L6, LOG_NORMAL, 1},
     {"snoop", do_snoop, POS_DEAD, L5, LOG_ALWAYS, 1},

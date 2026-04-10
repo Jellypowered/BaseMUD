@@ -34,6 +34,7 @@
 #include "lookup.h"
 #include "magic.h"
 #include "memory.h"
+#include "recycle.h"
 #include "spell_dispatch.h"
 #include "tables.h"
 #include "types.h"
@@ -970,4 +971,75 @@ DEFINE_JSON_READ_FUN(json_tblr_quest_config)
     READ_PROP_INT(quest_config.xp_reward_max_pct,    "xp_reward_max_pct");
     READ_PROP_INT(quest_config.train_chance,          "train_chance");
     return &quest_config;
+}
+
+DEFINE_JSON_READ_FUN(json_tblr_pd_config)
+{
+    char buf[MAX_STRING_LENGTH];
+    (void)buf;
+    if (!json_import_expect("pd_config", json,
+                            "*autopurge", "*empty_timeout_mins",
+                            "*max_instances", "*vnum_base", "*vnum_size",
+                            "*max_members", "*scaling_formula",
+                            NULL))
+        return NULL;
+    READ_PROP_BOOL(pd_config.autopurge,          "autopurge");
+    READ_PROP_INT (pd_config.empty_timeout_mins, "empty_timeout_mins");
+    READ_PROP_INT (pd_config.max_instances,      "max_instances");
+    READ_PROP_INT (pd_config.vnum_base,          "vnum_base");
+    READ_PROP_INT (pd_config.vnum_size,          "vnum_size");
+    READ_PROP_INT (pd_config.max_members,        "max_members");
+    READ_PROP_INT (pd_config.scaling_formula,    "scaling_formula");
+    return &pd_config;
+}
+
+DEFINE_JSON_READ_FUN(json_tblr_pd_seed)
+{
+    PD_SEED_T *seed;
+    JSON_T *array, *sub;
+    char buf[MAX_STRING_LENGTH];
+    (void)buf;
+
+    if (!json_import_expect("pd_seed", json,
+                            "name", "title",
+                            "*room_names", "*mob_vnums", "*item_vnums",
+                            "*room_count_min", "*room_count_max",
+                            "*mob_density", "*loot_density",
+                            NULL))
+        return NULL;
+
+    seed = pd_seed_new();
+    READ_PROP_STRP(seed->name,  "name");
+    READ_PROP_STRP(seed->title, "title");
+    READ_PROP_INT (seed->room_count_min, "room_count_min");
+    READ_PROP_INT (seed->room_count_max, "room_count_max");
+    READ_PROP_INT (seed->mob_density,    "mob_density");
+    READ_PROP_INT (seed->loot_density,   "loot_density");
+
+    if ((array = json_get(json, "room_names")) != NULL) {
+        for (sub = array->first_child; sub != NULL; sub = sub->next) {
+            if (seed->room_name_count >= PD_MAX_ROOM_NAMES)
+                break;
+            seed->room_names[seed->room_name_count] =
+                str_dup(json_value_as_string(sub, buf, sizeof(buf)));
+            seed->room_name_count++;
+        }
+    }
+    if ((array = json_get(json, "mob_vnums")) != NULL) {
+        for (sub = array->first_child; sub != NULL; sub = sub->next) {
+            if (seed->mob_vnum_count >= PD_MAX_MOB_VNUMS)
+                break;
+            seed->mob_vnums[seed->mob_vnum_count++] = json_value_as_int(sub);
+        }
+    }
+    if ((array = json_get(json, "item_vnums")) != NULL) {
+        for (sub = array->first_child; sub != NULL; sub = sub->next) {
+            if (seed->item_vnum_count >= PD_MAX_ITEM_VNUMS)
+                break;
+            seed->item_vnums[seed->item_vnum_count++] = json_value_as_int(sub);
+        }
+    }
+
+    LIST2_BACK(seed, global_prev, global_next, pd_seed_first, pd_seed_last);
+    return seed;
 }

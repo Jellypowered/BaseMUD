@@ -836,8 +836,12 @@ void obj_update (OBJ_T *obj) {
         }
     }
 
-    /* Extract objects when their timer has expired. */
-    if (obj->timer > 0 && --obj->timer <= 0)
+    /* Extract objects when their timer has expired.
+     * GATE_PERMANENT portals are exempt from the timer. */
+    if (obj->timer > 0
+        && !(obj->item_type == ITEM_PORTAL
+             && IS_SET(obj->v.portal.gate_flags, GATE_PERMANENT))
+        && --obj->timer <= 0)
         obj_poof (obj);
 }
 

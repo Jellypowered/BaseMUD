@@ -79,6 +79,7 @@ void json_import_link_areas(void);
 int json_reload_table(const TABLE_T *table);
 int json_reload_help_area(const char *name);
 int json_reload_quest_config(void);
+int json_reload_pd_config(void);
 #ifdef BASEMUD_JSON_HOTRELOAD
 void json_import_area(const char *dir_path, int *out_imported);
 void json_import_link_one_area(AREA_T *area);

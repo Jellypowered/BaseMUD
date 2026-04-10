@@ -1816,6 +1816,8 @@ RECYCLE_T recycle_table[RECYCLE_MAX + 1] = {
     RECYCLE_N_ENTRY(RECYCLE_PORTAL_EXIT_T, portal_exit, PORTAL_EXIT_T, name, NULL, portal_exit_dispose),
     RECYCLE_ENTRY(RECYCLE_PORTAL_T, portal, PORTAL_T, NULL, portal_dispose),
     RECYCLE_N_ENTRY(RECYCLE_WIZ_T, wiz, WIZ_T, name, wiz_init, wiz_dispose),
+    RECYCLE_N_ENTRY(RECYCLE_PD_INSTANCE_T, pd_instance, PD_INSTANCE_T, area_name, pd_instance_init, pd_instance_dispose),
+    RECYCLE_N_ENTRY(RECYCLE_PD_SEED_T, pd_seed, PD_SEED_T, name, pd_seed_init, pd_seed_dispose),
     {0}};
 
 /* wiznet table and prototype for future flag setting */

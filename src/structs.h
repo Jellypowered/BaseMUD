@@ -723,6 +723,57 @@ struct quest_config_type
     int train_chance;       /* % chance of awarding 1 training session on quest completion */
 };
 
+/* Pocket Dungeon global config. */
+struct pd_config {
+    bool autopurge;          /* if TRUE, empty instances are purged automatically */
+    int  empty_timeout_mins; /* minutes before an empty instance is purged (default 120) */
+    int  max_instances;      /* maximum simultaneously loaded instances (default 50) */
+    int  vnum_base;          /* first vnum of the instance reserved range (default 20000) */
+    int  vnum_size;          /* vnums per instance slot (default 100) */
+    int  max_members;        /* max members that can share one instance (default 10) */
+    int  scaling_formula;    /* 0 = average group level, 1 = max group level */
+};
+
+/* Pocket Dungeon seed / theme. */
+#define PD_MAX_ROOM_NAMES 20
+#define PD_MAX_MOB_VNUMS  10
+#define PD_MAX_ITEM_VNUMS 10
+struct pd_seed {
+    PD_SEED_T      *global_next, *global_prev;
+    char           *name;                          /* theme identifier, e.g. "undead_crypts" */
+    char           *title;                         /* color-code display name */
+    char           *room_names[PD_MAX_ROOM_NAMES]; /* name pool for generated rooms */
+    int             room_name_count;
+    int             mob_vnums[PD_MAX_MOB_VNUMS];   /* template mob vnums to spawn */
+    int             mob_vnum_count;
+    int             item_vnums[PD_MAX_ITEM_VNUMS];  /* ITEM_REWARD item vnums to drop */
+    int             item_vnum_count;
+    int             room_count_min;   /* minimum rooms to generate */
+    int             room_count_max;   /* maximum rooms to generate */
+    int             mob_density;      /* % chance each room gets a mob */
+    int             loot_density;     /* % chance each room gets a loot item */
+    OBJ_RECYCLE_T   rec_data;
+};
+
+/* Pocket Dungeon live instance. */
+#define MAX_INSTANCE_MEMBERS 10
+struct pd_instance {
+    PD_INSTANCE_T  *global_next, *global_prev;
+    int             id;                                  /* unique monotonic ID */
+    char           *members[MAX_INSTANCE_MEMBERS];       /* char names (str_dup'd) */
+    int             member_count;
+    char           *theme;                               /* seed name used */
+    int             level;                               /* scaling level at creation */
+    time_t          created_at;
+    time_t          last_empty_at;   /* 0 while players are inside */
+    int             entry_vnum;      /* vnum of the foyer room (room 0) */
+    int             origin_vnum;     /* room vnum where 'dungeon enter' was used */
+    int             vnum_slot;       /* 0-based slot in AREA_INSTANCE_BASE_VNUM range */
+    AREA_T         *area;            /* live area pointer; NULL after purge */
+    char            area_name[64];   /* e.g. "pd_instance_007" */
+    OBJ_RECYCLE_T   rec_data;
+};
+
 /* Extra description data for a room or object. */
 struct extra_descr_data
 {

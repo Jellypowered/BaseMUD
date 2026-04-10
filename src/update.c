@@ -42,6 +42,7 @@
 #include "players.h"
 #include "tables.h"
 #include "utils.h"
+#include "pocket_dungeon.h"
 
 #include <string.h>
 
@@ -625,6 +626,7 @@ void update_handler(void)
     pulse_update();
     tail_chain();
     quest_update();
+    pd_update_all();
 
 #ifdef BASEMUD_JSON_HOTRELOAD
     {

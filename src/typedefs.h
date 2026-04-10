@@ -132,6 +132,9 @@ typedef struct ext_init_flags_type EXT_INIT_FLAGS_T;
 typedef struct cond_type COND_T;
 typedef struct train_stat_type TRAIN_STAT_T;
 typedef struct heal_spell_type HEAL_SPELL_T;
+typedef struct pd_config PD_CONFIG_T;
+typedef struct pd_seed PD_SEED_T;
+typedef struct pd_instance PD_INSTANCE_T;
 
 /* JSON typedefs. */
 typedef struct json_t JSON_T;
