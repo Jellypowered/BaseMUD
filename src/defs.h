@@ -89,6 +89,7 @@
 #define PLAYER_DIR "player/" /* Player files          */
 #define GOD_DIR "gods/"      /* list of gods          */
 #define TEMP_FILE "player/romtmp"
+#define PD_TEMP_DIR "json/temp/areas/"
 
 #if defined(unix)
 #define NULL_FILE "/dev/null" /* To reserve one stream */

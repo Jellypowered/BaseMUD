@@ -21,3 +21,7 @@ Makefile.bak
 /MUDEditor
 /.vscode
 /.kilo
+/json/temp/*
+!/json/temp/areas/
+/json/temp/areas/*
+!/json/temp/areas/.gitkeep

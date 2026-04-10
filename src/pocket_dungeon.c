@@ -275,7 +275,118 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
         }
     }
 
+    pd_write_snapshot(inst);
     return inst;
+}
+
+/* -------------------------------------------------------------------------
+ * Snapshot helpers — write/delete json/temp/areas/pd-inst-N.json
+ * ---------------------------------------------------------------------- */
+
+static const char *pd_dir_names[DIR_MAX] = {
+    "north", "east", "south", "west", "up", "down"
+};
+
+/* Write a single character c to fp, JSON-encoding where necessary. */
+static void pd_fputc_json(FILE *fp, char c)
+{
+    if      (c == '"')  fputs("\\\"", fp);
+    else if (c == '\\') fputs("\\\\", fp);
+    else if (c == '\n') fputs("\\n",  fp);
+    else if (c == '\r') ; /* skip */
+    else                fputc(c, fp);
+}
+
+static void pd_fputs_json(FILE *fp, const char *s)
+{
+    if (s == NULL) return;
+    for (; *s; s++)
+        pd_fputc_json(fp, *s);
+}
+
+void pd_write_snapshot(PD_INSTANCE_T *inst)
+{
+    FILE *fp;
+    char filepath[256];
+    ROOM_INDEX_T *room;
+    int i, first_room, first_exit;
+
+    if (inst == NULL || inst->area == NULL)
+        return;
+
+    snprintf(filepath, sizeof(filepath), "%spd-inst-%d.json",
+             PD_TEMP_DIR, inst->vnum_slot);
+
+    fp = fopen(filepath, "w");
+    if (fp == NULL) {
+        bugf("pd_write_snapshot: cannot open '%s' for writing", filepath);
+        return;
+    }
+
+    fprintf(fp, "{\n");
+    fprintf(fp, "  \"slot\": %d,\n",          inst->vnum_slot);
+    fprintf(fp, "  \"id\": %d,\n",             inst->id);
+    fprintf(fp, "  \"theme\": \"");
+    pd_fputs_json(fp, inst->theme ? inst->theme : "");
+    fprintf(fp, "\",\n");
+    fprintf(fp, "  \"level\": %d,\n",          inst->level);
+    fprintf(fp, "  \"created_at\": %ld,\n",    (long)inst->created_at);
+    fprintf(fp, "  \"last_empty_at\": %ld,\n", (long)inst->last_empty_at);
+    fprintf(fp, "  \"entry_vnum\": %d,\n",     inst->entry_vnum);
+    fprintf(fp, "  \"area_name\": \"");
+    pd_fputs_json(fp, inst->area_name);
+    fprintf(fp, "\",\n");
+
+    fprintf(fp, "  \"members\": [");
+    for (i = 0; i < inst->member_count; i++) {
+        if (i > 0) fprintf(fp, ", ");
+        fprintf(fp, "\"");
+        pd_fputs_json(fp, inst->members[i] ? inst->members[i] : "");
+        fprintf(fp, "\"");
+    }
+    fprintf(fp, "],\n");
+
+    fprintf(fp, "  \"rooms\": [\n");
+    first_room = 1;
+    for (room = inst->area->room_first; room != NULL; room = room->area_next) {
+        if (!first_room)
+            fprintf(fp, ",\n");
+        first_room = 0;
+
+        fprintf(fp, "    {\n");
+        fprintf(fp, "      \"vnum\": %d,\n", room->vnum);
+        fprintf(fp, "      \"name\": \"");
+        pd_fputs_json(fp, room->name);
+        fprintf(fp, "\",\n");
+
+        fprintf(fp, "      \"exits\": {");
+        first_exit = 1;
+        for (i = 0; i < DIR_MAX; i++) {
+            if (room->exit[i] != NULL && room->exit[i]->to_room != NULL) {
+                if (!first_exit)
+                    fprintf(fp, ", ");
+                first_exit = 0;
+                fprintf(fp, "\"%s\": %d",
+                        pd_dir_names[i], room->exit[i]->to_room->vnum);
+            }
+        }
+        fprintf(fp, "}\n");
+        fprintf(fp, "    }");
+    }
+    fprintf(fp, "\n  ]\n");
+    fprintf(fp, "}\n");
+
+    fclose(fp);
+}
+
+void pd_delete_snapshot(PD_INSTANCE_T *inst)
+{
+    char filepath[256];
+    if (inst == NULL)
+        return;
+    snprintf(filepath, sizeof(filepath), "%spd-inst-%d.json",
+             PD_TEMP_DIR, inst->vnum_slot);
+    remove(filepath);
 }
 
 void pd_destroy_instance(PD_INSTANCE_T *inst)
@@ -287,6 +398,7 @@ void pd_destroy_instance(PD_INSTANCE_T *inst)
 
     if (inst == NULL)
         return;
+    pd_delete_snapshot(inst);
     area = inst->area;
 
     if (area != NULL) {

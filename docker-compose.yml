@@ -10,5 +10,6 @@ services:
       - ./json/areas:/opt/rom/json/areas:rw
       - ./json/config:/opt/rom/json/config:rw
       - ./json/help:/opt/rom/json/help:rw
+      - ./json/temp:/opt/rom/json/temp:rw
     ports:
       - "4000:4000"

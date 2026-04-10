@@ -26,4 +26,8 @@ void pd_update_all(void);
 /* Return the active instance a character belongs to, or NULL. */
 PD_INSTANCE_T *pd_find_instance_for_char(const CHAR_T *ch);
 
+/* Write / delete the debug snapshot file for an instance. */
+void pd_write_snapshot(PD_INSTANCE_T *inst);
+void pd_delete_snapshot(PD_INSTANCE_T *inst);
+
 #endif /* POCKET_DUNGEON_H */
