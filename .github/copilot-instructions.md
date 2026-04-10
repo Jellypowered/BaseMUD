@@ -12,6 +12,8 @@ Gather relevant context from files, history, and workspace instructions. Use bui
 
 Summarize the proposed fix or change, then confirm the exact code edits before applying them. The plan should list files to modify, new files to create, and any risks or dependencies.
 
+Before beginning implementation, write the plan to a file under `/plan/` in the repo (e.g. `/plan/my-feature.md`). The file must list every file to be modified or created, the intended change for each, and any known risks. This serves as the authoritative spec for the implementation and is checked during review. Do not deviate from it without updating the file first.
+
 ## Phase 3 — Clarifying Questions
 
 Ask the user any questions needed to define scope and intent in one batch before implementation. Focus on integration intent, conflicts with existing features, required JSON support, and any boundaries for files or subsystems.
@@ -38,7 +40,9 @@ Update `json/help/credits.json` if the work includes a notable contribution. Als
 
 ## Phase 9 — Review
 
-Inspect the diff and confirm the final output matches the plan. Ensure the change is scoped, correct, and follows the workspace guidance.
+Inspect the diff and confirm the final output matches the plan. Open the plan file from `/plan/` and cross-check every item: verify each listed file was modified or created as described, no unplanned files were changed, and no planned items were skipped. Note any deviations explicitly before closing. Ensure the change is scoped, correct, and follows the workspace guidance.
+
+When the review passes, mark the plan file as complete by appending `## Status: COMPLETED` (with the date) to the bottom of the file. Do not delete or move the file — completed plans serve as an audit trail.
 
 ## Phase 10 — Build, Verify, and Commit
 
