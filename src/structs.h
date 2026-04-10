@@ -1099,6 +1099,7 @@ struct obj_data
     sh_int condition;
     sh_int material;
     sh_int timer;
+    sh_int pd_saved_timer; /* preserved timer for pocket dungeon corpse freeze; restored on pickup */
     OBJ_RECYCLE_T rec_data;
     OBJ_VALUE_T v;
 };

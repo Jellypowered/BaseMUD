@@ -54,6 +54,7 @@ void do_dungeon(CHAR_T *ch, char *argument)
         send_to_char("Pocket Dungeon commands:\n\r"
                      "  dungeon enter [theme]  - Enter a new pocket dungeon (creates one).\n\r"
                      "  dungeon leave          - Return to the temple from your dungeon.\n\r"
+                     "  dungeon rejoin         - Re-enter the dungeon you were part of.\n\r"
                      "  dungeon status         - Show your current dungeon info.\n\r"
                      "  dungeon list           - List available dungeon themes.\n\r",
                      ch);
@@ -115,6 +116,30 @@ void do_dungeon(CHAR_T *ch, char *argument)
         char_to_room(ch, dest);
         send_to_char("You step through the portal and leave the dungeon behind.\n\r", ch);
         act("$n steps through a shimmering portal and disappears.", ch, NULL, NULL, TO_NOTCHAR);
+        return;
+    }
+
+    /* REJOIN */
+    if (!str_cmp(arg1, "rejoin")) {
+        if (pd_find_instance_for_char(ch) != NULL) {
+            send_to_char("You are already inside a pocket dungeon.\n\r", ch);
+            return;
+        }
+        inst = pd_find_instance_by_member(ch->name);
+        if (inst == NULL || inst->area == NULL) {
+            send_to_char("You have no dungeon to rejoin.\n\r", ch);
+            return;
+        }
+        ROOM_INDEX_T *dest = room_get_index(inst->entry_vnum);
+        if (dest == NULL) {
+            send_to_char("Your dungeon no longer has an accessible entrance.\n\r", ch);
+            return;
+        }
+        act("A shimmering portal opens before $n.", ch, NULL, NULL, TO_NOTCHAR);
+        char_from_room(ch);
+        char_to_room(ch, dest);
+        send_to_char("You step through a shimmering portal back into your dungeon!\n\r", ch);
+        act("$n steps through a shimmering portal.", ch, NULL, NULL, TO_NOTCHAR);
         return;
     }
 

@@ -16,13 +16,20 @@
               |  {Ydungeon list{x              List available dungeon themes
               |  {Ydungeon enter [theme]{x     Enter a new pocket dungeon (creates one)
               |  {Ydungeon leave{x             Return to your original location
+              |  {Ydungeon rejoin{x            Re-enter the dungeon you belong to
               |  {Ydungeon status{x            Show information about your current dungeon
               |
               |When entering, all group members are transported together.  A shimmering
               |portal in the first dungeon room will return you to where you came from.
               |
-              |Dungeons that are left empty will automatically expire and collapse after
-              |a period of time; any remaining characters are sent to the temple.
+              |If you die inside a dungeon, use {Ydungeon rejoin{x from anywhere to
+              |return and retrieve your corpse.  Your corpse will not decay while it
+              |remains in the dungeon, and the dungeon will not collapse while your
+              |corpse is still inside.
+              |
+              |Dungeons that are left empty (and contain no PC corpses) will
+              |automatically expire and collapse after a period of time; any
+              |remaining characters are sent to the temple.
               |
               |See also: GROUP, QUEST
               |"

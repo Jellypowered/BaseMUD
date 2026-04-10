@@ -9,5 +9,9 @@
             "path": "."
         }
     ],
-    "settings": {}
+    "settings": {
+        "files.exclude": {
+            "MUDEditor/": true
+        }
+    }
 }

@@ -171,6 +171,11 @@ int obj_count_users (const OBJ_T *obj) {
 
 /* Give an obj to a char. */
 void obj_give_to_char (OBJ_T *obj, CHAR_T *ch) {
+    /* Restore a timer that was frozen by pocket dungeon corpse preservation. */
+    if (obj->pd_saved_timer > 0) {
+        obj->timer = obj->pd_saved_timer;
+        obj->pd_saved_timer = 0;
+    }
     obj_take (obj);
     LIST2_FRONT (obj, content_prev, content_next,
         ch->content_first, ch->content_last);

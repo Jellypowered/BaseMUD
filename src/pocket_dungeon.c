@@ -26,6 +26,48 @@
  * Internal helpers
  * ---------------------------------------------------------------------- */
 
+/* Scale a mobile's stats to a target level.
+ * Used after mobile_create() so instance mobs match the group's level
+ * with minor ±2 variance rather than the fixed template level. */
+static void pd_scale_mob_to_level(CHAR_T *mob, int target_level)
+{
+    int i;
+
+    if (mob == NULL)
+        return;
+    if (target_level < 1)
+        target_level = 1;
+    if (target_level == mob->level)
+        return;
+
+    mob->level = target_level;
+
+    /* Recompute HP with the standard level formula (format-agnostic). */
+    mob->max_hit = (target_level * 8
+        + number_range(target_level * target_level / 4,
+                       target_level * target_level)) * 9 / 10;
+    if (mob->max_hit < 1)
+        mob->max_hit = 1;
+    mob->hit = mob->max_hit;
+
+    /* Recompute mana */
+    mob->max_mana = 100 + dice(target_level, 10);
+    mob->mana     = mob->max_mana;
+
+    /* Combat rolls */
+    mob->hitroll = target_level / 5;
+    mob->damroll  = target_level / 4;
+
+    /* Armour class */
+    for (i = 0; i < 3; i++)
+        mob->armor[i] = int_interpolate(target_level, 100, -100);
+    mob->armor[3] = int_interpolate(target_level, 100, 0);
+
+    /* Stats */
+    for (i = 0; i < STAT_MAX; i++)
+        mob->perm_stat[i] = UMIN(25, 11 + target_level / 4);
+}
+
 /* Find the first free vnum slot among AREA_INSTANCE_MAX possible slots.
  * Returns -1 if none available. */
 static int pd_find_free_slot(void)
@@ -94,6 +136,21 @@ PD_INSTANCE_T *pd_find_instance_for_char(const CHAR_T *ch)
     for (inst = pd_instance_first; inst != NULL; inst = inst->global_next)
         if (inst->area == ch->in_room->area)
             return inst;
+    return NULL;
+}
+
+PD_INSTANCE_T *pd_find_instance_by_member(const char *name)
+{
+    PD_INSTANCE_T *inst;
+    int i;
+    if (name == NULL || name[0] == '\0')
+        return NULL;
+    for (inst = pd_instance_first; inst != NULL; inst = inst->global_next) {
+        for (i = 0; i < inst->member_count; i++) {
+            if (inst->members[i] != NULL && !str_cmp(inst->members[i], name))
+                return inst;
+        }
+    }
     return NULL;
 }
 
@@ -242,6 +299,10 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
                 MOB_INDEX_T *midx = mobile_get_index(seed->mob_vnums[vnum_idx]);
                 if (midx != NULL) {
                     CHAR_T *mob = mobile_create(midx);
+                    /* Scale to instance level ±2 so there is variance but
+                     * fights are never impossible at level 1. */
+                    pd_scale_mob_to_level(mob,
+                        UMAX(1, inst->level + number_range(-2, 2)));
                     char_to_room(mob, rooms[i]);
                 }
             }
@@ -282,6 +343,23 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
 /* -------------------------------------------------------------------------
  * Snapshot helpers — write/delete json/temp/areas/pd-inst-N.json
  * ---------------------------------------------------------------------- */
+
+/* Recursively freeze an object (and its contents) so obj_update won't
+ * extract it.  Used to preserve PC corpses while they are in an instance. */
+static void pd_freeze_obj_recursive(OBJ_T *obj)
+{
+    OBJ_T *child;
+    if (obj == NULL)
+        return;
+    /* Only freeze objects that are actively decaying (timer > 0).
+     * Skip already-permanent items (timer <= 0) and already-frozen ones. */
+    if (obj->timer > 0 && obj->pd_saved_timer == 0) {
+        obj->pd_saved_timer = obj->timer;
+        obj->timer = -1;
+    }
+    for (child = obj->content_first; child != NULL; child = child->content_next)
+        pd_freeze_obj_recursive(child);
+}
 
 static const char *pd_dir_names[DIR_MAX] = {
     "north", "east", "south", "west", "up", "down"
@@ -370,7 +448,17 @@ void pd_write_snapshot(PD_INSTANCE_T *inst)
                         pd_dir_names[i], room->exit[i]->to_room->vnum);
             }
         }
-        fprintf(fp, "}\n");
+        fprintf(fp, "},\n");
+
+        /* Count live NPCs in room for the map overlay */
+        {
+            int mob_count = 0;
+            CHAR_T *ch;
+            for (ch = room->people_first; ch != NULL; ch = ch->room_next)
+                if (IS_NPC(ch))
+                    mob_count++;
+            fprintf(fp, "      \"mob_count\": %d\n", mob_count);
+        }
         fprintf(fp, "    }");
     }
     fprintf(fp, "\n  ]\n");
@@ -456,7 +544,10 @@ void pd_update_all(void)
 
         /* Check if any PCs are still inside */
         bool occupied = FALSE;
+        bool has_corpse = FALSE;
         ROOM_INDEX_T *room;
+        OBJ_T *cobj;
+
         if (inst->area != NULL) {
             for (room = inst->area->room_first; room != NULL; room = room->area_next) {
                 CHAR_T *ch;
@@ -466,12 +557,23 @@ void pd_update_all(void)
                         break;
                     }
                 }
-                if (occupied)
-                    break;
+                /* Scan for PC corpses and freeze them so they don't decay */
+                for (cobj = room->content_first; cobj != NULL; cobj = cobj->content_next) {
+                    if (cobj->item_type == ITEM_CORPSE_PC) {
+                        has_corpse = TRUE;
+                        pd_freeze_obj_recursive(cobj);
+                    }
+                }
             }
         }
 
         if (occupied) {
+            inst->last_empty_at = 0;
+        }
+        else if (has_corpse) {
+            /* Keep the instance alive while a player corpse is present.
+             * Reset empty clock so the timeout won't fire until after the
+             * last corpse is looted/removed. */
             inst->last_empty_at = 0;
         }
         else {

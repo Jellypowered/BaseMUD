@@ -26,6 +26,10 @@ void pd_update_all(void);
 /* Return the active instance a character belongs to, or NULL. */
 PD_INSTANCE_T *pd_find_instance_for_char(const CHAR_T *ch);
 
+/* Scan all instances for one that lists the given player name as a member.
+ * Used by 'dungeon rejoin' to let dying players re-enter their instance. */
+PD_INSTANCE_T *pd_find_instance_by_member(const char *name);
+
 /* Write / delete the debug snapshot file for an instance. */
 void pd_write_snapshot(PD_INSTANCE_T *inst);
 void pd_delete_snapshot(PD_INSTANCE_T *inst);
