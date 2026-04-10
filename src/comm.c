@@ -275,8 +275,9 @@ void bust_a_prompt(CHAR_T *ch)
         case 'b':
         {
             CHAR_T *bvict = ch->fighting;
+            bool combined = (*(str + 1) == 'B');
+
             if (bvict != NULL) {
-                bool combined = (*(str + 1) == 'B');
                 int pct = (bvict->max_hit > 0)
                     ? bvict->hit * 100 / bvict->max_hit : -1;
                 if      (pct >= 100) sprintf (buf2, "{WEnemy: [{R+++{Y+++{G++++{x]");
@@ -301,8 +302,11 @@ void bust_a_prompt(CHAR_T *ch)
                 }
                 i = buf2;
             }
-            else
+            else {
+                if (combined)
+                    ++str; /* consume the 'B' in a %bB prompt even when not fighting */
                 i = "";
+            }
             break;
         }
         case 'B':

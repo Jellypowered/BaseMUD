@@ -1867,8 +1867,8 @@ void dam_message(CHAR_T *ch, CHAR_T *victim, int dam, int dt,
     else
         idx = 39;
 
-    vs = dam_msgs[idx].color_vs;
-    vp = dam_msgs[idx].color_vp;
+    vs = dam_msgs[idx].color_vs ? dam_msgs[idx].color_vs : dam_msgs[idx].vs;
+    vp = dam_msgs[idx].color_vp ? dam_msgs[idx].color_vp : dam_msgs[idx].vp;
 
     /* Use an exclamation point for big attacks! */
     punct = (dam_percent <= 45) ? '.' : '!';
