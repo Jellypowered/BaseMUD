@@ -1,8 +1,50 @@
 # BaseMUD Project Guidelines
 
-## Snippet Integration
+## Agent Workflow
 
-When a user pastes or describes code from another MUD codebase (ROM, MERC, Circle, Diku, or custom), **always delegate to the `snippet-integrator` agent** before taking any action. Do not analyze, plan, or edit files yourself for snippet work. The snippet agent manages the full workflow: investigation, clarification, implementation, documentation (help entries + `doc/Json_Documentation.md`), cheatsheet update, credits, and commit.
+All Copilot agents in this workspace should follow a phase-based workflow for planning, editing, debugging, and refactoring.
+
+## Phase 1 — Investigation
+
+Gather relevant context from files, history, and workspace instructions. Use built-in tools first (`grep_search`, `file_search`, `semantic_search`, `read_file`) and verify assumptions against the actual source.
+
+## Phase 2 — Planning
+
+Summarize the proposed fix or change, then confirm the exact code edits before applying them. The plan should list files to modify, new files to create, and any risks or dependencies.
+
+## Phase 3 — Clarifying Questions
+
+Ask the user any questions needed to define scope and intent in one batch before implementation. Focus on integration intent, conflicts with existing features, required JSON support, and any boundaries for files or subsystems.
+
+## Phase 4 — Implementation
+
+Implement the approved plan using the appropriate workspace tools. Prefer `replace_string_in_file`/`multi_replace_string_in_file` for precise edits, and use `create_file` only for new files.
+
+## Phase 5 — Debugging
+
+Verify the fix with build/tests/search as appropriate. Use the workspace build command or available compiler tools, and resolve any errors before moving on.
+
+## Phase 6 — Refactoring
+
+Clean up related code or comments after the fix is implemented. Keep the final code readable and consistent with BaseMUD conventions.
+
+## Phase 7 — Documentation
+
+If the change adds or alters player-visible behavior, update help entries and any relevant JSON documentation. For new commands, spells, skills, systems, or features, add or update the appropriate `json/help/` entries and ensure any JSON-visible data changes are reflected in documentation.
+
+## Phase 8 — Credits / Cheatsheet Update
+
+Update `json/help/credits.json` if the work includes a notable contribution. Also update `.github/agents/cheatsheet.md` with any verified findings that will help future integrations.
+
+## Phase 9 — Review
+
+Inspect the diff and confirm the final output matches the plan. Ensure the change is scoped, correct, and follows the workspace guidance.
+
+## Phase 10 — Build, Verify, and Commit
+
+Always build using the workspace build task (`run_task`). Do not commit or push a broken build.
+
+When a user provides external or legacy code (including ROM, MERC, Circle, Diku, or other custom MUD code), delegate to the `snippet-integrator` agent before taking action. That agent handles investigation, clarification, implementation, documentation, cheatsheet update, credits, and commit for external-code integration work.
 
 ## Build
 
