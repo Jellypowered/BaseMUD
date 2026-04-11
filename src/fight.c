@@ -1910,6 +1910,9 @@ void dam_message(CHAR_T *ch, CHAR_T *victim, int dam, int dt,
             dt = ATTACK_FIGHTING;
             attack = attack_table[0].name;
         }
+        /* Null noun_damage or noun — fall back to a safe default. */
+        if (attack == NULL)
+            attack = "hit";
 
         /* Was an adjective applied to the attack type? (heavy, strong, etc) */
         if (damage_adj != NULL && damage_adj[0] != '\0')

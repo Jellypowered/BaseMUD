@@ -239,7 +239,6 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
         str_replace_dup(&room->description,
             "Dark stone walls press in around you. Torchlight flickers against damp rock.\n\r");
 
-        room->area    = area;
         room->vnum    = vnum;
         room->anum    = i;
         room->sector_type = SECT_INSIDE;
