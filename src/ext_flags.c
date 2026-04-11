@@ -66,6 +66,7 @@ const EXT_FLAG_DEF_T mob_flags[] = {
     {"gain", MOB_GAIN, TRUE},
     {"update_always", MOB_UPDATE_ALWAYS, TRUE},
     {"changer", MOB_IS_CHANGER, TRUE},
+    {"cursed", MOB_CURSED, TRUE},
     {0}};
 
 const EXT_FLAG_DEF_T plr_flags[] = {

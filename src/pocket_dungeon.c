@@ -678,6 +678,16 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
                 mob_count = density_min;
             if (mob_count > density_max)
                 mob_count = density_max;
+            
+            /* C1-Ancient: Increase density by 50% if Ancient affix active */
+            int k;
+            for (k = 0; k < inst->affix_count; k++) {
+                if (inst->affixes[k] == PD_AFFIX_ANCIENT) {
+                    mob_count = (mob_count * 150) / 100;  /* 50% boost */
+                    break;
+                }
+            }
+            
             /* B1: Apply hard cap to prevent unplayable crowding */
             if (mob_count > 5) {
                 if (mob_count > 5 && inst->level > 40)
@@ -727,11 +737,17 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
                                 mob->hitroll += mob->level / 8;
                                 break;
                             case PD_AFFIX_ANCIENT:
-                                /* Ancient affects density, not individual mob */
+                                /* Ancient affects density (handled above), not individual mob */
                                 break;
                             case PD_AFFIX_CURSED:
+                                /* Mark mob as cursed; combat engine will reverse healing */
+                                EXT_SET(mob->ext_mob, MOB_CURSED);
+                                break;
                             case PD_AFFIX_LUMINOUS:
-                                /* These don't directly modify mob stats */
+                                /* -20% dodge: increase AC values (worse protection) */
+                                int ac_idx;
+                                for (ac_idx = 0; ac_idx < 4; ac_idx++)
+                                    mob->armor[ac_idx] += mob->armor[ac_idx] / 5;
                                 break;
                         }
                     }
@@ -757,12 +773,30 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
                 boss_level = 100;
             pd_scale_mob_to_level(boss, boss_level);
             
-            /* C1: Apply STONYaffix effect to boss for extra toughness */
+            /* C1: Apply Stony affix effect to boss for extra toughness */
             int k;
             for (k = 0; k < inst->affix_count; k++) {
                 if (inst->affixes[k] == PD_AFFIX_STONY) {
                     boss->max_hit = (int)(boss->max_hit * 1.2);
                     boss->hit = boss->max_hit;
+                    break;
+                }
+            }
+            
+            /* C1: Apply Cursed affix to boss if active */
+            for (k = 0; k < inst->affix_count; k++) {
+                if (inst->affixes[k] == PD_AFFIX_CURSED) {
+                    EXT_SET(boss->ext_mob, MOB_CURSED);
+                    break;
+                }
+            }
+            
+            /* C1: Apply Luminous affix to boss if active */
+            for (k = 0; k < inst->affix_count; k++) {
+                if (inst->affixes[k] == PD_AFFIX_LUMINOUS) {
+                    int ac_idx;
+                    for (ac_idx = 0; ac_idx < 4; ac_idx++)
+                        boss->armor[ac_idx] += boss->armor[ac_idx] / 5;
                     break;
                 }
             }

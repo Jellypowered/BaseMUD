@@ -62,6 +62,7 @@
 #define MOB_GAIN 27
 #define MOB_UPDATE_ALWAYS 28
 #define MOB_IS_CHANGER 29
+#define MOB_CURSED 30           /* Pocket dungeon cursed affix */
 
 /* ACT bits for players. */
 #define PLR_IS_NPC 0 /* Don't EVER set.    */
