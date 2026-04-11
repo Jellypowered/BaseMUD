@@ -127,6 +127,184 @@
       {"level": 1, "apply": "armor class", "modifier": -3},
       {"level": 1, "apply": "strength",    "modifier": 1}
     ]
+ ,{"object": {
+    "area": "pocketdungeon",
+    "anum": 82,
+    "name": "chest rune banded",
+    "short_descr": "a rune-banded chest",
+    "description": "A heavy chest banded with iron sits here, its lid dusted with grit.",
+    "item_type": "container",
+    "values": {
+      "capacity": 120,
+      "flags": "closeable closed",
+      "max_weight": 150,
+      "weight_mult": 100
+    },
+    "level": 0,
+    "weight": 80,
+    "cost": 0,
+    "wear_flags": "take"
+  }}
+ ,{"object": {
+    "area": "pocketdungeon",
+    "anum": 83,
+    "name": "cache hidden stone",
+    "short_descr": "a hidden cache",
+    "description": "A shallow stone cache is wedged beneath the floor, easy to miss at a glance.",
+    "item_type": "container",
+    "values": {
+      "capacity": 60,
+      "flags": "closeable closed",
+      "max_weight": 80,
+      "weight_mult": 100
+    },
+    "level": 0,
+    "weight": 20,
+    "cost": 0,
+    "wear_flags": "take"
+  }}
+ ,{"object": {
+    "area": "pocketdungeon",
+    "anum": 84,
+    "name": "scroll hidden sight",
+    "short_descr": "a scroll of hidden sight",
+    "description": "A strip of vellum covered in silver script trembles faintly in the air.",
+    "material": "parchment",
+    "item_type": "scroll",
+    "values": {
+      "level": 12,
+      "skill1": "detect hidden"
+    },
+    "level": 5,
+    "weight": 1,
+    "cost": 600,
+    "extra_flags": "magic",
+    "wear_flags": "take hold"
+  }}
+ ,{"object": {
+    "area": "pocketdungeon",
+    "anum": 85,
+    "name": "wand hidden sight",
+    "short_descr": "a wand of hidden sight",
+    "description": "A slim wand of pale wood hums softly in your hand.",
+    "item_type": "wand",
+    "values": {
+      "level": 1,
+      "recharge": 15,
+      "charges": 15,
+      "skill": "detect hidden"
+    },
+    "level": 5,
+    "weight": 10,
+    "cost": 650,
+    "extra_flags": "magic",
+    "wear_flags": "take hold"
+  }}
+ ,{"object": {
+    "area": "pocketdungeon",
+    "anum": 86,
+    "name": "amulet dungeon reward heirloom delver",
+    "short_descr": "a delver's amulet",
+    "description": "A bronze amulet etched with tiny map-lines hums with steady warmth.",
+    "material": "bronze",
+    "item_type": "jewelry",
+    "values": {},
+    "level": 1,
+    "weight": 2,
+    "cost": 55000,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take neck",
+    "affects": [
+      {"level": 1, "apply": "wisdom",       "modifier": 1},
+      {"level": 1, "apply": "intelligence", "modifier": 1}
+    ]
+  }}
+ ,{"object": {
+    "area": "pocketdungeon",
+    "anum": 87,
+    "name": "boots dungeon reward heirloom scout",
+    "short_descr": "a scout's boots",
+    "description": "Soft boots cut for fast footwork and quiet exits rest here.",
+    "material": "leather",
+    "item_type": "armor",
+    "values": {
+      "vs_pierce": 1,
+      "vs_bash": 1,
+      "vs_slash": 1,
+      "vs_magic": 1
+    },
+    "level": 1,
+    "weight": 25,
+    "cost": 50000,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take feet",
+    "affects": [
+      {"level": 1, "apply": "dexterity",    "modifier": 1},
+      {"level": 1, "apply": "armor class", "modifier": -1}
+    ]
+  }}
+ ,{"object": {
+    "area": "pocketdungeon",
+    "anum": 88,
+    "name": "ring dungeon reward heirloom warding",
+    "short_descr": "a warding ring",
+    "description": "A narrow ring of dark silver carries a faint, protective pulse.",
+    "material": "silver",
+    "item_type": "jewelry",
+    "values": {},
+    "level": 1,
+    "weight": 1,
+    "cost": 55000,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take finger",
+    "affects": [
+      {"level": 1, "apply": "saving throw", "modifier": -1},
+      {"level": 1, "apply": "hit roll",     "modifier": 1}
+    ]
+  }}
+ ,{"object": {
+    "area": "pocketdungeon",
+    "anum": 89,
+    "name": "axe dungeon reward heirloom breaker",
+    "short_descr": "a breaker axe",
+    "description": "A compact axe with a rune-cut haft looks built for splitting doors and shields alike.",
+    "material": "mithril",
+    "item_type": "weapon",
+    "values": {
+      "weapon_type": "axe",
+      "dice_num": 1,
+      "dice_size": 7,
+      "attack_type": "slash"
+    },
+    "level": 1,
+    "weight": 85,
+    "cost": 65000,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take wield",
+    "affects": [
+      {"level": 1, "apply": "hit roll",    "modifier": 1},
+      {"level": 1, "apply": "damage roll", "modifier": 1}
+    ]
+  }}
+ ,{"object": {
+    "area": "pocketdungeon",
+    "anum": 90,
+    "name": "tome dungeon reward heirloom wayfinder",
+    "short_descr": "a wayfinder tome",
+    "description": "A thick tome of route-sketched parchment glows with a patient inner light.",
+    "material": "leather",
+    "item_type": "treasure",
+    "values": {},
+    "level": 1,
+    "weight": 12,
+    "cost": 65000,
+    "extra_flags": "glow magic reward nopurge",
+    "wear_flags": "take hold",
+    "affects": [
+      {"level": 1, "apply": "intelligence", "modifier": 2},
+      {"level": 1, "apply": "mana",         "modifier": 8}
+    ]
+  }}
   }},
   {"object": {
     "area": "pocketdungeon",
