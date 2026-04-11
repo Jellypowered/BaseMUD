@@ -585,3 +585,69 @@ When adapting C snippets for BaseMUD on MinGW64:
 - **`can_see(ch, victim)`** → `char_can_see_anywhere(ch, victim)` (`chars.h`); room-scoped: `char_can_see_in_room`.
 - **`is_name(arg, victim->name)`** → `str_in_namelist(arg, victim->name)` (`utils.h`).
 - **`PERS(victim, ch)`** → `PERS_AW(victim, ch)` in BaseMUD (defined as `char_get_look_short_descr_anywhere`). Plain `PERS(ch)` exists but takes only one arg and returns the short_descr without visibility check.
+
+---
+
+## JSON Config Loading — Common Pitfalls
+
+### `JSON_TBLR_START` macro requires `<stdbool.h>`
+
+The macro uses `bool`/`true`/`false` (C99). Any `.c` file that includes a header
+expanding this macro (directly or indirectly) must include `<stdbool.h>`. Symptom:
+
+```
+error: 'false' undeclared (first use in this function); did you mean 'fclose'?
+```
+
+Fix: add `#include <stdbool.h>` before any system headers in that file.
+
+### `JSON_TBLR_START` lazy-clear pattern
+
+Static config tables (those backed by C array initializers in `tables.c`) are cleared
+the **first time** their JSON reader function is called — not upfront. This is
+intentional: alphabetical scan order means one table's JSON can load before another
+table it cross-references has had its own JSON run.
+
+- **Do not add upfront `memset` loops** to `json_import_all()` — they break
+  cross-table lookups by wiping C static data before it's needed.
+- The lazy-clear `static bool` lives inside each `json_tblr_*` function body (expanded
+  by the `JSON_TBLR_START` macro).
+- Hot-reload via `json_reload_table()` is unaffected: it `memset`s externally before
+  calling the reader, so the already-set bool is bypassed with the table already zero.
+
+### JSON load ordering and cross-table lookups
+
+`json_import_all()` scans `json/config/` alphabetically. Files earlier in ASCII order
+load before files that depend on them. Known ordering dependencies:
+
+| Dependent file     | Requires    | Why `p` < `s` is safe (lazy-clear) |
+| ------------------ | ----------- | ----------------------------------- |
+| `pc_races.json`    | `sizes.json`| `size_table` retains C data until `sizes.json` triggers its own clear |
+
+If you add a new config table that another config file cross-references, verify the
+alphabetical order and ensure the referenced table has C static data that can survive
+until its own JSON file clears it.
+
+### Post-load hooks (`spec_reload_mapping`, `skill_reload_mapping`)
+
+Some tables require a mapping pass after all JSON is loaded (e.g., wiring name-strings
+to C function pointers). This is handled by the **post-load hooks loop** in
+`json_import_all()` — it iterates `master_table` and calls each entry's
+`post_load_fun()` and `invalidate_max_fun()` after the directory scan completes.
+
+If specs or skills show "Unknown special function" at boot (not hot-reload), the
+post-load hooks loop is likely missing or the function is not registered in
+`master_table`.
+
+### Mob JSON field notes
+
+- **Dice fields** (`hit_dice`, `mana_dice`, `damage_dice`) must be **strings**: `"1d8+0"`.
+  Object format `{"number":1,"size":8}` is **not** handled by `json_value_as_dice()`.
+- **AC key for magic/exotic**: `ac_types` in `types.c` uses `"magic"` as the key for
+  `AC_EXOTIC` — **not** `"exotic"`. Using `"exotic"` silently produces zero AC.
+- **`"sex"` valid values**: `"male"`, `"female"`, `"neutral"`. `"neuter"` is not valid.
+- **`"race"` must be a valid race name** from `races.json`; `"undead"` is not a valid
+  race (use `"mob_flags": "undead"` for undead status, with `"race"` set to e.g.
+  `"human"`).
+- **`"damage_noun"`** (not `"noun_damage"`) is the correct key in `skills.json` and mob
+  JSON. The reversed form is silently ignored by the reader.
