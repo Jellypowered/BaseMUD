@@ -1,9 +1,11 @@
 [{"pd_config": {
-  "autopurge":          true,
-  "empty_timeout_mins": 120,
-  "max_instances":       50,
-  "vnum_base":        20000,
-  "vnum_size":          105,
-  "max_members":         10,
-  "scaling_formula":      1
+  "autopurge":            true,
+  "empty_timeout_mins":    120,
+  "max_instances":          50,
+  "vnum_base":           20000,
+  "vnum_size":             105,
+  "max_members":            10,
+  "scaling_formula":         1,
+  "testing_mode":        false,
+  "gold_cost_per_level":   100
 }}]
