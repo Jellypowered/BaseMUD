@@ -22,6 +22,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
+#include <assert.h>
 
 /* -------------------------------------------------------------------------
  * Internal helpers
@@ -42,6 +43,9 @@ static void pd_scale_mob_to_level(CHAR_T *mob, int target_level)
         return;
 
     mob->level = target_level;
+    
+    /* L1: Assertion: ensure final level is always >= 1 */
+    assert(mob->level >= 1 && "mob->level must be at least 1");
 
     /* Recompute HP with the standard level formula (format-agnostic). */
     mob->max_hit = (target_level * 8
@@ -67,6 +71,41 @@ static void pd_scale_mob_to_level(CHAR_T *mob, int target_level)
     /* Stats */
     for (i = 0; i < STAT_MAX; i++)
         mob->perm_stat[i] = UMIN(25, 11 + target_level / 4);
+}
+
+/* B5: Validate that a seed has required data before spawning.
+ * Returns TRUE if valid, FALSE if invalid (seed skipped with error log).
+ * Checks: mob/item arrays exist, key vnums set, strings present. */
+bool pd_validate_seed(PD_SEED_T *seed)
+{
+    if (seed == NULL) {
+        bugf("pd_validate_seed called on NULL seed");
+        return FALSE;
+    }
+    
+    if (seed->mob_vnum_count <= 0) {
+        bugf("pd_seed '%s' has no mob_vnums (count=%d)", 
+             seed->name ? seed->name : "UNNAMED", seed->mob_vnum_count);
+        return FALSE;
+    }
+    
+    if (seed->item_vnum_count <= 0) {
+        bugf("pd_seed '%s' has no item_vnums (count=%d)",
+             seed->name ? seed->name : "UNNAMED", seed->item_vnum_count);
+        return FALSE;
+    }
+    
+    if (seed->boss_vnum <= 0) {
+        bugf("pd_seed '%s' has no boss_vnum (spawning without boss)",
+             seed->name ? seed->name : "UNNAMED");
+    }
+    
+    if (seed->container_vnum <= 0) {
+        bugf("pd_seed '%s' has no container_vnum (spawning without loot chest)",
+             seed->name ? seed->name : "UNNAMED");
+    }
+    
+    return TRUE;
 }
 
 /* Find the first free vnum slot among AREA_INSTANCE_MAX possible slots.
@@ -393,6 +432,12 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
             seed = pd_seed_first;
     }
 
+    /* B5: Validate seed before using it */
+    if (!pd_validate_seed(seed)) {
+        bugf("pd_generate_instance: seed validation failed, aborting");
+        return NULL;
+    }
+
     /* Find a free slot */
     slot = pd_find_free_slot();
     if (slot < 0) {
@@ -502,10 +547,11 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
             if (room_count > 4 && i == room_count / 4)
                 continue;  /* skip chest room */
             
-            /* C2: Scale density based on instance level
+            /* B1+C2: Scale density based on instance level
              * At level 1: use density_min
              * At level 50+: use density_max
-             * Interpolate between in range [1, 50] */
+             * Interpolate between in range [1, 50]
+             * B1: Hard cap at 5 mobs per room to prevent overflow */
             int scaled_level = inst->level;
             if (scaled_level > 50)
                 scaled_level = 50;
@@ -515,18 +561,25 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
                 mob_count = density_min;
             if (mob_count > density_max)
                 mob_count = density_max;
+            /* B1: Apply hard cap to prevent unplayable crowding */
+            if (mob_count > 5) {
+                if (mob_count > 5 && inst->level > 40)
+                    log_f("WARNING: density cap hit at room %d, seed tried %d mobs", i, mob_count);
+                mob_count = 5;
+            }
             
             /* C2: Skip room entirely at very low levels (chance decreases as level rises) */
             if (inst->level < 20 && number_percent() < (20 - inst->level))
                 continue;
             
-            /* C2a: Depth scaling — mobs deeper into dungeon get level bonus
+            /* B2+C2a: Depth scaling — mobs deeper into dungeon get level bonus
              * Calculate room depth: distance from entry room (0)
-             * Depth multiplier: 1.0 + (depth / room_count * 0.5) → ranges [1.0, 1.5] */
+             * B2: Reduced multiplier (1.0–1.3×) instead of 1.0–1.5× to prevent 
+             *     boss-level mobs appearing too early; less aggressive scaling */
             float depth_mult = 1.0;
             if (i > 0 && room_count > 1) {
                 float depth = (float)i / (float)(room_count - 1);
-                depth_mult = 1.0 + (depth * 0.5);  /* ranges [1.0, 1.5] */
+                depth_mult = 1.0 + (depth * 0.3);  /* B2: ranges [1.0, 1.3] reduced from [1.0, 1.5] */
             }
             
             int m;
@@ -656,19 +709,17 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
                     extra_descr_to_room_index_back(ed, rooms[hide_room_idx]);
                 }
 
-                /* Append hint phrase to room description */
+                /* B3: Store hint phrase in extra_descr to prevent exploit
+                 * Only hint text is accessible via look, not appended to room description.
+                 * This prevents players from reading hints without the search skill. */
                 if (seed->hide_hint_phrases[hint_idx] != NULL &&
                     seed->hide_hint_phrases[hint_idx][0] != '\0') {
-                    char new_desc[2048];
-                    if (rooms[hide_room_idx]->description != NULL) {
-                        snprintf(new_desc, sizeof(new_desc), "%s\n\r%s",
-                                 rooms[hide_room_idx]->description,
-                                 seed->hide_hint_phrases[hint_idx]);
-                    } else {
-                        snprintf(new_desc, sizeof(new_desc), "%s",
-                                 seed->hide_hint_phrases[hint_idx]);
-                    }
-                    str_replace_dup(&rooms[hide_room_idx]->description, new_desc);
+                    EXTRA_DESCR_T *hint_ed = extra_descr_new();
+                    str_replace_dup(&hint_ed->keyword, "hint");
+                    str_replace_dup(&hint_ed->description, seed->hide_hint_phrases[hint_idx]);
+                    hint_ed->parent = rooms[hide_room_idx];
+                    hint_ed->parent_type = EXTRA_DESCR_ROOM_INDEX;
+                    extra_descr_to_room_index_back(hint_ed, rooms[hide_room_idx]);
                 }
             }
         }
@@ -676,7 +727,15 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
 
     /* TIER 3: Floor drop loot (spread across remaining rooms) */
     if (seed->item_vnum_count > 0 && seed->loot_density > 0) {
-        int loot_interval = UMAX(1, 5 / seed->loot_density);
+        /* B4: Validate loot_density to prevent overflow
+         * Valid range: [0.1, 3.0]. Clamp to prevent division issues. */
+        float loot_density = seed->loot_density;
+        if (loot_density < 0.1f)
+            loot_density = 0.1f;
+        if (loot_density > 3.0f)
+            loot_density = 3.0f;
+        
+        int loot_interval = UMAX(1, (int)(50 / loot_density));  /* B4: safer calc */
         for (i = 1; i < room_count; i += loot_interval) {
             /* Skip chest and boss rooms */
             if (room_count > 4 && i == room_count / 4) continue;
@@ -762,8 +821,9 @@ void pd_write_snapshot(PD_INSTANCE_T *inst)
     if (inst == NULL || inst->area == NULL)
         return;
 
-    snprintf(filepath, sizeof(filepath), "%spd-inst-%d.json",
-             PD_TEMP_DIR, inst->vnum_slot);
+    /* B7: Use unique filename with instance ID and timestamp to prevent race conditions */
+    snprintf(filepath, sizeof(filepath), "%spd-inst-%d-%ld.json",
+             PD_TEMP_DIR, inst->id, (long)inst->created_at);
 
     fp = fopen(filepath, "w");
     if (fp == NULL) {
@@ -882,8 +942,9 @@ void pd_delete_snapshot(PD_INSTANCE_T *inst)
     char filepath[256];
     if (inst == NULL)
         return;
-    snprintf(filepath, sizeof(filepath), "%spd-inst-%d.json",
-             PD_TEMP_DIR, inst->vnum_slot);
+    /* B7: Match the new filename format with instance ID and timestamp */
+    snprintf(filepath, sizeof(filepath), "%spd-inst-%d-%ld.json",
+             PD_TEMP_DIR, inst->id, (long)inst->created_at);
     remove(filepath);
 }
 

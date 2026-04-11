@@ -703,6 +703,11 @@
 #define SKILL_MAP_SEARCH    53
 #define SKILL_MAP_MAX       54
 
+/* B6: Compile-time assertion to catch skill registration misalignments */
+#if SKILL_MAP_SEARCH >= SKILL_MAP_MAX
+  #error "SKILL_MAP_SEARCH must be less than SKILL_MAP_MAX"
+#endif
+
 /* Stuff for providing a crash-proof buffer */
 #define MAX_BUF_LIST 11
 #define BASE_BUF 1024

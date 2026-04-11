@@ -26,6 +26,7 @@
  ***************************************************************************/
 
 #include "globals.h"
+#include "db.h"
 #include "json_tblr.h"
 
 #include "colour.h"
@@ -34,6 +35,7 @@
 #include "lookup.h"
 #include "magic.h"
 #include "memory.h"
+#include "pocket_dungeon.h"
 #include "recycle.h"
 #include "spell_dispatch.h"
 #include "tables.h"
@@ -1092,6 +1094,8 @@ DEFINE_JSON_READ_FUN(json_tblr_pd_seed)
                 str_dup(json_value_as_string(sub, buf, sizeof(buf)));
         }
     }
+
+    /* B5: Validation moved to generation time (see pd_generate_instance) */
 
     LIST2_BACK(seed, global_prev, global_next, pd_seed_first, pd_seed_last);
     return seed;

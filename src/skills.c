@@ -94,4 +94,10 @@ void skill_init_mapping(void)
         weapon->skill_index = index;
         skill->weapon_index = i;
     }
+
+    /* B6: Validate critical skill registrations at startup */
+    if (skill_map_table[SKILL_MAP_SEARCH].skill_index < 0) {
+        bugf("skill_init_mapping: SKILL_MAP_SEARCH ('%s') failed to map!",
+             skill_map_table[SKILL_MAP_SEARCH].name ? skill_map_table[SKILL_MAP_SEARCH].name : "NULL");
+    }
 }

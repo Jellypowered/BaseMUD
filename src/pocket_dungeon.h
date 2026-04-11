@@ -30,6 +30,10 @@ PD_INSTANCE_T *pd_find_instance_for_char(const CHAR_T *ch);
  * Used by 'dungeon rejoin' to let dying players re-enter their instance. */
 PD_INSTANCE_T *pd_find_instance_by_member(const char *name);
 
+/* B5: Validate that a seed has required data.
+ * Returns TRUE if valid, FALSE if invalid (seed skipped with error log). */
+bool pd_validate_seed(PD_SEED_T *seed);
+
 /* Write / delete the debug snapshot file for an instance. */
 void pd_write_snapshot(PD_INSTANCE_T *inst);
 void pd_delete_snapshot(PD_INSTANCE_T *inst);
