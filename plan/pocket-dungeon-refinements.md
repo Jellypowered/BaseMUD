@@ -1,3 +1,9 @@
+# ✅ PLAN COMPLETE — Pocket Dungeon Refinements (Original Planning, Superseded by Phase 2)
+
+> This plan covers the foundation phases (A-J) for the pocket dungeon system. Implementation has evolved into the Phase 2 refinements plan; see `pocket-dungeon-refinements-phase2.md` for active work.
+
+---
+
 # Plan: Pocket Dungeon Refinements (Full Scope)
 
 **Status:** PHASE 1 COMPLETE - Foundation building blocks ready. Phases E-J pending implementation.
@@ -613,3 +619,7 @@ J (seed editor UI) ──────── depends on D types
 - Boss-specific guaranteed loot table
 - `do_search` revealing hidden characters (AFF_HIDE system) — objects only for now
 - Splitting `detect_hidden` / `detect_invis` into fully separate spell mechanics
+
+---
+
+## Status: COMPLETED (Superseded by pocket-dungeon-refinements-phase2.md)

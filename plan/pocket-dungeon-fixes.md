@@ -1,3 +1,9 @@
+# ✅ PLAN COMPLETE — Early Bug Fixes (Replaced by Phase 2)
+
+> This plan captured initial bug reports. Comprehensive phase 2 refinements now supersede this. See `pocket-dungeon-refinements-phase2.md` for current work.
+
+---
+
 # Plan: Pocket Dungeon — Map View, Scaling, Re-entry, Corpse Hold
 
 ## Scope

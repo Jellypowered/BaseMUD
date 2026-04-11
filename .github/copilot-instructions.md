@@ -15,7 +15,9 @@ Gather relevant context from files, history, and workspace instructions. Use bui
 Summarize the proposed fix or change, then confirm the exact code edits before applying them. The plan should list files to modify, new files to create, and any risks or dependencies.
 
 Before beginning implementation, write the plan to a file under `/plan/` in the repo (e.g. `/plan/my-feature.md`). The file must list every file to be modified or created, the intended change for each, and any known risks. This serves as the authoritative spec for the implementation and is checked during review. Do not deviate from it without updating the file first.
+### Completed Plans
 
+When a plan is finished, mark it with `✅ PLAN COMPLETE` at the top of the file and `## Status: COMPLETED` at the end (with optional date). Do not delete completed plans—they serve as an audit trail. **When analyzing workspace code, ignore plan files marked as COMPLETE** (they are historical reference only; active work plans do not have this marker).
 ## Phase 3 — Clarifying Questions
 
 Ask the user any questions needed to define scope and intent in one batch before implementation. Focus on integration intent, conflicts with existing features, required JSON support, and any boundaries for files or subsystems.
