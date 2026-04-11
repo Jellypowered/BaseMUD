@@ -175,10 +175,35 @@ void do_dungeon(CHAR_T *ch, char *argument)
         /* Remember origin vnum */
         int origin_vnum = (ch->in_room != NULL) ? ch->in_room->vnum : ROOM_VNUM_TEMPLE;
 
+        /* Generate instance first to determine level and cost */
         inst = pd_generate_instance(members, member_count, theme);
         if (inst == NULL) {
             send_to_char("Failed to generate a pocket dungeon. Please try again later.\n\r", ch);
             return;
+        }
+
+        /* Calculate and validate gold cost */
+        if (!pd_config.testing_mode) {
+            long gold_cost = inst->level * pd_config.gold_cost_per_level;
+            if (ch->gold < gold_cost) {
+                long shortage = gold_cost - ch->gold;
+                char buf[256];
+                snprintf(buf, sizeof(buf),
+                         "You need %ld more gold to enter this dungeon (cost: %ld gold).\n\r",
+                         shortage, gold_cost);
+                send_to_char(buf, ch);
+                /* Destroy the instance since we won't be using it */
+                pd_destroy_instance(inst);
+                return;
+            }
+            /* Deduct gold from all members */
+            int i;
+            for (i = 0; i < member_count; i++) {
+                CHAR_T *m = members[i];
+                if (m != NULL && m->gold >= gold_cost) {
+                    m->gold -= gold_cost;
+                }
+            }
         }
 
         inst->origin_vnum = origin_vnum;

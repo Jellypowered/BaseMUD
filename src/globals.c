@@ -144,7 +144,9 @@ PD_CONFIG_T pd_config = {
     20000,/* vnum_base */
     100,  /* vnum_size */
     10,   /* max_members */
-    1     /* scaling_formula: 1 = max group level */
+    1,    /* scaling_formula: 1 = max group level */
+    FALSE,/* testing_mode: free entry if TRUE */
+    100   /* gold_cost_per_level: 100 gold per level */
 };
 PD_INSTANCE_T *pd_instance_first = NULL;
 PD_INSTANCE_T *pd_instance_last  = NULL;

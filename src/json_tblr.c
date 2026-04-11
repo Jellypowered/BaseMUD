@@ -983,15 +983,18 @@ DEFINE_JSON_READ_FUN(json_tblr_pd_config)
                             "*autopurge", "*empty_timeout_mins",
                             "*max_instances", "*vnum_base", "*vnum_size",
                             "*max_members", "*scaling_formula",
+                            "*testing_mode", "*gold_cost_per_level",
                             NULL))
         return NULL;
-    READ_PROP_BOOL(pd_config.autopurge,          "autopurge");
-    READ_PROP_INT (pd_config.empty_timeout_mins, "empty_timeout_mins");
-    READ_PROP_INT (pd_config.max_instances,      "max_instances");
-    READ_PROP_INT (pd_config.vnum_base,          "vnum_base");
-    READ_PROP_INT (pd_config.vnum_size,          "vnum_size");
-    READ_PROP_INT (pd_config.max_members,        "max_members");
-    READ_PROP_INT (pd_config.scaling_formula,    "scaling_formula");
+    READ_PROP_BOOL(pd_config.autopurge,            "autopurge");
+    READ_PROP_INT (pd_config.empty_timeout_mins,   "empty_timeout_mins");
+    READ_PROP_INT (pd_config.max_instances,        "max_instances");
+    READ_PROP_INT (pd_config.vnum_base,            "vnum_base");
+    READ_PROP_INT (pd_config.vnum_size,            "vnum_size");
+    READ_PROP_INT (pd_config.max_members,          "max_members");
+    READ_PROP_INT (pd_config.scaling_formula,      "scaling_formula");
+    READ_PROP_BOOL(pd_config.testing_mode,         "testing_mode");
+    READ_PROP_INT (pd_config.gold_cost_per_level,  "gold_cost_per_level");
     return &pd_config;
 }
 

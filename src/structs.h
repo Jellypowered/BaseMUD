@@ -725,13 +725,15 @@ struct quest_config_type
 
 /* Pocket Dungeon global config. */
 struct pd_config {
-    bool autopurge;          /* if TRUE, empty instances are purged automatically */
-    int  empty_timeout_mins; /* minutes before an empty instance is purged (default 120) */
-    int  max_instances;      /* maximum simultaneously loaded instances (default 50) */
-    int  vnum_base;          /* first vnum of the instance reserved range (default 20000) */
-    int  vnum_size;          /* vnums per instance slot (default 100) */
-    int  max_members;        /* max members that can share one instance (default 10) */
-    int  scaling_formula;    /* 0 = average group level, 1 = max group level */
+    bool autopurge;            /* if TRUE, empty instances are purged automatically */
+    int  empty_timeout_mins;   /* minutes before an empty instance is purged (default 120) */
+    int  max_instances;        /* maximum simultaneously loaded instances (default 50) */
+    int  vnum_base;            /* first vnum of the instance reserved range (default 20000) */
+    int  vnum_size;            /* vnums per instance slot (default 100) */
+    int  max_members;          /* max members that can share one instance (default 10) */
+    int  scaling_formula;      /* 0 = average group level, 1 = max group level */
+    bool testing_mode;         /* if TRUE, dungeon entry is free (default FALSE) */
+    int  gold_cost_per_level;  /* gold per level for dungeon entry (default 100) */
 };
 
 /* Pocket Dungeon seed / theme. */
