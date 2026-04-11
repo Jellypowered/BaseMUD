@@ -57,22 +57,30 @@ void json_tblr_grow(void **table_pp, int *count_p, int *cap_p,
     *cap_p = new_cap;
 }
 
-/* Claim the next free slot in a static table (scan-until-null pattern). */
-#define JSON_TBLR_START(vtype, var, max, null_check)           \
-    vtype *var;                                                \
-                                                               \
-    int index = 0;                                             \
-    for (index = 0; index < max; index++)                      \
-    {                                                          \
-        var = &(var##_table[index]);                           \
-        if (null_check)                                        \
-            break;                                             \
-    }                                                          \
-    if (index == max)                                          \
-    {                                                          \
-        json_logf(json, "Too many '%s' objects.\n", obj_name); \
-        return NULL;                                           \
-    }                                                          \
+/* Claim the next free slot in a static table.
+ * The first time a table is written via JSON, it self-clears (lazy zero) so
+ * that C static initialisers do not collide with JSON entries.  Subsequent
+ * calls within the same session (or hot-reload after an external memset) skip
+ * the zero step and scan for the first null slot as before. */
+#define JSON_TBLR_START(vtype, var, max, null_check)                   \
+    vtype *var;                                                        \
+    static bool var##_json_cleared = false;                            \
+    int index = 0;                                                     \
+    if (!var##_json_cleared) {                                         \
+        memset(var##_table, 0, (max + 1) * sizeof(vtype));             \
+        var##_json_cleared = true;                                     \
+    }                                                                  \
+    for (index = 0; index < max; index++)                              \
+    {                                                                  \
+        var = &(var##_table[index]);                                   \
+        if (null_check)                                                \
+            break;                                                     \
+    }                                                                  \
+    if (index == max)                                                  \
+    {                                                                  \
+        json_logf(json, "Too many '%s' objects.\n", obj_name);         \
+        return NULL;                                                   \
+    }                                                                  \
     var = &(var##_table[index]);
 
 /* Claim the next free slot in a dynamic (heap) table, growing if needed. */
