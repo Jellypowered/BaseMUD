@@ -733,6 +733,8 @@ bool damage_real(CHAR_T *ch, CHAR_T *victim, int dam, int dt, int dam_type,
             PD_INSTANCE_T *pd_inst = pd_find_instance_for_char((CHAR_T *)victim);
             if (pd_inst != NULL) {
                 pd_trigger_boss_loot(pd_inst, victim);
+                /* C2: Increment difficulty progression counter on mob death */
+                pd_inst->rooms_cleared++;
             }
         }
 
