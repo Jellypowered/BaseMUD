@@ -239,6 +239,20 @@ void json_import_all(void)
                                               json_import_objects, &imported)) != NULL)
         json_free(json);
 
+    /* Run post-load hooks for all config tables that have them.
+     * These map string names to function pointers (e.g. spec_reload_mapping,
+     * skill_reload_mapping, cond_reload_mapping, weapon/greeting reload).
+     * At boot these are not called by json_reload_table, so we call them
+     * here, after all config JSON has been parsed. */
+    for (table = master_table; table->name != NULL; table++) {
+        if (table->json_path == NULL || strcmp(table->json_path, "config") != 0)
+            continue;
+        if (table->post_load_fun != NULL)
+            table->post_load_fun();
+        if (table->invalidate_max_fun != NULL)
+            table->invalidate_max_fun();
+    }
+
 #ifdef BASEMUD_IMPORT_JSON
     log_f("Loading help from '%s'...", JSON_HELP_DIR);
     if ((json = json_read_directory_recursive(JSON_HELP_DIR,

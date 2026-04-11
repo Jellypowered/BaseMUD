@@ -52,7 +52,8 @@ void do_dungeon(CHAR_T *ch, char *argument)
 
     if (arg1[0] == '\0' || !str_cmp(arg1, "help")) {
         send_to_char("Pocket Dungeon commands:\n\r"
-                     "  dungeon enter [theme]  - Enter a new pocket dungeon (creates one).\n\r"
+                     "  dungeon enter          - Enter a random dungeon instantly (free).\n\r"
+                     "  dungeon create [theme] - Create a dungeon with theme selection (costs gold).\n\r"
                      "  dungeon leave          - Return to the temple from your dungeon.\n\r"
                      "  dungeon rejoin         - Re-enter the dungeon you were part of.\n\r"
                      "  dungeon status         - Show your current dungeon info.\n\r"
@@ -143,8 +144,81 @@ void do_dungeon(CHAR_T *ch, char *argument)
         return;
     }
 
-    /* ENTER */
+    /* ENTER — random theme, no cost */
     if (!str_cmp(arg1, "enter")) {
+        /* arg2 is intentionally ignored for enter; it's always random */
+
+        if (pd_find_instance_for_char(ch) != NULL) {
+            send_to_char("You are already inside a pocket dungeon. Use 'dungeon leave' first.\n\r", ch);
+            return;
+        }
+
+        /* Count active instances */
+        {
+            int count = 0;
+            PD_INSTANCE_T *scan;
+            for (scan = pd_instance_first; scan != NULL; scan = scan->global_next)
+                count++;
+            if (count >= pd_config.max_instances) {
+                send_to_char("All dungeon slots are currently in use. Try again later.\n\r", ch);
+                return;
+            }
+        }
+
+        /* Gather group */
+        CHAR_T *members[MAX_INSTANCE_MEMBERS];
+        int member_count = pd_collect_group(ch, members, MAX_INSTANCE_MEMBERS);
+        if (member_count == 0) {
+            members[0] = ch;
+            member_count = 1;
+        }
+
+        /* Remember origin vnum */
+        int origin_vnum = (ch->in_room != NULL) ? ch->in_room->vnum : ROOM_VNUM_TEMPLE;
+
+        /* Generate instance with random theme (no cost) */
+        inst = pd_generate_instance(members, member_count, NULL);
+        if (inst == NULL) {
+            send_to_char("Failed to generate a pocket dungeon. Please try again later.\n\r", ch);
+            return;
+        }
+
+        inst->origin_vnum = origin_vnum;
+
+        /* Update the return portal's to_vnum */
+        ROOM_INDEX_T *entry_room = room_get_index(inst->entry_vnum);
+        if (entry_room != NULL) {
+            OBJ_T *obj;
+            for (obj = entry_room->content_first; obj != NULL; obj = obj->content_next) {
+                if (obj->item_type == ITEM_PORTAL) {
+                    obj->v.portal.to_vnum = origin_vnum;
+                    break;
+                }
+            }
+        }
+
+        /* Teleport all group members into the dungeon */
+        {
+            int i;
+            for (i = 0; i < member_count; i++) {
+                CHAR_T *m = members[i];
+                if (m->in_room == NULL)
+                    continue;
+                ROOM_INDEX_T *dest = room_get_index(inst->entry_vnum);
+                if (dest == NULL)
+                    continue;
+                act("A shimmering portal opens before $n.", m, NULL, NULL, TO_NOTCHAR);
+                char_from_room(m);
+                char_to_room(m, dest);
+                send_to_char("You step through a shimmering portal into a pocket dungeon!\n\r", m);
+                act("$n steps through a shimmering portal.", m, NULL, NULL, TO_NOTCHAR);
+            }
+        }
+        return;
+    }
+
+    /* CREATE — optional theme, costs gold */
+    if (!str_cmp(arg1, "create")) {
         const char *theme = arg2[0] ? arg2 : NULL;
 
         if (pd_find_instance_for_char(ch) != NULL) {
@@ -192,7 +266,6 @@ void do_dungeon(CHAR_T *ch, char *argument)
                          "You need %ld more gold to enter this dungeon (cost: %ld gold).\n\r",
                          shortage, gold_cost);
                 send_to_char(buf, ch);
-                /* Destroy the instance since we won't be using it */
                 pd_destroy_instance(inst);
                 return;
             }
@@ -200,15 +273,14 @@ void do_dungeon(CHAR_T *ch, char *argument)
             int i;
             for (i = 0; i < member_count; i++) {
                 CHAR_T *m = members[i];
-                if (m != NULL && m->gold >= gold_cost) {
+                if (m != NULL && m->gold >= gold_cost)
                     m->gold -= gold_cost;
-                }
             }
         }
 
         inst->origin_vnum = origin_vnum;
 
-        /* Update the return portal's to_vnum to send them back here */
+        /* Update the return portal's to_vnum */
         ROOM_INDEX_T *entry_room = room_get_index(inst->entry_vnum);
         if (entry_room != NULL) {
             OBJ_T *obj;
@@ -221,21 +293,21 @@ void do_dungeon(CHAR_T *ch, char *argument)
         }
 
         /* Teleport all group members into the dungeon */
-        int i;
-        for (i = 0; i < member_count; i++) {
-            CHAR_T *m = members[i];
-            if (m->in_room == NULL)
-                continue;
-            ROOM_INDEX_T *dest = room_get_index(inst->entry_vnum);
-            if (dest == NULL)
-                continue;
-            act("A shimmering portal opens before $n.", m, NULL, NULL, TO_NOTCHAR);
-            char_from_room(m);
-            char_to_room(m, dest);
-            send_to_char("You step through a shimmering portal into a pocket dungeon!\n\r", m);
-            act("$n steps through a shimmering portal.", m, NULL, NULL, TO_NOTCHAR);
-            /* do_look equivalent */
-            /* (players will see the room on next prompt/look) */
+        {
+            int i;
+            for (i = 0; i < member_count; i++) {
+                CHAR_T *m = members[i];
+                if (m->in_room == NULL)
+                    continue;
+                ROOM_INDEX_T *dest = room_get_index(inst->entry_vnum);
+                if (dest == NULL)
+                    continue;
+                act("A shimmering portal opens before $n.", m, NULL, NULL, TO_NOTCHAR);
+                char_from_room(m);
+                char_to_room(m, dest);
+                send_to_char("You step through a shimmering portal into a pocket dungeon!\n\r", m);
+                act("$n steps through a shimmering portal.", m, NULL, NULL, TO_NOTCHAR);
+            }
         }
         return;
     }
