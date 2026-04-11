@@ -12,6 +12,7 @@
 #include "defs.h"
 #include "extra_descrs.h"
 #include "memory.h"
+#include "mob_cmds.h"
 #include "mobiles.h"
 #include "objs.h"
 #include "recycle.h"
@@ -102,6 +103,11 @@ bool pd_validate_seed(PD_SEED_T *seed)
     
     if (seed->container_vnum <= 0) {
         bugf("pd_seed '%s' has no container_vnum (spawning without loot chest)",
+             seed->name ? seed->name : "UNNAMED");
+    }
+
+    if (seed->room_desc_count <= 0) {
+        bugf("pd_seed '%s' has no room_descs (using fallback flavor text)",
              seed->name ? seed->name : "UNNAMED");
     }
     
@@ -262,6 +268,88 @@ static const char *pd_pick_room_name(PD_SEED_T *seed, int index)
     if (seed->room_name_count <= 0)
         return "dungeon chamber";
     return seed->room_names[index % seed->room_name_count];
+}
+
+/* Pick a room description from the authored pool, or use a safe fallback. */
+static const char *pd_pick_room_description(PD_SEED_T *seed, int index)
+{
+    const char *text;
+
+    if (seed == NULL || seed->room_desc_count <= 0)
+        return "The chamber is damp and watchful, with old stone pressing close on every side.";
+
+    text = seed->room_descs[index % seed->room_desc_count].text;
+    if (text == NULL || text[0] == '\0')
+        return "The chamber is damp and watchful, with old stone pressing close on every side.";
+
+    return text;
+}
+
+/* Layout-specific atmosphere clause keeps descriptions from repeating verbatim. */
+static const char *pd_pick_room_atmosphere(const char *style, int index)
+{
+    static const char *linear[] = {
+        "The passage stretches in a stubborn line, echoing every footstep back at you.",
+        "Dust lies in a thin ribbon across the floor, broken only by fresh tracks.",
+        "The corridor feels narrow and deliberate, as if the dungeon itself is guiding you onward."
+    };
+    static const char *spiral[] = {
+        "The route bends back on itself, making it hard to trust your sense of direction.",
+        "Stone walls sweep around you in a tightening curve that never quite repeats.",
+        "The path seems to coil deeper into the dungeon with every step."
+    };
+    static const char *hub[] = {
+        "Branches of passageway peel away in several directions from the center.",
+        "This chamber feels like the heart of a larger maze, waiting for a choice.",
+        "Drafts drift in from every side, carrying faint hints of distant rooms."
+    };
+    static const char *ruins[] = {
+        "Broken masonry and weather-softened stone litter the floor in uneven piles.",
+        "Roots and rubble crowd the edges here, as though the past is creeping back in.",
+        "The air smells of damp dust and long-abandoned memory."
+    };
+    static const char *cavern[] = {
+        "Cold moisture beads on the rock and slips into the dark below.",
+        "The chamber breathes with a low draft that stirs the silence but reveals nothing.",
+        "The stone is slick and ancient, worn smooth by water and time."
+    };
+    const char **table = linear;
+    int count = 3;
+
+    if (style != NULL) {
+        if (!str_cmp(style, "spiral"))
+            table = spiral;
+        else if (!str_cmp(style, "hub"))
+            table = hub;
+        else if (!str_cmp(style, "ruins"))
+            table = ruins;
+        else if (!str_cmp(style, "cavern"))
+            table = cavern;
+    }
+
+    return table[index % count];
+}
+
+/* Attach authored look details to a room if the seed provides them. */
+static void pd_attach_room_desc_extra(ROOM_INDEX_T *room, PD_SEED_T *seed, int index)
+{
+    EXTRA_DESCR_T *ed;
+    struct pd_room_desc *desc;
+
+    if (room == NULL || seed == NULL || seed->room_desc_count <= 0)
+        return;
+
+    desc = &seed->room_descs[index % seed->room_desc_count];
+    if (desc->look_keyword == NULL || desc->look_keyword[0] == '\0' ||
+        desc->look_text == NULL || desc->look_text[0] == '\0')
+        return;
+
+    ed = extra_descr_new();
+    str_replace_dup(&ed->keyword, desc->look_keyword);
+    str_replace_dup(&ed->description, desc->look_text);
+    ed->parent = room;
+    ed->parent_type = EXTRA_DESCR_ROOM_INDEX;
+    extra_descr_to_room_index_back(ed, room);
 }
 
 /* Calculate effective gear score for a character.
@@ -594,15 +682,23 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
     for (i = 0; i < room_count; i++) {
         ROOM_INDEX_T *room = room_index_new();
         int vnum = vnum_base + i;
+        char name_buf[MAX_STRING_LENGTH];
+        char desc_buf[MAX_STRING_LENGTH];
 
-        str_replace_dup(&room->name, pd_pick_room_name(seed, i));
-        str_replace_dup(&room->description,
-            "Dark stone walls press in around you. Torchlight flickers against damp rock.\n\r");
+        snprintf(name_buf, sizeof(name_buf), "%s", pd_pick_room_name(seed, i));
+        str_replace_dup(&room->name, str_capitalized(name_buf));
+
+        snprintf(desc_buf, sizeof(desc_buf), "%s %s\n\r",
+                 pd_pick_room_description(seed, i),
+                 pd_pick_room_atmosphere(seed->layout_style, i));
+        str_replace_dup(&room->description, desc_buf);
 
         room->vnum    = vnum;
         room->anum    = i;
         room->sector_type = SECT_INSIDE;
         SET_BIT(room->room_flags, ROOM_INDOORS);
+
+        pd_attach_room_desc_extra(room, seed, i);
 
         room_to_area(room, area);
         room_index_to_hash(room);
@@ -1062,6 +1158,9 @@ void pd_write_snapshot(PD_INSTANCE_T *inst)
         fprintf(fp, "      \"name\": \"");
         pd_fputs_json(fp, room->name);
         fprintf(fp, "\",\n");
+        fprintf(fp, "      \"description\": \"");
+        pd_fputs_json(fp, room->description ? room->description : "");
+        fprintf(fp, "\",\n");
 
         fprintf(fp, "      \"exits\": {");
         first_exit = 1;
@@ -1080,6 +1179,7 @@ void pd_write_snapshot(PD_INSTANCE_T *inst)
         {
             int mob_count = 0;
             int first_mob = 1;
+            MPROG_LIST_T *prg;
             CHAR_T *ch;
             
             /* Count mobs first */
@@ -1100,8 +1200,22 @@ void pd_write_snapshot(PD_INSTANCE_T *inst)
                     fprintf(fp, "{\"vnum\": %d, \"name\": \"",
                             ch->mob_index ? ch->mob_index->vnum : 0);
                     pd_fputs_json(fp, ch->short_descr ? ch->short_descr : "");
-                    fprintf(fp, "\", \"hp\": %d, \"max_hp\": %d}",
+                    fprintf(fp, "\", \"hp\": %d, \"max_hp\": %d, \"mobprogs\": [",
                             ch->hit, ch->max_hit);
+                    if (ch->mob_index != NULL) {
+                        int first_prog = 1;
+                        for (prg = ch->mob_index->mprog_first; prg != NULL; prg = prg->mob_next) {
+                            if (!first_prog)
+                                fprintf(fp, ", ");
+                            first_prog = 0;
+                            fprintf(fp, "{\"trigger\": \"");
+                            pd_fputs_json(fp, mprog_type_to_name(prg->trig_type));
+                            fprintf(fp, "\", \"phrase\": \"");
+                            pd_fputs_json(fp, prg->trig_phrase ? prg->trig_phrase : "");
+                            fprintf(fp, "\"}");
+                        }
+                    }
+                    fprintf(fp, "]}");
                 }
             }
             fprintf(fp, "],\n");

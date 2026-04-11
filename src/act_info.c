@@ -167,7 +167,9 @@ void do_look_room(CHAR_T *ch, int is_auto)
     char sect_char = room_colour_char(ch->in_room);
     printf_to_char(ch, "{%c%s{x", sect_char, ch->in_room->name);
 
-    if ((IS_IMMORTAL(ch) && (IS_NPC(ch) || EXT_IS_SET(ch->ext_plr, PLR_HOLYLIGHT))) || IS_BUILDER(ch, ch->in_room->area))
+    if (pd_config.show_room_vnums &&
+        ((IS_IMMORTAL(ch) && (IS_NPC(ch) || EXT_IS_SET(ch->ext_plr, PLR_HOLYLIGHT))) ||
+         IS_BUILDER(ch, ch->in_room->area)))
         printf_to_char(ch, "{r [{RRoom %d{r]{x", ch->in_room->vnum);
     send_to_char("\n\r", ch);
 

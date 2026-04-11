@@ -734,6 +734,7 @@ struct pd_config {
     int  scaling_formula;      /* 0 = average group level, 1 = max group level */
     bool testing_mode;         /* if TRUE, dungeon entry is free (default FALSE) */
     int  gold_cost_per_level;  /* gold per level for dungeon entry (default 100) */
+    bool show_room_vnums;      /* if TRUE, builders/immortals see room vnums in look output */
 };
 
 /* Pocket Dungeon seed / theme. */

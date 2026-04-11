@@ -993,6 +993,7 @@ DEFINE_JSON_READ_FUN(json_tblr_pd_config)
                             "*max_instances", "*vnum_base", "*vnum_size",
                             "*max_members", "*scaling_formula",
                             "*testing_mode", "*gold_cost_per_level",
+                            "*show_room_vnums",
                             NULL))
         return NULL;
     READ_PROP_BOOL(pd_config.autopurge,            "autopurge");
@@ -1004,13 +1005,14 @@ DEFINE_JSON_READ_FUN(json_tblr_pd_config)
     READ_PROP_INT (pd_config.scaling_formula,      "scaling_formula");
     READ_PROP_BOOL(pd_config.testing_mode,         "testing_mode");
     READ_PROP_INT (pd_config.gold_cost_per_level,  "gold_cost_per_level");
+    READ_PROP_BOOL(pd_config.show_room_vnums,      "show_room_vnums");
     return &pd_config;
 }
 
 DEFINE_JSON_READ_FUN(json_tblr_pd_seed)
 {
     PD_SEED_T *seed;
-    JSON_T *array, *sub;
+    JSON_T *array, *sub, *sub2;
     char buf[MAX_STRING_LENGTH];
     (void)buf;
 
@@ -1089,6 +1091,54 @@ DEFINE_JSON_READ_FUN(json_tblr_pd_seed)
             if (seed->item_vnum_count >= PD_MAX_ITEM_VNUMS)
                 break;
             seed->item_vnums[seed->item_vnum_count++] = json_value_as_int(sub);
+        }
+    }
+    /* room_descs array */
+    if ((array = json_get(json, "room_descs")) != NULL) {
+        for (sub = array->first_child; sub != NULL; sub = sub->next) {
+            struct pd_room_desc *desc;
+            const char *text;
+
+            if (seed->room_desc_count >= PD_MAX_ROOM_DESCS)
+                break;
+
+            desc = &seed->room_descs[seed->room_desc_count];
+            desc->text = NULL;
+            desc->look_keyword = NULL;
+            desc->look_text = NULL;
+
+            if (sub->type == JSON_OBJECT) {
+                sub2 = json_get(sub, "text");
+                text = (sub2 != NULL) ? json_value_as_string(sub2, buf, sizeof(buf)) : "";
+                if (text != NULL && text[0] != '\0')
+                    desc->text = str_dup(text);
+
+                sub2 = json_get(sub, "look_keyword");
+                if (sub2 != NULL && sub2->type != JSON_NULL) {
+                    text = json_value_as_string(sub2, buf, sizeof(buf));
+                    if (text != NULL && text[0] != '\0')
+                        desc->look_keyword = str_dup(text);
+                }
+
+                sub2 = json_get(sub, "look_text");
+                if (sub2 != NULL && sub2->type != JSON_NULL) {
+                    text = json_value_as_string(sub2, buf, sizeof(buf));
+                    if (text != NULL && text[0] != '\0')
+                        desc->look_text = str_dup(text);
+                }
+            } else {
+                text = json_value_as_string(sub, buf, sizeof(buf));
+                if (text != NULL && text[0] != '\0')
+                    desc->text = str_dup(text);
+            }
+
+            if (desc->text == NULL)
+                continue;
+
+            if (desc->look_keyword != NULL && desc->look_text == NULL)
+                desc->look_text = str_dup(desc->text);
+
+            seed->room_desc_count++;
         }
     }
     /* hide_keywords array */

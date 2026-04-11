@@ -2,6 +2,12 @@
   {"pd_seed": {
     "name": "crypt", "title": "Ancient Crypt", "layout_style": "linear", "sector_type": 0, "outdoors": false,
     "room_names": ["dusty crypt chamber", "collapsed vault", "forsaken ossuary", "crumbling antechamber", "bone-strewn passage"],
+    "room_descs": [
+      {"text": "The air is cold and stale, carrying the faint scent of dust and old stone."},
+      {"text": "Broken sarcophagi and chipped bones litter the floor in quiet disarray."},
+      {"text": "Torchlight barely reaches the corners, where shadows cling to the walls."},
+      {"text": "A hush hangs over the chamber, broken only by the scrape of your own boots."}
+    ],
     "mob_vnums": [19900, 19901], "item_vnums": [19950, 19951],
     "room_count_min": 25, "room_count_max": 100, "mob_density": 2, "mob_density_min": 1, "mob_density_max": 3, "loot_density": 1,
     "entry_room_name": "cryptic foyer", "boss_room_name": "bone throne chamber", "chest_room_name": "treasure vault",
@@ -14,6 +20,12 @@
   {"pd_seed": {
     "name": "cave", "title": "Dark Cave", "layout_style": "cavern", "sector_type": 0, "outdoors": false,
     "room_names": ["rocky cavern", "dripping grotto", "narrow tunnel", "underground lake shore", "crystal passage"],
+    "room_descs": [
+      {"text": "The cavern breathes cold moisture from the stone, leaving a slick shine across the floor."},
+      {"text": "Faint water drips somewhere in the dark, marking a slow and patient rhythm."},
+      {"text": "Jagged rock walls close in around the path, rough and untamed."},
+      {"text": "The air tastes mineral and deep, as though the underground never fully sleeps."}
+    ],
     "mob_vnums": [19902, 19903], "item_vnums": [19952, 19953],
     "room_count_min": 25, "room_count_max": 100, "mob_density": 2, "mob_density_min": 1, "mob_density_max": 3, "loot_density": 1,
     "entry_room_name": "cave mouth", "boss_room_name": "deep wyvern nest", "chest_room_name": "glittering cave",
@@ -25,6 +37,12 @@
   {"pd_seed": {
     "name": "ruins", "title": "Ancient Ruins", "layout_style": "ruins", "sector_type": 2, "outdoors": true,
     "room_names": ["crumbling hall", "shattered courtyard", "buried library", "collapsed throne room", "overgrown garden"],
+    "room_descs": [
+      {"text": "Broken arches and fallen stone make the room feel half-remembered."},
+      {"text": "Weeds force their way through cracks in the floor, softening the ruin with green life."},
+      {"text": "The wind pushes through empty windows, carrying dust and the smell of rain."},
+      {"text": "Every wall bears the long ache of neglect, as if the place is waiting to be claimed again."}
+    ],
     "mob_vnums": [19904, 19905], "item_vnums": [19954, 19955],
     "room_count_min": 25, "room_count_max": 100, "mob_density": 2, "mob_density_min": 1, "mob_density_max": 3, "loot_density": 1,
     "entry_room_name": "broken gate", "boss_room_name": "king's monument", "chest_room_name": "hidden chamber",
@@ -36,6 +54,12 @@
   {"pd_seed": {
     "name": "mountain", "title": "Frozen Mountain", "layout_style": "spiral", "sector_type": 5, "outdoors": true,
     "room_names": ["icy peak", "snowdrift", "avalanche pass", "frozen lake", "windswept ridge"],
+    "room_descs": [
+      {"text": "Thin air and biting wind make every breath feel sharp."},
+      {"text": "Ice crusts the stone in pale sheets, and the cold seems to press back against you."},
+      {"text": "Snow gathers in sheltered corners while the exposed ground is swept bare."},
+      {"text": "The mountain feels vast and severe, its silence broken only by the hiss of the wind."}
+    ],
     "mob_vnums": [19922, 19923], "item_vnums": [19956, 19957],
     "room_count_min": 25, "room_count_max": 100, "mob_density": 2, "mob_density_min": 1, "mob_density_max": 3, "loot_density": 1,
     "entry_room_name": "mountain base", "boss_room_name": "dragon's aerie", "chest_room_name": "glacier vault",
@@ -47,6 +71,12 @@
   {"pd_seed": {
     "name": "stronghold", "title": "Ancient Stronghold", "layout_style": "hub", "sector_type": 0, "outdoors": false,
     "room_names": ["guard chamber", "archer tower", "armory", "grand hall", "inner sanctum"],
+    "room_descs": [
+      {"text": "The chamber is built for discipline, with hard angles and little wasted space."},
+      {"text": "Old banners hang in dusty silence, their colors faded but still proud."},
+      {"text": "Iron fittings and worn stone suggest a fortress that has seen far more duty than rest."},
+      {"text": "The air carries the weight of old orders, strict and unyielding."}
+    ],
     "mob_vnums": [19924, 19925], "item_vnums": [19958, 19959],
     "room_count_min": 25, "room_count_max": 100, "mob_density": 2, "mob_density_min": 1, "mob_density_max": 3, "loot_density": 1,
     "entry_room_name": "castle gate", "boss_room_name": "throne room", "chest_room_name": "war treasury",
@@ -58,6 +88,12 @@
   {"pd_seed": {
     "name": "castle", "title": "Haunted Castle", "layout_style": "hub", "sector_type": 0, "outdoors": false,
     "room_names": ["grand corridor", "portrait chamber", "library", "ballroom", "tower stairs"],
+    "room_descs": [
+      {"text": "The castle still clings to its old grandeur, even through dust and decay."},
+      {"text": "Creaking boards and faded tapestries make the hall feel haunted by former elegance."},
+      {"text": "A cold draft moves through the room, stirring the smell of old wood and wax."},
+      {"text": "The silence here has a formal, patient quality, like a lord waiting behind a closed door."}
+    ],
     "mob_vnums": [19926, 19927], "item_vnums": [19950, 19951],
     "room_count_min": 25, "room_count_max": 100, "mob_density": 2, "mob_density_min": 1, "mob_density_max": 3, "loot_density": 1,
     "entry_room_name": "castle courtyard", "boss_room_name": "master bedroom", "chest_room_name": "lord's vault",
@@ -69,6 +105,12 @@
   {"pd_seed": {
     "name": "forest", "title": "Mysterious Forest", "layout_style": "cavern", "sector_type": 3, "outdoors": true,
     "room_names": ["forest glade", "ancient oak grove", "mossy path", "dense thicket", "moonlit clearing"],
+    "room_descs": [
+      {"text": "Green light filters through the branches, softening every edge in the room."},
+      {"text": "Moss and root weave across the ground, muffling your steps."},
+      {"text": "The trees stand close enough to feel like witnesses, patient and silent."},
+      {"text": "The forest breathes around you with wet leaves, bark, and a faint trace of rain."}
+    ],
     "mob_vnums": [19928, 19929], "item_vnums": [19952, 19953],
     "room_count_min": 25, "room_count_max": 100, "mob_density": 2, "mob_density_min": 1, "mob_density_max": 3, "loot_density": 1,
     "entry_room_name": "forest entrance", "boss_room_name": "ancient treant's lair", "chest_room_name": "hidden grove",
@@ -80,6 +122,12 @@
   {"pd_seed": {
     "name": "den", "title": "Beast's Lair", "layout_style": "cavern", "sector_type": 0, "outdoors": false,
     "room_names": ["den entrance", "bone pile", "blood-stained floor", "dark corridor", "nesting chamber"],
+    "room_descs": [
+      {"text": "The den reeks of old fur, stale blood, and the restless heat of beasts nearby."},
+      {"text": "Claw marks rake the walls, and the floor is scattered with bones and torn scraps."},
+      {"text": "The darkness feels alive here, pressed tight with the scent of predators."},
+      {"text": "Low sounds echo from deeper within, too soft to be voices and too sharp to be wind."}
+    ],
     "mob_vnums": [19930, 19931], "item_vnums": [19954, 19955],
     "room_count_min": 25, "room_count_max": 100, "mob_density": 2, "mob_density_min": 1, "mob_density_max": 3, "loot_density": 1,
     "entry_room_name": "cave mouth", "boss_room_name": "alpha's chamber", "chest_room_name": "treasure hoard",
@@ -91,6 +139,12 @@
   {"pd_seed": {
     "name": "marsh", "title": "Cursed Marsh", "layout_style": "ruins", "sector_type": 2, "outdoors": true,
     "room_names": ["murky swamp", "sunken ruin", "rotting log", "bubbling bog", "twisted willows"],
+    "room_descs": [
+      {"text": "Black water swallows the light, and the air tastes of mud and rot."},
+      {"text": "The swamp floor shifts underfoot, soft with mud and tangled roots."},
+      {"text": "Insects buzz in the thick air, circling the stagnant pools around you."},
+      {"text": "Half-submerged stonework hints at ruins trying to claw their way back to the surface."}
+    ],
     "mob_vnums": [19932, 19933], "item_vnums": [19956, 19957],
     "room_count_min": 25, "room_count_max": 100, "mob_density": 2, "mob_density_min": 1, "mob_density_max": 3, "loot_density": 1,
     "entry_room_name": "marsh edge", "boss_room_name": "sunken temple", "chest_room_name": "mud vault",
@@ -102,6 +156,12 @@
   {"pd_seed": {
     "name": "island", "title": "Lost Island", "layout_style": "ruins", "sector_type": 6, "outdoors": true,
     "room_names": ["beach", "tide pools", "island cliffs", "jungle interior", "temple grounds"],
+    "room_descs": [
+      {"text": "Salt air and wet sand cling to the room, carrying the distant sound of surf."},
+      {"text": "Broken stone and jungle roots share the space, as if the island is reclaiming every wall."},
+      {"text": "The heat is heavy and close, but the ocean wind never quite leaves the room."},
+      {"text": "A weather-worn ruin stands here, half hidden beneath vines and sea spray."}
+    ],
     "mob_vnums": [19934, 19935], "item_vnums": [19958, 19959],
     "room_count_min": 25, "room_count_max": 100, "mob_density": 2, "mob_density_min": 1, "mob_density_max": 3, "loot_density": 1,
     "entry_room_name": "shipwreck beach", "boss_room_name": "cursed temple", "chest_room_name": "offering chamber",
@@ -113,6 +173,12 @@
   {"pd_seed": {
     "name": "plains", "title": "Desolate Plains", "layout_style": "ruins", "sector_type": 2, "outdoors": true,
     "room_names": ["empty field", "barren ridge", "wind-swept prairie", "abandoned village", "scorched earth"],
+    "room_descs": [
+      {"text": "The land feels open and exposed, with the wind carrying dust across the ground."},
+      {"text": "Long grass bends low in the gusts, whispering against scattered stones."},
+      {"text": "The emptiness here is wide and deliberate, broken only by a few battered remains."},
+      {"text": "Ash and dry earth cling to the room, giving it the color of old loss."}
+    ],
     "mob_vnums": [19936, 19937], "item_vnums": [19950, 19951],
     "room_count_min": 25, "room_count_max": 100, "mob_density": 2, "mob_density_min": 1, "mob_density_max": 3, "loot_density": 1,
     "entry_room_name": "prairie entrance", "boss_room_name": "spirit summoning ground", "chest_room_name": "grave marker",
@@ -124,6 +190,12 @@
   {"pd_seed": {
     "name": "skyreach", "title": "Skyreach Tower", "layout_style": "linear", "sector_type": 5, "outdoors": true,
     "room_names": ["cloud platform", "floating island", "wind bridge", "crystal spire", "ethereal chamber"],
+    "room_descs": [
+      {"text": "The room hangs high above the world, where the wind feels thin and sharp."},
+      {"text": "Clouds drift below the floor, making the chamber feel strangely weightless."},
+      {"text": "The stone is pale and cold, with every edge sharpened by altitude and light."},
+      {"text": "A distant horizon presses at the edges of sight, vast and unreachable."}
+    ],
     "mob_vnums": [19938, 19939], "item_vnums": [19952, 19953],
     "room_count_min": 25, "room_count_max": 100, "mob_density": 2, "mob_density_min": 1, "mob_density_max": 3, "loot_density": 1,
     "entry_room_name": "tower base", "boss_room_name": "sky overlord's chamber", "chest_room_name": "cloud vault",
@@ -135,6 +207,12 @@
   {"pd_seed": {
     "name": "temple", "title": "Sunken Temple", "layout_style": "spiral", "sector_type": 0, "outdoors": false,
     "room_names": ["temple gateway", "ceremonial hall", "sacred chamber", "idol room", "sacrifice altar"],
+    "room_descs": [
+      {"text": "Incense and damp stone mingle in the air, giving the room a solemn hush."},
+      {"text": "Carved idols stare from the walls, worn smooth by age and devotion."},
+      {"text": "The floor is marked with old ritual lines, their purpose long since forgotten."},
+      {"text": "Even in ruin, the chamber feels arranged for ceremony rather than rest."}
+    ],
     "mob_vnums": [19940, 19941], "item_vnums": [19954, 19955],
     "room_count_min": 25, "room_count_max": 100, "mob_density": 2, "mob_density_min": 1, "mob_density_max": 3, "loot_density": 1,
     "entry_room_name": "temple entrance", "boss_room_name": "high priest's sanctum", "chest_room_name": "treasure room",
@@ -146,6 +224,12 @@
   {"pd_seed": {
     "name": "dungeon_depths", "title": "Dungeon Depths", "layout_style": "cavern", "sector_type": 0, "outdoors": false,
     "room_names": ["stone corridor", "torture chamber", "prison cell", "iron gate", "dark chasm"],
+    "room_descs": [
+      {"text": "The dungeon is cold and close, with iron and stone pressing in from every side."},
+      {"text": "Old chains hang from the walls, their links dull from years of use."},
+      {"text": "The floor is stained and uneven, and the silence feels punished into place."},
+      {"text": "A sour, metallic smell lingers here, as if the room remembers too much."}
+    ],
     "mob_vnums": [19942, 19943], "item_vnums": [19956, 19957],
     "room_count_min": 25, "room_count_max": 100, "mob_density": 2, "mob_density_min": 1, "mob_density_max": 3, "loot_density": 1,
     "entry_room_name": "dungeon entrance", "boss_room_name": "warden's chamber", "chest_room_name": "slave master's vault",

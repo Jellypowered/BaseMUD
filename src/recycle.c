@@ -307,11 +307,25 @@ DEFINE_INIT_FUN(pd_seed_init)
     int i;
     seed->name  = &str_empty[0];
     seed->title = &str_empty[0];
+    seed->layout_style = &str_empty[0];
+    seed->entry_room_name = &str_empty[0];
+    seed->boss_room_name = &str_empty[0];
+    seed->chest_room_name = &str_empty[0];
     seed->mobprog_enabled = TRUE;
     seed->mobprog_personality_override = -1;
     seed->mobprog_difficulty_boost = 0;
+    seed->room_name_count = 0;
+    seed->mob_vnum_count = 0;
+    seed->item_vnum_count = 0;
+    seed->room_desc_count = 0;
+    seed->hide_hint_count = 0;
     for (i = 0; i < PD_MAX_ROOM_NAMES; i++)
         seed->room_names[i] = NULL;
+    for (i = 0; i < PD_MAX_ROOM_DESCS; i++) {
+        seed->room_descs[i].text = NULL;
+        seed->room_descs[i].look_keyword = NULL;
+        seed->room_descs[i].look_text = NULL;
+    }
 }
 
 DEFINE_DISPOSE_FUN(pd_seed_dispose)
@@ -320,8 +334,22 @@ DEFINE_DISPOSE_FUN(pd_seed_dispose)
     int i;
     str_free(&(seed->name));
     str_free(&(seed->title));
+    str_free(&(seed->layout_style));
     for (i = 0; i < seed->room_name_count; i++)
         str_free(&(seed->room_names[i]));
+    for (i = 0; i < seed->room_desc_count; i++) {
+        str_free(&(seed->room_descs[i].text));
+        str_free(&(seed->room_descs[i].look_keyword));
+        str_free(&(seed->room_descs[i].look_text));
+    }
+    str_free(&(seed->entry_room_name));
+    str_free(&(seed->boss_room_name));
+    str_free(&(seed->chest_room_name));
+    for (i = 0; i < seed->hide_hint_count; i++) {
+        str_free(&(seed->hide_keywords[i]));
+        str_free(&(seed->hide_look_texts[i]));
+        str_free(&(seed->hide_hint_phrases[i]));
+    }
     LIST2_REMOVE(seed, global_prev, global_next,
                  pd_seed_first, pd_seed_last);
 }

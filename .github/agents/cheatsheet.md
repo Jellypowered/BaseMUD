@@ -13,6 +13,11 @@ Verified findings from actual integrations. Update this file as new patterns are
 
 - The MUDEditor `tsc` tasks in the workspace currently point at `node_modules\.bin\tsc` under `web/shared` and `web/client`, which fails with “The system cannot find the path specified.” Use editor diagnostics or a corrected path from `web/` when validating those packages.
 
+## Git Rebase Notes
+
+- When rebasing local pocket dungeon changes onto `origin/Dungeon`, stash the work first if an incoming config-only commit lands on the same file. A `git stash push -u` before `git rebase origin/Dungeon` preserved the changes cleanly, and the only restore conflict was `json/config/pocket_dungeon_config.json`.
+- The resolved pocket dungeon config keeps upstream `testing_mode: true` plus the local `show_room_vnums: false` toggle. That merge pattern is the correct outcome when the remote commit only updates the temp defaults file.
+
 ---
 
 ## Object Value Fields
