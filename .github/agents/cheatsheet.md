@@ -4,6 +4,17 @@ Verified findings from actual integrations. Update this file as new patterns are
 
 ---
 
+## Build Notes
+
+- `make` will fail with `-Werror` if a new helper is left unused in a build target; the pocket dungeon mobprog module initially hit `pd_build_random_idle_behavior` until the dead helper was removed.
+- The workspace build task is the right verification path for BaseMUD changes; it catches warnings that the lightweight editor diagnostics can miss.
+
+## MUDEditor Notes
+
+- The MUDEditor `tsc` tasks in the workspace currently point at `node_modules\.bin\tsc` under `web/shared` and `web/client`, which fails with “The system cannot find the path specified.” Use editor diagnostics or a corrected path from `web/` when validating those packages.
+
+---
+
 ## Object Value Fields
 
 BaseMUD objects use a union `v` for item values instead of `value[0..4]`:

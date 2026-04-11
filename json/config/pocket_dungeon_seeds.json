@@ -8,7 +8,8 @@
     "boss_vnum": 19906, "boss_level_add": 5,
     "sentinel_vnum": 19920, "sentinel_level_add": 2,
     "container_vnum": 19960, "hidden_container_vnum": 19961,
-    "search_scroll_vnum": 19989, "search_wand_vnum": 19990
+    "search_scroll_vnum": 19989, "search_wand_vnum": 19990,
+    "mobprog_enabled": true, "mobprog_personality_override": null, "mobprog_difficulty_boost": 0
   }},
   {"pd_seed": {
     "name": "cave", "title": "Dark Cave", "layout_style": "cavern", "sector_type": 0, "outdoors": false,

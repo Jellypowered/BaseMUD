@@ -794,6 +794,10 @@ struct pd_seed {
     
     int             search_scroll_vnum;  /* Detection scroll vnum */
     int             search_wand_vnum;    /* Detection wand vnum */
+
+    bool            mobprog_enabled;     /* enable procedural mobprog generation */
+    int             mobprog_personality_override; /* -1 = auto-select */
+    int             mobprog_difficulty_boost;    /* extra levels for mobprog scaling */
     
     OBJ_RECYCLE_T   rec_data;
 };

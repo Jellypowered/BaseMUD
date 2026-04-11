@@ -1017,6 +1017,7 @@ DEFINE_JSON_READ_FUN(json_tblr_pd_seed)
                             "*sentinel_vnum", "*sentinel_level_add",
                             "*container_vnum", "*hidden_container_vnum",
                             "*search_scroll_vnum", "*search_wand_vnum",
+                            "*mobprog_enabled", "*mobprog_personality_override", "*mobprog_difficulty_boost",
                             "*room_descs", "*hide_keywords", "*hide_look_texts", "*hide_hint_phrases",
                             NULL))
         return NULL;
@@ -1044,6 +1045,16 @@ DEFINE_JSON_READ_FUN(json_tblr_pd_seed)
     READ_PROP_INT (seed->hidden_container_vnum, "hidden_container_vnum");
     READ_PROP_INT (seed->search_scroll_vnum, "search_scroll_vnum");
     READ_PROP_INT (seed->search_wand_vnum,  "search_wand_vnum");
+    READ_PROP_BOOL(seed->mobprog_enabled,   "mobprog_enabled");
+    READ_PROP_INT (seed->mobprog_difficulty_boost, "mobprog_difficulty_boost");
+
+    {
+        JSON_T *node = json_get(json, "mobprog_personality_override");
+        if (node == NULL || node->type == JSON_NULL)
+            seed->mobprog_personality_override = -1;
+        else
+            seed->mobprog_personality_override = json_value_as_int(node);
+    }
 
     /* room_names array */
     if ((array = json_get(json, "room_names")) != NULL) {

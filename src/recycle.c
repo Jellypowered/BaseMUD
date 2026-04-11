@@ -307,6 +307,9 @@ DEFINE_INIT_FUN(pd_seed_init)
     int i;
     seed->name  = &str_empty[0];
     seed->title = &str_empty[0];
+    seed->mobprog_enabled = TRUE;
+    seed->mobprog_personality_override = -1;
+    seed->mobprog_difficulty_boost = 0;
     for (i = 0; i < PD_MAX_ROOM_NAMES; i++)
         seed->room_names[i] = NULL;
 }

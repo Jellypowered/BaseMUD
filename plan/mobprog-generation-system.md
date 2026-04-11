@@ -1,9 +1,9 @@
-# MobProg Generation System — Standalone Plan (Pocket Dungeon Instances)
+# ✅ PLAN COMPLETE — MobProg Generation System (Pocket Dungeon Instances)
 
 **Date**: April 11, 2026
 **Purpose**: Procedurally generate mob scripts (mobprogs) for dynamic AI behavior in pocket dungeon instances
 **Scope**: **Pocket dungeon instances only** — AI generation specific to procedurally generated mobs within instance areas
-**Status**: PLANNING
+**Status**: COMPLETED
 
 ---
 
@@ -489,13 +489,17 @@ void pd_attach_mobprog_to_mob(CHAR_T *mob, const char *code,
 ## Part 7: Files to Modify/Create
 
 ### New Files
-- [ ] `src/pocket_dungeon_mobprog.c` — NEW (generation + attachment logic)
-- [ ] `src/pocket_dungeon_mobprog.h` — NEW (function declarations)
+- [ ] `src/pocket_dungeon_mobprog.c` — NEW (generation + attachment logic, instance-local mob index cloning)
+- [ ] `src/pocket_dungeon_mobprog.h` — NEW (function declarations and personality enum)
 
 ### Modified Files
 - [ ] `src/pocket_dungeon.c` — MODIFY (call `pd_generate_and_attach_mobprog()` after loading each mob)
-- [ ] `src/pocket_dungeon.h` — MODIFY (declare new function)
-- [ ] `json/config/pocket_dungeon_seeds.json` — MODIFY (add `mobprog_enabled` flag)
+- [ ] `src/pocket_dungeon.h` — MODIFY (expose mobprog generator API)
+- [ ] `src/mob_cmds.c` — MODIFY (reattach generated AI for instance mobs spawned via `mload`)
+- [ ] `src/structs.h` — MODIFY (add pocket dungeon mobprog seed fields)
+- [ ] `src/recycle.c` — MODIFY (initialize new seed fields)
+- [ ] `src/json_tblr.c` — MODIFY (parse new seed fields)
+- [ ] `json/config/pocket_dungeon_seeds.json` — MODIFY (add `mobprog_enabled` and override fields)
 
 ---
 
@@ -533,6 +537,8 @@ void pd_attach_mobprog_to_mob(CHAR_T *mob, const char *code,
 - [ ] Memory allocated for scripts is cleaned up properly
 - [ ] No conflicts with existing mobprog system
 - [ ] Difficulty scaling produces observable behavior changes
+
+## Status: COMPLETED
 
 ---
 

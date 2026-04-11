@@ -6,6 +6,7 @@
 #define POCKET_DUNGEON_H
 
 #include "merc.h"
+#include "pocket_dungeon_mobprog.h"
 
 /* C1: Affix types (random dungeon modifiers) */
 enum pd_affix_enum {

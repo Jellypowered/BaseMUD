@@ -45,6 +45,7 @@
 #include "interp.h"
 #include "lookup.h"
 #include "mob_prog.h"
+#include "pocket_dungeon.h"
 #include "mobiles.h"
 #include "objs.h"
 #include "rooms.h"
@@ -335,6 +336,12 @@ DEFINE_DO_FUN (do_mpmload) {
 
     victim = mobile_create (mob_index);
     char_to_room (victim, ch->in_room);
+
+    if (victim != NULL) {
+        PD_INSTANCE_T *instance = pd_find_instance_for_char(victim);
+        if (instance != NULL)
+            pd_generate_and_attach_mobprog(victim, instance);
+    }
 }
 
 /* Lets the mobile load an object

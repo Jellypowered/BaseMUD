@@ -753,6 +753,8 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
                                 break;
                         }
                     }
+
+                    pd_generate_and_attach_mobprog(mob, inst);
                     
                     char_to_room(mob, rooms[i]);
                 }
@@ -802,6 +804,8 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
                     break;
                 }
             }
+
+            pd_generate_and_attach_mobprog(boss, inst);
             
             char_to_room(boss, rooms[room_count - 1]);
             /* Override boss room name if provided */
@@ -830,6 +834,7 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
                     sentinel_level = 100;
                 pd_scale_mob_to_level(sentinel, sentinel_level);
                 EXT_SET(sentinel->ext_mob, MOB_SENTINEL);
+                pd_generate_and_attach_mobprog(sentinel, inst);
                 char_to_room(sentinel, rooms[chest_room_idx]);
             }
         }
