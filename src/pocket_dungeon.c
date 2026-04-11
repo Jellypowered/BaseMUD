@@ -745,9 +745,11 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
                                 break;
                             case PD_AFFIX_LUMINOUS:
                                 /* -20% dodge: increase AC values (worse protection) */
-                                int ac_idx;
-                                for (ac_idx = 0; ac_idx < 4; ac_idx++)
-                                    mob->armor[ac_idx] += mob->armor[ac_idx] / 5;
+                                {
+                                    int ac_idx;
+                                    for (ac_idx = 0; ac_idx < 4; ac_idx++)
+                                        mob->armor[ac_idx] += mob->armor[ac_idx] / 5;
+                                }
                                 break;
                         }
                     }
