@@ -398,6 +398,65 @@ for (d = descriptor_first; d != NULL; d = d->global_next)
 
 ---
 
+## Pocket Dungeon System (Phase 2)
+
+### JSON Configuration
+
+Pocket dungeon configuration lives in `json/config/pocket_dungeon_config.json` with these key fields:
+
+| Field                 | Type    | Default | Purpose                                                                           |
+| --------------------- | ------- | ------- | ----------------------------------------------------------------------------------- |
+| `testing_mode`        | bool    | false   | Free dungeon entry for testing; ignores `gold_cost_per_level`                      |
+| `gold_cost_per_level` | int     | 100     | Gold per character level to enter dungeon (e.g., level 10 @ 100 = 1000 gold)       |
+| `autopurge`           | bool    | true    | Auto-destroy empty instances after timeout                                         |
+| `empty_timeout_mins`  | int     | 120     | Minutes before empty instance is purged if `autopurge` is on                       |
+| `max_instances`       | int     | 50      | Hard cap on simultaneous dungeon instances                                        |
+| `vnum_base`           | int     | 20000   | First vnum in reserved range (must not overlap static areas)                       |
+| `vnum_size`           | int     | 100     | Vnums allocated per instance (must exceed largest seed room count)                 |
+| `max_members`         | int     | 10      | Max players per group in one dungeon instance                                      |
+| `scaling_formula`     | int     | 0       | Mob scaling mode: 0 = off, 1 = by group size                                     |
+
+**Hot-reload:** `jreload pocket_dungeon_config` applies new settings to next-generated instances only.
+
+### Phase 2 Features in C
+
+**C1: Affixes** — Random dungeon modifiers (1-2 per instance):
+- `PD_AFFIX_STONY` (1): +20% mob HP
+- `PD_AFFIX_CURSED` (2): Healing reversed; mobs flagged `MOB_CURSED` (heal ticks reversed for 10 ticks)
+- `PD_AFFIX_SWIFT` (3): +25% mob hitroll
+- `PD_AFFIX_ANCIENT` (4): +50% mob density
+- `PD_AFFIX_LUMINOUS` (5): -20% mob AC (easier to hit), +10% item drop
+
+**C2: Progressive Difficulty** — Difficulty bonus scales based on `rooms_cleared`:
+- `rooms_cleared` increments as mobs are eliminated from rooms
+- Bonus damage/HP calculated from `rooms_cleared / 5` (one step per 5 rooms cleared)
+
+**C3: Boss Loot** — Hooked in `fight.c` after `char_die()` for NPC deaths:
+- Calls `pd_trigger_boss_loot(inst, victim)` when boss dies in dungeon
+- Boss loot only drops once per instance (`boss_killed` flag guard)
+
+**C4: Boss Powers** — Pre-spawn assignment (2-3 powers):
+- `PD_POWER_STRIKE` (1): Stun 50% every 8 rounds
+- `PD_POWER_AURA` (2): Healing aura +5 HP/round
+- `PD_POWER_SUMMON` (3): Spawn sentinel at 50% HP
+- `PD_POWER_DODGE` (4): Dodge stance +30% for 3 rounds
+- `PD_POWER_DRAIN` (5): Heal 20% of damage dealt
+
+### MUDEditor Sync
+
+TypeScript interfaces updated in `web/shared/types/index.ts`:
+- `PocketDungeonConfig`: Added `testing_mode`, `gold_cost_per_level`
+- `PocketDungeonInstance`: Added `affixes[]`, `affix_count`, `rooms_cleared`, `boss_killed`, `boss_powers[]`, `boss_power_count`
+- New enums: `PocketDungeonAffixType`, `PocketDungeonPowerType`
+
+MOB_FLAGS updated: `MOB_CURSED` flag added for afflicted mobs (pocket dungeon cursed affix marker).
+
+UI updates in `web/client/src/pages/PocketDungeonPage.tsx`:
+- `ConfigTab`: Added checkbox for `testing_mode`, number input for `gold_cost_per_level`
+- CheatSheet descriptions updated
+
+---
+
 
 
 | Table macro in `tables.c`       | Authority                          | Notes                                         |

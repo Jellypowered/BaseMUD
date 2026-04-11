@@ -1167,6 +1167,7 @@ These tables use heap-allocated storage and all internal per-entry sub-arrays ar
 | `quest_rewards.json` | 6        | Quest rewards purchasable with quest points. Each entry has an id, label, keyword aliases, cost, type, and value. See [quest_reward](#quest_reward) schema below.                                                      |
 | `quest_tokens.json`  | 5        | Object vnums used as random quest item targets. A random entry is chosen when a player is assigned an item recovery quest. See [quest_token](#quest_token) schema below.                                               |
 | `quest_config.json`  | 1        | Singleton object of 23 integer tuning parameters for the quest system (timers, rewards, type chances). Hot-reloadable via `jreload quest_config`. See [quest_config](#quest_config) schema below.                      |
+| `pocket_dungeon_config.json` | 1 | Pocket dungeon system parameters: autopurge, timeouts, vnum allocation, scaling, testing mode, and gold costs. Hot-reloadable via `jreload pocket_dungeon_config`. See [pocket_dungeon_config](#pocket_dungeon_config) schema below. |
 
 > **Note on remaining fixed-size sub-array limits:** The `shop.trades` array is dynamically allocated and sized to `MAX_TRADE = 16` entries per shop; adding more than 16 trade types requires raising `MAX_TRADE` in `src/defs.h` and recompiling. Songs loaded from `music.txt` are capped at `MAX_SONG_LINES = 100` lyrics per song.
 
@@ -1334,6 +1335,51 @@ A singleton object containing all 23 integer tuning parameters for the quest sys
 **Reward scaling:** Gold, QP, and XP rewards are all affected by the player's level. For gold and QP the formula is `baseline * level / reward_level_divisor`. Multi-target quests (purge/collection) add +25% per extra target beyond 1.
 
 **Hot-reload:** Changes to `quest_config.json` take effect immediately for all new quests after `jreload quest_config` — no restart required. Quests already in progress use the values that were active when the quest was assigned.
+
+---
+
+### pocket_dungeon_config
+
+**File:** `json/config/pocket_dungeon_config.json`  
+**Wrapping key:** `"pocket_dungeon_config"`  
+**Live-reload:** `jreload pocket_dungeon_config`
+
+A singleton object containing all tuning parameters for the pocket dungeon instanced area system. Includes configuration for autopurge timeouts, vnum allocation, scaling, Phase 2 features (testing mode), and gold-based entry costs.
+
+```json
+[{"pocket_dungeon_config": {
+  "autopurge": true,
+  "empty_timeout_mins": 120,
+  "max_instances": 50,
+  "vnum_base": 20000,
+  "vnum_size": 100,
+  "max_members": 10,
+  "scaling_formula": 0,
+  "testing_mode": false,
+  "gold_cost_per_level": 100
+}}]
+```
+
+| Field                 | Type    | Default | Notes                                                                                                                  |
+| --------------------- | ------- | ------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `autopurge`           | boolean | true    | When true, empty instances are automatically destroyed after `empty_timeout_mins`.                                     |
+| `empty_timeout_mins`  | integer | 120     | Minutes before an empty (all players left) instance is purged if `autopurge` is enabled.                              |
+| `max_instances`       | integer | 50      | Hard cap on simultaneously loaded pocket dungeon instances across all player groups.                                   |
+| `vnum_base`           | integer | 20000   | First vnum in the reserved range for dynamically generated instance areas. **Must not overlap any static area vnums.** |
+| `vnum_size`           | integer | 100     | Vnums allocated per instance slot. Must be large enough for your largest seed (e.g. 100 rooms + mobs per instance).  |
+| `max_members`         | integer | 10      | Maximum players allowed per dungeon instance (groups exceeding this are rejected at entry).                            |
+| `scaling_formula`     | integer | 0       | Difficulty scaling mode: 0 = no scaling, 1 = by group size, 2 = by max group level (reserved for future use).        |
+| `testing_mode`        | boolean | false   | When true, dungeon entry is **free** (ignores `gold_cost_per_level`). Useful for testing and development.             |
+| `gold_cost_per_level` | integer | 100     | Gold cost per character level to enter (e.g. 100 = 1000 gold total for five level-10 players). **Bypassed if `testing_mode` is true.** |
+
+**Gold cost calculation:** When a group enters a pocket dungeon, the total cost is calculated as: `cost = sum(each_player_level) * gold_cost_per_level`. Each player must have at least their share of gold, and the gold is deducted from all players at entry time.
+
+**Scaling formula:** 
+- `0`: No scaling by group size or level.
+- `1`: Mobs and items scale by average group level.
+- Higher values reserved for future use.
+
+**Hot-reload:** Changes to `pocket_dungeon_config.json` take effect immediately after `jreload pocket_dungeon_config` — no restart required. Only **new instances** generated after the reload use the updated parameters; existing instances in memory are unaffected.
 
 ---
 
