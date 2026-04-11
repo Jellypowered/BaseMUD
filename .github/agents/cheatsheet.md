@@ -17,6 +17,7 @@ Verified findings from actual integrations. Update this file as new patterns are
 
 - When rebasing local pocket dungeon changes onto `origin/Dungeon`, stash the work first if an incoming config-only commit lands on the same file. A `git stash push -u` before `git rebase origin/Dungeon` preserved the changes cleanly, and the only restore conflict was `json/config/pocket_dungeon_config.json`.
 - The resolved pocket dungeon config keeps upstream `testing_mode: true` plus the local `show_room_vnums: false` toggle. That merge pattern is the correct outcome when the remote commit only updates the temp defaults file.
+- In PowerShell, `git stash drop stash@{0}` can be parsed incorrectly; quote the stash ref as `git stash drop "stash@{0}"` when dropping a specific entry.
 
 ---
 
