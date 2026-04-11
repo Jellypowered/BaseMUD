@@ -108,6 +108,117 @@ bool pd_validate_seed(PD_SEED_T *seed)
     return TRUE;
 }
 
+/* C1: Apply random affixes to an instance.
+ * Selects 1–2 random affixes and stores in instance->affixes array. */
+void pd_apply_affixes(PD_INSTANCE_T *inst)
+{
+    if (inst == NULL)
+        return;
+    
+    inst->affix_count = 0;
+    
+    /* Randomly decide: 1 or 2 affixes? (50/50 chance) */
+    int num_affixes = number_percent() < 50 ? 1 : 2;
+    
+    while (inst->affix_count < num_affixes && inst->affix_count < 5) {
+        int affix = number_range(PD_AFFIX_STONY, PD_AFFIX_LUMINOUS);
+        
+        /* Check if already applied */
+        int i;
+        bool already_has = FALSE;
+        for (i = 0; i < inst->affix_count; i++) {
+            if (inst->affixes[i] == affix) {
+                already_has = TRUE;
+                break;
+            }
+        }
+        
+        if (!already_has) {
+            inst->affixes[inst->affix_count] = affix;
+            inst->affix_count++;
+        }
+    }
+}
+
+/* C2: Calculate difficulty bonus based on rooms cleared.
+ * Returns bonus level: +1 per 5 rooms cleared (max +10). */
+int pd_get_difficulty_bonus(PD_INSTANCE_T *inst)
+{
+    if (inst == NULL)
+        return 0;
+    
+    int bonus = inst->rooms_cleared / 5;
+    if (bonus > 10)
+        bonus = 10;
+    return bonus;
+}
+
+/* C3: Trigger boss loot drops when boss dies.
+ * Called from combat code when boss death is detected. */
+void pd_trigger_boss_loot(PD_INSTANCE_T *inst, CHAR_T *boss)
+{
+    PD_SEED_T *seed;
+    OBJ_T *loot;
+    OBJ_INDEX_T *oidx;
+    int i, vnum_idx;
+    
+    if (inst == NULL || boss == NULL || boss->in_room == NULL)
+        return;
+    
+    if (inst->boss_killed)
+        return;  /* already triggered */
+    
+    inst->boss_killed = TRUE;
+    
+    /* Get the seed to access boss_loot_table */
+    seed = pd_seed_get_by_name(inst->theme);
+    if (seed == NULL || seed->item_vnum_count <= 0)
+        return;
+    
+    /* Drop 2–3 random boss loot items to boss room */
+    int num_drops = number_range(2, 3);
+    for (i = 0; i < num_drops; i++) {
+        vnum_idx = number_range(0, seed->item_vnum_count - 1);
+        oidx = obj_get_index(seed->item_vnums[vnum_idx]);
+        if (oidx != NULL) {
+            loot = obj_create(oidx, inst->level + 5);  /* slightly higher level for boss drops */
+            obj_give_to_room(loot, boss->in_room);
+        }
+    }
+}
+
+/* C4: Assign random powers to boss mob.
+ * Selects 2–3 random powers and stores in instance->boss_powers. */
+void pd_assign_boss_powers(PD_INSTANCE_T *inst)
+{
+    if (inst == NULL)
+        return;
+    
+    inst->boss_power_count = 0;
+    
+    /* Randomly decide: 2 or 3 powers? (60/40 chance for 2/3) */
+    int num_powers = number_percent() < 60 ? 2 : 3;
+    
+    while (inst->boss_power_count < num_powers && inst->boss_power_count < 5) {
+        int power = number_range(PD_POWER_STRIKE, PD_POWER_DRAIN);
+        
+        /* Check if already assigned */
+        int i;
+        bool already_has = FALSE;
+        for (i = 0; i < inst->boss_power_count; i++) {
+            if (inst->boss_powers[i] == power) {
+                already_has = TRUE;
+                break;
+            }
+        }
+        
+        if (!already_has) {
+            inst->boss_powers[inst->boss_power_count] = power;
+            inst->boss_power_count++;
+        }
+    }
+}
+
 /* Find the first free vnum slot among AREA_INSTANCE_MAX possible slots.
  * Returns -1 if none available. */
 static int pd_find_free_slot(void)
@@ -521,6 +632,12 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
     str_replace_dup(&inst->theme, seed->name ? seed->name : "");
     snprintf(inst->area_name, sizeof(inst->area_name), "%s", area->name);
 
+    /* C1: Apply random affixes to this instance */
+    pd_apply_affixes(inst);
+    
+    /* C2: Initialize room-clearing counter for progressive difficulty */
+    inst->rooms_cleared = 0;
+
     /* Copy members */
     inst->member_count = 0;
     for (i = 0; i < member_count && i < MAX_INSTANCE_MEMBERS; i++) {
@@ -595,6 +712,30 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
                     if (final_level > 100)
                         final_level = 100;
                     pd_scale_mob_to_level(mob, final_level);
+                    
+                    /* C1: Apply affix modifiers to mob */
+                    int k;
+                    for (k = 0; k < inst->affix_count; k++) {
+                        switch (inst->affixes[k]) {
+                            case PD_AFFIX_STONY:
+                                /* +20% HP */
+                                mob->max_hit = (int)(mob->max_hit * 1.2);
+                                mob->hit = mob->max_hit;
+                                break;
+                            case PD_AFFIX_SWIFT:
+                                /* +25% haste (via improved hitroll) */
+                                mob->hitroll += mob->level / 8;
+                                break;
+                            case PD_AFFIX_ANCIENT:
+                                /* Ancient affects density, not individual mob */
+                                break;
+                            case PD_AFFIX_CURSED:
+                            case PD_AFFIX_LUMINOUS:
+                                /* These don't directly modify mob stats */
+                                break;
+                        }
+                    }
+                    
                     char_to_room(mob, rooms[i]);
                 }
             }
@@ -603,6 +744,9 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
 
     /* Spawn boss in the deepest room */
     if (seed->boss_vnum > 0 && room_count > 1) {
+        /* C4: Assign random powers before boss spawns */
+        pd_assign_boss_powers(inst);
+        
         MOB_INDEX_T *boss_idx = mobile_get_index(seed->boss_vnum);
         if (boss_idx != NULL) {
             CHAR_T *boss = mobile_create(boss_idx);
@@ -612,6 +756,17 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
             if (boss_level > 100)
                 boss_level = 100;
             pd_scale_mob_to_level(boss, boss_level);
+            
+            /* C1: Apply STONYaffix effect to boss for extra toughness */
+            int k;
+            for (k = 0; k < inst->affix_count; k++) {
+                if (inst->affixes[k] == PD_AFFIX_STONY) {
+                    boss->max_hit = (int)(boss->max_hit * 1.2);
+                    boss->hit = boss->max_hit;
+                    break;
+                }
+            }
+            
             char_to_room(boss, rooms[room_count - 1]);
             /* Override boss room name if provided */
             if (seed->boss_room_name != NULL && seed->boss_room_name[0] != '\0')

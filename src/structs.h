@@ -812,6 +812,21 @@ struct pd_instance {
     int             vnum_slot;       /* 0-based slot in AREA_INSTANCE_BASE_VNUM range */
     AREA_T         *area;            /* live area pointer; NULL after purge */
     char            area_name[64];   /* e.g. "pd_instance_007" */
+    
+    /* C1: Dungeon affixes (random modifiers) */
+    int             affixes[5];       /* affix IDs applied to this instance (0=none) */
+    int             affix_count;
+    
+    /* C2: Progressive difficulty (rooms cleared tracker) */
+    int             rooms_cleared;    /* incremented each time a room becomes empty of mobs */
+    
+    /* C3: Boss tracking */
+    bool            boss_killed;      /* set to TRUE when boss dies (triggers loot drops) */
+    
+    /* C4: Boss powers */
+    int             boss_powers[5];   /* assigned power IDs for this instance's boss */
+    int             boss_power_count;
+    
     OBJ_RECYCLE_T   rec_data;
 };
 
