@@ -1,0 +1,585 @@
+#AREA
+pocket_dungeon.are~
+Pocket Dungeon Templates~
+{None} DanielK  Pocket Dungeon Template Area~
+19900 19999
+
+#MOBILES
+#19900
+skeleton~
+a skeleton warrior~
+A skeleton warrior clatters about menacingly.
+~
+Once a valiant warrior, now merely bones bound by magic.
+~
+undead~
+ACF 0 -50 0
+5 0 1d8+40 1d6+30 1d4+1 none
+6 6 6 9
+0 0 0 0
+stand stand none 0
+0 0 small 0
+#19901
+skeleton~
+a skeletal guard~
+A skeletal guard keeps watch.
+~
+Bones and dust animate with fell magic.
+~
+undead~
+ACF 0 -40 0
+4 0 1d6+35 1d5+25 1d3+0 none
+7 7 7 9
+0 0 0 0
+stand stand none 0
+0 0 small 0
+#19902
+cave_troll~
+a cave troll~
+A large cave troll blocks your path.
+~
+This brutish creature seems more monster than man.
+~
+humanoid~
+ACF 0 30 0
+6 0 1d8+50 1d8+35 1d4+2 none
+5 5 5 8
+0 0 0 0
+stand stand male 0
+0 0 large 0
+#19903
+cave_troll~
+a young cave troll~
+A younger cave troll snarls at you.
+~
+Smaller than the adults, but no less aggressive.
+~
+humanoid~
+ACF 0 20 0
+4 0 1d6+40 1d6+30 1d3+1 none
+7 7 7 8
+0 0 0 0
+stand stand male 0
+0 0 medium 0
+#19904
+golem~
+a stone golem~
+A stone golem stands at attention.
+~
+Carved and animated from solid stone, it serves its creator.
+~
+construct~
+ACF 0 -20 0
+7 0 1d10+55 1d8+40 1d5+2 none
+4 4 4 8
+0 0 0 0
+stand stand none 0
+0 0 large 0
+#19905
+wraith~
+a ghostly wraith~
+A ghostly wraith floats before you.
+~
+The spectral form seems to flicker between worlds.
+~
+undead~
+ACF F 0 0
+5 0 1d6+45 1d6+30 1d4+1 none
+6 6 6 9
+0 0 0 0
+stand stand none 0
+0 0 small 0
+
+#19906
+lich~
+the Ancient Crypt Keeper~
+The Ancient Crypt Keeper surveys the undead masses before you.
+~
+A robed figure of bone and magic, this ancient lich radiates fell power.
+~
+undead~
+ACFR G 0 0
+1 0 1d12+1 1d12+1 1d12+1 none
+1 1 1 5
+FU 0 0 0
+stand stand none 0
+0 0 medium 0
+
+#19907
+troll_warchief~
+the Cave Troll Warchief~
+The Cave Troll Warchief stands before you, weapons raised.
+~
+An immense shambling creature, scarred and ready for battle.
+~
+humanoid~
+AF 0 200 0
+1 0 2d6+1 2d8+1 1d8+2 none
+1 1 1 6
+0 0 0 0
+stand stand male 0
+0 0 giant 0
+
+#19908
+warlord~
+the Ruined Warlord~
+The Ruined Warlord stares at you with ancient hatred.
+~
+An armored figure, scarred by forgotten battles.
+~
+humanoid~
+ACF 0 100 0
+1 0 2d6+1 2d8+1 1d8+2 none
+1 1 1 6
+0 0 0 0
+stand stand male 0
+0 0 large 0
+
+#19909
+treant~
+the Ancient Treant~
+The Ancient Treant's wooden form towers above you.
+~
+A living tree of immense age and power, branches writhe with intent.
+~
+humanoid~
+ACF 0 50 0
+1 0 2d6+1 2d8+1 1d8+2 none
+1 1 1 7
+0 0 0 0
+stand stand none 0
+0 0 giant 0
+
+#19910
+witch~
+the Bog Witch~
+The Bog Witch gestures with gnarled fingers.
+~
+A twisted figure cloaked in swamp mist and ancient malice.
+~
+humanoid~
+ACFR 0 -100 0
+1 0 2d6+1 2d6+1 1d6+1 none
+1 1 1 5
+FU 0 0 0
+stand stand female 0
+0 0 medium 0
+
+#19911
+warlord_plains~
+the Warlord of the Plains~
+The Warlord of the Plains challenges you to combat.
+~
+A seasoned warrior commanding an army of spirits.
+~
+humanoid~
+ACF 0 80 0
+1 0 2d6+1 2d8+1 1d8+2 none
+1 1 1 6
+0 0 0 0
+stand stand male 0
+0 0 large 0
+
+#19912
+iron_warden~
+the Iron Warden~
+The Iron Warden commands the stronghold.
+~
+Clad in enchanted steel, radiating authority and combat prowess.
+~
+humanoid~
+ACF 0 120 0
+1 0 2d6+1 2d8+1 1d8+2 none
+1 1 1 6
+0 0 0 0
+stand stand male 0
+0 0 large 0
+
+#19913
+undead_lord~
+the Undead Lord~
+The Undead Lord surveys its domain.
+~
+A skeletal monarch, draped in royal regalia and fell magic.
+~
+undead~
+ACFR G -200 0
+1 0 2d6+1 2d8+1 1d8+2 none
+1 1 1 4
+FU 0 0 0
+stand stand male 0
+0 0 large 0
+
+#19914
+deep_horror~
+the Deep Horror~
+The Deep Horror writhes in the darkness before you.
+~
+An alien creature from the deepest places, tentacles and eyes everywhere.
+~
+construct~
+ACF 0 0 0
+1 0 2d6+1 2d8+1 1d8+2 none
+1 1 1 7
+0 0 0 0
+stand stand none 0
+0 0 large 0
+
+#19915
+alpha_beast~
+the Alpha Predator~
+The Alpha Predator snarls, baring fangs.
+~
+Raw bestial fury given flesh, teeth and claw ready to strike.
+~
+humanoid~
+ACF 0 50 0
+1 0 2d6+1 2d8+1 1d8+2 none
+1 1 1 7
+0 0 0 0
+stand stand none 0
+0 0 large 0
+
+#19916
+pirate_captain~
+the Pirate Captain~
+The Pirate Captain brandishes a cutlass.
+~
+A scarred sea dog, commanding respect through fear and cunning.
+~
+humanoid~
+ACF 0 100 0
+1 0 2d6+1 2d8+1 1d8+2 none
+1 1 1 6
+0 0 0 0
+stand stand male 0
+0 0 large 0
+
+#19917
+mountain_giant~
+the Mountain Giant~
+The Mountain Giant towers above you menacingly.
+~
+A creature of stone and snow, ancient and implacable.
+~
+humanoid~
+ACF 0 150 0
+1 0 2d6+1 2d8+1 1d8+2 none
+1 1 1 6
+0 0 0 0
+stand stand male 0
+0 0 giant 0
+
+#19918
+archmage~
+the Archmage~
+The Archmage's eyes glow with eldritch power.
+~
+A master of the arcane arts, robes crackling with magic.
+~
+humanoid~
+ACFR 0 -50 0
+1 0 2d6+1 2d6+1 1d6+1 none
+1 1 1 4
+FU 0 0 0
+stand stand male 0
+0 0 medium 0
+
+#19919
+drow_lich~
+the Lich Lord~
+The Lich Lord radiates ancient, eldritch power.
+~
+An abomination combining drow craft with necromancy, utterly evil.
+~
+undead~
+ACFR G -300 0
+1 0 2d6+1 2d8+1 1d8+2 none
+1 1 1 3
+FU 0 0 0
+stand stand male 0
+0 0 medium 0
+
+#19920
+skeleton_sentinel~
+a skeleton sentinel~
+A skeleton sentinel stands watch.
+~
+An armored skeleton, bound to guard duty.
+~
+undead~
+ACF 0 -50 0
+3 0 1d6+30 1d5+20 1d3+0 none
+8 8 8 9
+OFF_SENTINEL 0 0 0
+stand stand none 0
+0 0 small 0
+
+#19921
+troll_sentinel~
+a troll sentinel~
+A troll sentinel guards the way.
+~
+A brutish creature, eyes fixed on the area before it.
+~
+humanoid~
+ACF 0 20 0
+4 0 1d6+40 1d6+30 1d3+1 none
+7 7 7 8
+OFF_SENTINEL 0 0 0
+stand stand male 0
+0 0 large 0
+
+#19922
+golem_sentinel~
+a stone sentinel~
+A stone sentinel stands impassively.
+~
+Carved from solid rock, it waits for threats to materialize.
+~
+construct~
+ACF 0 -20 0
+6 0 1d8+50 1d8+35 1d4+2 none
+5 5 5 8
+OFF_SENTINEL 0 0 0
+stand stand none 0
+0 0 large 0
+
+#19923
+ruins_guardian~
+a ruins guardian~
+A ruins guardian stands among the rubble.
+~
+An ancient force given form to protect these halls.
+~
+construct~
+ACF 0 -10 0
+5 0 1d8+45 1d6+30 1d4+1 none
+6 6 6 9
+OFF_SENTINEL 0 0 0
+stand stand none 0
+0 0 medium 0
+
+#19924
+swamp_guardian~
+a swamp guardian~
+A swamp guardian lurks in the mist.
+~
+A creature barely visible in the marshland.
+~
+humanoid~
+ACF 0 -20 0
+4 0 1d6+40 1d6+30 1d3+1 none
+7 7 7 8
+OFF_SENTINEL 0 0 0
+stand stand none 0
+0 0 medium 0
+
+#19925
+forest_guardian~
+a forest guardian~
+A forest guardian watches from the trees.
+~
+One with nature, standing eternal watch.
+~
+humanoid~
+ACF 0 -15 0
+4 0 1d6+40 1d6+30 1d3+1 none
+7 7 7 8
+OFF_SENTINEL 0 0 0
+stand stand none 0
+0 0 medium 0
+
+#19926
+stronghold_keeper~
+a stronghold keeper~
+A stronghold keeper maintains the defenses.
+~
+Armored in steel, unyielding and watchful.
+~
+humanoid~
+ACF 0 20 0
+5 0 1d8+45 1d7+35 1d4+1 none
+6 6 6 8
+OFF_SENTINEL 0 0 0
+stand stand male 0
+0 0 medium 0
+
+#19927
+castle_guardian~
+a castle guardian~
+A castle guardian patrols the halls.
+~
+Once a noble knight, now bound to eternal service.
+~
+humanoid~
+ACF 0 30 0
+5 0 1d8+48 1d7+35 1d4+2 none
+5 5 5 8
+OFF_SENTINEL 0 0 0
+stand stand male 0
+0 0 medium 0
+
+#19928
+cavern_watcher~
+a cavern watcher~
+A cavern watcher keeps vigil.
+~
+An eyeless creature somehow sensing all that passes.
+~
+construct~
+ACF 0 -10 0
+5 0 1d8+45 1d7+35 1d4+1 none
+6 6 6 9
+OFF_SENTINEL 0 0 0
+stand stand none 0
+0 0 medium 0
+
+#19929
+den_keeper~
+a den keeper~
+A den keeper prowls the lair.
+~
+A creature of instinct and hunger, possessive of its territory.
+~
+humanoid~
+ACF 0 10 0
+5 0 1d8+45 1d7+35 1d4+1 none
+6 6 6 8
+OFF_SENTINEL 0 0 0
+stand stand none 0
+0 0 large 0
+
+#19930
+island_guardian~
+an island guardian~
+An island guardian watches the shores.
+~
+A weathered creature, marked by sun and salt.
+~
+humanoid~
+ACF 0 0 0
+4 0 1d6+40 1d6+30 1d3+1 none
+7 7 7 8
+OFF_SENTINEL 0 0 0
+stand stand none 0
+0 0 medium 0
+
+#19931
+mountain_keeper~
+a mountain keeper~
+A mountain keeper stands firm.
+~
+Stone-like in its endurance, impassive as the peaks.
+~
+construct~
+ACF 0 10 0
+6 0 1d8+50 1d8+35 1d4+2 none
+5 5 5 8
+OFF_SENTINEL 0 0 0
+stand stand none 0
+0 0 large 0
+
+#19932
+skyreach_guardian~
+a skyreach guardian~
+A skyreach guardian hovers above.
+~
+A being of cloud and wind, defying gravity.
+~
+humanoid~
+ACF 0 -5 0
+5 0 1d8+45 1d7+35 1d4+1 none
+6 6 6 9
+OFF_SENTINEL 0 0 0
+stand stand none 0
+0 0 medium 0
+
+#19933
+temple_priest~
+a temple priest~
+A temple priest performs dark rituals.
+~
+Robed in ceremony, conducting ancient rites.
+~
+humanoid~
+ACFR 0 -50 0
+4 0 1d6+40 1d6+30 1d3+1 none
+7 7 7 5
+FU 0 0 0
+stand stand male 0
+0 0 medium 0
+
+#19934
+dungeon_keeper~
+a dungeon keeper~
+A dungeon keeper torments the captives.
+~
+Cruel and patient, ensuring no one escapes.
+~
+humanoid~
+ACF 0 -100 0
+5 0 1d8+45 1d7+35 1d4+1 none
+6 6 6 8
+OFF_SENTINEL 0 0 0
+stand stand male 0
+0 0 medium 0
+
+#0
+
+#OBJECTS
+#19960
+chest~
+a worn wooden chest~
+An old wooden chest sits here.
+~
+wooden treasure chest container hold storage~
+container 0 A
+0 0 500000 0 100
+100 0 0 P
+
+#19961
+cache~
+a hidden cache~
+A small hidden cache is concealed here.
+~
+hidden box container secret~
+container O A
+0 0 100000 0 50
+100 0 0 P
+
+#19989
+scroll~
+a scroll of detection~
+A shimmering scroll lies here.
+~
+scroll detection magic
+scroll 0 A
+0 0 1 0 0
+0 5 0 D
+C0
+spell_detect_hidden
+E
+
+#19990
+wand~
+a wand of seeking~
+A glowing wand pulses with power.
+~
+wand seeking detection
+staff 0 A
+0 0 0 0 0
+0 50 0 D
+C0
+spell_detect_hidden
+C1 3 5
+E
+
+#0
+
+#ROOMS
+#0
+
+#RESETS
+
+S

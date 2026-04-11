@@ -356,7 +356,7 @@ const FLAG_T extra_flags[] = {
     {"meltdrop", ITEM_MELT_DROP, TRUE},
     {"hadtimer", ITEM_HAD_TIMER, TRUE},
     {"sellextract", ITEM_SELL_EXTRACT, TRUE},
-    {"unused_extra_2", ITEM_UNUSED_FLAG_2, FALSE},
+    {"hidden", ITEM_HIDDEN, TRUE},
     {"burnproof", ITEM_BURN_PROOF, TRUE},
     {"nouncurse", ITEM_NOUNCURSE, TRUE},
     {"corroded", ITEM_CORRODED, TRUE},

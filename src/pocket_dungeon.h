@@ -34,4 +34,8 @@ PD_INSTANCE_T *pd_find_instance_by_member(const char *name);
 void pd_write_snapshot(PD_INSTANCE_T *inst);
 void pd_delete_snapshot(PD_INSTANCE_T *inst);
 
+/* Scan for hidden objects in current room and reveal them based on skill roll.
+ * Used by 'search' command and spell_detect_hidden. */
+void pd_do_hidden_scan(CHAR_T *ch);
+
 #endif /* POCKET_DUNGEON_H */

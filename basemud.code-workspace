@@ -7,6 +7,10 @@
         {
             "name": "BaseMUD",
             "path": "."
+        },
+        {
+            "name": "mudweb",
+            "path": "mudweb"
         }
     ],
     "settings": {

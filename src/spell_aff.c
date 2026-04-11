@@ -41,6 +41,7 @@
 #include "mobiles.h"
 #include "objs.h"
 #include "players.h"
+#include "pocket_dungeon.h"
 #include "recycle.h"
 #include "tables.h"
 #include "utils.h"
@@ -397,6 +398,9 @@ DEFINE_SPELL_FUN (spell_detect_hidden) {
     printf_to_char(victim, "Your awareness improves.\n\r");
     if (ch != victim)
         act("$N's eyes grow dark.", ch, NULL, victim, TO_CHAR);
+
+    /* Scan for hidden objects and reveal them based on victim's search skill */
+    pd_do_hidden_scan(victim);
 }
 
 DEFINE_SPELL_FUN (spell_detect_invis) {

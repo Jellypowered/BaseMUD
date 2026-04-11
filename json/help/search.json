@@ -1,0 +1,22 @@
+[{"help": {
+  "area": null,
+  "name": "search",
+  "filename": "",
+  "pages": [
+    {
+      "keyword": "SEARCH",
+      "text": "Syntax: search
+              |
+              |        Search the area carefully for hidden objects using your
+              |        Search skill. Higher skill levels increase your chance
+              |        of finding well-hidden items.
+              |
+              |        Some items are deliberately concealed and require searching
+              |        to discover. Magical items like scrolls of detection or
+              |        wands of seeking can also help reveal hidden things.
+              |
+              |        Related: detect hidden, hide, reveal
+              |"
+    }
+  ]
+}}]

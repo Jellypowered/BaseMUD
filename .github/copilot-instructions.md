@@ -2,9 +2,11 @@
 
 ## Agent Workflow
 
-All Copilot agents in this workspace should follow a phase-based workflow for planning, editing, debugging, and refactoring.
+All Copilot agents in this workspace should follow a phase-based workflow for planning, editing, debugging, and refactoring. Always read this file in it's entirety before starting work, and refer back to it as needed during the process. The workflow is designed to ensure thorough investigation, clear planning, precise implementation, and careful review for every change made to the codebase.
 
 ## Phase 1 — Investigation
+
+Before running any terminal commands, read `.github/agents/cheatsheet.md` to check for known working and failing command patterns for this environment.
 
 Gather relevant context from files, history, and workspace instructions. Use built-in tools first (`grep_search`, `file_search`, `semantic_search`, `read_file`) and verify assumptions against the actual source.
 
@@ -20,7 +22,7 @@ Ask the user any questions needed to define scope and intent in one batch before
 
 ## Phase 4 — Implementation
 
-Implement the approved plan using the appropriate workspace tools. Prefer `replace_string_in_file`/`multi_replace_string_in_file` for precise edits, and use `create_file` only for new files.
+Implement the approved plan using the appropriate workspace tools. Prefer `replace_string_in_file`/`multi_replace_string_in_file` for precise edits, and use `create_file` only for new files. Do not deviate from the plan without asking the user first and updating the plan file accordingly. If you encounter unexpected issues during implementation, pause and ask for guidance rather than making unplanned changes.
 
 ## Phase 5 — Debugging
 
@@ -36,7 +38,7 @@ If the change adds or alters player-visible behavior, update help entries and an
 
 ## Phase 8 — Credits / Cheatsheet Update
 
-Update `json/help/credits.json` if the work includes a notable contribution. Also update `.github/agents/cheatsheet.md` with any verified findings that will help future integrations.
+Update `json/help/credits.json` if the work includes a notable contribution. Also update `.github/agents/cheatsheet.md` with any verified findings that will help future integrations. Original work does not require credit. 
 
 ## Phase 9 — Review
 
@@ -44,7 +46,7 @@ Inspect the diff and confirm the final output matches the plan. Open the plan fi
 
 When the review passes, mark the plan file as complete by appending `## Status: COMPLETED` (with the date) to the bottom of the file. Do not delete or move the file — completed plans serve as an audit trail.
 
-## Phase 10 — Build, Verify, and Commit
+## Phase 10 — Build, Verify, and Commit, then Push
 
 Always build using the workspace build task (`run_task`). Do not commit or push a broken build.
 

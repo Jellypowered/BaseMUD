@@ -1002,20 +1002,45 @@ DEFINE_JSON_READ_FUN(json_tblr_pd_seed)
 
     if (!json_import_expect("pd_seed", json,
                             "name", "title",
+                            "*layout_style", "*sector_type", "*outdoors",
                             "*room_names", "*mob_vnums", "*item_vnums",
                             "*room_count_min", "*room_count_max",
-                            "*mob_density", "*loot_density",
+                            "*mob_density", "*mob_density_min", "*mob_density_max",
+                            "*loot_density",
+                            "*entry_room_name", "*boss_room_name", "*chest_room_name",
+                            "*boss_vnum", "*boss_level_add",
+                            "*sentinel_vnum", "*sentinel_level_add",
+                            "*container_vnum", "*hidden_container_vnum",
+                            "*search_scroll_vnum", "*search_wand_vnum",
+                            "*room_descs", "*hide_keywords", "*hide_look_texts", "*hide_hint_phrases",
                             NULL))
         return NULL;
 
     seed = pd_seed_new();
-    READ_PROP_STRP(seed->name,  "name");
-    READ_PROP_STRP(seed->title, "title");
-    READ_PROP_INT (seed->room_count_min, "room_count_min");
-    READ_PROP_INT (seed->room_count_max, "room_count_max");
-    READ_PROP_INT (seed->mob_density,    "mob_density");
-    READ_PROP_INT (seed->loot_density,   "loot_density");
+    READ_PROP_STRP(seed->name,              "name");
+    READ_PROP_STRP(seed->title,             "title");
+    READ_PROP_STRP(seed->layout_style,      "layout_style");
+    READ_PROP_INT (seed->sector_type,       "sector_type");
+    READ_PROP_BOOL(seed->outdoors,          "outdoors");
+    READ_PROP_INT (seed->room_count_min,    "room_count_min");
+    READ_PROP_INT (seed->room_count_max,    "room_count_max");
+    READ_PROP_INT (seed->mob_density,       "mob_density");
+    READ_PROP_INT (seed->mob_density_min,   "mob_density_min");
+    READ_PROP_INT (seed->mob_density_max,   "mob_density_max");
+    READ_PROP_INT (seed->loot_density,      "loot_density");
+    READ_PROP_STRP(seed->entry_room_name,   "entry_room_name");
+    READ_PROP_STRP(seed->boss_room_name,    "boss_room_name");
+    READ_PROP_STRP(seed->chest_room_name,   "chest_room_name");
+    READ_PROP_INT (seed->boss_vnum,         "boss_vnum");
+    READ_PROP_INT (seed->boss_level_add,    "boss_level_add");
+    READ_PROP_INT (seed->sentinel_vnum,     "sentinel_vnum");
+    READ_PROP_INT (seed->sentinel_level_add, "sentinel_level_add");
+    READ_PROP_INT (seed->container_vnum,    "container_vnum");
+    READ_PROP_INT (seed->hidden_container_vnum, "hidden_container_vnum");
+    READ_PROP_INT (seed->search_scroll_vnum, "search_scroll_vnum");
+    READ_PROP_INT (seed->search_wand_vnum,  "search_wand_vnum");
 
+    /* room_names array */
     if ((array = json_get(json, "room_names")) != NULL) {
         for (sub = array->first_child; sub != NULL; sub = sub->next) {
             if (seed->room_name_count >= PD_MAX_ROOM_NAMES)
@@ -1025,6 +1050,7 @@ DEFINE_JSON_READ_FUN(json_tblr_pd_seed)
             seed->room_name_count++;
         }
     }
+    /* mob_vnums array */
     if ((array = json_get(json, "mob_vnums")) != NULL) {
         for (sub = array->first_child; sub != NULL; sub = sub->next) {
             if (seed->mob_vnum_count >= PD_MAX_MOB_VNUMS)
@@ -1032,11 +1058,38 @@ DEFINE_JSON_READ_FUN(json_tblr_pd_seed)
             seed->mob_vnums[seed->mob_vnum_count++] = json_value_as_int(sub);
         }
     }
+    /* item_vnums array */
     if ((array = json_get(json, "item_vnums")) != NULL) {
         for (sub = array->first_child; sub != NULL; sub = sub->next) {
             if (seed->item_vnum_count >= PD_MAX_ITEM_VNUMS)
                 break;
             seed->item_vnums[seed->item_vnum_count++] = json_value_as_int(sub);
+        }
+    }
+    /* hide_keywords array */
+    if ((array = json_get(json, "hide_keywords")) != NULL) {
+        for (sub = array->first_child; sub != NULL; sub = sub->next) {
+            if (seed->hide_hint_count >= PD_MAX_HIDE_HINTS)
+                break;
+            seed->hide_keywords[seed->hide_hint_count] =
+                str_dup(json_value_as_string(sub, buf, sizeof(buf)));
+            seed->hide_hint_count++;
+        }
+    }
+    /* hide_look_texts array */
+    if ((array = json_get(json, "hide_look_texts")) != NULL) {
+        int idx = 0;
+        for (sub = array->first_child; sub != NULL && idx < seed->hide_hint_count; sub = sub->next, idx++) {
+            seed->hide_look_texts[idx] =
+                str_dup(json_value_as_string(sub, buf, sizeof(buf)));
+        }
+    }
+    /* hide_hint_phrases array */
+    if ((array = json_get(json, "hide_hint_phrases")) != NULL) {
+        int idx = 0;
+        for (sub = array->first_child; sub != NULL && idx < seed->hide_hint_count; sub = sub->next, idx++) {
+            seed->hide_hint_phrases[idx] =
+                str_dup(json_value_as_string(sub, buf, sizeof(buf)));
         }
     }
 

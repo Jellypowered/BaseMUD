@@ -29,6 +29,7 @@
 #define __ROM_ACT_MOVE_H
 
 #include "merc.h"
+#include "pocket_dungeon.h"
 
 /* Sub-routines and filters. */
 int do_door_filter_find (CHAR_T *ch, char *argument);
@@ -76,6 +77,7 @@ DECLARE_DO_FUN (do_sleep);
 DECLARE_DO_FUN (do_wake);
 DECLARE_DO_FUN (do_sneak);
 DECLARE_DO_FUN (do_hide);
+DECLARE_DO_FUN (do_search);
 DECLARE_DO_FUN (do_visible);
 DECLARE_DO_FUN (do_recall);
 DECLARE_DO_FUN (do_enter);

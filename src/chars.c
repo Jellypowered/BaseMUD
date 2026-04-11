@@ -503,6 +503,8 @@ bool char_can_see_obj(const CHAR_T *ch, const OBJ_T *obj)
         return TRUE;
     if (IS_SET(obj->extra_flags, ITEM_INVIS) && !IS_AFFECTED(ch, AFF_DETECT_INVIS))
         return FALSE;
+    if (IS_SET(obj->extra_flags, ITEM_HIDDEN) && !IS_AFFECTED(ch, AFF_DETECT_HIDDEN))
+        return FALSE;
     if (IS_OBJ_STAT(obj, ITEM_GLOW))
         return TRUE;
     if (room_is_dark(ch->in_room) && !IS_AFFECTED(ch, AFF_DARK_VISION))

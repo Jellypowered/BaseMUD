@@ -700,7 +700,8 @@
 #define SKILL_MAP_CRITICAL_STRIKE 50
 #define SKILL_MAP_SILENCE   51
 #define SKILL_MAP_SPIT_ACID 52
-#define SKILL_MAP_MAX       53
+#define SKILL_MAP_SEARCH    53
+#define SKILL_MAP_MAX       54
 
 /* Stuff for providing a crash-proof buffer */
 #define MAX_BUF_LIST 11

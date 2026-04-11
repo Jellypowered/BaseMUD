@@ -738,20 +738,61 @@ struct pd_config {
 #define PD_MAX_ROOM_NAMES 20
 #define PD_MAX_MOB_VNUMS  10
 #define PD_MAX_ITEM_VNUMS 10
+#define PD_MAX_ROOM_DESCS 15
+#define PD_MAX_HIDE_HINTS 5
+
+struct pd_room_desc {
+    char           *text;           /* room description body */
+    char           *look_keyword;   /* optional "look" trigger keyword */
+    char           *look_text;      /* text for "look <keyword>" */
+};
+
 struct pd_seed {
     PD_SEED_T      *global_next, *global_prev;
     char           *name;                          /* theme identifier, e.g. "undead_crypts" */
     char           *title;                         /* color-code display name */
+    char           *layout_style;                  /* "linear", "spiral", "hub", "ruins", "cavern" */
+    int             sector_type;                   /* SECT_INSIDE, SECT_FOREST, etc. */
+    bool            outdoors;                      /* if FALSE, set ROOM_INDOORS */
+    
     char           *room_names[PD_MAX_ROOM_NAMES]; /* name pool for generated rooms */
     int             room_name_count;
     int             mob_vnums[PD_MAX_MOB_VNUMS];   /* template mob vnums to spawn */
     int             mob_vnum_count;
-    int             item_vnums[PD_MAX_ITEM_VNUMS];  /* ITEM_REWARD item vnums to drop */
+    int             item_vnums[PD_MAX_ITEM_VNUMS];  /* loot item vnums */
     int             item_vnum_count;
+    
     int             room_count_min;   /* minimum rooms to generate */
     int             room_count_max;   /* maximum rooms to generate */
-    int             mob_density;      /* % chance each room gets a mob */
+    int             mob_density;      /* legacy; use mob_density_min/max */
+    int             mob_density_min;  /* mobs per room at level 1 */
+    int             mob_density_max;  /* mobs per room at max level */
     int             loot_density;     /* % chance each room gets a loot item */
+    
+    struct pd_room_desc room_descs[PD_MAX_ROOM_DESCS];  /* varied room descriptions */
+    int             room_desc_count;
+    
+    char           *entry_room_name;  /* name override for foyer */
+    char           *boss_room_name;   /* name override for boss room */
+    char           *chest_room_name;  /* name override for treasure chest room */
+    
+    int             boss_vnum;        /* boss mob template vnum */
+    int             boss_level_add;   /* boss level = instance_level + this */
+    
+    int             sentinel_vnum;    /* chest guardian mob vnum */
+    int             sentinel_level_add;  /* sentinel level = instance_level + this */
+    
+    int             container_vnum;   /* treasure chest object vnum */
+    int             hidden_container_vnum;  /* hidden cache object vnum */
+    
+    char           *hide_keywords[PD_MAX_HIDE_HINTS];  /* "look" hooks for hidden objects */
+    char           *hide_look_texts[PD_MAX_HIDE_HINTS];  /* descriptions when looking at hidden hints */
+    char           *hide_hint_phrases[PD_MAX_HIDE_HINTS];  /* flavor text when searching finds hints */
+    int             hide_hint_count;  /* number of hints available */
+    
+    int             search_scroll_vnum;  /* Detection scroll vnum */
+    int             search_wand_vnum;    /* Detection wand vnum */
+    
     OBJ_RECYCLE_T   rec_data;
 };
 

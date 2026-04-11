@@ -10,6 +10,7 @@
 #include "comm.h"
 #include "db.h"
 #include "defs.h"
+#include "extra_descrs.h"
 #include "memory.h"
 #include "mobiles.h"
 #include "objs.h"
@@ -113,6 +114,209 @@ static const char *pd_pick_room_name(PD_SEED_T *seed, int index)
     return seed->room_names[index % seed->room_name_count];
 }
 
+/* Calculate effective gear score for a character.
+ * Sums equipped item levels + 1 per affect, clamped to [ch->level, ch->level * 2].
+ * Used to determine instance scaling for mixed-gear groups. */
+static int pd_calc_gear_score(CHAR_T *ch)
+{
+    int score = ch->level;
+    OBJ_T *obj;
+    AFFECT_T *aff;
+
+    if (ch == NULL)
+        return 1;
+
+    /* Sum equipped item levels */
+    for (obj = ch->content_first; obj != NULL; obj = obj->content_next) {
+        if (obj->wear_loc != WEAR_LOC_NONE && obj->level > 0)
+            score += obj->level;
+    }
+
+    /* Add 1 per affect on those items */
+    for (obj = ch->content_first; obj != NULL; obj = obj->content_next) {
+        if (obj->wear_loc != WEAR_LOC_NONE) {
+            for (aff = obj->affect_first; aff != NULL; aff = aff->on_next)
+                score += 1;
+        }
+    }
+
+    /* Clamp to range [ch->level, ch->level * 2] */
+    if (score < ch->level)
+        score = ch->level;
+    if (score > ch->level * 2)
+        score = ch->level * 2;
+
+    return score;
+}
+
+/* Calculate instance level for a group of members.
+ * Uses pd_config.scaling_formula to determine how to blend individual gear scores:
+ * 0 = average, 1 = max. Clamped to [1, 100]. */
+static int pd_calc_instance_level(CHAR_T **members, int count)
+{
+    int i, total = 0, level = 1;
+
+    if (members == NULL || count <= 0)
+        return 1;
+
+    /* Calculate individual gear scores */
+    for (i = 0; i < count; i++) {
+        if (members[i] != NULL)
+            total += pd_calc_gear_score(members[i]);
+    }
+
+    if (count > 0) {
+        if (pd_config.scaling_formula == 0) {
+            /* Average mode */
+            level = total / count;
+        } else {
+            /* Max mode — find highest gear score */
+            level = 1;
+            for (i = 0; i < count; i++) {
+                if (members[i] != NULL) {
+                    int gs = pd_calc_gear_score(members[i]);
+                    if (gs > level)
+                        level = gs;
+                }
+            }
+        }
+    }
+
+    /* Clamp to valid range */
+    if (level < 1)
+        level = 1;
+    if (level > 100)
+        level = 100;
+
+    return level;
+}
+
+/* Build room layout (linked exits) based on layout_style.
+ * Dispatches to one of 5 different area-generation algorithms.
+ * All respect: room[0]=entry, room[count-1]=boss, bidirectional exits. */
+static void pd_build_layout(ROOM_INDEX_T **rooms, int room_count, PD_SEED_T *seed)
+{
+    const char *style;
+    int i, j;
+
+    if (room_count < 2 || rooms == NULL || seed == NULL)
+        return;
+
+    style = (seed->layout_style != NULL && seed->layout_style[0] != '\0')
+            ? seed->layout_style
+            : "linear";
+
+    if (!str_cmp(style, "linear")) {
+        /* Linear: north chain from 0->1->2->...->N
+         * Side rooms: even i links east to odd i+1 (alcoves) */
+        for (i = 0; i + 1 < room_count; i++)
+            pd_link_rooms(rooms[i], DIR_NORTH, rooms[i + 1]);
+        for (i = 0; i + 2 < room_count; i += 2)
+            pd_link_rooms(rooms[i], DIR_EAST, rooms[i + 1]);
+    }
+    else if (!str_cmp(style, "spiral")) {
+        /* Spiral: uses all 4 cardinal directions + occasional UP/DOWN */
+        int dir_seq[] = { DIR_NORTH, DIR_EAST, DIR_SOUTH, DIR_WEST };
+        int stairs = room_count / 6;
+        int stair_interval = (room_count > stairs) ? room_count / stairs : 4;
+        for (i = 0; i + 1 < room_count; i++) {
+            int dir = dir_seq[i % 4];
+            pd_link_rooms(rooms[i], dir, rooms[i + 1]);
+            if (stairs > 0 && (i + 1) % stair_interval == 0 && i + 2 < room_count) {
+                pd_link_rooms(rooms[i + 1], DIR_UP, rooms[i + 2]);
+                i++;
+                stairs--;
+            }
+        }
+    }
+    else if (!str_cmp(style, "hub")) {
+        /* Hub: room 0 is central, rooms 1-4 radiate (N/E/S/W)
+         * Rooms 5+ form branches from each radius */
+        /* Link cardinal branches from hub (0) */
+        int hub_dirs[] = { DIR_NORTH, DIR_EAST, DIR_SOUTH, DIR_WEST };
+        for (i = 0; i < 4 && i + 1 < room_count; i++)
+            pd_link_rooms(rooms[0], hub_dirs[i], rooms[i + 1]);
+        /* Chain remaining rooms as extensions from radius corridors */
+        for (i = 5; i < room_count; i++) {
+            int parent_branch = ((i - 5) % 4) + 1;
+            if (parent_branch < room_count)
+                pd_link_rooms(rooms[parent_branch], DIR_NORTH, rooms[i]);
+        }
+    }
+    else if (!str_cmp(style, "ruins")) {
+        /* Ruins: sprawling grid with cross-connects and UP/DOWN for depth */
+        int cols = (int)number_range(3, 6);
+        if (cols < 1) cols = 1;
+        int rows = (room_count + cols - 1) / cols;
+        int grid_room = 0;
+        /* Create horizontal and vertical links for grid structure */
+        for (i = 0; i < rows && grid_room < room_count; i++) {
+            for (j = 0; j < cols && grid_room < room_count; j++) {
+                int room_idx = i * cols + j;
+                if (room_idx >= room_count) break;
+                /* East link */
+                if (j + 1 < cols && room_idx + 1 < room_count)
+                    pd_link_rooms(rooms[room_idx], DIR_EAST, rooms[room_idx + 1]);
+                /* South link */
+                if (i + 1 < rows && room_idx + cols < room_count)
+                    pd_link_rooms(rooms[room_idx], DIR_SOUTH, rooms[room_idx + cols]);
+                /* Occasional UP for second floor */
+                if ((i + j) % 3 == 0 && room_idx + cols * rows < room_count)
+                    pd_link_rooms(rooms[room_idx], DIR_UP, rooms[room_idx + cols * rows / 2]);
+            }
+        }
+    }
+    else {
+        /* Cavern (default): organic tree from main spine, many UP/DOWN */
+        int main_count = (room_count * 2 / 3);
+        if (main_count < 1) main_count = 1;
+        if (main_count > room_count) main_count = room_count - 1;
+        /* Main spine */
+        for (i = 0; i + 1 < main_count; i++) {
+            if (number_percent() < 50)
+                pd_link_rooms(rooms[i], DIR_NORTH, rooms[i + 1]);
+            else
+                pd_link_rooms(rooms[i], DIR_UP, rooms[i + 1]);
+        }
+        /* Branch remaining rooms off main spine */
+        for (i = main_count; i < room_count; i++) {
+            int parent_idx = number_range(0, UMIN(main_count - 1, i - 1));
+            int branch_dir = (number_percent() < 50) ? DIR_EAST : DIR_WEST;
+            if (parent_idx >= 0 && parent_idx < room_count)
+                pd_link_rooms(rooms[parent_idx], branch_dir, rooms[i]);
+        }
+    }
+}
+
+/* Scan current room for hidden objects and reveal them based on skill roll.
+ * If character has search skill, roll against it; otherwise 50% base chance.
+ * Called by 'search' command and spell_detect_hidden.
+ * Removes ITEM_HIDDEN flag from found objects and prints discovery message. */
+void pd_do_hidden_scan(CHAR_T *ch)
+{
+    OBJ_T *obj;
+    int skill_roll, success_threshold;
+
+    if (ch == NULL || ch->in_room == NULL)
+        return;
+
+    /* Determine success threshold based on skill */
+    success_threshold = UMAX(50, char_get_skill(ch, SN(SEARCH)));
+
+    /* Iterate all objects in the room */
+    for (obj = ch->in_room->content_first; obj != NULL; obj = obj->content_next) {
+        if (IS_SET(obj->extra_flags, ITEM_HIDDEN)) {
+            /* Roll against success threshold */
+            skill_roll = number_percent();
+            if (skill_roll < success_threshold) {
+                /* Success: reveal the object */
+                REMOVE_BIT(obj->extra_flags, ITEM_HIDDEN);
+                printf_to_char(ch, "You reveal %s!\n\r", obj->short_descr);
+            }
+        }
+    }
+}
+
 /* -------------------------------------------------------------------------
  * Public API
  * ---------------------------------------------------------------------- */
@@ -160,7 +364,7 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
     PD_SEED_T *seed;
     PD_INSTANCE_T *inst;
     AREA_T *area;
-    ROOM_INDEX_T *rooms[100]; /* guard against room_count_max > 100 */
+    ROOM_INDEX_T *rooms[105]; /* guard against room_count_max > 104 */
     int room_count, i, slot;
     int vnum_base;
     char buf[256];
@@ -226,8 +430,8 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
         room_count = 4;
     if (room_count > pd_config.vnum_size - 1)
         room_count = pd_config.vnum_size - 1;
-    if (room_count > 100)
-        room_count = 100;
+    if (room_count > 104)
+        room_count = 104;
 
     /* Create rooms */
     memset(rooms, 0, sizeof(rooms));
@@ -250,13 +454,12 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
         rooms[i] = room;
     }
 
-    /* Link rooms in a simple chain with occasional branches */
-    for (i = 0; i + 1 < room_count; i++)
-        pd_link_rooms(rooms[i], DIR_NORTH, rooms[i + 1]);
+    /* Build the room layout based on seed's style */
+    pd_build_layout(rooms, room_count, seed);
 
-    /* Add a couple of east-west branches for rooms 2+ */
-    for (i = 2; i + 2 < room_count; i += 3)
-        pd_link_rooms(rooms[i], DIR_EAST, rooms[i + 1]);
+    /* Apply room name overrides if provided */
+    if (seed->entry_room_name != NULL && seed->entry_room_name[0] != '\0')
+        str_replace_dup(&rooms[0]->name, seed->entry_room_name);
 
     /* entry_vnum is the first room; place entry portal there */
     int entry_vnum = vnum_base;
@@ -268,8 +471,7 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
     inst->entry_vnum    = entry_vnum;
     inst->created_at    = (long)time(NULL);
     inst->last_empty_at = 0;
-    inst->level         = (member_count > 0 && members[0] != NULL)
-                            ? members[0]->level : 1;
+    inst->level         = pd_calc_instance_level(members, member_count);
 
     str_replace_dup(&inst->theme, seed->name ? seed->name : "");
     snprintf(inst->area_name, sizeof(inst->area_name), "%s", area->name);
@@ -288,29 +490,198 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
     LIST2_BACK(inst, global_prev, global_next,
                pd_instance_first, pd_instance_last);
 
-    /* Spawn mobs */
+    /* Spawn mobs with density scaling and depth multipliers */
     if (seed->mob_vnum_count > 0 && seed->mob_density > 0) {
+        int density_min = seed->mob_density_min > 0 ? seed->mob_density_min : 1;
+        int density_max = seed->mob_density_max > 0 ? seed->mob_density_max : 3;
+        
         for (i = 1; i < room_count; i++) {
-            int mob_count = seed->mob_density;
+            /* Skip boss room (last room) and chest room */
+            if (i == room_count - 1)
+                continue;
+            if (room_count > 4 && i == room_count / 4)
+                continue;  /* skip chest room */
+            
+            /* C2: Scale density based on instance level
+             * At level 1: use density_min
+             * At level 50+: use density_max
+             * Interpolate between in range [1, 50] */
+            int scaled_level = inst->level;
+            if (scaled_level > 50)
+                scaled_level = 50;
+            int mob_count = density_min + 
+                            ((density_max - density_min) * scaled_level) / 50;
+            if (mob_count < density_min)
+                mob_count = density_min;
+            if (mob_count > density_max)
+                mob_count = density_max;
+            
+            /* C2: Skip room entirely at very low levels (chance decreases as level rises) */
+            if (inst->level < 20 && number_percent() < (20 - inst->level))
+                continue;
+            
+            /* C2a: Depth scaling — mobs deeper into dungeon get level bonus
+             * Calculate room depth: distance from entry room (0)
+             * Depth multiplier: 1.0 + (depth / room_count * 0.5) → ranges [1.0, 1.5] */
+            float depth_mult = 1.0;
+            if (i > 0 && room_count > 1) {
+                float depth = (float)i / (float)(room_count - 1);
+                depth_mult = 1.0 + (depth * 0.5);  /* ranges [1.0, 1.5] */
+            }
+            
             int m;
             for (m = 0; m < mob_count; m++) {
                 int vnum_idx = (i + m) % seed->mob_vnum_count;
                 MOB_INDEX_T *midx = mobile_get_index(seed->mob_vnums[vnum_idx]);
                 if (midx != NULL) {
                     CHAR_T *mob = mobile_create(midx);
-                    /* Scale to instance level ±2 so there is variance but
-                     * fights are never impossible at level 1. */
-                    pd_scale_mob_to_level(mob,
-                        UMAX(1, inst->level + number_range(-2, 2)));
+                    /* Scale to instance level with depth bonus and ±2 variance.
+                     * Depth scaling makes progression feel natural. */
+                    int depth_level = (int)(inst->level * depth_mult + 0.5);
+                    int final_level = UMAX(1, depth_level + number_range(-2, 2));
+                    if (final_level > 100)
+                        final_level = 100;
+                    pd_scale_mob_to_level(mob, final_level);
                     char_to_room(mob, rooms[i]);
                 }
             }
         }
     }
 
-    /* Place loot consumables */
+    /* Spawn boss in the deepest room */
+    if (seed->boss_vnum > 0 && room_count > 1) {
+        MOB_INDEX_T *boss_idx = mobile_get_index(seed->boss_vnum);
+        if (boss_idx != NULL) {
+            CHAR_T *boss = mobile_create(boss_idx);
+            int boss_level = inst->level + seed->boss_level_add;
+            if (boss_level < inst->level)
+                boss_level = inst->level;
+            if (boss_level > 100)
+                boss_level = 100;
+            pd_scale_mob_to_level(boss, boss_level);
+            char_to_room(boss, rooms[room_count - 1]);
+            /* Override boss room name if provided */
+            if (seed->boss_room_name != NULL && seed->boss_room_name[0] != '\0')
+                str_replace_dup(&rooms[room_count - 1]->name, seed->boss_room_name);
+        }
+    }
+
+    /* ===== THREE-TIER LOOT SYSTEM ===== */
+
+    /* TIER 1: Open treasure chest with optional sentinel guardian */
+    if (seed->container_vnum > 0 && seed->loot_density > 0 && room_count > 2) {
+        int chest_room_idx = room_count / 4;
+        if (chest_room_idx < 1) chest_room_idx = 1;
+        if (chest_room_idx == room_count - 1) chest_room_idx--; /* avoid boss room */
+
+        /* Spawn sentinel guardian if vnum provided */
+        if (seed->sentinel_vnum > 0) {
+            MOB_INDEX_T *sentinel_idx = mobile_get_index(seed->sentinel_vnum);
+            if (sentinel_idx != NULL) {
+                CHAR_T *sentinel = mobile_create(sentinel_idx);
+                int sentinel_level = inst->level + seed->sentinel_level_add;
+                if (sentinel_level < inst->level)
+                    sentinel_level = inst->level;
+                if (sentinel_level > 100)
+                    sentinel_level = 100;
+                pd_scale_mob_to_level(sentinel, sentinel_level);
+                EXT_SET(sentinel->ext_mob, MOB_SENTINEL);
+                char_to_room(sentinel, rooms[chest_room_idx]);
+            }
+        }
+
+        /* Create and stock the chest */
+        OBJ_T *chest = obj_create(obj_get_index(seed->container_vnum), inst->level);
+        if (chest != NULL) {
+            int chest_items = UMAX(1, seed->loot_density);
+            int m;
+            for (m = 0; m < chest_items && seed->item_vnum_count > 0; m++) {
+                int vnum_idx = m % seed->item_vnum_count;
+                OBJ_INDEX_T *oidx = obj_get_index(seed->item_vnums[vnum_idx]);
+                if (oidx != NULL) {
+                    OBJ_T *loot = obj_create(oidx, inst->level);
+                    obj_give_to_obj(loot, chest);
+                }
+            }
+            obj_give_to_room(chest, rooms[chest_room_idx]);
+
+            /* Override chest room name if provided */
+            if (seed->chest_room_name != NULL && seed->chest_room_name[0] != '\0')
+                str_replace_dup(&rooms[chest_room_idx]->name, seed->chest_room_name);
+        }
+    }
+
+    /* TIER 2: Hidden cache with hints and extra descriptions */
+    if (seed->hidden_container_vnum > 0 && seed->hide_hint_count > 0) {
+        int hide_room_idx;
+        int attempts = 0;
+        
+        /* Pick a random side room (not entry, not boss, not chest) */
+        do {
+            hide_room_idx = number_range(2, room_count - 2);
+            attempts++;
+        } while (attempts < 10 && (hide_room_idx == room_count - 1 || 
+                 (room_count > 4 && hide_room_idx == room_count / 4)));
+
+        if (hide_room_idx >= 1 && hide_room_idx < room_count) {
+            /* Pick a random hint from the pool */
+            int hint_idx = number_range(0, seed->hide_hint_count - 1);
+
+            /* Create hidden container with ITEM_HIDDEN flag */
+            OBJ_T *hidden_cache = obj_create(obj_get_index(seed->hidden_container_vnum), inst->level);
+            if (hidden_cache != NULL) {
+                SET_BIT(hidden_cache->extra_flags, ITEM_HIDDEN);
+
+                /* Stock the hidden cache with loot */
+                int cache_items = UMAX(1, seed->loot_density / 2);
+                int m;
+                for (m = 0; m < cache_items && seed->item_vnum_count > 0; m++) {
+                    int vnum_idx = (m + hint_idx) % seed->item_vnum_count;
+                    OBJ_INDEX_T *oidx = obj_get_index(seed->item_vnums[vnum_idx]);
+                    if (oidx != NULL) {
+                        OBJ_T *loot = obj_create(oidx, inst->level);
+                        obj_give_to_obj(loot, hidden_cache);
+                    }
+                }
+                obj_give_to_room(hidden_cache, rooms[hide_room_idx]);
+
+                /* Add extra description (look keyword) if available */
+                if (seed->hide_keywords[hint_idx] != NULL && 
+                    seed->hide_look_texts[hint_idx] != NULL) {
+                    EXTRA_DESCR_T *ed = extra_descr_new();
+                    str_replace_dup(&ed->keyword, seed->hide_keywords[hint_idx]);
+                    str_replace_dup(&ed->description, seed->hide_look_texts[hint_idx]);
+                    ed->parent = rooms[hide_room_idx];
+                    ed->parent_type = EXTRA_DESCR_ROOM_INDEX;
+                    extra_descr_to_room_index_back(ed, rooms[hide_room_idx]);
+                }
+
+                /* Append hint phrase to room description */
+                if (seed->hide_hint_phrases[hint_idx] != NULL &&
+                    seed->hide_hint_phrases[hint_idx][0] != '\0') {
+                    char new_desc[2048];
+                    if (rooms[hide_room_idx]->description != NULL) {
+                        snprintf(new_desc, sizeof(new_desc), "%s\n\r%s",
+                                 rooms[hide_room_idx]->description,
+                                 seed->hide_hint_phrases[hint_idx]);
+                    } else {
+                        snprintf(new_desc, sizeof(new_desc), "%s",
+                                 seed->hide_hint_phrases[hint_idx]);
+                    }
+                    str_replace_dup(&rooms[hide_room_idx]->description, new_desc);
+                }
+            }
+        }
+    }
+
+    /* TIER 3: Floor drop loot (spread across remaining rooms) */
     if (seed->item_vnum_count > 0 && seed->loot_density > 0) {
-        for (i = 1; i < room_count; i += (2 / seed->loot_density + 1)) {
+        int loot_interval = UMAX(1, 5 / seed->loot_density);
+        for (i = 1; i < room_count; i += loot_interval) {
+            /* Skip chest and boss rooms */
+            if (room_count > 4 && i == room_count / 4) continue;
+            if (i == room_count - 1) continue;
+
             int vnum_idx = i % seed->item_vnum_count;
             OBJ_INDEX_T *oidx = obj_get_index(seed->item_vnums[vnum_idx]);
             if (oidx != NULL) {
@@ -449,14 +820,54 @@ void pd_write_snapshot(PD_INSTANCE_T *inst)
         }
         fprintf(fp, "},\n");
 
-        /* Count live NPCs in room for the map overlay */
+        /* Count live NPCs and generate mob array */
         {
             int mob_count = 0;
+            int first_mob = 1;
             CHAR_T *ch;
-            for (ch = room->people_first; ch != NULL; ch = ch->room_next)
+            
+            /* Count mobs first */
+            for (ch = room->people_first; ch != NULL; ch = ch->room_next) {
                 if (IS_NPC(ch))
                     mob_count++;
-            fprintf(fp, "      \"mob_count\": %d\n", mob_count);
+            }
+            
+            fprintf(fp, "      \"mob_count\": %d,\n", mob_count);
+            fprintf(fp, "      \"mobs\": [");
+            
+            /* Output mob array */
+            for (ch = room->people_first; ch != NULL; ch = ch->room_next) {
+                if (IS_NPC(ch)) {
+                    if (!first_mob)
+                        fprintf(fp, ", ");
+                    first_mob = 0;
+                    fprintf(fp, "{\"vnum\": %d, \"name\": \"",
+                            ch->mob_index ? ch->mob_index->vnum : 0);
+                    pd_fputs_json(fp, ch->short_descr ? ch->short_descr : "");
+                    fprintf(fp, "\", \"hp\": %d, \"max_hp\": %d}",
+                            ch->hit, ch->max_hit);
+                }
+            }
+            fprintf(fp, "],\n");
+        }
+
+        /* Generate objects array */
+        {
+            int first_obj = 1;
+            OBJ_T *obj;
+            
+            fprintf(fp, "      \"objects\": [");
+            for (obj = room->content_first; obj != NULL; obj = obj->content_next) {
+                if (!first_obj)
+                    fprintf(fp, ", ");
+                first_obj = 0;
+                fprintf(fp, "{\"vnum\": %d, \"name\": \"",
+                        obj->obj_index ? obj->obj_index->vnum : 0);
+                pd_fputs_json(fp, obj->short_descr ? obj->short_descr : "");
+                fprintf(fp, "\", \"hidden\": %s}",
+                        IS_SET(obj->extra_flags, ITEM_HIDDEN) ? "true" : "false");
+            }
+            fprintf(fp, "]\n");
         }
         fprintf(fp, "    }");
     }

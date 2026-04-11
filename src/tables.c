@@ -1767,6 +1767,7 @@ SKILL_MAP_T skill_map_table[SKILL_MAP_MAX + 1] = {
     {SKILL_MAP_CRITICAL_STRIKE, "critical strike"},
     {SKILL_MAP_SILENCE, "silence"},
     {SKILL_MAP_SPIT_ACID, "spit acid"},
+    {SKILL_MAP_SEARCH, "search"},
 
     {0}};
 

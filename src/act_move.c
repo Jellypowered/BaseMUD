@@ -589,6 +589,37 @@ DEFINE_DO_FUN (do_hide) {
         player_try_skill_improve (ch, SN(HIDE), FALSE, 3);
 }
 
+DEFINE_DO_FUN (do_search) {
+    OBJ_T *obj;
+    int found = 0;
+    bool skill_success;
+
+    WAIT_STATE (ch, 24);
+
+    skill_success = (number_percent () < char_get_skill (ch, SN(SEARCH)));
+
+    send_to_char ("You search carefully around the area.\n\r", ch);
+    act ("$n searches the area carefully.", ch, NULL, NULL, TO_NOTCHAR);
+
+    /* Use pd_do_hidden_scan() to reveal hidden objects */
+    pd_do_hidden_scan(ch);
+
+    /* Count remaining hidden objects (that weren't found) */
+    for (obj = ch->in_room->content_first; obj != NULL; obj = obj->content_next) {
+        if (IS_SET (obj->extra_flags, ITEM_HIDDEN))
+            found++;
+    }
+
+    if (found == 0 && skill_success) {
+        send_to_char ("You don't find anything unusual.\n\r", ch);
+    }
+    else if (found > 0 && !skill_success) {
+        send_to_char ("You search carefully but uncover nothing unusual.\n\r", ch);
+    }
+
+    player_try_skill_improve (ch, SN(SEARCH), skill_success, 3);
+}
+
 /* Contributed by Alander. */
 DEFINE_DO_FUN (do_visible) {
     affect_strip_char (ch, SN(INVIS));
