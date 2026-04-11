@@ -4210,7 +4210,7 @@
                   "slot":  535,
                   "min_mana":  0,
                   "usage_beats":  18,
-                  "noun_damage":  "acid spit"
+                  "damage_noun":  "acid spit"
               }
 
 }

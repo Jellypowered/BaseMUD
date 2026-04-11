@@ -188,5 +188,15 @@
     "type": 37,
     "name": "wood",
     "color_char": "y"
+  }},
+  {"material": {
+    "type": 38,
+    "name": "none",
+    "color_char": "x"
+  }},
+  {"material": {
+    "type": 39,
+    "name": "silk",
+    "color_char": "W"
   }}
 ]

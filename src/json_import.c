@@ -216,6 +216,21 @@ void json_import_all(void)
 {
     JSON_T *json;
     int imported;
+    const TABLE_T *table;
+
+    /* Zero static config tables so that JSON_TBLR_START can find free slots.
+     * The C static initializers fill these arrays at program load, which
+     * causes JSON loading to fail with "Too many objects" on every entry.
+     * Dynamic tables (table_pp != NULL) manage their own memory elsewhere. */
+    for (table = master_table; table->name != NULL; table++) {
+        if (table->json_path == NULL || strcmp(table->json_path, "config") != 0)
+            continue;
+        if (table->json_read_func == NULL || table->table_pp != NULL)
+            continue;
+        if (table->table != NULL)
+            memset((void *)table->table, 0,
+                   table->type_size * table->table_length);
+    }
 
     /* read all files instead simple JSON objects. */
     imported = 0;
