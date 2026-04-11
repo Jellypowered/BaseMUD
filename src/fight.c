@@ -46,6 +46,7 @@
 #include "mobiles.h"
 #include "objs.h"
 #include "players.h"
+#include "pocket_dungeon.h"
 #include "save.h"
 #include "tables.h"
 #include "utils.h"
@@ -726,6 +727,14 @@ bool damage_real(CHAR_T *ch, CHAR_T *victim, int dam, int dt, int dam_type,
             mob_rand_drop(victim);
 
         corpse = char_die(victim);
+        
+        /* C3: Trigger boss loot if victim was a boss in a pocket dungeon instance */
+        if (IS_NPC(victim)) {
+            PD_INSTANCE_T *pd_inst = pd_find_instance_for_char((CHAR_T *)victim);
+            if (pd_inst != NULL) {
+                pd_trigger_boss_loot(pd_inst, victim);
+            }
+        }
 
         /* Track PK kills and deaths. */
         if (!IS_NPC(ch) && !IS_NPC(victim)) {
