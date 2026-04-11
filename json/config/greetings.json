@@ -17,45 +17,36 @@
   {
     "greeting": {
       "text": "
-|THIS IS A MUD BASED ON.....
+|{Y=============================================================={x
+|{C                       WELCOME TO BASEMUD                      {x
+|{Y=============================================================={x
 |
-|                                ROM Version 2.4 beta
-|
-|               Original DikuMUD by Hans Staerfeldt, Katja Nyboe,
-|               Tom Madsen, Michael Seifert, and Sebastian Hammer
-|               Based on MERC 2.1 code by Hatchet, Furey, and Kahn
-|               ROM 2.4 copyright (c) 1993-1998 Russ Taylor
-|
+|{DThe old rules still echo here, but the next adventure is yours.{x
+|{WType your name and step forward.{x
 |By what name do you wish to be known? "
     }
   },
   {
     "greeting": {
       "text": "
-|THIS IS A MUD BASED ON.....
+|{G:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::{x
+|{M                         ENTER THE MAZE                        {x
+|{G:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::{x
 |
-|                                ROM Version 2.4 beta
-|
-|               Original DikuMUD by Hans Staerfeldt, Katja Nyboe,
-|               Tom Madsen, Michael Seifert, and Sebastian Hammer
-|               Based on MERC 2.1 code by Hatchet, Furey, and Kahn
-|               ROM 2.4 copyright (c) 1993-1998 Russ Taylor
-|
+|{WStone, shadow, and surprise wait beyond this prompt.{x
+|{DBring a bold name and an empty backpack.{x
 |By what name do you wish to be known? "
     }
   },
   {
     "greeting": {
       "text": "
-|THIS IS A MUD BASED ON.....
+|{R**************************************************************{x
+|{Y                      THE DOOR IS OPEN                       {x
+|{R**************************************************************{x
 |
-|                                ROM Version 2.4 beta
-|
-|               Original DikuMUD by Hans Staerfeldt, Katja Nyboe,
-|               Tom Madsen, Michael Seifert, and Sebastian Hammer
-|               Based on MERC 2.1 code by Hatchet, Furey, and Kahn
-|               ROM 2.4 copyright (c) 1993-1998 Russ Taylor
-|
+|{DNew stories begin with a name; the rest is up to the dungeon.{x
+|{CWelcome in, if you dare.{x
 |By what name do you wish to be known? "
     }
   }
