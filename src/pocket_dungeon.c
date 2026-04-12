@@ -1301,6 +1301,8 @@ static void pd_write_mob_json(FILE *fp, CHAR_T *ch, const char *ind)
             pd_fputs_json(fp, mprog_type_to_name(prg->trig_type));
             fprintf(fp, "\", \"phrase\": \"");
             pd_fputs_json(fp, prg->trig_phrase ? prg->trig_phrase : "");
+            fprintf(fp, "\", \"code\": \"");
+            pd_fputs_json(fp, prg->code ? prg->code : "");
             fprintf(fp, "\"}");
         }
     }
