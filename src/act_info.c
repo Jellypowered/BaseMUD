@@ -1225,26 +1225,39 @@ static void eq_print_slot (CHAR_T *ch, const char *label, int wear_loc)
 DEFINE_DO_FUN(do_equipment)
 {
     send_to_char("\n\r{CYou are currently wearing:{x\n\r\n\r", ch);
-    eq_print_slot(ch, "{CF{Wloatin{Cg  ", WEAR_LOC_FLOAT);
+    /* Head area */
     eq_print_slot(ch, "{CL{Wigh{Ct     ", WEAR_LOC_LIGHT);
     eq_print_slot(ch, "{CH{Wea{Cd      ", WEAR_LOC_HEAD);
+    eq_print_slot(ch, "{CE{Wye{Cs      ", WEAR_LOC_EYES);
+    eq_print_slot(ch, "{CE{Wae{Cr s    ", WEAR_LOC_EARS);
     eq_print_slot(ch, "{CN{Wec{Ck      ", WEAR_LOC_NECK_1);
     eq_print_slot(ch, "{CN{Wec{Ck      ", WEAR_LOC_NECK_2);
+    /* Body area */
+    eq_print_slot(ch, "{CT{Watto{Co    ", WEAR_LOC_TATTOO);
     eq_print_slot(ch, "{CB{Wod{Cy      ", WEAR_LOC_BODY);
     eq_print_slot(ch, "{CT{Wors{Co     ", WEAR_LOC_ABOUT);
+    eq_print_slot(ch, "{CC{Wloa{Ck     ", WEAR_LOC_CLOAK);
+    eq_print_slot(ch, "{CB{Wac{Ck      ", WEAR_LOC_BACK);
+    /* Arms and hands */
     eq_print_slot(ch, "{CA{Wrm{Cs      ", WEAR_LOC_ARMS);
-    eq_print_slot(ch, "{CH{Wand{Cs     ", WEAR_LOC_HANDS);
     eq_print_slot(ch, "{CW{Wris{Ct     ", WEAR_LOC_WRIST_L);
     eq_print_slot(ch, "{CW{Wris{Ct     ", WEAR_LOC_WRIST_R);
+    eq_print_slot(ch, "{CH{Wand{Cs     ", WEAR_LOC_HANDS);
     eq_print_slot(ch, "{CF{Winge{Cr    ", WEAR_LOC_FINGER_L);
     eq_print_slot(ch, "{CF{Winge{Cr    ", WEAR_LOC_FINGER_R);
+    /* Mid-body */
     eq_print_slot(ch, "{CW{Wais{Ct     ", WEAR_LOC_WAIST);
+    eq_print_slot(ch, "{CT{Wai{Cl      ", WEAR_LOC_TAIL);
+    /* Legs and feet */
+    eq_print_slot(ch, "{CL{Weg{Cs      ", WEAR_LOC_LEGS);
+    eq_print_slot(ch, "{CF{Wee{Ct      ", WEAR_LOC_FEET);
+    /* Weapons and appendages */
     eq_print_slot(ch, "{CP{Wrimar{Cy   ", WEAR_LOC_WIELD);
     eq_print_slot(ch, "{CS{Whiel{Cd    ", WEAR_LOC_SHIELD);
     eq_print_slot(ch, "{CH{Wel{Cd      ", WEAR_LOC_HOLD);
-    eq_print_slot(ch, "{CL{Weg{Cs      ", WEAR_LOC_LEGS);
-    eq_print_slot(ch, "{CF{Wee{Ct      ", WEAR_LOC_FEET);
-    eq_print_slot(ch, "{CT{Wai{Cl      ", WEAR_LOC_TAIL);
+    /* Special/floating */
+    eq_print_slot(ch, "{CF{Wloatin{Cg  ", WEAR_LOC_FLOAT);
+    eq_print_slot(ch, "{CF{Wloat{C2    ", WEAR_LOC_FLOAT_2);
 }
 
 DEFINE_DO_FUN(do_compare)
