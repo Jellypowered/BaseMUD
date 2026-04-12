@@ -51,7 +51,17 @@ void pd_loot_themes_reload_spells(void)
 
     for (th = pd_loot_theme_first; th != NULL; th = th->global_next)
     {
-        /* spell_pool_count was pre-incremented to track how many names we have. */
+        /* Skip already-resolved themes: spell_names[] are all NULL after the
+         * first pass. This function is called on every skill_reload_mapping,
+         * which fires for both skills.json and weapons.json. */
+        {
+            int has_names = 0;
+            for (i = 0; i < th->spell_pool_count; i++)
+                if (th->spell_names[i] != NULL) { has_names = 1; break; }
+            if (!has_names)
+                continue;
+        }
+
         int count = th->spell_pool_count;
         th->spell_pool_count = 0;
         for (i = 0; i < count; i++)
