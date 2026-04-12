@@ -383,6 +383,12 @@ const FLAG_T wear_flags[] = {
     {"wearfloat", ITEM_WEAR_FLOAT, TRUE},
     {"wearlight", ITEM_WEAR_LIGHT, TRUE},
     {"weartail",  ITEM_WEAR_TAIL,  TRUE},
+    {"wearback", ITEM_WEAR_BACK, TRUE},
+    {"wearcloak", ITEM_WEAR_CLOAK, TRUE},
+    {"weareyes", ITEM_WEAR_EYES, TRUE},
+    {"wearears", ITEM_WEAR_EARS, TRUE},
+    {"wearfloat2", ITEM_WEAR_FLOAT_2, TRUE},
+    {"weartattoo", ITEM_WEAR_TATTOO, TRUE},
     {0}};
 
 const FLAG_T container_flags[] = {

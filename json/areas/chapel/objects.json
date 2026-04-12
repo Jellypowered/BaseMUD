@@ -472,7 +472,7 @@
     "weight": 100,
     "cost": 100,
     "extra_flags": "magic",
-    "wear_flags": "take about",
+    "wear_flags": "take wearcloak",
     "extra_description": [{
       "keyword": "dark black cape",
       "description": "The cape is gently flows and pulls in the light so evenly and perfectly

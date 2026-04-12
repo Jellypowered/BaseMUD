@@ -135,7 +135,7 @@
     "weight": 30,
     "cost": 860,
     "extra_flags": "magic",
-    "wear_flags": "take about",
+    "wear_flags": "take wearcloak",
     "extra_description": [{
       "keyword": "cloak pitch black",
       "description": "It appears to have pockets inside it."
@@ -337,7 +337,7 @@
     "weight": 50,
     "cost": 760,
     "extra_flags": "glow magic",
-    "wear_flags": "take neck"
+    "wear_flags": "take wearcloak"
   }},
   {"object": {
     "area": "mahntor",

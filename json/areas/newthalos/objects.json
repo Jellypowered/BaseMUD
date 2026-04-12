@@ -628,7 +628,7 @@
     "level": 0,
     "weight": 40,
     "cost": 50,
-    "wear_flags": "take about"
+    "wear_flags": "take wearback"
   }},
   {"object": {
     "area": "newthalos",
@@ -794,7 +794,7 @@
     "level": 0,
     "weight": 20,
     "cost": 200,
-    "wear_flags": "take about"
+    "wear_flags": "take wearcloak"
   }},
   {"object": {
     "area": "newthalos",

@@ -342,7 +342,11 @@
               |EQUIPMENT displays all wear slots with colored labels showing what you are
               |currently wearing.  Empty slots appear as '(empty)'.  Slots covered:
               |Floating, Light, Head, Neck (x2), Body, Torso, Arms, Hands, Wrist (x2),
-              |Finger (x2), Waist, Primary, Shield, Held, Legs, Feet, and Tail.
+              |Finger (x2), Waist, Primary, Shield, Held, Legs, Feet, Tail, Back, Cloak,
+              |Eyes, Ears, Float 2, and Tattoo.
+              |
+              |BACK slot for backpacks and containers: items worn on your back are exempt
+              |from your carry limit while worn, allowing you to carry more total inventory.
               |
               |INVENTORY lists all items you are carrying but not wearing.
               |"

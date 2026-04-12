@@ -94,7 +94,8 @@
 #define ITEM_GEM 32
 #define ITEM_JEWELRY 33
 #define ITEM_JUKEBOX 34
-#define ITEM_MAX 35
+#define ITEM_TATTOO 35
+#define ITEM_MAX 36
 
 /* weapon class */
 #define WEAPON_EXOTIC 0
@@ -144,7 +145,13 @@
 #define WEAR_LOC_HOLD 17
 #define WEAR_LOC_FLOAT 18
 #define WEAR_LOC_TAIL  19
-#define WEAR_LOC_MAX   20
+#define WEAR_LOC_BACK  20
+#define WEAR_LOC_CLOAK 21
+#define WEAR_LOC_EYES  22
+#define WEAR_LOC_EARS  23
+#define WEAR_LOC_FLOAT_2 24
+#define WEAR_LOC_TATTOO 25
+#define WEAR_LOC_MAX   26
 
 /* AC types */
 #define AC_PIERCE 0

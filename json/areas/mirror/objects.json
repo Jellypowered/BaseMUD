@@ -442,7 +442,7 @@
     "level": 10,
     "weight": 50,
     "cost": 730,
-    "wear_flags": "take neck",
+    "wear_flags": "take wearcloak",
     "extra_description": [{
       "keyword": "cloak",
       "description": "You see a cloak of great craftsmanship.  Imprinted on the side is:
@@ -574,7 +574,7 @@
     "level": 10,
     "weight": 50,
     "cost": 730,
-    "wear_flags": "take about",
+    "wear_flags": "take wearcloak",
     "extra_description": [{
       "keyword": "cape",
       "description": "You see a cape of great craftsmanship.  Imprinted on the side is:

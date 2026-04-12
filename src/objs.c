@@ -215,6 +215,10 @@ void obj_give_to_obj (OBJ_T *obj, OBJ_T *obj_to) {
 
     for (; obj_to != NULL; obj_to = obj_to->in_obj) {
         if (obj_to->carried_by != NULL) {
+            /* Don't count items inside a back-worn container toward carry limits. */
+            if (char_item_is_exempt_from_carry (obj, obj_to->carried_by))
+                continue;
+
             obj_to->carried_by->carry_number += obj_get_carry_number (obj);
             obj_to->carried_by->carry_weight += obj_get_weight (obj)
                 * item_get_weight_mult (obj_to) / 100;
@@ -317,6 +321,11 @@ void obj_take_from_obj (OBJ_T *obj) {
 
     for (; obj_from != NULL; obj_from = obj_from->in_obj) {
         if (obj_from->carried_by != NULL) {
+            /* Don't count items removed from a back-worn container toward carry limits. */
+            if (obj_from->wear_loc == WEAR_LOC_BACK && 
+                obj_from->item_type == ITEM_CONTAINER)
+                continue;
+
             obj_from->carried_by->carry_number -= obj_get_carry_number (obj);
             obj_from->carried_by->carry_weight -= obj_get_weight (obj)
                 * item_get_weight_mult (obj_from) / 100;

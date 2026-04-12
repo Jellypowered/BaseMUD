@@ -598,7 +598,7 @@
     "weight": 40,
     "cost": 1140,
     "extra_flags": "magic",
-    "wear_flags": "take head",
+    "wear_flags": "take weareyes",
     "affects": [
       {
         "level": 7,
@@ -720,7 +720,7 @@
     "level": 35,
     "weight": 50,
     "cost": 4300,
-    "wear_flags": "take neck",
+    "wear_flags": "take wearcloak",
     "affects": [
       {
         "level": 35,
@@ -809,7 +809,7 @@
     "weight": 90,
     "cost": 1000,
     "extra_flags": "magic burnproof",
-    "wear_flags": "take about hold"
+    "wear_flags": "take wearback hold"
   }},
   {"object": {
     "area": "hitower",
@@ -1415,7 +1415,7 @@
     "weight": 70,
     "cost": 3300,
     "extra_flags": "magic antigood antievil",
-    "wear_flags": "take neck",
+    "wear_flags": "take wearcloak",
     "affects": [
       {
         "level": 29,
@@ -1553,7 +1553,7 @@
     "weight": 80,
     "cost": 3300,
     "extra_flags": "magic antigood antineutral",
-    "wear_flags": "take neck",
+    "wear_flags": "take wearcloak",
     "affects": [
       {
         "level": 29,

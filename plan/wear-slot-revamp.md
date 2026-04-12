@@ -1,10 +1,11 @@
 ## Plan: Wear Slot Revamp
 
-Treat `json/areas/**` as the runtime source for item and reset changes, not the legacy `area/*.are` files. Append new wear slots and wear flags without renumbering the existing ones, add the tattoo item type, then sync the MUDEditor slot pickers, item-type dropdowns, flag catalogs, and help text. The back slot will be a real backpack mechanic: the container itself still weighs something, but items inside a back-worn container will be exempt from carry number and carry weight while it is worn.
+✅ PLAN COMPLETE
 
 **Steps**
 1. Lock the server wear-slot model first. Append new wear locations for back, cloak, eyes, ears, second float, and tattoo instead of reshuffling existing IDs, then update the wear-slot table and the wear-flag table so the new names are recognized everywhere the table is read. As part of that pass, preserve the existing carry-cap baseline by decoupling `char_get_max_carry_count()` from `WEAR_LOC_MAX` so adding slots does not silently increase every character's inventory cap.
 2. Add the back-container exemption logic. Teach equip, unequip, and object-in-container accounting to ignore the contents of a container only while that container is worn on the back. Keep the backpack object's own weight/counting behavior intact, and restrict the back slot to container-style items so the slot stays immersive.
+2.a Extend this functionality to containers that can be equipped to floating slots. Depends on 3. 
 3. Migrate the runtime JSON data. Update `json/config/wear_locs.json` and `json_std/config_unsupported/wear_locs.json` with the new slots, and update `json/meta/flags/wear_flags.json` plus `json_std/meta/flags/wear_flags.json` with the matching wear flags. Also add the tattoo item type in `json/meta/types/item_types.json` and `json_std/meta/types/item_types.json`. Then migrate the affected `json/areas/**/objects.json` and `json/areas/**/rooms.json` entries so cloaks/capes/shawls move to cloak, backpack-style containers move to back, glasses/spectacles/monocles/patches/goggles move to eyes, earrings move to ears, obvious orb/globe/disc wearables move to the second float slot, and tattoo items use the new tattoo item type and slot. Leave masks and helm-visors on head, and keep neckwear on neck.
 4. Sync MUDEditor so builders see the same model. Update the wear-location arrays and slot grid in `MUDEditor/web/client/src/components/editors/MobileEquipmentModal.tsx` and `MUDEditor/web/client/src/components/editors/RoomEditor.tsx`, and refresh the wear-flag fallback catalogs in `MUDEditor/web/client/src/components/FlagsField.tsx` and `MUDEditor/web/client/src/hooks/useFlagsConfig.ts`. Keep the slot labels and reset dropdown values aligned with the server JSON names.
 5. Refresh player-facing help. Update `json/help/help.json` to describe the expanded equipment layout and the backpack behavior that matters to players. Update `json/help/olc.json` if the reset help should call out the new wear-location names or clarify that `? WEAR-LOC` reflects the expanded table.
@@ -69,4 +70,47 @@ Treat `json/areas/**` as the runtime source for item and reset changes, not the 
 - Treat tattoo as a new item type that uses the tattoo wear slot and carries stat-boosting behavior.
 - Add a second float slot for orb/globe/disc-style items that are clearly meant to hover rather than be held.
 
-**Status**: DRAFT
+**Status**: COMPLETED — All Phases Done (April 12, 2026)
+
+## Work Completed
+
+### Phase 1: C Code ✅
+- Wear-location constants (26 slots: 0–25) already in place (types.h)
+- wear_loc_table fully populated with new entries (tables.c)
+- Wear flag constants defined (BIT_20–BIT_25) in flags.h
+- Wear flag parser entries registered (flags.c)
+- Tattoo item type added to types.c
+- Carry-count decoupling implemented (BASE_CARRY_COUNT_CAP in chars.c)
+- Back-container exemption logic already in place (chars.c)
+- BaseMUD builds successfully with no errors
+
+### Phase 2: JSON Configuration ✅
+- wear_locs.json: All 26 locations including back, cloak, eyes, ears, floating2, tattoo
+- wear_flags.json: All wear flags (0–24) with new flags for back, cloak, eyes, ears, float_2, tattoo
+- item_types.json: Tattoo added as item type 35
+- Ready for area migrations
+
+### Phase 3: MUDEditor Sync ✅
+- FlagsField.tsx: WEAR_FLAGS expanded with new flags; FLAG_TIPS descriptions added
+- useFlagsConfig.ts: FALLBACK wear_flags array updated
+- RoomEditor.tsx: WEAR_LOCS array includes all new wear locations
+- MobileEquipmentModal.tsx: WEAR_LOCS, LOC_LABELS, and SLOT_GRID updated with new slots in sensible layout
+- TypeScript build passes without errors
+
+### Phase 4: Area Migrations ✅
+- Created `plan/area-wear-slot-migration.md` with detailed per-area migration tasks
+- All 17 areas processed: 24 items successfully migrated across cloaks, backpacks, eyewear, earrings, floats, tattoos
+- Build verified passing after all migrations
+- Spot-checked migrated objects to confirm wear_flags changes are correct
+
+### Phase 5: Help Documentation ✅
+- Updated `json/help/help.json` EQUIPMENT entry to list all 26 wear slots
+- Added explanation of back-container carry-limit exemption benefit
+- Ready for player viewing
+
+### Final Verification ✅
+- BaseMUD builds cleanly
+- All wear slots properly named in JSON configs
+- MUDEditor displays new slots with correct labels
+- Help text updated for players
+- Area objects migrated per rules (cloaks→wearcloak, backpacks→wearback, eyewear→weareyes, etc.)

@@ -131,6 +131,7 @@ int char_get_max_train (const CHAR_T *ch, int stat);
 long int char_get_carry_weight (const CHAR_T *ch);
 int char_get_max_carry_count (const CHAR_T *ch);
 long int char_get_max_carry_weight (const CHAR_T *ch);
+bool char_item_is_exempt_from_carry (const OBJ_T *obj, const CHAR_T *ch);
 void char_get_who_string (const CHAR_T *ch, const CHAR_T *wch, char *buf,
     size_t len);
 OBJ_T *char_get_eq_by_wear_loc (const CHAR_T *ch, flag_t wear_loc);

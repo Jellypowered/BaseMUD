@@ -327,7 +327,7 @@
     "weight": 10,
     "cost": 210,
     "extra_flags": "magic",
-    "wear_flags": "take about",
+    "wear_flags": "take wearcloak",
     "affects": [{
       "level": 14,
       "apply": "moves",

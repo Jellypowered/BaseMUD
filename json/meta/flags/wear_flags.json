@@ -96,6 +96,36 @@
       "name": "weartail",
       "value": 18,
       "settable": true
+    },
+    {
+      "name": "wearback",
+      "value": 19,
+      "settable": true
+    },
+    {
+      "name": "wearcloak",
+      "value": 20,
+      "settable": true
+    },
+    {
+      "name": "weareyes",
+      "value": 21,
+      "settable": true
+    },
+    {
+      "name": "wearears",
+      "value": 22,
+      "settable": true
+    },
+    {
+      "name": "wearfloat2",
+      "value": 23,
+      "settable": true
+    },
+    {
+      "name": "weartattoo",
+      "value": 24,
+      "settable": true
     }
   ]
 }}

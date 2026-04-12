@@ -59,6 +59,9 @@
 /* used for saving */
 static int save_number = 0;
 
+/* Baseline carry capacity cap (decoupled from WEAR_LOC_MAX so new wear slots don't auto-grant carry space). */
+#define BASE_CARRY_COUNT_CAP 20
+
 OBJ_T *char_get_weapon(const CHAR_T *ch)
 {
     OBJ_T *wield;
@@ -154,7 +157,7 @@ int char_get_max_carry_count(const CHAR_T *ch)
         return 1000;
     if (IS_PET(ch))
         return 0;
-    return WEAR_LOC_MAX + (2 * char_get_curr_stat(ch, STAT_DEX)) + ch->level;
+    return BASE_CARRY_COUNT_CAP + (2 * char_get_curr_stat(ch, STAT_DEX)) + ch->level;
 }
 
 /* Retrieve a character's carry capacity. */
@@ -165,6 +168,34 @@ long int char_get_max_carry_weight(const CHAR_T *ch)
     if (IS_PET(ch))
         return 0;
     return char_str_carry_bonus(ch) * 10 + ch->level * 25;
+}
+
+/* Check if an object is exempt from carry weight/count limits.
+ * Items inside a container worn on the back are exempt from carry limits
+ * while the container is actively worn. */
+bool char_item_is_exempt_from_carry(const OBJ_T *obj, const CHAR_T *ch)
+{
+    OBJ_T *container;
+    OBJ_T *back_item;
+
+    if (obj == NULL || ch == NULL)
+        return FALSE;
+
+    /* If the object is not inside another object, it's not exempt. */
+    if ((container = obj->in_obj) == NULL)
+        return FALSE;
+
+    /* Get the item worn on the back slot. */
+    if ((back_item = char_get_eq_by_wear_loc(ch, WEAR_LOC_BACK)) == NULL)
+        return FALSE;
+
+    /* Check if this object is inside the back-worn container (recursively). */
+    for (; container != NULL; container = container->in_obj) {
+        if (container == back_item && container->item_type == ITEM_CONTAINER)
+            return TRUE;
+    }
+
+    return FALSE;
 }
 
 OBJ_T *char_get_active_light(const CHAR_T *ch)

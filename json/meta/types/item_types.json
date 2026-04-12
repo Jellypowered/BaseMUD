@@ -176,6 +176,11 @@
       "name": "jukebox",
       "value": 34,
       "settable": true
+    },
+    {
+      "name": "tattoo",
+      "value": 35,
+      "settable": true
     }
   ]
 }}

@@ -559,7 +559,7 @@
     "weight": 200,
     "cost": 3700,
     "extra_flags": "magic bless antievil antineutral",
-    "wear_flags": "take about",
+    "wear_flags": "take wearcloak",
     "extra_description": [{
       "keyword": "cloak white",
       "description": "This is a very fine made cloak from an unknown material, in a bright white

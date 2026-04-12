@@ -27,7 +27,7 @@
     "weight": 20,
     "cost": 270,
     "extra_flags": "glow",
-    "wear_flags": "take head",
+    "wear_flags": "take weareyes",
     "affects": [
       {
         "level": 3,

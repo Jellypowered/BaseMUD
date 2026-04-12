@@ -208,5 +208,65 @@
     "ac_bonus": 100,
     "wear_msg_self": "You wear {C$p{x on your tail.",
     "wear_msg_room": "$n wears $p on $s tail."
+  }},
+  {"wear_loc": {
+    "type": 20,
+    "name": "back",
+    "phrase": "on the back",
+    "look_msg": "<worn on back>",
+    "wear_flag": "wearback",
+    "ac_bonus": 100,
+    "wear_msg_self": "You wear {C$p{x on your back.",
+    "wear_msg_room": "$n wears $p on $s back."
+  }},
+  {"wear_loc": {
+    "type": 21,
+    "name": "cloak",
+    "phrase": "as a cloak",
+    "look_msg": "<worn as cloak>",
+    "wear_flag": "wearcloak",
+    "ac_bonus": 200,
+    "wear_msg_self": "You wear {C$p{x as a cloak.",
+    "wear_msg_room": "$n wears $p as a cloak."
+  }},
+  {"wear_loc": {
+    "type": 22,
+    "name": "eyes",
+    "phrase": "over the eyes",
+    "look_msg": "<worn over eyes>",
+    "wear_flag": "weareyes",
+    "ac_bonus": 0,
+    "wear_msg_self": "You wear {C$p{x over your eyes.",
+    "wear_msg_room": "$n wears $p over $s eyes."
+  }},
+  {"wear_loc": {
+    "type": 23,
+    "name": "ears",
+    "phrase": "on the ears",
+    "look_msg": "<worn on ears>",
+    "wear_flag": "wearears",
+    "ac_bonus": 0,
+    "wear_msg_self": "You wear {C$p{x on your ears.",
+    "wear_msg_room": "$n wears $p on $s ears."
+  }},
+  {"wear_loc": {
+    "type": 24,
+    "name": "floating2",
+    "phrase": "floating nearby (2)",
+    "look_msg": "<floating nearby 2>",
+    "wear_flag": "wearfloat2",
+    "ac_bonus": 0,
+    "wear_msg_self": "You release {C$p{x and it floats near you.",
+    "wear_msg_room": "$n releases $p to float near $m."
+  }},
+  {"wear_loc": {
+    "type": 25,
+    "name": "tattoo",
+    "phrase": "as a tattoo",
+    "look_msg": "<tattoo>",
+    "wear_flag": "weartattoo",
+    "ac_bonus": 0,
+    "wear_msg_self": "You mark {C$p{x on your skin.",
+    "wear_msg_room": "$n marks $p on $s skin."
   }}
 ]

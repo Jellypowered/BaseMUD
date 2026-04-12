@@ -129,7 +129,7 @@
     "weight": 150,
     "cost": 480,
     "extra_flags": "magic",
-    "wear_flags": "take neck"
+    "wear_flags": "take wearcloak"
   }},
   {"object": {
     "area": "gnome",

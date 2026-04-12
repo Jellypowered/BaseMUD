@@ -187,8 +187,7 @@ const TYPE_T item_types[ITEM_MAX + 1] = {
     {"room_key",      ITEM_ROOM_KEY,   TRUE},
     {"gem",           ITEM_GEM,        TRUE},
     {"jewelry",       ITEM_JEWELRY,    TRUE},
-    {"jukebox",       ITEM_JUKEBOX,    TRUE},
-    {0}
+    {"jukebox",       ITEM_JUKEBOX,    TRUE},    {"tattoo",       ITEM_TATTOO,     TRUE},    {0}
 };
 
 const TYPE_T door_reset_types[DOOR_RESET_MAX + 1] = {

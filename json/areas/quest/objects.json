@@ -326,7 +326,7 @@
     "weight": 20,
     "cost": 55000,
     "extra_flags": "glow magic reward nopurge",
-    "wear_flags": "take about",
+    "wear_flags": "take wearcloak",
     "affects": [
       {"level": 1, "apply": "armor class", "modifier": -2},
       {"level": 1, "apply": "saving throw", "modifier": -1}
@@ -634,7 +634,7 @@
     "weight": 1,
     "cost": 55000,
     "extra_flags": "glow magic reward nopurge",
-    "wear_flags": "take float",
+    "wear_flags": "take wearfloat2",
     "affects": [
       {"level": 1, "apply": "strength",     "modifier": 1},
       {"level": 1, "apply": "intelligence", "modifier": 1},

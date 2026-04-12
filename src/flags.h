@@ -270,6 +270,12 @@
 #define ITEM_WEAR_FLOAT (BIT_17)
 #define ITEM_WEAR_LIGHT (BIT_18)
 #define ITEM_WEAR_TAIL  (BIT_19)
+#define ITEM_WEAR_BACK  (BIT_20)
+#define ITEM_WEAR_CLOAK (BIT_21)
+#define ITEM_WEAR_EYES  (BIT_22)
+#define ITEM_WEAR_EARS  (BIT_23)
+#define ITEM_WEAR_FLOAT_2 (BIT_24)
+#define ITEM_WEAR_TATTOO (BIT_25)
 
 /* weapon types */
 #define WEAPON_FLAMING (BIT_01)

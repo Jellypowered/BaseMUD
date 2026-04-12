@@ -577,7 +577,7 @@
     "level": 17,
     "weight": 10,
     "cost": 5500,
-    "wear_flags": "take head",
+    "wear_flags": "take weareyes",
     "affects": [
       {
         "level": 17,
