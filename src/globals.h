@@ -116,5 +116,7 @@ extern PD_INSTANCE_T *pd_instance_first;
 extern PD_INSTANCE_T *pd_instance_last;
 extern PD_SEED_T     *pd_seed_first;
 extern PD_SEED_T     *pd_seed_last;
+extern PD_LOOT_THEME_T *pd_loot_theme_first;
+extern PD_LOOT_THEME_T *pd_loot_theme_last;
 
 #endif

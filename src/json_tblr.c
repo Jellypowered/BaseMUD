@@ -1173,3 +1173,62 @@ DEFINE_JSON_READ_FUN(json_tblr_pd_seed)
     LIST2_BACK(seed, global_prev, global_next, pd_seed_first, pd_seed_last);
     return seed;
 }
+
+DEFINE_JSON_READ_FUN(json_tblr_pd_loot_theme)
+{
+    PD_LOOT_THEME_T *th;
+    JSON_T *array, *sub;
+    char buf[MAX_STRING_LENGTH];
+
+    if (!json_import_expect("pd_loot_theme", json,
+                            "name", "title", "*item_vnums",
+                            "*wand_charges_min", "*wand_charges_max",
+                            "*potion_level_min", "*potion_level_max",
+                            "*spell_pool", "*stat_pool", "*boss_drop_vnum",
+                            NULL))
+        return NULL;
+
+    th = pd_loot_theme_new();
+    READ_PROP_STRP(th->name, "name");
+    READ_PROP_STRP(th->title, "title");
+    READ_PROP_INT(th->wand_charges_min, "wand_charges_min");
+    READ_PROP_INT(th->wand_charges_max, "wand_charges_max");
+    READ_PROP_INT(th->potion_level_min, "potion_level_min");
+    READ_PROP_INT(th->potion_level_max, "potion_level_max");
+    READ_PROP_INT(th->boss_drop_vnum,   "boss_drop_vnum");
+
+    if ((array = json_get(json, "item_vnums")) != NULL) {
+        for (sub = array->first_child; sub != NULL; sub = sub->next) {
+            if (th->item_vnum_count >= PD_MAX_ITEM_VNUMS)
+                break;
+            th->item_vnums[th->item_vnum_count++] = json_value_as_int(sub);
+        }
+    }
+
+    if ((array = json_get(json, "spell_pool")) != NULL) {
+        for (sub = array->first_child; sub != NULL; sub = sub->next) {
+            int sn;
+            if (th->spell_pool_count >= PD_MAX_SPELL_POOL)
+                break;
+            json_value_as_string(sub, buf, sizeof(buf));
+            sn = skill_lookup_exact(buf);
+            if (sn >= 0)
+                th->spell_pool[th->spell_pool_count++] = sn;
+        }
+    }
+
+    if ((array = json_get(json, "stat_pool")) != NULL) {
+        for (sub = array->first_child; sub != NULL; sub = sub->next) {
+            type_t apply;
+            if (th->stat_pool_count >= PD_MAX_STAT_POOL)
+                break;
+            json_value_as_string(sub, buf, sizeof(buf));
+            apply = type_lookup_exact(affect_apply_types, buf);
+            if (apply != -1)
+                th->stat_pool[th->stat_pool_count++] = (int)apply;
+        }
+    }
+
+    LIST2_BACK(th, global_prev, global_next, pd_loot_theme_first, pd_loot_theme_last);
+    return th;
+}

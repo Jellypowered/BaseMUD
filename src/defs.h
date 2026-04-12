@@ -541,7 +541,8 @@
 #define RECYCLE_WIZ_T 25
 #define RECYCLE_PD_INSTANCE_T 26
 #define RECYCLE_PD_SEED_T 27
-#define RECYCLE_MAX 28
+#define RECYCLE_PD_LOOT_THEME_T 28
+#define RECYCLE_MAX 29
 
 /* Pocket Dungeon vnum layout. */
 #define AREA_INSTANCE_BASE_VNUM  20000

@@ -20,6 +20,7 @@
 #include "lookup.h"
 #include "tables.h"
 #include "utils.h"
+#include "pd_loot.h"
 
 #include <string.h>
 #include <stdio.h>
@@ -182,7 +183,19 @@ void pd_trigger_boss_loot(PD_INSTANCE_T *inst, ROOM_INDEX_T *room)
     seed = pd_seed_get_by_name(inst->theme);
     if (seed == NULL || seed->item_vnum_count <= 0)
         return;
-    
+
+    /* If the theme specifies an authored heirloom, drop it unenhanced first. */
+    {
+        PD_LOOT_THEME_T *lth = pd_loot_theme_get(inst->theme);
+        if (lth && lth->boss_drop_vnum > 0) {
+            oidx = obj_get_index(lth->boss_drop_vnum);
+            if (oidx != NULL) {
+                loot = obj_create(oidx, inst->level + 5);
+                obj_give_to_room(loot, room);
+            }
+        }
+    }
+
     /* Drop 2–3 random boss loot items to boss room */
     int num_drops = number_range(2, 3);
     for (i = 0; i < num_drops; i++) {
@@ -190,6 +203,7 @@ void pd_trigger_boss_loot(PD_INSTANCE_T *inst, ROOM_INDEX_T *room)
         oidx = obj_get_index(seed->item_vnums[vnum_idx]);
         if (oidx != NULL) {
             loot = obj_create(oidx, inst->level + 5);  /* slightly higher level for boss drops */
+            pd_enhance_obj(loot, inst, PD_QUALITY_BOSS);
             obj_give_to_room(loot, room);
         }
     }
@@ -948,6 +962,7 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
                 OBJ_INDEX_T *oidx = obj_get_index(seed->item_vnums[vnum_idx]);
                 if (oidx != NULL) {
                     OBJ_T *loot = obj_create(oidx, inst->level);
+                    pd_enhance_obj(loot, inst, PD_QUALITY_CHEST);
                     obj_give_to_obj(loot, chest);
                 }
             }
@@ -989,6 +1004,7 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
                     OBJ_INDEX_T *oidx = obj_get_index(seed->item_vnums[vnum_idx]);
                     if (oidx != NULL) {
                         OBJ_T *loot = obj_create(oidx, inst->level);
+                        pd_enhance_obj(loot, inst, PD_QUALITY_CHEST);
                         obj_give_to_obj(loot, hidden_cache);
                     }
                 }
@@ -1041,6 +1057,7 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
             OBJ_INDEX_T *oidx = obj_get_index(seed->item_vnums[vnum_idx]);
             if (oidx != NULL) {
                 OBJ_T *obj = obj_create(oidx, inst->level);
+                pd_enhance_obj(obj, inst, PD_QUALITY_FLOOR);
                 obj_give_to_room(obj, rooms[i]);
             }
         }

@@ -25,3 +25,4 @@ Makefile.bak
 !/json/temp/areas/
 /json/temp/areas/*
 !/json/temp/areas/.gitkeep
+/CompletedPlans

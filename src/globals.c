@@ -153,6 +153,8 @@ PD_INSTANCE_T *pd_instance_first = NULL;
 PD_INSTANCE_T *pd_instance_last  = NULL;
 PD_SEED_T     *pd_seed_first     = NULL;
 PD_SEED_T     *pd_seed_last      = NULL;
+PD_LOOT_THEME_T *pd_loot_theme_first = NULL;
+PD_LOOT_THEME_T *pd_loot_theme_last  = NULL;
 
 /* Memory stuff. */
 char str_empty[1];

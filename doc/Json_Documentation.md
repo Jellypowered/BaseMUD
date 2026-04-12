@@ -1168,6 +1168,7 @@ These tables use heap-allocated storage and all internal per-entry sub-arrays ar
 | `quest_tokens.json`  | 5        | Object vnums used as random quest item targets. A random entry is chosen when a player is assigned an item recovery quest. See [quest_token](#quest_token) schema below.                                               |
 | `quest_config.json`  | 1        | Singleton object of 23 integer tuning parameters for the quest system (timers, rewards, type chances). Hot-reloadable via `jreload quest_config`. See [quest_config](#quest_config) schema below.                      |
 | `pocket_dungeon_config.json` | 1 | Pocket dungeon system parameters: autopurge, timeouts, vnum allocation, scaling, testing mode, and gold costs. Hot-reloadable via `jreload pocket_dungeon_config`. See [pocket_dungeon_config](#pocket_dungeon_config) schema below. |
+| `pd_loot_themes.json` | 1+ | Per-seed loot theme definitions: themed spell/stat pools for procedural item generation, wand charge ranges, potion level ranges, and authored boss heirloom vnum. Loaded at boot via the normal JSON import path. See [pd_loot_theme](#pd_loot_theme) schema below. |
 
 > **Note on remaining fixed-size sub-array limits:** The `shop.trades` array is dynamically allocated and sized to `MAX_TRADE = 16` entries per shop; adding more than 16 trade types requires raising `MAX_TRADE` in `src/defs.h` and recompiling. Songs loaded from `music.txt` are capped at `MAX_SONG_LINES = 100` lyrics per song.
 
@@ -1380,6 +1381,65 @@ A singleton object containing all tuning parameters for the pocket dungeon insta
 - Higher values reserved for future use.
 
 **Hot-reload:** Changes to `pocket_dungeon_config.json` take effect immediately after `jreload pocket_dungeon_config` — no restart required. Only **new instances** generated after the reload use the updated parameters; existing instances in memory are unaffected.
+
+---
+
+### pd_loot_theme
+
+**File:** `json/config/pd_loot_themes.json`  
+**Wrapping key:** `"pd_loot_theme"`  
+**Live-reload:** restart required (loaded via normal JSON import path, no dedicated hot-reload helper).
+
+Defines per-seed loot themes for the Pocket Dungeon procedural item enhancement system. Each entry is keyed by `name` and matched against the running instance's seed name at loot generation time. A special `"default"` entry is used as a fallback when no seed-specific theme is found.
+
+Items are enhanced by `pd_enhance_obj()` in `src/pd_loot.c` immediately after creation. Quality tier is location-driven: `floor=1 affix, chest=2, boss=3`.
+
+```json
+[{"pd_loot_theme": {
+  "name": "crypt",
+  "title": "Crypt",
+  "spell_pool": ["cure light", "cure serious", "protection evil", "cure poison"],
+  "stat_pool":  ["strength", "constitution", "armor class"],
+  "item_vnums": [],
+  "wand_charges_min": 4,
+  "wand_charges_max": 10,
+  "potion_level_min": 5,
+  "potion_level_max": 30,
+  "boss_drop_vnum": 0
+}}]
+```
+
+| Field | Type | Req | Notes |
+| --- | --- | --- | --- |
+| `name` | string | yes | Stable id matched against `inst->theme` (the seed name). Use `"default"` for the global fallback. |
+| `title` | string | yes | Display label shown in MUDEditor. |
+| `spell_pool` | string[] | no | Named spells drawn from for potions, scrolls, and wands. Resolved at load time via `skill_lookup_exact()`. Missing/unknown spell names are silently skipped. Falls back to a hardcoded beneficial list if empty. |
+| `stat_pool` | string[] | no | Named `APPLY_*` constants drawn from for jewelry and equipment affixes. Resolved via `type_lookup_exact(affect_apply_types, ...)`. Falls back to STR/DEX/INT/WIS/CON cycle if empty. Valid names match `affect_apply_types[]` in `src/types.c` (e.g. `"strength"`, `"dexterity"`, `"hit roll"`, `"dam roll"`, `"armor class"`). |
+| `item_vnums` | integer[] | no | Reserved for future per-theme item pool override. Currently unused by the enhancer. |
+| `wand_charges_min` | integer | no | Minimum charges rolled for generated wands. Defaults to tier-based range when 0. |
+| `wand_charges_max` | integer | no | Maximum charges rolled for generated wands. Defaults to tier-based range when 0. |
+| `potion_level_min` | integer | no | Minimum spell level clamped onto generated potions. Defaults to instance level when 0. |
+| `potion_level_max` | integer | no | Maximum spell level clamped onto generated potions. Defaults to instance level when 0. |
+| `boss_drop_vnum` | integer | no | Vnum of an authored "heirloom" item created at boss kill. The item is created at `inst->level+5` with no further enhancement. `0` = no authored drop; a random pool item gets highest-tier enhancement instead. |
+
+**Tier bonuses applied by the enhancer:**
+
+| Item type | Floor (tier 1) | Chest (tier 2) | Boss (tier 3) |
+| --- | --- | --- | --- |
+| Potion / Scroll / Pill | 1 spell, level clamped to range | 2 spells | 2 spells |
+| Wand / Staff | charges from theme range or tier roll | same | same |
+| Weapon | +hit, +dam | +hit, +dam | +hit, +dam, +STR or +DEX |
+| Armor | AC scaled by tier | AC + CON | AC + STR |
+| Jewelry / Treasure | 1 stat affix | 2 stat affixes | 3 stat affixes |
+
+Equipment naming prefixes: tier 2 (chest) prepends `"a fine "`, tier 3 (boss) prepends `"a rare "`. Consumables never receive naming prefixes but are marked `ITEM_UNIDENTIFIED` at creation.
+
+**ITEM_UNIDENTIFIED flag:** All procedurally generated consumables (potions, scrolls, pills, wands, staves) are created with `ITEM_UNIDENTIFIED` set. While the flag is set:
+- `look <item>` suppresses the authored description and shows a generic label (e.g. "A murky liquid sloshes around inside.")
+- `do_sip` gives a thematic taste hint and clears the flag on an INT/WIS/lore-gated chance roll
+- `do_lore` and `spell_identify` clear the flag when the player's knowledge threshold is met (≥60%)
+
+**MUDEditor:** The loot themes are fully editable in the PocketDungeonPage LootTab. The server route is `GET/POST/PUT/DELETE /api/config/pocket-dungeon-loot-themes` backed by `pocketDungeonLootThemesRouter()` in `web/server/src/routes/config.ts`.
 
 ---
 

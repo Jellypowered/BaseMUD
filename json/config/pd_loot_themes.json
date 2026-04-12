@@ -1,0 +1,86 @@
+[
+  {
+    "pd_loot_theme": {
+      "name": "default",
+      "title": "Default Loot Pool",
+      "item_vnums": [],
+      "spell_pool": [ "cure light", "cure serious", "cure critical", "armor", "bless", "refresh" ],
+      "stat_pool": [ "strength", "dexterity", "constitution", "intelligence", "wisdom" ],
+      "wand_charges_min": 3,
+      "wand_charges_max": 12,
+      "potion_level_min": 1,
+      "potion_level_max": 10,
+      "boss_drop_vnum": 0
+    }
+  },
+  {
+    "pd_loot_theme": {
+      "name": "crypt",
+      "title": "Undead Crypts",
+      "item_vnums": [],
+      "spell_pool": [ "cure critical", "heal", "remove curse", "cure poison", "refresh", "stone skin" ],
+      "stat_pool": [ "constitution", "wisdom", "intelligence" ],
+      "wand_charges_min": 4,
+      "wand_charges_max": 10,
+      "potion_level_min": 5,
+      "potion_level_max": 20,
+      "boss_drop_vnum": 0
+    }
+  },
+  {
+    "pd_loot_theme": {
+      "name": "cave",
+      "title": "Dark Caves",
+      "item_vnums": [],
+      "spell_pool": [ "cure light", "cure serious", "armor", "bless", "haste", "stone skin" ],
+      "stat_pool": [ "strength", "constitution", "dexterity" ],
+      "wand_charges_min": 3,
+      "wand_charges_max": 10,
+      "potion_level_min": 1,
+      "potion_level_max": 15,
+      "boss_drop_vnum": 0
+    }
+  },
+  {
+    "pd_loot_theme": {
+      "name": "ruins",
+      "title": "Ancient Ruins",
+      "item_vnums": [],
+      "spell_pool": [ "cure serious", "cure critical", "armor", "remove curse", "invisibility", "bless" ],
+      "stat_pool": [ "intelligence", "wisdom", "dexterity" ],
+      "wand_charges_min": 4,
+      "wand_charges_max": 12,
+      "potion_level_min": 3,
+      "potion_level_max": 18,
+      "boss_drop_vnum": 0
+    }
+  },
+  {
+    "pd_loot_theme": {
+      "name": "mountain_frost",
+      "title": "Frost Mountains",
+      "item_vnums": [],
+      "spell_pool": [ "cure critical", "heal", "stone skin", "haste", "restore mana", "refresh" ],
+      "stat_pool": [ "constitution", "strength", "dexterity" ],
+      "wand_charges_min": 5,
+      "wand_charges_max": 14,
+      "potion_level_min": 8,
+      "potion_level_max": 25,
+      "boss_drop_vnum": 0
+    }
+  },
+  {
+    "pd_loot_theme": {
+      "name": "stronghold_iron",
+      "title": "Iron Stronghold",
+      "item_vnums": [],
+      "spell_pool": [ "cure critical", "heal", "stone skin", "armor", "bless", "haste" ],
+      "stat_pool": [ "strength", "constitution", "hit roll", "dam roll" ],
+      "wand_charges_min": 5,
+      "wand_charges_max": 16,
+      "potion_level_min": 10,
+      "potion_level_max": 30,
+      "boss_drop_vnum": 0
+    }
+  }
+]

@@ -14,6 +14,26 @@ Verified findings from actual integrations. Update this file as new patterns are
 - Hidden caches only spawn when a seed populates `hide_keywords`, `hide_look_texts`, and `hide_hint_phrases`; `hide_hint_count` is derived from the `hide_keywords` array length.
 - `container_vnum`, `hidden_container_vnum`, `search_scroll_vnum`, and `search_wand_vnum` can be reassigned to new object slots as long as the seed JSON and object JSON stay in sync.
 
+### Loot enhancement system (`src/pd_loot.c`)
+
+- `pd_enhance_obj(obj, inst, tier)` is called after every item creation in pocket_dungeon.c; tiers: `PD_QUALITY_FLOOR=1`, `PD_QUALITY_CHEST=2`, `PD_QUALITY_BOSS=3`.
+- Loot themes live in `json/config/pd_loot_themes.json`, loaded via `json_tblr_pd_loot_theme()` into a global linked list at boot. No hot-reload; requires restart.
+- Theme lookup: `pd_loot_theme_get(inst->theme)` — falls back to `"default"` entry; returns NULL if neither found.
+- `spell_pool` strings are resolved at load time via `skill_lookup_exact()`. Unknown spell names are silently skipped.
+- `stat_pool` strings are resolved at load time via `type_lookup_exact(affect_apply_types, name)`. Valid names match `affect_apply_types[]` in `src/types.c` (e.g. `"hit roll"`, `"dam roll"`, `"armor class"`).
+- Affects are **stacked on top** of template affects, never cleared.
+- New affects use: `affect_new()` + `affect_init(af, AFF_TO_OBJECT, ...)` + `affect_to_obj_back()` + `affect_modify_obj()`.
+- `str_replace_dup()` is in `memory.h` — include it in any file that calls it.
+- Consumables return early from `pd_enhance_obj` (no naming prefix), equipment falls through to a prefix check at the bottom.
+
+### ITEM_UNIDENTIFIED (BIT_28)
+
+- Set on all procedurally generated consumables at creation in `pd_enhance_obj`.
+- `do_sip` in `act_obj.c`: taste-tests only `ITEM_POTION`; chance = `20 + INT*2 + WIS*2 + lore/4`, capped at 95. On success: clears flag + prints thematic hint. On fail: no change.
+- `do_lore` / `spell_identify_perform_seeded`: clears flag when player knowledge threshold ≥60%.
+- `act_info.c` look suppression: checks `IS_SET(obj->extra_flags, ITEM_UNIDENTIFIED)` before printing `obj->description`; shows generic label by item type instead.
+- MUDEditor: `"unidentified"` added to `extra_flags[]` in `useFlagsConfig.ts` (BIT_28, after `"reward"`/`"corroded"`).
+
 ## MUDEditor Notes
 
 - The MUDEditor `tsc` tasks in the workspace currently point at `node_modules\.bin\tsc` under `web/shared` and `web/client`, which fails with “The system cannot find the path specified.” Use editor diagnostics or a corrected path from `web/` when validating those packages.

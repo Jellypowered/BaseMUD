@@ -407,8 +407,31 @@ DEFINE_DO_FUN(do_look)
              * future. Search: rg "TODO\[passive-lore-skill\]" */
             if (str_in_namelist(arg3, obj->name)) {
                 if (++count == number) {
-                    send_to_char(obj->description, ch);
-                    send_to_char("\n\r", ch);
+                    /* G3: unidentified consumables show a generic label. */
+                    if (IS_SET (obj->extra_flags, ITEM_UNIDENTIFIED)) {
+                        switch (obj->item_type) {
+                            case ITEM_POTION:
+                                send_to_char ("A murky liquid sloshes around inside.\n\r", ch);
+                                break;
+                            case ITEM_SCROLL:
+                                send_to_char ("The writing on this scroll is difficult to make out.\n\r", ch);
+                                break;
+                            case ITEM_PILL:
+                                send_to_char ("A small pill of indeterminate composition.\n\r", ch);
+                                break;
+                            case ITEM_WAND:
+                            case ITEM_STAFF:
+                                send_to_char ("You can't quite determine the purpose of this wand.\n\r", ch);
+                                break;
+                            default:
+                                send_to_char (obj->description, ch);
+                                send_to_char ("\n\r", ch);
+                                break;
+                        }
+                    } else {
+                        send_to_char(obj->description, ch);
+                        send_to_char("\n\r", ch);
+                    }
                     item_look_at(obj, ch);
                     return;
                 }

@@ -109,6 +109,14 @@ Pocket Dungeon seeds control the active content pools for the instance:
 - `search_scroll_vnum` and `search_wand_vnum` support the search/detection side of the system
 - `mobprog_enabled`, `mobprog_personality_override`, and `mobprog_difficulty_boost` control procedural mobile behavior
 
+After each item is created, `pd_enhance_obj()` in `src/pd_loot.c` enhances it according to the spawn location tier and the active loot theme:
+
+- **Floor drops** receive 1 affix (tier 1)
+- **Chest loot** receives 2 affixes (tier 2)
+- **Boss drops** receive 3 affixes (tier 3); if the theme defines a `boss_drop_vnum`, that authored heirloom item is also created unenhanced at `inst->level+5`
+
+The stat and spell pools for each seed are defined in `json/config/pd_loot_themes.json`, keyed by seed name. A `"default"` entry covers seeds with no dedicated theme entry.
+
 The mob and item pools are intentionally theme-specific. Expanding the number of variants per theme is part of the system's design, but only within the fields the schema already supports.
 
 The generator also applies live runtime modifiers:
@@ -188,6 +196,39 @@ This file feeds the global `pd_config` singleton. It controls the live runtime l
 
 `show_room_vnums` is the explicit fix for the room-number visibility issue. When it is off, builders and immortals still see the room title, but the bracketed room-number suffix stays hidden.
 
+### Pocket Dungeon loot themes
+
+File: `json/config/pd_loot_themes.json`
+
+Each `pd_loot_theme` record is keyed by `name` and matched to the running instance's seed at item-generation time. The `"default"` entry is the fallback for seeds with no dedicated entry.
+
+| Field | Meaning |
+| --- | --- |
+| `name` | Matches the seed name (`inst->theme`); `"default"` = global fallback |
+| `title` | Display label in MUDEditor |
+| `spell_pool` | Named spells drawn from for potions, scrolls, pills, and wands |
+| `stat_pool` | Named `APPLY_*` constants drawn from for equipment and jewelry affixes |
+| `item_vnums` | Reserved for future per-theme item pool override |
+| `wand_charges_min` / `wand_charges_max` | Charge range rolled for generated wands |
+| `potion_level_min` / `potion_level_max` | Spell level clamped for generated potions |
+| `boss_drop_vnum` | Authored heirloom vnum created at boss kill; 0 = none |
+
+### Procedural item enhancement
+
+All spawned items pass through `pd_enhance_obj()` immediately after creation. Enhancement is tier-driven by spawn location:
+
+| Location | Tier | Affixes | Naming prefix |
+| --- | --- | --- | --- |
+| Floor drop | 1 | 1 | none |
+| Chest / hidden cache | 2 | 2 | `"a fine "` |
+| Boss drop | 3 | 3 | `"a rare "` |
+
+Consumables (potions, scrolls, pills, wands, staves) are created with `ITEM_UNIDENTIFIED` set instead of receiving a naming prefix. While the flag is set, `look <item>` shows a generic label. Players can identify consumables through:
+
+- `sip <potion>` — taste-tests a potion; chance to identify based on INT, WIS, and lore skill
+- `lore <item>` — skill-gated identification that clears the flag at ≥60% knowledge
+- `identify` spell — always clears the flag
+
 ### Pocket Dungeon seeds
 
 File: `json/config/pocket_dungeon_seeds.json`
@@ -256,12 +297,17 @@ That means MUDEditor is not just showing counts. It can show what is actually in
 | `src/pocket_dungeon_mobprog.c` | Generates and attaches procedural mobprogs |
 | `src/pocket_dungeon.h` | Public Pocket Dungeon interface and affix / boss power enums |
 | `src/pocket_dungeon_mobprog.h` | Mobprog helper declarations |
-| `src/json_tblr.c` | Loads Pocket Dungeon config and seed JSON into runtime structs |
+| `src/pd_loot.c` | Procedural item enhancement engine (`pd_enhance_obj`, theme lookup, tier bonuses) |
+| `src/pd_loot.h` | Public loot enhancement declarations including `pd_loot_theme_get()` |
+| `src/json_tblr.c` | Loads Pocket Dungeon config, seed, and loot theme JSON into runtime structs |
 | `src/json_import.c` | Provides the `json_reload_pd_config()` helper |
 | `src/recycle.c` | Initializes and disposes seed/runtime Pocket Dungeon data safely |
-| `src/structs.h` | Defines `pd_config`, `pd_seed`, `pd_instance`, and related structs |
+| `src/structs.h` | Defines `pd_config`, `pd_seed`, `pd_instance`, `PD_LOOT_THEME_T`, and related structs |
 | `src/globals.c` | Supplies the fallback Pocket Dungeon defaults |
-| `src/act_info.c` | Controls room-header output, including the room-vnum suffix toggle |
+| `src/flags.h` | Defines `ITEM_UNIDENTIFIED` (BIT_28) |
+| `src/act_obj.c` | Implements `do_sip` (stat-gated potion taste-test) |
+| `src/act_info.c` | Controls room-header output, look description suppression for unidentified items, and `do_lore` |
+| `src/spell_info.c` | `spell_identify_perform_seeded()` clears `ITEM_UNIDENTIFIED` at ≥60% knowledge |
 | `src/fight.c` | Triggers boss loot when a Pocket Dungeon boss dies |
 
 ### Pocket Dungeon data files
@@ -270,6 +316,7 @@ That means MUDEditor is not just showing counts. It can show what is actually in
 | --- | --- |
 | `json/config/pocket_dungeon_config.json` | Global Pocket Dungeon tuning defaults |
 | `json/config/pocket_dungeon_seeds.json` | Theme and content pools for generated instances |
+| `json/config/pd_loot_themes.json` | Per-seed loot themes: spell/stat pools, charge ranges, boss heirloom vnums |
 | `json/areas/pocketdungeon/` | Template mobs and objects referenced by seed vnums |
 
 ### MUDEditor
@@ -277,9 +324,10 @@ That means MUDEditor is not just showing counts. It can show what is actually in
 | File | Role |
 | --- | --- |
 | `MUDEditor/web/shared/types/index.ts` | Shared Pocket Dungeon TypeScript interfaces |
-| `MUDEditor/web/client/src/pages/PocketDungeonPage.tsx` | Config, seeds, and live instance UI |
+| `MUDEditor/web/client/src/pages/PocketDungeonPage.tsx` | Config, seeds, loot themes, and live instance UI |
 | `MUDEditor/web/client/src/lib/api.ts` | Client wrappers for Pocket Dungeon API routes |
 | `MUDEditor/web/server/src/routes/config.ts` | Reads/writes Pocket Dungeon JSON and serves snapshots |
+| `MUDEditor/web/client/src/hooks/useFlagsConfig.ts` | Hardcoded extra_flags list — includes `unidentified` (BIT_28) |
 
 ### Reference docs
 
@@ -291,8 +339,8 @@ That means MUDEditor is not just showing counts. It can show what is actually in
 
 | Direction | Path | What happens |
 | --- | --- | --- |
-| MUDEditor -> filesystem | `pocketDungeonConfigApi`, `pocketDungeonSeedsApi` | The editor saves schema-safe Pocket Dungeon JSON back to the config files |
-| filesystem -> MUD | `json_tblr_pd_config`, `json_tblr_pd_seed` | The MUD reads those JSON files into the runtime structs |
+| MUDEditor -> filesystem | `pocketDungeonConfigApi`, `pocketDungeonSeedsApi`, `pocketDungeonLootThemesApi` | The editor saves schema-safe Pocket Dungeon JSON back to the config files |
+| filesystem -> MUD | `json_tblr_pd_config`, `json_tblr_pd_seed`, `json_tblr_pd_loot_theme` | The MUD reads those JSON files into the runtime structs |
 | MUD -> filesystem | `pd_write_snapshot()` | The MUD writes the current live instance snapshot into `temp/areas/` |
 | filesystem -> MUDEditor | `pocketDungeonInstancesApi` | The editor reads the snapshots and shows rooms, mobs, objects, and mobprogs |
 
@@ -339,6 +387,6 @@ For new content work, the safest pattern is:
 
 ## See Also
 
-- `doc/Json_Documentation.md` for the JSON schema reference of `pocket_dungeon_config`
+- `doc/Json_Documentation.md` for the JSON schema reference of `pocket_dungeon_config` and `pd_loot_theme`
 - `MUDEditor/web/client/src/pages/PocketDungeonPage.tsx` for the current editor UI contract
 - `src/pocket_dungeon.c` and `src/pocket_dungeon_mobprog.c` for the runtime generation logic

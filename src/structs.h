@@ -803,6 +803,28 @@ struct pd_seed {
     OBJ_RECYCLE_T   rec_data;
 };
 
+/* Pocket Dungeon loot theme configuration (loaded from json/config/pd_loot_themes.json). */
+#define PD_MAX_SPELL_POOL 16
+#define PD_MAX_STAT_POOL   8
+
+struct pd_loot_theme {
+    PD_LOOT_THEME_T *global_next, *global_prev;
+    char           *name;                           /* identifier, e.g. "undead_crypts" */
+    char           *title;                          /* display title */
+    int             item_vnums[PD_MAX_ITEM_VNUMS];  /* optional per-theme item vnums */
+    int             item_vnum_count;
+    int             wand_charges_min;
+    int             wand_charges_max;
+    int             potion_level_min;
+    int             potion_level_max;
+    int             spell_pool[PD_MAX_SPELL_POOL];  /* resolved skill SNs */
+    int             spell_pool_count;
+    int             stat_pool[PD_MAX_STAT_POOL];    /* APPLY_ constants */
+    int             stat_pool_count;
+    int             boss_drop_vnum;                 /* authored heirloom vnum; 0 = none */
+    OBJ_RECYCLE_T   rec_data;
+};
+
 /* Pocket Dungeon live instance. */
 #define MAX_INSTANCE_MEMBERS 10
 struct pd_instance {

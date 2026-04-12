@@ -29,6 +29,7 @@
 
 #include "act_obj.h"
 
+#include <string.h>
 #include "act_comm.h"
 #include "act_group.h"
 #include "act_move.h"
@@ -826,6 +827,74 @@ DEFINE_DO_FUN (do_quaff) {
 
     if (!item_quaff_effect (obj, ch))
         send_to_char ("...but nothing happens.\n\r", ch);
+}
+
+/* Return a thematic taste hint based on the first recognisable spell SN
+ * stored in the potion.  Returns NULL if no useful hint can be derived. */
+static const char *sip_taste_hint (const OBJ_T *obj) {
+    int i, sn;
+    const char *n;
+    for (i = 1; i <= 4; i++) {
+        sn = (int) obj->v.value[i];
+        if (sn <= 0 || sn >= SKILL_MAX) continue;
+        n = skill_table[sn].name;
+        if (!n) continue;
+        if (strstr(n, "cure") || strstr(n, "heal"))
+            return "a sweet, medicinal tang — it reeks of healing magic";
+        if (strstr(n, "refresh") || strstr(n, "restore") || strstr(n, "mana"))
+            return "a sharp, electric tingle — your mind briefly clears";
+        if (strstr(n, "bless") || strstr(n, "sanct") || strstr(n, "protect") || strstr(n, "holy"))
+            return "a warm, serene wave — a divine presence lingers on your tongue";
+        if (strstr(n, "armor") || strstr(n, "stone") || strstr(n, "shield"))
+            return "a sharp metallic bite — your skin briefly prickles";
+        if (strstr(n, "haste") || strstr(n, "strength") || strstr(n, "enhance"))
+            return "a burning, invigorating rush — your pulse quickens briefly";
+        if (strstr(n, "invis") || strstr(n, "detect") || strstr(n, "aware") || strstr(n, "faerie"))
+            return "a faintly bitter tingle — reality seems to shimmer";
+        if (strstr(n, "remove") || strstr(n, "poison") || strstr(n, "blind"))
+            return "a caustic, cleansing bitterness — almost medicinal";
+        return "a complex, unplaceable brew";
+    }
+    return NULL;
+}
+
+DEFINE_DO_FUN (do_sip) {
+    OBJ_T *obj;
+    char arg[MAX_INPUT_LENGTH];
+    int chance;
+
+    one_argument (argument, arg);
+    BAIL_IF ((obj = find_obj_own_inventory (ch, arg)) == NULL,
+        "You do not have that.", ch);
+    BAIL_IF (obj->item_type != ITEM_POTION,
+        "You can only sip potions.", ch);
+
+    act2 ("You sip cautiously from $p.", "$n sips cautiously from $p.",
+         ch, obj, NULL, 0, POS_RESTING);
+
+    if (!IS_SET (obj->extra_flags, ITEM_UNIDENTIFIED)) {
+        send_to_char ("You already know what that is.\n\r", ch);
+        return;
+    }
+
+    /* Chance to identify = 20 + INT*2 + WIS*2 + lore/4, cap at 95. */
+    chance  = 20;
+    chance += char_get_curr_stat (ch, STAT_INT) * 2;
+    chance += char_get_curr_stat (ch, STAT_WIS) * 2;
+    chance += char_get_skill (ch, SN(LORE)) / 4;
+    chance  = UMIN (chance, 95);
+
+    if (number_percent () < chance) {
+        const char *hint = sip_taste_hint (obj);
+        if (hint)
+            printf_to_char (ch, "You detect %s.\n\r", hint);
+        else
+            send_to_char ("You can't quite place the taste, but something becomes clear.\n\r", ch);
+        REMOVE_BIT (obj->extra_flags, ITEM_UNIDENTIFIED);
+        printf_to_char (ch, "You've identified %s.\n\r", obj->short_descr);
+    } else {
+        send_to_char ("You can't quite make out the taste.\n\r", ch);
+    }
 }
 
 DEFINE_DO_FUN (do_recite) {

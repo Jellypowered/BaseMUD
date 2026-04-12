@@ -84,6 +84,7 @@ DEC_RECYCLE_BUNDLE(portal, PORTAL_T);
 DEC_RECYCLE_BUNDLE(wiz, WIZ_T);
 DEC_RECYCLE_BUNDLE(pd_instance, PD_INSTANCE_T);
 DEC_RECYCLE_BUNDLE(pd_seed, PD_SEED_T);
+DEC_RECYCLE_BUNDLE(pd_loot_theme, PD_LOOT_THEME_T);
 
 /* Function prototypes (recycle operations). */
 void *recycle_new(int type);
@@ -140,6 +141,8 @@ DECLARE_INIT_FUN(pd_instance_init);
 DECLARE_DISPOSE_FUN(pd_instance_dispose);
 DECLARE_INIT_FUN(pd_seed_init);
 DECLARE_DISPOSE_FUN(pd_seed_dispose);
+DECLARE_INIT_FUN(pd_loot_theme_init);
+DECLARE_DISPOSE_FUN(pd_loot_theme_dispose);
 
 /* Functions related to specific recycleable objects. */
 long get_pc_id(void);

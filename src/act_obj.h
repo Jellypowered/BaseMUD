@@ -57,6 +57,7 @@ DECLARE_DO_FUN (do_envenom);
 DECLARE_DO_FUN (do_fill);
 DECLARE_DO_FUN (do_pour);
 DECLARE_DO_FUN (do_drink);
+DECLARE_DO_FUN (do_sip);
 DECLARE_DO_FUN (do_eat);
 DECLARE_DO_FUN (do_wear);
 DECLARE_DO_FUN (do_remove);

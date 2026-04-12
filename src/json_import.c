@@ -96,6 +96,8 @@ int json_import_objects(JSON_T *json)
             return json_tblr_pd_config(json, json->name) ? 1 : 0;
         if (strcmp(json->name, "pd_seed") == 0)
             return json_tblr_pd_seed(json, json->name) ? 1 : 0;
+        if (strcmp(json->name, "pd_loot_theme") == 0)
+            return json_tblr_pd_loot_theme(json, json->name) ? 1 : 0;
         if ((table = master_table_get_by_obj_name(json->name)) != NULL)
         {
             if (table->json_read_func)

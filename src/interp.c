@@ -222,6 +222,7 @@ const CMD_T cmd_table[] = {
     {"brandish", do_brandish, POS_RESTING, 0, LOG_NORMAL, 1},
     {"close", do_close, POS_RESTING, 0, LOG_NORMAL, 1},
     {"drink", do_drink, POS_RESTING, 0, LOG_NORMAL, 1},
+    {"sip", do_sip, POS_RESTING, 0, LOG_NORMAL, 1},
     {"drop", do_drop, POS_RESTING, 0, LOG_NORMAL, 1},
     {"donate", do_donate, POS_RESTING, 0, LOG_NORMAL, 1},
     {"eat", do_eat, POS_RESTING, 0, LOG_NORMAL, 1},

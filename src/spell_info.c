@@ -311,6 +311,14 @@ void spell_identify_perform_seeded (CHAR_T *ch, OBJ_T *obj, int power) {
     if (power <= 100) {
         int percent = (know_pos == 0) ? 100 : (know_count * 100 / know_pos);
         send_to_char (spell_identify_know_message (percent), ch);
+        /* If the caster knows a reasonable fraction of the object's info,
+         * reveal 'unidentified' generated consumables marked with ITEM_UNIDENTIFIED. */
+        if (percent >= 60) {
+            if (IS_SET(obj->extra_flags, ITEM_UNIDENTIFIED)) {
+                REMOVE_BIT(obj->extra_flags, ITEM_UNIDENTIFIED);
+                printf_to_char(ch, "You identify %s.\n\r", obj->short_descr);
+            }
+        }
     }
 }
 

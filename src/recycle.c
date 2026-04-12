@@ -92,6 +92,7 @@ RECYCLE_BUNDLE(RECYCLE_PORTAL_T, portal, PORTAL_T);
 RECYCLE_BUNDLE(RECYCLE_WIZ_T, wiz, WIZ_T);
 RECYCLE_BUNDLE(RECYCLE_PD_INSTANCE_T, pd_instance, PD_INSTANCE_T);
 RECYCLE_BUNDLE(RECYCLE_PD_SEED_T, pd_seed, PD_SEED_T);
+RECYCLE_BUNDLE(RECYCLE_PD_LOOT_THEME_T, pd_loot_theme, PD_LOOT_THEME_T);
 
 void *recycle_new(int type)
 {
@@ -326,6 +327,32 @@ DEFINE_INIT_FUN(pd_seed_init)
         seed->room_descs[i].look_keyword = NULL;
         seed->room_descs[i].look_text = NULL;
     }
+}
+
+DEFINE_DISPOSE_FUN(pd_loot_theme_dispose)
+{
+    PD_LOOT_THEME_T *th = obj;
+    int i;
+    str_free(&(th->name));
+    str_free(&(th->title));
+    for (i = 0; i < PD_MAX_ITEM_VNUMS; i++)
+        ; /* nothing to free -- they are integers */
+    LIST2_REMOVE(th, global_prev, global_next, pd_loot_theme_first, pd_loot_theme_last);
+}
+
+DEFINE_INIT_FUN(pd_loot_theme_init)
+{
+    PD_LOOT_THEME_T *th = obj;
+    th->name = &str_empty[0];
+    th->title = &str_empty[0];
+    th->item_vnum_count = 0;
+    th->wand_charges_min = 0;
+    th->wand_charges_max = 0;
+    th->potion_level_min = 0;
+    th->potion_level_max = 0;
+    th->spell_pool_count = 0;
+    th->stat_pool_count  = 0;
+    th->boss_drop_vnum   = 0;
 }
 
 DEFINE_DISPOSE_FUN(pd_seed_dispose)

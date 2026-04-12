@@ -135,6 +135,7 @@ typedef struct heal_spell_type HEAL_SPELL_T;
 typedef struct pd_config PD_CONFIG_T;
 typedef struct pd_seed PD_SEED_T;
 typedef struct pd_instance PD_INSTANCE_T;
+typedef struct pd_loot_theme PD_LOOT_THEME_T;
 
 /* JSON typedefs. */
 typedef struct json_t JSON_T;
