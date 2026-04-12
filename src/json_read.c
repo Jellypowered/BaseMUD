@@ -145,7 +145,7 @@ JSON_T *json_read_file (const char *filename) {
     FILE *file;
     size_t file_len;
 
-    if ((file = fopen (filename, "r")) == NULL)
+    if ((file = fopen (filename, "rb")) == NULL)
         return NULL;
 
     /* let's be GREEDY and ready the entire file now for simplicity's sake. */

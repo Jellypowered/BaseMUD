@@ -12,6 +12,7 @@
 #include "flags.h"
 #include "utils.h"
 #include "memory.h"
+#include "skills.h"
 
 #include <string.h>
 #include <stdio.h>
@@ -39,6 +40,31 @@ PD_LOOT_THEME_T *pd_loot_theme_get(const char *name)
             return th;
     }
     return NULL;
+}
+
+/* Post-load: resolve spell name strings stored during JSON loading into
+ * skill SNs now that skill_table has been populated by skills.json. */
+void pd_loot_themes_reload_spells(void)
+{
+    PD_LOOT_THEME_T *th;
+    int i;
+
+    for (th = pd_loot_theme_first; th != NULL; th = th->global_next)
+    {
+        /* spell_pool_count was pre-incremented to track how many names we have. */
+        int count = th->spell_pool_count;
+        th->spell_pool_count = 0;
+        for (i = 0; i < count; i++)
+        {
+            int sn = skill_lookup_exact(th->spell_names[i]);
+            if (sn >= 0)
+                th->spell_pool[th->spell_pool_count++] = sn;
+            else
+                bugf("pd_loot_themes_reload_spells: Unknown spell '%s' in theme '%s'",
+                     th->spell_names[i], th->name ? th->name : "?");
+            str_free(&th->spell_names[i]);
+        }
+    }
 }
 
 /* Pick a random spell SN from theme pool, or fallback list. */

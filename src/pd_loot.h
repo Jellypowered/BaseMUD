@@ -11,5 +11,6 @@
 
 PD_LOOT_THEME_T *pd_loot_theme_get(const char *seed_name);
 void             pd_enhance_obj(OBJ_T *obj, PD_INSTANCE_T *inst, int tier);
+void             pd_loot_themes_reload_spells(void);
 
 #endif /* __PD_LOOT_H */

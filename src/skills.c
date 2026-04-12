@@ -28,6 +28,7 @@
 #include "skills.h"
 
 #include "lookup.h"
+#include "pd_loot.h"
 #include "tables.h"
 #include "utils.h"
 
@@ -39,7 +40,7 @@ void skill_clear_mapping(void)
 
     for (i = 0; i < SKILL_MAP_MAX; i++)
         skill_map_table[i].skill_index = -1;
-    for (i = 0; i < SKILL_MAX; i++)
+    for (i = 0; i < skill_count; i++)
     {
         skill_table[i].map_index = -1;
         skill_table[i].weapon_index = -1;
@@ -52,6 +53,7 @@ void skill_reload_mapping(void)
 {
     skill_clear_mapping();
     skill_init_mapping();
+    pd_loot_themes_reload_spells();
 }
 
 void skill_init_mapping(void)

@@ -335,8 +335,9 @@ DEFINE_DISPOSE_FUN(pd_loot_theme_dispose)
     int i;
     str_free(&(th->name));
     str_free(&(th->title));
-    for (i = 0; i < PD_MAX_ITEM_VNUMS; i++)
-        ; /* nothing to free -- they are integers */
+    for (i = 0; i < PD_MAX_SPELL_POOL; i++)
+        if (th->spell_names[i] != NULL)
+            str_free(&th->spell_names[i]);
     LIST2_REMOVE(th, global_prev, global_next, pd_loot_theme_first, pd_loot_theme_last);
 }
 

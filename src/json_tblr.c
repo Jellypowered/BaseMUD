@@ -1207,13 +1207,11 @@ DEFINE_JSON_READ_FUN(json_tblr_pd_loot_theme)
 
     if ((array = json_get(json, "spell_pool")) != NULL) {
         for (sub = array->first_child; sub != NULL; sub = sub->next) {
-            int sn;
             if (th->spell_pool_count >= PD_MAX_SPELL_POOL)
                 break;
             json_value_as_string(sub, buf, sizeof(buf));
-            sn = skill_lookup_exact(buf);
-            if (sn >= 0)
-                th->spell_pool[th->spell_pool_count++] = sn;
+            /* Store the name for deferred resolution after skills.json loads. */
+            th->spell_names[th->spell_pool_count++] = str_dup(buf);
         }
     }
 
