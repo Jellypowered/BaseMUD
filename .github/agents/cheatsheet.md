@@ -20,6 +20,7 @@ Verified findings from actual integrations. Update this file as new patterns are
 - Loot themes live in `json/config/pd_loot_themes.json`, loaded via `json_tblr_pd_loot_theme()` into a global linked list at boot. No hot-reload; requires restart.
 - Theme lookup: `pd_loot_theme_get(inst->theme)` — falls back to `"default"` entry; returns NULL if neither found.
 - `spell_pool` strings are resolved at load time via `skill_lookup_exact()`. Unknown spell names are silently skipped.
+- `pd_loot_themes_reload_spells()` is hooked into `skill_reload_mapping`, which fires for BOTH `skills.json` AND `weapons.json` post-load. The function guards against double-invocation by skipping themes whose `spell_names[]` are all NULL (already resolved and freed on the first pass).
 - `stat_pool` strings are resolved at load time via `type_lookup_exact(affect_apply_types, name)`. Valid names match `affect_apply_types[]` in `src/types.c` (e.g. `"hit roll"`, `"dam roll"`, `"armor class"`).
 - Affects are **stacked on top** of template affects, never cleared.
 - New affects use: `affect_new()` + `affect_init(af, AFF_TO_OBJECT, ...)` + `affect_to_obj_back()` + `affect_modify_obj()`.
