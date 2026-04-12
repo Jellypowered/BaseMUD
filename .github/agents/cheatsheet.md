@@ -703,3 +703,40 @@ post-load hooks loop is likely missing or the function is not registered in
   `"human"`).
 - **`"damage_noun"`** (not `"noun_damage"`) is the correct key in `skills.json` and mob
   JSON. The reversed form is silently ignored by the reader.
+
+---
+
+## MUDEditor Sync Status — April 12, 2026
+
+### Banking System (Recent Addition)
+- **New struct**: `banking_config_type` with 8 int fields (open/close hours, ATM bypass, daily limits, features)
+- **Loaded from**: `json/config/banking_config.json` (no hot-reload)
+- **New MOB flags**: `MOB_BANKER` (BIT_12) and `MOB_ATM` (BIT_13) in `ext_flags.c`
+- **MUDEditor sync**: ✅ **DONE** — `BankingConfig` interface added to TypeScript; `banker` and `atm` flags added to `MOB_FLAGS[]` in `FlagsField.tsx`
+- **Related**: Player data gained `long balance` and `long sbalance` fields (zero-init on load in player files pre-dating this change)
+
+### Pocket Dungeon Loot Themes (Configuration System)
+- **Config table**: `json/config/pd_loot_themes.json` — loaded into global linked list at boot; no hot-reload
+- **Struct**: `pd_loot_theme` with 10 fields including `spell_pool[]` and `stat_pool[]` (resolved at load time)
+- **JSON format**: spell names and stat apply-type names as strings (e.g., `"cure light"`, `"strength"`)
+- **MUDEditor sync**: ✅ **DONE** — `PocketDungeonLootTheme` interface added to TypeScript shared types
+- **Note**: spell_names and stat_pool strings are resolved once at boot; double-resolution guard in `pd_loot_themes_reload_spells()`
+
+### Item Unidentified Flag (ITEM_UNIDENTIFIED / BIT_28)
+- **Registered in**: `src/flags.c` `extra_flags[]` at position 27 (after `"reward"`/`"corroded"`)
+- **Used on**: all procedurally generated consumables in pocket dungeon
+- **MUDEditor sync**: ✅ **DONE** — `"unidentified"` added to `EXTRA_FLAGS[]` at index 27 in `FlagsField.tsx`; tooltip added
+
+### TypeScript Interfaces Added
+1. `BankingConfig` — 8-field banking configuration struct
+2. `PocketDungeonLootTheme` — loot theme configuration (spells, stats, wand/potion levels, boss drop vnum)
+
+### Flag Arrays Updated (FlagsField.tsx)
+1. **MOB_FLAGS**: added `'banker'` and `'atm'` at correct indices (BIT_12, BIT_13)
+2. **EXTRA_FLAGS**: added `'unidentified'` at index 27 (BIT_28)
+
+### All Verification Passed
+- ✅ tsc: shared (no errors)
+- ✅ tsc: server (no errors)
+- ✅ tsc: client (no errors)
+- ✅ BaseMUD rebuild (full clean + make, no warnings or errors)
