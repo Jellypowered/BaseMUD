@@ -1,0 +1,30 @@
+[
+  {
+    "help": {
+      "area": null,
+      "name": "bank",
+      "filename": "bank.are",
+      "pages": [
+        {
+          "keyword": "BANK BANKING NOBANK",
+          "text": "Syntax: bank [command]
+                 |
+                 |Available commands:
+                 |  bank balance        - Display your account balance
+                 |  bank deposit <amt>  - Deposit gold into your account
+                 |  bank withdraw <amt> - Withdraw gold from your account
+                 |  bank sdeposit <amt> - Deposit silver into your account
+                 |  bank swithdraw <amt> - Withdraw silver from your account
+                 |  bank convert <amt>  - Convert 100 silver to 1 gold
+                 |  bank transfer <who> <amt> - Transfer gold to another player
+                 |
+                 |Banks are open from 9am to 5pm game time. ATMs allow
+                 |withdrawals at any hour but have daily limits. Deposits
+                 |and transfers are available only during banking hours.
+                 |
+                 |Use 'nobank' keyword to prevent accidental withdrawals."
+        }
+      ]
+    }
+  }
+]

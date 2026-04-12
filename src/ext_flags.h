@@ -44,8 +44,8 @@
 #define MOB_TRAIN 9     /* Can train PC's     */
 #define MOB_PRACTICE 10 /* Can practice PC's  */
 #define MOB_NOQUEST 11      /* Excluded from quest generation */
-#define MOB_UNUSED_FLAG_4 12
-#define MOB_UNUSED_FLAG_5 13
+#define MOB_BANKER 12       /* Can handle banking transactions */
+#define MOB_ATM 13          /* ATM kiosk (bypasses business hours) */
 #define MOB_UNDEAD 14
 #define MOB_UNUSED_FLAG_6 15
 #define MOB_CLERIC 16

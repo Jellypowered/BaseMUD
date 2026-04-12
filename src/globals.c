@@ -136,6 +136,19 @@ QUEST_CONFIG_T quest_config = {
     5           /* train_chance: 5% chance to award 1 training session */
 };
 
+/* Banking system configuration - defaults match original hardcoded values.
+ * Overwritten at boot by json/config/banking_config.json. */
+BANKING_CONFIG_T banking_config = {
+    9,      /* bank_open_hour: 9am */
+    17,     /* bank_close_hour: 5pm */
+    1,      /* atm_allow_bypass: ATMs ignore business hours */
+    1000,   /* atm_daily_limit: 1000 gp per day from ATM */
+    10000,  /* atm_daily_limit_silver: 10000 sp per day from ATM */
+    1,      /* silver_deposit_enabled: allow silver operations */
+    1,      /* silver_convert_enabled: allow 100 sp → 1 gp conversion */
+    1       /* transfer_enabled: allow player-to-player transfers */
+};
+
 /* Pocket Dungeon system - defaults overwritten at boot by pocket_dungeon_config.json. */
 PD_CONFIG_T pd_config = {
     TRUE, /* autopurge */

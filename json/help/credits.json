@@ -83,6 +83,9 @@
               |Pocket Dungeon system (instanced procedural areas, party entry, autopurge,
               |  GATE_PERMANENT portals, AREA_INSTANCE flag, dungeon/pocketdungeon commands) --
               |    BaseMUD original
+              |
+              |Banking system (player accounts, deposits/withdrawals, player transfers, ATM support) --
+              |    TAKA (GhostMud)
               |",
       "hide_keywords": true
     }

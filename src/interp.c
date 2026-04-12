@@ -48,6 +48,7 @@
 #include "act_obj.h"
 #include "act_player.h"
 #include "act_shop.h"
+#include "act_bank.h"
 #include "act_skills.h"
 #include "act_instance.h"
 #include "act_olc.h"
@@ -85,6 +86,7 @@ const CMD_T cmd_table[] = {
     {"at", do_at, POS_DEAD, L6, LOG_NORMAL, 1},
     {"cast", do_cast, POS_FIGHTING, 0, LOG_NORMAL, 1},
     {"auction", do_auction, POS_SLEEPING, 0, LOG_NORMAL, 1},
+    {"bank", do_bank, POS_RESTING, 0, LOG_NORMAL, 1},
     {"buy", do_buy, POS_RESTING, 0, LOG_NORMAL, 1},
     {"channels", do_channels, POS_DEAD, 0, LOG_NORMAL, 1},
 #ifdef BASEMUD_DISENGAGE_COMMAND

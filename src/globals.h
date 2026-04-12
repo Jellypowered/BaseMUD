@@ -110,6 +110,9 @@ extern int reload_immunity_pulses;
 /* Quest system configuration - loaded from json/config/quest_config.json. */
 extern QUEST_CONFIG_T quest_config;
 
+/* Banking system configuration - loaded from json/config/banking_config.json. */
+extern BANKING_CONFIG_T banking_config;
+
 /* Pocket Dungeon system. */
 extern PD_CONFIG_T    pd_config;
 extern PD_INSTANCE_T *pd_instance_first;

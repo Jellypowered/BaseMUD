@@ -655,6 +655,8 @@ struct pc_data
     char *colour_theme;    /* active colour theme name, or "custom" */
     int pkkills;    /* PK kills */
     int pkdeaths;   /* PK deaths */
+    long balance;   /* Bank account gold */
+    long sbalance;  /* Bank account silver */
 
 #ifdef IMC
     IMC_CHARDATA *imcchardata;
@@ -721,6 +723,19 @@ struct quest_config_type
     int xp_reward_min_pct;   /* quest XP: minimum % of a level awarded (e.g. 1 = 1%) */
     int xp_reward_max_pct;   /* quest XP: maximum % of a level awarded (e.g. 2 = 2%, capped at 5%) */
     int train_chance;       /* % chance of awarding 1 training session on quest completion */
+};
+
+/* Banking system config - loaded from json/config/banking_config.json at boot. */
+struct banking_config_type
+{
+    int bank_open_hour;        /* Hour bank opens (24-hour) */
+    int bank_close_hour;       /* Hour bank closes */
+    int atm_allow_bypass;      /* If 1, ATMs ignore business hours */
+    int atm_daily_limit;       /* Max gold per day from ATM */
+    int atm_daily_limit_silver; /* Max silver per day from ATM */
+    int silver_deposit_enabled; /* If 1, allow silver deposits */
+    int silver_convert_enabled; /* If 1, allow 100 silver → 1 gold conversion */
+    int transfer_enabled;      /* If 1, allow player-to-player transfers */
 };
 
 /* Pocket Dungeon global config. */

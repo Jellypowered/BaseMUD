@@ -1,0 +1,14 @@
+[
+  {
+    "banking_config": {
+      "bank_open_hour": 9,
+      "bank_close_hour": 17,
+      "atm_allow_bypass": 1,
+      "atm_daily_limit": 1000,
+      "atm_daily_limit_silver": 10000,
+      "silver_deposit_enabled": 1,
+      "silver_convert_enabled": 1,
+      "transfer_enabled": 1
+    }
+  }
+]

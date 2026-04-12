@@ -46,6 +46,18 @@ Verified findings from actual integrations. Update this file as new patterns are
 
 ---
 
+## Banking System Notes
+
+- PC_DATA balances are added fields: `long balance` (gold) and `long sbalance` (silver). Existing player files do not have these fields initially; the loader must zero-init them on first read.
+- New MOB flags: `MOB_BANKER` (12) and `MOB_ATM` (13), replacing UNUSED_FLAG_4/5. Registered in `ext_flags.c` with human-readable names.
+- Banking config is loaded from `json/config/banking_config.json` at boot; no hot-reload. JSON structure: object with `banking_config` key containing 8 int fields (hours, limits, feature toggles).
+- All banking operations (deposit, withdraw, transfer, convert silver) call `char_save(ch)` immediately after state change to persist player data.
+- ATM daily limits are simple per-transaction checks (no session-based daily reset tracking yet); future enhancement could use a persistent counter reset at midnight.
+- Business hours check: `time_info.hour >= bank_open_hour && time_info.hour < bank_close_hour`. ATMs with `atm_allow_bypass=1` skip this check.
+- Help entry: `json/help/bank.json` defines BANK/BANKING/NOBANK keywords for player documentation.
+
+---
+
 ## Object Value Fields
 
 BaseMUD objects use a union `v` for item values instead of `value[0..4]`:

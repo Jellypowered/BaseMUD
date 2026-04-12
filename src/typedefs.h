@@ -110,6 +110,7 @@ typedef struct material_type MATERIAL_T;
 typedef struct quest_reward_type QUEST_REWARD_T;
 typedef struct quest_token_type  QUEST_TOKEN_T;
 typedef struct quest_config_type QUEST_CONFIG_T;
+typedef struct banking_config_type BANKING_CONFIG_T;
 typedef struct flag_stat_type FLAG_STAT_T;
 typedef struct table_type TABLE_T;
 typedef struct portal_exit_type PORTAL_EXIT_T;
