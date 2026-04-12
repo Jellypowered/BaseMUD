@@ -65,7 +65,7 @@ Integrated add-ons (as with QuickMUD):
 
 Synival's work transformed the stock ROM/QuickMUD codebase before this fork existed. Key contributions:
 
-- **Full JSON import/export** — all areas, rooms, mobs, objects, resets, portals, and config tables are stored in `json/` and loaded at boot. The `.are` files are a secondary backup written by OLC save; JSON is the live format.
+- **JSON import/export (partial)** — initial support for storing areas, rooms, mobs, objects, resets, portals, and config tables in `json/` and loading them at boot. This fork expanded coverage significantly; see below.
 - **Area-number (anum) system** — within-area relative addressing so areas can be rearranged without vnum conflicts. Cross-area references use `{ "area": "name", "anum": N }`.
 - **Portal system** — named two-way and one-way exits defined in `json/config/portals.json`, decoupling cross-area connections from raw vnum references.
 - **Thorough code cleanup** — tabs → spaces everywhere, redundant comments removed, tables (spells, races, classes) laid out as readable tabular data, variables and functions renamed for clarity.
@@ -91,6 +91,16 @@ See `Readmes/SynivalREADME.md` for the full upstream changelog.
 ---
 
 ## Features Added in This Fork
+
+### JSON Coverage Expansion
+
+Upstream BaseMUD introduced JSON as an optional import layer (`BASEMUD_IMPORT_JSON`). This fork promotes JSON to the primary and authoritative format:
+
+- `.are` files are **written** by OLC save as a backup but never read back if the JSON equivalent exists
+- Pocket Dungeon config, seeds, loot themes, and banking config are all JSON-native — no `.are` representation
+- `BASEMUD_LOG_FILES_LOADED` surfaces which `.are` files are skipped at boot
+
+---
 
 ### Banking System
 
@@ -169,7 +179,7 @@ dungeon help              — command summary
 
 #### MUDEditor Integration
 
-The companion web editor at [github.com/Jellypowered/BaseMUD/tree/Dungeon](https://github.com/Jellypowered/BaseMUD/tree/Dungeon) (under `MUDEditor/`) surfaces:
+The companion web editor surfaces Pocket Dungeon config alongside the rest of the area editor (among many other things):
 
 - **Pocket Dungeon page** — seed editor, config editor, loot-theme editor, live instance snapshot viewer with minimap
 - **Live instances tab** — reads the server's `/api/pocket-dungeon/instances` snapshot; shows active rooms, mobs, exits, and group members without needing to log in-game
@@ -191,7 +201,6 @@ Three boot-time crash causes were identified and fixed:
 
 - **Greeting variants** — four distinct login screen greetings in `json/config/greetings.json` instead of four copies of the same message.
 - **`BASEMUD_LOG_FILES_LOADED`** — `.are` files already covered by JSON are logged as "Ignoring loaded area" at boot (cosmetic; can be silenced by undefining the flag in `src/basemud.h`).
-- **`boot.log` excluded** from git tracking.
 
 ---
 
