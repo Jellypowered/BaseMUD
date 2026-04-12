@@ -30,12 +30,14 @@
 #include "affects.h"
 #include "chars.h"
 #include "comm.h"
+#include "fight.h"
 #include "globals.h"
 #include "interp.h"
 #include "items.h"
 #include "lookup.h"
 #include "magic.h"
 #include "objs.h"
+#include "spell_summon.h"
 #include "utils.h"
 
 DEFINE_SPELL_FUN (spell_cancellation) {
@@ -220,4 +222,98 @@ DEFINE_SPELL_FUN (spell_ventriloquate) {
     for (vch = ch->in_room->people_first; vch != NULL; vch = vch->room_next)
         if (!str_in_namelist_exact (speaker, vch->name) && IS_AWAKE (vch))
             send_to_char (saves_spell (level, vch, DAM_OTHER) ? buf2 : buf1, vch);
+}
+
+DEFINE_SPELL_FUN (spell_vampiric_touch) {
+    CHAR_T *victim = (CHAR_T *) vo;
+    int dam, drain;
+
+    if (saves_spell (level, victim, DAM_NEGATIVE)) {
+        act ("$N resists your vampiric touch.", ch, NULL, victim, TO_CHAR);
+        act ("You resist $n's vampiric touch!", ch, NULL, victim, TO_VICT);
+        return;
+    }
+    dam   = dice (1, 4) * level / 5;
+    drain = dam / 2;
+    act ("You draw life from $N with a vampiric touch!", ch, NULL, victim, TO_CHAR);
+    act ("$n drains your life with a vampiric touch!", ch, NULL, victim, TO_VICT);
+    act ("$n drains life from $N with a vampiric touch!", ch, NULL, victim, TO_NOTCHAR);
+    ch->hit = UMIN (ch->max_hit, ch->hit + drain);
+    damage_visible (ch, victim, dam, sn, DAM_NEGATIVE, NULL);
+}
+
+DEFINE_SPELL_FUN (spell_magic_mouth) {
+    OBJ_INDEX_T *ward_index;
+    OBJ_T *ward;
+
+    ward_index = obj_get_index (OBJ_VNUM_MAGIC_MOUTH);
+    BAIL_IF (ward_index == NULL, "The magic mouth ward cannot be created.\n\r", ch);
+    ward = obj_create (ward_index, level);
+    ward->timer = level + 10;
+    obj_give_to_room (ward, ch->in_room);
+    act ("You conjure a magic mouth to ward this room.", ch, NULL, NULL, TO_CHAR);
+    act ("$n conjures a magic mouth to ward this room.", ch, NULL, NULL, TO_NOTCHAR);
+}
+
+DEFINE_SPELL_FUN (spell_explosive_runes) {
+    OBJ_INDEX_T *rune_index;
+    OBJ_T *rune;
+
+    rune_index = obj_get_index (OBJ_VNUM_EXPLOSIVE_RUNE);
+    BAIL_IF (rune_index == NULL, "The explosive rune cannot be created.\n\r", ch);
+    rune = obj_create (rune_index, level);
+    rune->timer = level;
+    obj_give_to_char (rune, ch);
+    act ("You inscribe explosive runes onto a parchment.", ch, NULL, NULL, TO_CHAR);
+    act ("$n inscribes runes onto a parchment.", ch, NULL, NULL, TO_NOTCHAR);
+}
+
+DEFINE_SPELL_FUN (spell_wish) {
+    AFFECT_T af;
+    int roll = number_range (0, 7);
+    int stat;
+
+    switch (roll) {
+        case 0:
+            ch->hit = UMIN (ch->max_hit, ch->hit + ch->max_hit * 9 / 10);
+            send_to_char ("Your wish grants you vitality!\n\r", ch);
+            break;
+        case 1:
+            ch->mana = UMIN (ch->max_mana, ch->mana + ch->max_mana * 3 / 4);
+            send_to_char ("Your wish restores your magical energy!\n\r", ch);
+            break;
+        case 2:
+            check_dispel_quick (level, ch, "blindness", NULL);
+            check_dispel_quick (level, ch, "curse",     NULL);
+            check_dispel_quick (level, ch, "poison",    NULL);
+            check_dispel_quick (level, ch, "plague",    NULL);
+            check_dispel_quick (level, ch, "weaken",    NULL);
+            send_to_char ("Your wish cleanses you of ailments!\n\r", ch);
+            break;
+        case 3:
+            stat = number_range (APPLY_STR, APPLY_CON);
+            affect_init (&af, AFF_TO_AFFECTS, sn, level, 50, stat, 2, 0);
+            affect_copy_to_char (&af, ch);
+            send_to_char ("Your wish grants you a surge of power!\n\r", ch);
+            break;
+        case 4:
+            send_to_char ("Your wish fades unanswered.\n\r", ch);
+            break;
+        case 5:
+            affect_init (&af, AFF_TO_AFFECTS, skill_lookup ("curse"), level,
+                         dice (3, 6), APPLY_HITROLL, -4, AFF_CURSE);
+            affect_copy_to_char (&af, ch);
+            send_to_char ("Your wish backfires - you are cursed!\n\r", ch);
+            break;
+        case 6:
+            ch->hit = UMAX (1, ch->hit - dice (2, 50) - 50);
+            send_to_char ("Your wish backfires - misfortune strikes you!\n\r", ch);
+            break;
+        default: /* 7 */
+            stat = number_range (APPLY_STR, APPLY_CON);
+            affect_init (&af, AFF_TO_AFFECTS, sn, level, 50, stat, -2, 0);
+            affect_copy_to_char (&af, ch);
+            send_to_char ("Your wish backfires - you are weakened!\n\r", ch);
+            break;
+    }
 }

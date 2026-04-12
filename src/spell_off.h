@@ -55,4 +55,8 @@ DECLARE_SPELL_FUN(spell_magic_missile);
 DECLARE_SPELL_FUN(spell_ray_of_truth);
 DECLARE_SPELL_FUN(spell_shocking_grasp);
 
+/* John Lin spells. */
+DECLARE_SPELL_FUN (spell_acid_arrow);
+DECLARE_SPELL_FUN (spell_flame_arrow);
+
 #endif

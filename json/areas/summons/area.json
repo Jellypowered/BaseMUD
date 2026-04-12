@@ -1,0 +1,11 @@
+[{"area": {
+  "name": "summons",
+  "filename": "summons.are",
+  "title": "Summoned Creatures",
+  "credits": "{None} Internal",
+  "min_vnum": 30000,
+  "max_vnum": 30099,
+  "builders": "None",
+  "security": 9,
+  "hidden": true
+}}]

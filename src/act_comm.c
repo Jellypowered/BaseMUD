@@ -29,7 +29,7 @@
 
 #include "act_comm.h"
 
-#include "chars.h"
+#include "affects.h"
 #include "chars.h"
 #include "comm.h"
 #include "do_sub.h"
@@ -369,6 +369,8 @@ DEFINE_DO_FUN (do_say) {
         "Say what?\n\r", ch);
     BAIL_IF (IS_AFFECTED (ch, AFF_SILENCE),
         "You can't seem to make a sound.\n\r", ch);
+    BAIL_IF (affect_is_char_affected (ch, skill_lookup ("deafness")),
+        "Your ears ring so loudly you cannot find your own voice.\n\r", ch);
 
     act2 ("{6You say '{7$T{6'{x",
           "{6$n says '{7$T{6'{x",
@@ -394,6 +396,8 @@ DEFINE_DO_FUN (do_shout) {
         return;
     BAIL_IF (IS_SET (ch->comm, COMM_NOSHOUT),
         "You can't shout.\n\r", ch);
+    BAIL_IF (affect_is_char_affected (ch, skill_lookup ("deafness")),
+        "Your ears ring so loudly you cannot find your own voice.\n\r", ch);
     REMOVE_BIT (ch->comm, COMM_SHOUTSOFF);
     WAIT_STATE (ch, 12);
 
@@ -441,6 +445,8 @@ DEFINE_DO_FUN (do_yell) {
         "You can't yell.\n\r", ch);
     BAIL_IF (argument[0] == '\0',
         "Yell what?\n\r", ch);
+    BAIL_IF (affect_is_char_affected (ch, skill_lookup ("deafness")),
+        "Your ears ring so loudly you cannot find your own voice.\n\r", ch);
 
     act ("You yell '$t'", ch, argument, NULL, TO_CHAR);
     WAIT_STATE (ch, 12);

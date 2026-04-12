@@ -408,3 +408,81 @@ DEFINE_SPELL_FUN (spell_farsight) {
     arg_buf[0] = '\0';
     do_function (ch, &do_scan_far, arg_buf);
 }
+
+/* Detect Undead - John Lin.
+ * Reveals undead characters in the caster's current room. */
+DEFINE_SPELL_FUN (spell_detect_undead) {
+    CHAR_T *vch;
+    bool found = FALSE;
+
+    send_to_char ("You feel a chill as your senses sharpen to the undead...\n\r", ch);
+
+    for (vch = ch->in_room->people_first; vch != NULL; vch = vch->room_next) {
+        if (!IS_NPC (vch))
+            continue;
+        if (!EXT_IS_SET (vch->ext_mob, MOB_UNDEAD))
+            continue;
+        if (!char_can_see_anywhere (ch, vch))
+            continue;
+
+        act ("$N radiates an aura of undeath.", ch, NULL, vch, TO_CHAR);
+        found = TRUE;
+    }
+
+    if (!found)
+        send_to_char ("You sense no undead presences here.\n\r", ch);
+}
+
+/* Locate Person - John Lin.
+ * Scans the world for a named PC or NPC (within level range). */
+DEFINE_SPELL_FUN (spell_locate_person) {
+    char buf[MAX_INPUT_LENGTH];
+    BUFFER_T *buffer;
+    CHAR_T *vch;
+    bool found = FALSE;
+    int max_found = 2 * level;
+    int count = 0;
+
+    BAIL_IF (target_name[0] == '\0',
+        "Locate whom?\n\r", ch);
+
+    buffer = buf_new ();
+    for (vch = char_first; vch != NULL; vch = vch->global_next) {
+        if (!char_can_see_anywhere (ch, vch))
+            continue;
+        if (!str_in_namelist (target_name, vch->name))
+            continue;
+        if (vch->in_room == NULL)
+            continue;
+        if (number_percent () > 2 * level)
+            continue;
+
+        found = TRUE;
+        count++;
+
+        if (IS_NPC (vch))
+            sprintf (buf, "%s is in %s\n\r",
+                vch->short_descr, vch->in_room->name);
+        else
+            sprintf (buf, "%s is in %s\n\r",
+                vch->name, vch->in_room->name);
+        buf[0] = UPPER (buf[0]);
+        buf_cat (buffer, buf);
+
+        if (count >= max_found)
+            break;
+    }
+
+    if (!found)
+        send_to_char ("Nothing like that in heaven or earth.\n\r", ch);
+    else
+        page_to_char (buf_string (buffer), ch);
+
+    buf_free (buffer);
+}
+
+/* Legend Lore - John Lin.
+ * Enhanced identify that reveals full object information. */
+DEFINE_SPELL_FUN (spell_legend_lore) {
+    spell_identify_perform (ch, (OBJ_T *) vo, 101 + level / 5);
+}

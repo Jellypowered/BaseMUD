@@ -1,0 +1,30 @@
+[
+  {"object": {
+    "area": "summons",
+    "anum": 25,
+    "name": "mouth ward magic alarm",
+    "short_descr": "a glowing magic mouth ward",
+    "description": "A softly glowing rune floats here, whispering quietly to itself.",
+    "material": "magic",
+    "item_type": "trash",
+    "values": {},
+    "level": 1,
+    "weight": 0,
+    "cost": 0,
+    "extra_flags": "magic nopurge nodrop noremove"
+  }},
+  {"object": {
+    "area": "summons",
+    "anum": 26,
+    "name": "rune parchment explosive runes",
+    "short_descr": "a runed parchment",
+    "description": "A small parchment covered in glowing runes lies here, radiating menace.",
+    "material": "paper",
+    "item_type": "scroll",
+    "values": {"level": 1, "skill1": -1, "skill2": -1, "skill3": -1},
+    "level": 1,
+    "weight": 1,
+    "cost": 0,
+    "extra_flags": "magic nopurge"
+  }}
+]

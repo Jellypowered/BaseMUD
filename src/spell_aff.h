@@ -89,4 +89,9 @@ DECLARE_SPELL_FUN (spell_quench);
 DECLARE_SPELL_FUN (spell_sate);
 DECLARE_SPELL_FUN (spell_resurrect);
 
+/* John Lin spells. */
+DECLARE_SPELL_FUN (spell_light);
+DECLARE_SPELL_FUN (spell_deafness);
+DECLARE_SPELL_FUN (spell_glitterdust);
+
 #endif

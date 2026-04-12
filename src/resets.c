@@ -29,6 +29,7 @@
 
 #include "chars.h"
 #include "items.h"
+#include "lookup.h"
 #include "mobiles.h"
 #include "objs.h"
 #include "recycle.h"

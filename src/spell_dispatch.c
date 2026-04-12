@@ -36,6 +36,7 @@
 #include "spell_move.h"
 #include "spell_npc.h"
 #include "spell_off.h"
+#include "spell_summon.h"
 
 #include <string.h>
 
@@ -98,6 +99,9 @@ static const SPELL_ENTRY_T spell_dispatch_table[] = {
     {"spell_quench", spell_quench},
     {"spell_sate", spell_sate},
     {"spell_resurrect", spell_resurrect},
+    {"spell_light", spell_light},
+    {"spell_deafness", spell_deafness},
+    {"spell_glitterdust", spell_glitterdust},
 
     /* spell_create.h */
     {"spell_continual_light", spell_continual_light},
@@ -128,6 +132,9 @@ static const SPELL_ENTRY_T spell_dispatch_table[] = {
     {"spell_identify", spell_identify},
     {"spell_know_alignment", spell_know_alignment},
     {"spell_locate_object", spell_locate_object},
+    {"spell_detect_undead", spell_detect_undead},
+    {"spell_locate_person", spell_locate_person},
+    {"spell_legend_lore", spell_legend_lore},
 
     /* spell_misc.h */
     {"spell_cancellation", spell_cancellation},
@@ -135,6 +142,10 @@ static const SPELL_ENTRY_T spell_dispatch_table[] = {
     {"spell_dispel_magic", spell_dispel_magic},
     {"spell_recharge", spell_recharge},
     {"spell_ventriloquate", spell_ventriloquate},
+    {"spell_vampiric_touch", spell_vampiric_touch},
+    {"spell_magic_mouth", spell_magic_mouth},
+    {"spell_explosive_runes", spell_explosive_runes},
+    {"spell_wish", spell_wish},
 
     /* spell_move.h */
     {"spell_fear", spell_fear},
@@ -179,6 +190,13 @@ static const SPELL_ENTRY_T spell_dispatch_table[] = {
     {"spell_magic_missile", spell_magic_missile},
     {"spell_ray_of_truth", spell_ray_of_truth},
     {"spell_shocking_grasp", spell_shocking_grasp},
+    {"spell_acid_arrow", spell_acid_arrow},
+    {"spell_flame_arrow", spell_flame_arrow},
+
+    /* spell_summon.h */
+    {"spell_find_familiar", spell_find_familiar},
+    {"spell_mount", spell_mount},
+    {"spell_animate_dead", spell_animate_dead},
 
     /* magic.h */
     {"spell_null", spell_null},

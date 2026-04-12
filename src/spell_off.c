@@ -740,3 +740,31 @@ DEFINE_SPELL_FUN(spell_shocking_grasp)
         dam /= 2;
     damage_visible(ch, victim, dam, sn, DAM_LIGHTNING, NULL);
 }
+
+/* Acid Arrow - John Lin */
+DEFINE_SPELL_FUN (spell_acid_arrow) {
+    CHAR_T *victim = (CHAR_T *) vo;
+    int dam;
+
+    dam = dice (2, 4) + level;
+    if (saves_spell (level, victim, DAM_ACID))
+        dam /= 2;
+    act ("You conjure a bolt of acid and hurl it at $N!", ch, NULL, victim, TO_CHAR);
+    act ("$n conjures a bolt of acid and hurls it at $N!", ch, NULL, victim, TO_NOTCHAR);
+    act ("A bolt of acid strikes you!", ch, NULL, victim, TO_VICT);
+    damage_visible (ch, victim, dam, sn, DAM_ACID, NULL);
+}
+
+/* Flame Arrow - John Lin */
+DEFINE_SPELL_FUN (spell_flame_arrow) {
+    CHAR_T *victim = (CHAR_T *) vo;
+    int dam;
+
+    dam = dice (4, 6);
+    if (saves_spell (level, victim, DAM_FIRE))
+        dam /= 2;
+    act ("You conjure a flaming arrow and fire it at $N!", ch, NULL, victim, TO_CHAR);
+    act ("$n conjures a flaming arrow and fires it at $N!", ch, NULL, victim, TO_NOTCHAR);
+    act ("A flaming arrow streaks into you!", ch, NULL, victim, TO_VICT);
+    damage_visible (ch, victim, dam, sn, DAM_FIRE, NULL);
+}

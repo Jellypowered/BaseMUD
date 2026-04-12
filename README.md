@@ -199,6 +199,18 @@ Three boot-time crash causes were identified and fixed:
 
 ### Other Changes
 
+- **John Lin spell expansion (April 2026)** — added 15 new spell slots and implementations:
+  - `detect undead`, `find familiar`, `light`, `mount`, `deafness`, `glitterdust`
+  - `locate person`, `magic mouth`, `acid arrow`, `explosive runes`, `flame arrow`
+  - `vampiric touch`, `animate dead`, `legend lore`, `wish`
+- **New summon content area** — added `json/areas/summons/` (hidden admin area, vnum range 30000-30099) containing:
+  - mount templates (`30001-30005`)
+  - familiar templates (`30010-30017`)
+  - utility objects for `magic mouth` and `explosive runes`
+- **Familiar death consequence** — if a charmed familiar from the summons range dies, its player master receives a temporary constitution penalty.
+- **Speech control integration** — `deafness` now blocks `say`, `shout`, and `yell` while affected.
+- **Skill table additions** — `json/config/skills.json` now includes dormant entries for slots `536-555` corresponding to the new spells.
+
 - **Greeting variants** — four distinct login screen greetings in `json/config/greetings.json` instead of four copies of the same message.
 - **`BASEMUD_LOG_FILES_LOADED`** — `.are` files already covered by JSON are logged as "Ignoring loaded area" at boot (cosmetic; can be silenced by undefining the flag in `src/basemud.h`).
 

@@ -40,6 +40,7 @@
 #include "groups.h"
 #include "interp.h"
 #include "items.h"
+#include "lookup.h"
 #include "magic.h"
 #include "memory.h"
 #include "mob_prog.h"
@@ -50,6 +51,7 @@
 #include "save.h"
 #include "tables.h"
 #include "utils.h"
+#include "spell_summon.h"
 
 #include <string.h>
 
@@ -726,6 +728,16 @@ bool damage_real(CHAR_T *ch, CHAR_T *victim, int dam, int dt, int dam_type,
         if (IS_NPC(victim))
             mob_rand_drop(victim);
 
+        /* Familiar death: penalise the caster if a familiar is slain. */
+        CHAR_T *familiar_master = NULL;
+        if (IS_NPC (victim) && victim->master != NULL &&
+            !IS_NPC (victim->master) &&
+            IS_AFFECTED (victim, AFF_CHARM) &&
+            victim->mob_index != NULL &&
+            victim->mob_index->vnum >= MOB_VNUM_FAMILIAR_MIN &&
+            victim->mob_index->vnum <= MOB_VNUM_FAMILIAR_MAX)
+            familiar_master = victim->master;
+
         /* C3: Capture pocket dungeon context BEFORE char_die() frees victim.
          * char_die -> mobile_die -> char_extract -> char_free invalidates victim. */
         PD_INSTANCE_T *pd_inst = IS_NPC(victim)
@@ -734,6 +746,16 @@ bool damage_real(CHAR_T *ch, CHAR_T *victim, int dam, int dt, int dam_type,
         ROOM_INDEX_T *pd_death_room = (pd_inst != NULL) ? victim->in_room : NULL;
 
         corpse = char_die(victim);
+
+        /* Familiar death: apply lasting CON penalty to the master. */
+        if (familiar_master != NULL) {
+            AFFECT_T af;
+            affect_init (&af, AFF_TO_AFFECTS, skill_lookup ("find familiar"),
+                         50, 200, APPLY_CON, -1, 0);
+            affect_copy_to_char (&af, familiar_master);
+            send_to_char ("Your familiar's spirit breaks free -- "
+                          "you feel weakened.\n\r", familiar_master);
+        }
         
         /* C3: Trigger boss loot and difficulty update using pre-captured pointers */
         if (pd_inst != NULL) {

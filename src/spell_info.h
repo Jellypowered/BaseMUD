@@ -45,4 +45,9 @@ DECLARE_SPELL_FUN (spell_know_alignment);
 DECLARE_SPELL_FUN (spell_locate_object);
 DECLARE_SPELL_FUN (spell_farsight);
 
+/* John Lin spells. */
+DECLARE_SPELL_FUN (spell_detect_undead);
+DECLARE_SPELL_FUN (spell_locate_person);
+DECLARE_SPELL_FUN (spell_legend_lore);
+
 #endif

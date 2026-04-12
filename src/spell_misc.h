@@ -36,4 +36,10 @@ DECLARE_SPELL_FUN (spell_dispel_magic);
 DECLARE_SPELL_FUN (spell_recharge);
 DECLARE_SPELL_FUN (spell_ventriloquate);
 
+/* John Lin spells. */
+DECLARE_SPELL_FUN (spell_vampiric_touch);
+DECLARE_SPELL_FUN (spell_magic_mouth);
+DECLARE_SPELL_FUN (spell_explosive_runes);
+DECLARE_SPELL_FUN (spell_wish);
+
 #endif

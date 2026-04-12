@@ -4213,5 +4213,218 @@
                   "damage_noun":  "acid spit"
               }
 
+},
+{
+    "skill":  {
+                  "name":  "detect undead",
+                  "classes":  {},
+                  "target":  "ignore",
+                  "min_position":  "standing",
+                  "slot":  536,
+                  "min_mana":  10,
+                  "usage_beats":  12,
+                  "off_msg_char":  "!Detect Undead!",
+                  "spell_fun":  "spell_detect_undead"
+              }
+
+},
+{
+    "skill":  {
+                  "name":  "find familiar",
+                  "classes":  {},
+                  "target":  "char_self",
+                  "min_position":  "standing",
+                  "slot":  537,
+                  "min_mana":  25,
+                  "usage_beats":  24,
+                  "off_msg_char":  "!Find Familiar!",
+                  "spell_fun":  "spell_find_familiar"
+              }
+
+},
+{
+    "skill":  {
+                  "name":  "light",
+                  "classes":  {},
+                  "target":  "ignore",
+                  "min_position":  "standing",
+                  "slot":  538,
+                  "min_mana":  5,
+                  "usage_beats":  12,
+                  "off_msg_char":  "!Light!",
+                  "spell_fun":  "spell_light"
+              }
+
+},
+{
+    "skill":  {
+                  "name":  "mount",
+                  "classes":  {},
+                  "target":  "char_self",
+                  "min_position":  "standing",
+                  "slot":  539,
+                  "min_mana":  20,
+                  "usage_beats":  24,
+                  "off_msg_char":  "!Mount!",
+                  "spell_fun":  "spell_mount"
+              }
+
+},
+{
+    "skill":  {
+                  "name":  "deafness",
+                  "classes":  {},
+                  "target":  "char_offensive",
+                  "min_position":  "fighting",
+                  "slot":  540,
+                  "min_mana":  15,
+                  "usage_beats":  12,
+                  "off_msg_char":  "!Deafness!",
+                  "spell_fun":  "spell_deafness"
+              }
+
+},
+{
+    "skill":  {
+                  "name":  "glitterdust",
+                  "classes":  {},
+                  "target":  "ignore",
+                  "min_position":  "fighting",
+                  "slot":  541,
+                  "min_mana":  15,
+                  "usage_beats":  12,
+                  "off_msg_char":  "!Glitterdust!",
+                  "spell_fun":  "spell_glitterdust"
+              }
+
+},
+{
+    "skill":  {
+                  "name":  "locate person",
+                  "classes":  {},
+                  "target":  "ignore",
+                  "min_position":  "standing",
+                  "slot":  542,
+                  "min_mana":  20,
+                  "usage_beats":  18,
+                  "off_msg_char":  "!Locate Person!",
+                  "spell_fun":  "spell_locate_person"
+              }
+
+},
+{
+    "skill":  {
+                  "name":  "magic mouth",
+                  "classes":  {},
+                  "target":  "ignore",
+                  "min_position":  "standing",
+                  "slot":  543,
+                  "min_mana":  20,
+                  "usage_beats":  18,
+                  "off_msg_char":  "!Magic Mouth!",
+                  "spell_fun":  "spell_magic_mouth"
+              }
+
+},
+{
+    "skill":  {
+                  "name":  "acid arrow",
+                  "classes":  {},
+                  "target":  "char_offensive",
+                  "min_position":  "fighting",
+                  "slot":  544,
+                  "min_mana":  15,
+                  "usage_beats":  12,
+                  "off_msg_char":  "!Acid Arrow!",
+                  "damage_noun":  "acid arrow",
+                  "spell_fun":  "spell_acid_arrow"
+              }
+
+},
+{
+    "skill":  {
+                  "name":  "explosive runes",
+                  "classes":  {},
+                  "target":  "ignore",
+                  "min_position":  "standing",
+                  "slot":  545,
+                  "min_mana":  20,
+                  "usage_beats":  18,
+                  "off_msg_char":  "!Explosive Runes!",
+                  "spell_fun":  "spell_explosive_runes"
+              }
+
+},
+{
+    "skill":  {
+                  "name":  "flame arrow",
+                  "classes":  {},
+                  "target":  "char_offensive",
+                  "min_position":  "fighting",
+                  "slot":  546,
+                  "min_mana":  15,
+                  "usage_beats":  12,
+                  "off_msg_char":  "!Flame Arrow!",
+                  "damage_noun":  "flame arrow",
+                  "spell_fun":  "spell_flame_arrow"
+              }
+
+},
+{
+    "skill":  {
+                  "name":  "vampiric touch",
+                  "classes":  {},
+                  "target":  "char_offensive",
+                  "min_position":  "fighting",
+                  "slot":  550,
+                  "min_mana":  20,
+                  "usage_beats":  12,
+                  "off_msg_char":  "!Vampiric Touch!",
+                  "damage_noun":  "vampiric touch",
+                  "spell_fun":  "spell_vampiric_touch"
+              }
+
+},
+{
+    "skill":  {
+                  "name":  "animate dead",
+                  "classes":  {},
+                  "target":  "ignore",
+                  "min_position":  "standing",
+                  "slot":  552,
+                  "min_mana":  25,
+                  "usage_beats":  24,
+                  "off_msg_char":  "!Animate Dead!",
+                  "spell_fun":  "spell_animate_dead"
+              }
+
+},
+{
+    "skill":  {
+                  "name":  "legend lore",
+                  "classes":  {},
+                  "target":  "obj_inventory",
+                  "min_position":  "standing",
+                  "slot":  553,
+                  "min_mana":  20,
+                  "usage_beats":  18,
+                  "off_msg_char":  "!Legend Lore!",
+                  "spell_fun":  "spell_legend_lore"
+              }
+
+},
+{
+    "skill":  {
+                  "name":  "wish",
+                  "classes":  {},
+                  "target":  "char_self",
+                  "min_position":  "standing",
+                  "slot":  555,
+                  "min_mana":  100,
+                  "usage_beats":  24,
+                  "off_msg_char":  "!Wish!",
+                  "spell_fun":  "spell_wish"
+              }
+
 }
 ]

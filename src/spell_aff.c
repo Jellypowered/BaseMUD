@@ -1262,3 +1262,85 @@ DEFINE_SPELL_FUN (spell_resurrect) {
     ch->pet = mob;
     do_function (mob, &do_say, "How may I serve you, master?");
 }
+
+/* Light spell - John Lin.
+ * Creates a temporary light orb in the room that expires after level ticks. */
+DEFINE_SPELL_FUN (spell_light) {
+    OBJ_T *light;
+
+    light = obj_create (obj_get_index (OBJ_VNUM_LIGHT_BALL), 0);
+    light->timer = level;
+    obj_give_to_room (light, ch->in_room);
+    act ("You speak a word of power and $p blazes to life!", ch, light, NULL, TO_CHAR);
+    act ("$n speaks a word of power and $p blazes to life!", ch, light, NULL, TO_NOTCHAR);
+}
+
+/* Deafness spell - John Lin.
+ * Prevents the victim from using communication channels.
+ * No AFF bit is used (AFF flags are full); presence tracked via sn. */
+DEFINE_SPELL_FUN (spell_deafness) {
+    CHAR_T *victim = (CHAR_T *) vo;
+    AFFECT_T af;
+
+    if (affect_is_char_affected_with_act (victim, sn, 0, ch,
+            "Your ears are already ringing!",
+            "$N is already deafened."))
+        return;
+
+    BAIL_IF_ACT (saves_spell (level, victim, DAM_OTHER),
+        "$E resists your spell!", ch, NULL, victim);
+
+    affect_init (&af, AFF_TO_AFFECTS, sn, level, 1 + level / 5,
+        APPLY_NONE, 0, 0);
+    affect_copy_to_char (&af, victim);
+
+    send_to_char ("A painful ringing fills your ears — you cannot hear!\n\r", victim);
+    if (ch != victim)
+        act ("$N claps $S hands over $S ears, grimacing.", ch, NULL, victim, TO_CHAR);
+    act ("$n claps $s hands over $s ears, grimacing.", victim, NULL, NULL, TO_NOTCHAR);
+}
+
+/* Glitterdust spell - John Lin.
+ * Reveals all invisible creatures in the room and may blind them. */
+DEFINE_SPELL_FUN (spell_glitterdust) {
+    CHAR_T *vch, *vch_next;
+    bool found = FALSE;
+
+    act ("You release a shower of shimmering golden dust!",
+         ch, NULL, NULL, TO_CHAR);
+    act ("$n releases a shower of shimmering golden dust!",
+         ch, NULL, NULL, TO_NOTCHAR);
+
+    for (vch = ch->in_room->people_first; vch != NULL; vch = vch_next) {
+        vch_next = vch->room_next;
+        if (vch == ch)
+            continue;
+
+        /* Reveal invisible characters. */
+        if (IS_AFFECTED (vch, AFF_INVISIBLE)) {
+            affect_strip_char (vch, SN(INVIS));
+            affect_strip_char (vch, SN(MASS_INVIS));
+            REMOVE_BIT (vch->affected_by, AFF_INVISIBLE);
+            send_to_char ("Sparkling dust clings to you, revealing your position!\n\r", vch);
+            act ("$n's outline is revealed by the sparkling dust!", vch, NULL, NULL,
+                 TO_NOTCHAR);
+            found = TRUE;
+        }
+
+        /* Attempt to blind non-savers. */
+        if (!saves_spell (level, vch, DAM_OTHER)
+            && !IS_AFFECTED (vch, AFF_BLIND))
+        {
+            AFFECT_T af;
+            affect_init (&af, AFF_TO_AFFECTS, SN(BLINDNESS), level,
+                dice (1, 4), APPLY_HITROLL, -4, AFF_BLIND);
+            affect_join_char (&af, vch);
+            send_to_char ("The glittering dust blinds you!\n\r", vch);
+            act ("$n is blinded by the sparkling dust!", vch, NULL, NULL, TO_NOTCHAR);
+            found = TRUE;
+        }
+    }
+
+    if (!found)
+        send_to_char ("The dust settles harmlessly.\n\r", ch);
+}
