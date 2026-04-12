@@ -80,5 +80,6 @@ DECLARE_JSON_READ_FUN(json_tblr_quest_config);
 DECLARE_JSON_READ_FUN(json_tblr_pd_config);
 DECLARE_JSON_READ_FUN(json_tblr_pd_seed);
 DECLARE_JSON_READ_FUN(json_tblr_pd_loot_theme);
+DECLARE_JSON_READ_FUN(json_tblr_banking_config);
 
 #endif

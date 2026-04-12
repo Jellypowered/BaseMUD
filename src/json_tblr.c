@@ -1232,3 +1232,25 @@ DEFINE_JSON_READ_FUN(json_tblr_pd_loot_theme)
     LIST2_BACK(th, global_prev, global_next, pd_loot_theme_first, pd_loot_theme_last);
     return th;
 }
+
+DEFINE_JSON_READ_FUN(json_tblr_banking_config)
+{
+    char buf[MAX_STRING_LENGTH];
+    (void)buf; /* suppress unused-variable warning */
+    if (!json_import_expect("banking_config", json,
+                            "bank_open_hour", "bank_close_hour",
+                            "atm_allow_bypass", "atm_daily_limit",
+                            "atm_daily_limit_silver", "silver_deposit_enabled",
+                            "silver_convert_enabled", "transfer_enabled",
+                            NULL))
+        return NULL;
+    READ_PROP_INT(banking_config.bank_open_hour,        "bank_open_hour");
+    READ_PROP_INT(banking_config.bank_close_hour,       "bank_close_hour");
+    READ_PROP_INT(banking_config.atm_allow_bypass,      "atm_allow_bypass");
+    READ_PROP_INT(banking_config.atm_daily_limit,       "atm_daily_limit");
+    READ_PROP_INT(banking_config.atm_daily_limit_silver, "atm_daily_limit_silver");
+    READ_PROP_INT(banking_config.silver_deposit_enabled, "silver_deposit_enabled");
+    READ_PROP_INT(banking_config.silver_convert_enabled, "silver_convert_enabled");
+    READ_PROP_INT(banking_config.transfer_enabled,      "transfer_enabled");
+    return &banking_config;
+}
