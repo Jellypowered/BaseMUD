@@ -258,6 +258,14 @@ for (i = 8; i > 0; i--) {
     if (victim->position == POS_DEAD)
         return;
 }
+
+---
+
+## Donation Command Notes
+
+- `do_donate` supports `donate <item>` and `donate all <pattern>`. `donate all` without a pattern is rejected with a dedicated message.
+- Mass donation scans only carried inventory (`wear_loc == WEAR_LOC_NONE`) and filters by `str_in_namelist(pattern, obj->name)`; it does not donate unmatched inventory items.
+- Donation reward logic keeps the same good/evil/neutral gating but uses `obj->cost / 10` (minimum 1 silver) instead of half-cost.
 ```
 
 ---

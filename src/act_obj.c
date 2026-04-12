@@ -1227,44 +1227,133 @@ DEFINE_DO_FUN (do_play) {
 
 DEFINE_DO_FUN (do_donate) {
     char arg[MAX_INPUT_LENGTH];
-    OBJ_T *pit, *obj;
+    char arg2[MAX_INPUT_LENGTH];
+    OBJ_T *pit, *obj, *obj_next;
     ROOM_INDEX_T *altar;
     int amount;
+    int total_reward;
+    int i, groups;
+    bool all_mode;
+    bool matched;
+    OBJ_INDEX_T *group_index[256];
+    char group_name[256][MAX_INPUT_LENGTH];
+    int group_count[256];
 
-    DO_REQUIRE_ARG (arg, "Donate what?\n\r");
+    argument = one_argument (argument, arg);
+    BAIL_IF (arg[0] == '\0',
+        "Donate what?\n\r", ch);
+
+    all_mode = !str_cmp (arg, "all");
+    if (all_mode) {
+        argument = one_argument (argument, arg2);
+        BAIL_IF (arg2[0] == '\0',
+            "You must specify what you want to donate all of.\n\r", ch);
+    }
 
     BAIL_IF (ch->position == POS_FIGHTING,
         "You're {Yfighting!{x\n\r", ch);
-    BAIL_IF ((obj = find_obj_own_inventory (ch, arg)) == NULL,
-        "You do not have that!\n\r", ch);
-    BAIL_IF (!char_can_drop_obj (ch, obj) && !IS_IMMORTAL (ch),
-        "Its stuck to you.\n\r", ch);
-    BAIL_IF (obj->item_type == ITEM_CORPSE_NPC ||
-             obj->item_type == ITEM_CORPSE_PC,
-        "You cannot donate that!\n\r", ch);
-    BAIL_IF (obj->timer > 0,
-        "You cannot donate that.\n\r", ch);
+    altar = room_get_index (ROOM_VNUM_ALTAR);
+    if (!all_mode) {
+        BAIL_IF ((obj = find_obj_own_inventory (ch, arg)) == NULL,
+            "You do not have that!\n\r", ch);
+        BAIL_IF (!char_can_drop_obj (ch, obj) && !IS_IMMORTAL (ch),
+            "Its stuck to you.\n\r", ch);
+        BAIL_IF (obj->item_type == ITEM_CORPSE_NPC ||
+                 obj->item_type == ITEM_CORPSE_PC,
+            "You cannot donate that!\n\r", ch);
+        BAIL_IF (obj->timer > 0,
+            "You cannot donate that.\n\r", ch);
 
-    if (ch->in_room != room_get_index (ROOM_VNUM_ALTAR))
-        act ("$n donates {Y$p{x.", ch, obj, NULL, TO_NOTCHAR);
-    act ("You donate {Y$p{x.", ch, obj, NULL, TO_CHAR);
+        if (ch->in_room != altar)
+            act ("$n donates {Y$p{x.", ch, obj, NULL, TO_NOTCHAR);
+        act ("You donate {Y$p{x.", ch, obj, NULL, TO_CHAR);
 
-    if (obj->cost > 0 && obj->level > 0 &&
-            ((!IS_OBJ_STAT (obj, ITEM_ANTI_EVIL) && IS_EVIL (ch)) ||
-             (!IS_OBJ_STAT (obj, ITEM_ANTI_GOOD) && IS_GOOD (ch)) ||
-             IS_NEUTRAL (ch))) {
-        amount = UMAX (1, obj->cost / 2);
-        printf_to_char (ch, "You receive {M%d silver{x for your donation.\n\r",
-            amount);
-        ch->silver += amount;
+        if (obj->cost > 0 && obj->level > 0) {
+            amount = UMAX (1, obj->cost / 10);
+            printf_to_char (ch, "You receive {M%d silver{x for your donation.\n\r",
+                amount);
+            ch->silver += amount;
+        }
+
+        obj_take_from_char (obj);
+        if (altar == NULL)
+            obj_extract (obj);
+        else if ((pit = find_obj_room (ch, altar, "pit")) != NULL)
+            obj_give_to_obj (obj, pit);
+        else
+            obj_give_to_room (obj, altar);
+        return;
     }
 
-    altar = room_get_index (ROOM_VNUM_ALTAR);
-    obj_take_from_char (obj);
-    if (altar == NULL)
-        obj_extract (obj);
-    else if ((pit = find_obj_room (ch, altar, "pit")) != NULL)
-        obj_give_to_obj (obj, pit);
-    else
-        obj_give_to_room (obj, altar);
+    groups = 0;
+    total_reward = 0;
+    matched = FALSE;
+
+    for (obj = ch->content_first; obj != NULL; obj = obj_next) {
+        obj_next = obj->content_next;
+
+        if (obj->wear_loc != WEAR_LOC_NONE)
+            continue;
+        if (!str_in_namelist (arg2, obj->name))
+            continue;
+
+        matched = TRUE;
+        if (!char_can_drop_obj (ch, obj) && !IS_IMMORTAL (ch))
+            continue;
+        if (obj->item_type == ITEM_CORPSE_NPC || obj->item_type == ITEM_CORPSE_PC)
+            continue;
+        if (obj->timer > 0)
+            continue;
+
+        for (i = 0; i < groups; i++) {
+            if (group_index[i] == obj->obj_index &&
+                !str_cmp (group_name[i], obj->short_descr)) {
+                group_count[i]++;
+                break;
+            }
+        }
+        if (i == groups && groups < 256) {
+            group_index[groups] = obj->obj_index;
+            strncpy (group_name[groups], obj->short_descr,
+                sizeof (group_name[groups]) - 1);
+            group_name[groups][sizeof (group_name[groups]) - 1] = '\0';
+            group_count[groups] = 1;
+            groups++;
+        }
+
+        if (obj->cost > 0 && obj->level > 0) {
+            amount = UMAX (1, obj->cost / 10);
+            total_reward += amount;
+        }
+
+        if (ch->in_room != altar)
+            act ("$n donates {Y$p{x.", ch, obj, NULL, TO_NOTCHAR);
+
+        obj_take_from_char (obj);
+        if (altar == NULL)
+            obj_extract (obj);
+        else if ((pit = find_obj_room (ch, altar, "pit")) != NULL)
+            obj_give_to_obj (obj, pit);
+        else
+            obj_give_to_room (obj, altar);
+    }
+
+    BAIL_IF (!matched,
+        "You do not have that!\n\r", ch);
+    BAIL_IF (groups == 0,
+        "You cannot donate that.\n\r", ch);
+
+    for (i = 0; i < groups; i++) {
+        if (group_count[i] > 1)
+            printf_to_char (ch, "You donate (%d) of %s.\n\r",
+                group_count[i], group_name[i]);
+        else
+            printf_to_char (ch, "You donate %s.\n\r", group_name[i]);
+    }
+
+    if (total_reward > 0) {
+        printf_to_char (ch, "You receive {M%d silver{x for your donation.\n\r",
+            total_reward);
+        ch->silver += total_reward;
+    }
 }
