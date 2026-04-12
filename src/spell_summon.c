@@ -19,6 +19,40 @@
 #include "objs.h"
 #include "utils.h"
 
+/* Scale summoned allies to be comparable to the summoner.
+ * We blend baseline level-derived mob stats with the caster's current stats
+ * so summons track player power without cloning exact values. */
+static void summon_scale_to_caster (CHAR_T *mob, CHAR_T *ch) {
+    int i;
+    int target_level;
+    int base_hp, base_mana;
+
+    target_level = UMAX (1, ch->level);
+    mob->level = target_level;
+
+    base_hp = (target_level * 8 +
+        number_range (target_level * target_level / 4,
+                      target_level * target_level)) * 9 / 10;
+    base_mana = 100 + dice (target_level, 10);
+
+    mob->max_hit = UMAX (1, (base_hp + ch->max_hit) / 2);
+    mob->hit = mob->max_hit;
+    mob->max_mana = UMAX (1, (base_mana + ch->max_mana) / 2);
+    mob->mana = mob->max_mana;
+
+    mob->hitroll = UMAX (target_level / 5, (target_level / 5 + ch->hitroll) / 2);
+    mob->damroll = UMAX (target_level / 4, (target_level / 4 + ch->damroll) / 2);
+
+    for (i = 0; i < 3; i++)
+        mob->armor[i] = (int_interpolate (target_level, 100, -100) + ch->armor[i]) / 2;
+    mob->armor[3] = (int_interpolate (target_level, 100, 0) + ch->armor[3]) / 2;
+
+    for (i = 0; i < STAT_MAX; i++) {
+        int base_stat = 11 + target_level / 4;
+        mob->perm_stat[i] = UMIN (25, UMAX (3, (base_stat + ch->perm_stat[i]) / 2));
+    }
+}
+
 /* Find Familiar — summon a random magical companion.
  * The familiar grants AC -5 to the caster via a temporary affect.
  * If the familiar is slain, the caster suffers a -1 CON penalty for 200 ticks
@@ -48,6 +82,7 @@ DEFINE_SPELL_FUN (spell_find_familiar) {
         "The magical bond fails to form. (missing familiar mob)\n\r", ch);
 
     mob = mobile_create (mob_index);
+    summon_scale_to_caster (mob, ch);
     char_to_room (mob, ch->in_room);
     add_follower (mob, ch);
     mob->leader = ch;
@@ -75,6 +110,7 @@ DEFINE_SPELL_FUN (spell_mount) {
         "The summoning fails. (missing mount mob)\n\r", ch);
 
     mob = mobile_create (mob_index);
+    summon_scale_to_caster (mob, ch);
     char_to_room (mob, ch->in_room);
     add_follower (mob, ch);
     mob->leader = ch;
@@ -87,7 +123,6 @@ DEFINE_SPELL_FUN (spell_mount) {
 DEFINE_SPELL_FUN (spell_animate_dead) {
     OBJ_T *corpse = NULL, *obj;
     CHAR_T *zombie;
-    int i;
 
     /* Find an NPC corpse in the room. */
     for (obj = ch->in_room->content_first; obj != NULL;
@@ -107,19 +142,7 @@ DEFINE_SPELL_FUN (spell_animate_dead) {
         "You already have a pet.\n\r", ch);
 
     zombie = mobile_create (mobile_get_index (MOB_VNUM_ZOMBIE));
-    zombie->level = corpse->level;
-    zombie->max_hit = zombie->level * 8 +
-        number_range (zombie->level * zombie->level / 4,
-                      zombie->level * zombie->level);
-    zombie->max_hit = zombie->max_hit * 9 / 10;
-    zombie->hit = zombie->max_hit;
-    zombie->max_mana = 100 + dice (zombie->level, 10);
-    zombie->mana = zombie->max_mana;
-    for (i = 0; i < 3; i++)
-        zombie->armor[i] = int_interpolate (zombie->level, 100, -100);
-    zombie->armor[3] = int_interpolate (zombie->level, 100, 0);
-    for (i = 0; i < STAT_MAX; i++)
-        zombie->perm_stat[i] = 11 + zombie->level / 4;
+    summon_scale_to_caster (zombie, ch);
 
     char_to_room (zombie, ch->in_room);
     act ("You speak dark words and $p stirs to life as a zombie!", ch, corpse, NULL, TO_CHAR);
