@@ -1151,7 +1151,7 @@ static void pd_write_obj_json(FILE *fp, OBJ_T *obj, const char *ind)
 {
     char ind2[64];
     OBJ_T *child;
-    int i, first_child;
+    int first_child;
     int is_hidden = IS_SET(obj->extra_flags, ITEM_HIDDEN);
     snprintf(ind2, sizeof(ind2), "%s  ", ind);
 
@@ -1173,11 +1173,57 @@ static void pd_write_obj_json(FILE *fp, OBJ_T *obj, const char *ind)
     if (obj->timer > 0)
         pd_json_int(fp, ind2, "timer", obj->timer, 0);
 
-    /* Values: v0..OBJ_VALUE_MAX-1 as raw integers */
+    /* Values: use named fields from OBJ_MAP_T, falling back to v0..v4 */
     fprintf(fp, "%s\"values\": {", ind2);
-    for (i = 0; i < OBJ_VALUE_MAX; i++) {
-        if (i > 0) fprintf(fp, ", ");
-        fprintf(fp, "\"v%d\": %d", i, (int)obj->v.value[i]);
+    {
+        const OBJ_MAP_T *map = obj_map_get(obj->item_type);
+        int i, first_val = 1;
+        for (i = 0; i < OBJ_VALUE_MAX; i++) {
+            char vname[16];
+            flag_t vobj = obj->v.value[i];
+            const char *fname = NULL;
+            int is_skip = 0;
+
+            if (map != NULL) {
+                const OBJ_MAP_VALUE_T *mval = obj_map_value_get(map, i);
+                if (mval == NULL) { is_skip = 1; }
+                else if (mval->type == MAP_IGNORE || mval->name == NULL) {
+                    snprintf(vname, sizeof(vname), "value%d", i);
+                    fname = vname;
+                } else {
+                    fname = mval->name;
+                    /* Emit as string for LOOKUP/FLAGS types */
+                    if (!first_val) fprintf(fp, ", ");
+                    first_val = 0;
+                    if (mval->type == MAP_LOOKUP) {
+                        const char *s = map_lookup_get_string(mval->sub_type, vobj);
+                        if (s && s[0])
+                            fprintf(fp, "\"%s\": \"%s\"", fname, s);
+                        else
+                            fprintf(fp, "\"%s\": %d", fname, (int)vobj);
+                    } else if (mval->type == MAP_FLAGS) {
+                        char vstr[256];
+                        if (map_flags_get_string(mval->sub_type, vobj, vstr, sizeof(vstr)) && vstr[0])
+                            fprintf(fp, "\"%s\": \"%s\"", fname, vstr);
+                        else
+                            fprintf(fp, "\"%s\": %d", fname, (int)vobj);
+                    } else if (mval->type == MAP_BOOLEAN) {
+                        fprintf(fp, "\"%s\": %s", fname, vobj ? "true" : "false");
+                    } else {
+                        fprintf(fp, "\"%s\": %d", fname, (int)vobj);
+                    }
+                    continue;
+                }
+            } else {
+                snprintf(vname, sizeof(vname), "v%d", i);
+                fname = vname;
+            }
+
+            if (is_skip) continue;
+            if (!first_val) fprintf(fp, ", ");
+            first_val = 0;
+            fprintf(fp, "\"%s\": %d", fname, (int)vobj);
+        }
     }
     fprintf(fp, "},\n");
 
