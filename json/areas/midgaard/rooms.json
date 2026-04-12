@@ -189,10 +189,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -820,10 +819,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -974,10 +972,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -1303,10 +1300,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -1656,10 +1652,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -2303,10 +2298,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -2351,10 +2345,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -2454,10 +2447,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -2502,10 +2494,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -3575,10 +3566,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -3690,10 +3680,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -3737,10 +3726,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -3963,10 +3951,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -4093,10 +4080,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -4275,10 +4261,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -4642,10 +4627,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -4674,10 +4658,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -4706,10 +4689,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -4738,10 +4720,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -5616,10 +5597,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -5664,10 +5644,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
@@ -5882,10 +5861,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 365,
-            "wear_loc": "light",
             "global_limit": -1
           }
         },
