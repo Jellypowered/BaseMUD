@@ -688,7 +688,7 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
         char desc_buf[MAX_STRING_LENGTH];
 
         snprintf(name_buf, sizeof(name_buf), "%s", pd_pick_room_name(seed, i));
-        str_replace_dup(&room->name, str_capitalized(name_buf));
+        str_replace_dup(&room->name, str_title_case(name_buf));
 
         snprintf(desc_buf, sizeof(desc_buf), "%s %s\n\r",
                  pd_pick_room_description(seed, i),
@@ -713,7 +713,7 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
 
     /* Apply room name overrides if provided */
     if (seed->entry_room_name != NULL && seed->entry_room_name[0] != '\0')
-        str_replace_dup(&rooms[0]->name, seed->entry_room_name);
+        str_replace_dup(&rooms[0]->name, str_title_case(seed->entry_room_name));
 
     /* entry_vnum is the first room; place entry portal there */
     int entry_vnum = vnum_base;
@@ -908,7 +908,7 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
             char_to_room(boss, rooms[room_count - 1]);
             /* Override boss room name if provided */
             if (seed->boss_room_name != NULL && seed->boss_room_name[0] != '\0')
-                str_replace_dup(&rooms[room_count - 1]->name, seed->boss_room_name);
+                str_replace_dup(&rooms[room_count - 1]->name, str_title_case(seed->boss_room_name));
         }
     }
 
@@ -955,7 +955,7 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
 
             /* Override chest room name if provided */
             if (seed->chest_room_name != NULL && seed->chest_room_name[0] != '\0')
-                str_replace_dup(&rooms[chest_room_idx]->name, seed->chest_room_name);
+                str_replace_dup(&rooms[chest_room_idx]->name, str_title_case(seed->chest_room_name));
         }
     }
 

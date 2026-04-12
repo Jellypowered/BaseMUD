@@ -49,6 +49,25 @@ char *str_capitalized (const char *str) {
     return strcap;
 }
 
+char *str_title_case (const char *str) {
+    static char strtc[MAX_STRING_LENGTH];
+    int i;
+    bool new_word = TRUE;
+    for (i = 0; str[i] != '\0' && i < MAX_STRING_LENGTH - 1; i++) {
+        if (str[i] == ' ' || str[i] == '-') {
+            strtc[i] = str[i];
+            new_word = TRUE;
+        } else if (new_word) {
+            strtc[i] = UPPER (str[i]);
+            new_word = FALSE;
+        } else {
+            strtc[i] = LOWER (str[i]);
+        }
+    }
+    strtc[i] = '\0';
+    return strtc;
+}
+
 void str_smash_char (char *str, char from, char to) {
     for (; *str != '\0'; str++)
         if (*str == from)

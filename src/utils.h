@@ -36,6 +36,7 @@
 
 /* String utilities. */
 char *str_capitalized (const char *str);
+char *str_title_case (const char *str);
 void str_smash_char (char *str, char from, char to);
 void str_smash_tilde (char *str);
 void str_smash_dollar (char *str);
