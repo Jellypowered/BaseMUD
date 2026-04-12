@@ -41,8 +41,11 @@
 #include "memory.h"
 #include "mobiles.h"
 #include "players.h"
+#include "save.h"
 #include "tables.h"
 #include "utils.h"
+
+#include <stdlib.h>
 
 DEFINE_DO_FUN(do_bank)
 {
@@ -50,7 +53,6 @@ DEFINE_DO_FUN(do_bank)
     CHAR_T *victim;
     char buf[MAX_STRING_LENGTH], arg1[MAX_INPUT_LENGTH], arg2[MAX_INPUT_LENGTH];
     int amount;
-    time_t now;
     bool is_atm;
 
     /* Only players can use the bank. */
@@ -62,13 +64,13 @@ DEFINE_DO_FUN(do_bank)
     /* Find a banker or ATM in the room. */
     banker = NULL;
     is_atm = FALSE;
-    for (banker = ch->in_room->people; banker; banker = banker->next_in_room) {
+    for (banker = ch->in_room->people_first; banker; banker = banker->room_next) {
         if (IS_NPC(banker)) {
-            if (ext_flags_is_set(banker->act, MOB_BANKER)) {
+            if (ext_flags_is_set(banker->ext_mob, MOB_BANKER)) {
                 is_atm = FALSE;
                 break;
             }
-            if (ext_flags_is_set(banker->act, MOB_ATM)) {
+            if (ext_flags_is_set(banker->ext_mob, MOB_ATM)) {
                 is_atm = TRUE;
                 break;
             }
@@ -84,16 +86,16 @@ DEFINE_DO_FUN(do_bank)
         send_to_char("  bank deposit <amt>  - Deposit gold into your account\n\r", ch);
         send_to_char("  bank withdraw <amt> - Withdraw gold from your account\n\r", ch);
 
-        if (banking_config->silver_deposit_enabled) {
+        if (banking_config.silver_deposit_enabled) {
             send_to_char("  bank sdeposit <amt> - Deposit silver into your account\n\r", ch);
             send_to_char("  bank swithdraw <amt> - Withdraw silver from your account\n\r", ch);
         }
 
-        if (banking_config->silver_convert_enabled) {
+        if (banking_config.silver_convert_enabled) {
             send_to_char("  bank convert <amt>  - Convert silver to gold (100 silver = 1 gold)\n\r", ch);
         }
 
-        if (!is_atm && banking_config->transfer_enabled) {
+        if (!is_atm && banking_config.transfer_enabled) {
             send_to_char("  bank transfer <who> <amt> - Transfer gold to another player\n\r", ch);
         }
 
@@ -101,12 +103,12 @@ DEFINE_DO_FUN(do_bank)
     }
 
     /* Check business hours (unless ATM with bypass). */
-    if (!is_atm || !banking_config->atm_allow_bypass) {
-        if (time_info.hour < banking_config->bank_open_hour ||
-            time_info.hour >= banking_config->bank_close_hour)
+    if (!is_atm || !banking_config.atm_allow_bypass) {
+        if (time_info.hour < banking_config.bank_open_hour ||
+            time_info.hour >= banking_config.bank_close_hour)
         {
             sprintf(buf, "The bank is closed. It is open from %d:00 to %d:00.\n\r",
-                    banking_config->bank_open_hour, banking_config->bank_close_hour);
+                    banking_config.bank_open_hour, banking_config.bank_close_hour);
             send_to_char(buf, ch);
             return;
         }
@@ -117,7 +119,7 @@ DEFINE_DO_FUN(do_bank)
 
     /* Balance command. */
     if (!str_prefix(arg1, "balance")) {
-        if (banking_config->silver_deposit_enabled) {
+        if (banking_config.silver_deposit_enabled) {
             sprintf(buf, "Your current balance is: {Y%ld{x gold and {W%ld{x silver.\n\r",
                     ch->pcdata->balance, ch->pcdata->sbalance);
         } else {
@@ -144,10 +146,10 @@ DEFINE_DO_FUN(do_bank)
                 amount, ch->pcdata->balance);
         send_to_char(buf, ch);
 
-        sprintf(buf, "You deposit {Y%d{x gold into your account.", amount);
-        act2("$n deposits gold into $s account.", buf, ch, NULL, 0, POS_RESTING);
+        act2("You deposit gold into your account.",
+             "$n deposits gold into $s account.", ch, NULL, NULL, 0, POS_RESTING);
 
-        char_save(ch);
+        save_char_obj(ch);
         return;
     }
 
@@ -163,13 +165,11 @@ DEFINE_DO_FUN(do_bank)
                 "You must withdraw a positive amount.\n\r", ch);
 
         /* Check ATM daily limit. */
-        if (is_atm && banking_config->atm_daily_limit > 0) {
-            /* Simple daily limit check: track in a session variable.
-             * For now, just check against hardcoded daily limit. */
-            if (amount > banking_config->atm_daily_limit) {
+        if (is_atm && banking_config.atm_daily_limit > 0) {
+            if (amount > banking_config.atm_daily_limit) {
                 sprintf(buf, "ATM daily limit is {Y%d{x gold. You can withdraw up to {Y%d{x.\n\r",
-                        banking_config->atm_daily_limit,
-                        banking_config->atm_daily_limit);
+                        banking_config.atm_daily_limit,
+                        banking_config.atm_daily_limit);
                 send_to_char(buf, ch);
                 return;
             }
@@ -181,16 +181,16 @@ DEFINE_DO_FUN(do_bank)
                 amount, ch->pcdata->balance);
         send_to_char(buf, ch);
 
-        sprintf(buf, "You withdraw {Y%d{x gold from your account.", amount);
-        act2("$n withdraws gold from $s account.", buf, ch, NULL, 0, POS_RESTING);
+        act2("You withdraw gold from your account.",
+             "$n withdraws gold from $s account.", ch, NULL, NULL, 0, POS_RESTING);
 
-        char_save(ch);
+        save_char_obj(ch);
         return;
     }
 
     /* Transfer gold to another player. */
     if (!str_prefix(arg1, "transfer")) {
-        BAIL_IF(!banking_config->transfer_enabled,
+        BAIL_IF(!banking_config.transfer_enabled,
                 "Transfers are not available.\n\r", ch);
         BAIL_IF(is_atm,
                 "Transfers are not available at ATMs.\n\r", ch);
@@ -223,14 +223,14 @@ DEFINE_DO_FUN(do_bank)
         sprintf(buf, "%s has transferred {Y%d{x gold to your account.\n\r", ch->name, amount);
         send_to_char(buf, victim);
 
-        char_save(ch);
-        char_save(victim);
+        save_char_obj(ch);
+        save_char_obj(victim);
         return;
     }
 
     /* Silver deposit. */
     if (!str_prefix(arg1, "sdeposit")) {
-        BAIL_IF(!banking_config->silver_deposit_enabled,
+        BAIL_IF(!banking_config.silver_deposit_enabled,
                 "Silver deposits are not available.\n\r", ch);
         BAIL_IF(arg2[0] == '\0' || !is_number(arg2),
                 "Usage: bank sdeposit <amount>\n\r", ch);
@@ -247,16 +247,16 @@ DEFINE_DO_FUN(do_bank)
                 amount, ch->pcdata->sbalance);
         send_to_char(buf, ch);
 
-        sprintf(buf, "You deposit {W%d{x silver into your account.", amount);
-        act2("$n deposits silver into $s account.", buf, ch, NULL, 0, POS_RESTING);
+        act2("You deposit silver into your account.",
+             "$n deposits silver into $s account.", ch, NULL, NULL, 0, POS_RESTING);
 
-        char_save(ch);
+        save_char_obj(ch);
         return;
     }
 
     /* Silver withdraw. */
     if (!str_prefix(arg1, "swithdraw")) {
-        BAIL_IF(!banking_config->silver_deposit_enabled,
+        BAIL_IF(!banking_config.silver_deposit_enabled,
                 "Silver withdrawals are not available.\n\r", ch);
         BAIL_IF(arg2[0] == '\0' || !is_number(arg2),
                 "Usage: bank swithdraw <amount>\n\r", ch);
@@ -268,11 +268,11 @@ DEFINE_DO_FUN(do_bank)
                 "You must withdraw a positive amount.\n\r", ch);
 
         /* Check ATM daily limit for silver. */
-        if (is_atm && banking_config->atm_daily_limit_silver > 0) {
-            if (amount > banking_config->atm_daily_limit_silver) {
+        if (is_atm && banking_config.atm_daily_limit_silver > 0) {
+            if (amount > banking_config.atm_daily_limit_silver) {
                 sprintf(buf, "ATM daily limit for silver is {W%d{x. You can withdraw up to {W%d{x.\n\r",
-                        banking_config->atm_daily_limit_silver,
-                        banking_config->atm_daily_limit_silver);
+                        banking_config.atm_daily_limit_silver,
+                        banking_config.atm_daily_limit_silver);
                 send_to_char(buf, ch);
                 return;
             }
@@ -284,16 +284,16 @@ DEFINE_DO_FUN(do_bank)
                 amount, ch->pcdata->sbalance);
         send_to_char(buf, ch);
 
-        sprintf(buf, "You withdraw {W%d{x silver from your account.", amount);
-        act2("$n withdraws silver from $s account.", buf, ch, NULL, 0, POS_RESTING);
+        act2("You withdraw silver from your account.",
+             "$n withdraws silver from $s account.", ch, NULL, NULL, 0, POS_RESTING);
 
-        char_save(ch);
+        save_char_obj(ch);
         return;
     }
 
     /* Convert silver to gold. */
     if (!str_prefix(arg1, "convert")) {
-        BAIL_IF(!banking_config->silver_convert_enabled,
+        BAIL_IF(!banking_config.silver_convert_enabled,
                 "Silver conversions are not available.\n\r", ch);
         BAIL_IF(arg2[0] == '\0' || !is_number(arg2),
                 "Usage: bank convert <amount> (must be 100+ silver)\n\r", ch);
@@ -312,7 +312,7 @@ DEFINE_DO_FUN(do_bank)
                 amount, amount / 100, ch->pcdata->balance, ch->pcdata->sbalance);
         send_to_char(buf, ch);
 
-        char_save(ch);
+        save_char_obj(ch);
         return;
     }
 
