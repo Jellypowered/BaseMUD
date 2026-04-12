@@ -60,6 +60,7 @@ bool pd_validate_seed(PD_SEED_T *seed);
 /* Write / delete the debug snapshot file for an instance. */
 void pd_write_snapshot(PD_INSTANCE_T *inst);
 void pd_delete_snapshot(PD_INSTANCE_T *inst);
+void pd_cleanup_orphaned_snapshots(void);
 
 /* Scan for hidden objects in current room and reveal them based on skill roll.
  * Used by 'search' command and spell_detect_hidden. */

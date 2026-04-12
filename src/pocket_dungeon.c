@@ -17,12 +17,14 @@
 #include "objs.h"
 #include "recycle.h"
 #include "rooms.h"
+#include "lookup.h"
 #include "tables.h"
 #include "utils.h"
 
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
+#include <dirent.h>
 #include <assert.h>
 
 /* -------------------------------------------------------------------------
@@ -936,7 +938,8 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
         }
 
         /* Create and stock the chest */
-        OBJ_T *chest = obj_create(obj_get_index(seed->container_vnum), inst->level);
+        OBJ_INDEX_T *chest_idx = obj_get_index(seed->container_vnum);
+        OBJ_T *chest = (chest_idx != NULL) ? obj_create(chest_idx, inst->level) : NULL;
         if (chest != NULL) {
             int chest_items = UMAX(1, seed->loot_density);
             int m;
@@ -973,7 +976,8 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
             int hint_idx = number_range(0, seed->hide_hint_count - 1);
 
             /* Create hidden container with ITEM_HIDDEN flag */
-            OBJ_T *hidden_cache = obj_create(obj_get_index(seed->hidden_container_vnum), inst->level);
+            OBJ_INDEX_T *hidden_idx = obj_get_index(seed->hidden_container_vnum);
+            OBJ_T *hidden_cache = (hidden_idx != NULL) ? obj_create(hidden_idx, inst->level) : NULL;
             if (hidden_cache != NULL) {
                 SET_BIT(hidden_cache->extra_flags, ITEM_HIDDEN);
 
@@ -1046,7 +1050,8 @@ PD_INSTANCE_T *pd_generate_instance(CHAR_T **members, int member_count,
      * GATE_PERMANENT keeps it from decaying).  to_vnum points back to the
      * character's original room; that will be set by the caller. */
     {
-        OBJ_T *portal = obj_create(obj_get_index(OBJ_VNUM_PORTAL), 0);
+        OBJ_INDEX_T *portal_idx = obj_get_index(OBJ_VNUM_PORTAL);
+        OBJ_T *portal = (portal_idx != NULL) ? obj_create(portal_idx, 0) : NULL;
         if (portal != NULL) {
             portal->timer = -1;
             SET_BIT(portal->v.portal.gate_flags, GATE_PERMANENT);
@@ -1101,6 +1106,160 @@ static void pd_fputs_json(FILE *fp, const char *s)
     if (s == NULL) return;
     for (; *s; s++)
         pd_fputc_json(fp, *s);
+}
+
+/* Write a string field: "key": "value", — handles NULL safely. */
+static void pd_json_str(FILE *fp, const char *ind, const char *key, const char *val)
+{
+    fprintf(fp, "%s\"%s\": \"", ind, key);
+    pd_fputs_json(fp, val ? val : "");
+    fprintf(fp, "\",\n");
+}
+
+/* Write an integer field: "key": N, */
+static void pd_json_int(FILE *fp, const char *ind, const char *key, int val, int is_last)
+{
+    fprintf(fp, "%s\"%s\": %d%s\n", ind, key, val, is_last ? "" : ",");
+}
+
+/* Write a boolean field: "key": true/false, */
+static void pd_json_bool(FILE *fp, const char *ind, const char *key, int val)
+{
+    fprintf(fp, "%s\"%s\": %s,\n", ind, key, val ? "true" : "false");
+}
+
+/* Write all affects on an object or char as a JSON array on fp.
+ * affect_first is the head of the linked list.  indent is the base indent. */
+static void pd_write_affects_json(FILE *fp, AFFECT_T *affect_first, const char *ind)
+{
+    AFFECT_T *aff;
+    int first = 1;
+    fprintf(fp, "%s\"affects\": [", ind);
+    for (aff = affect_first; aff != NULL; aff = aff->on_next) {
+        if (!first) fprintf(fp, ", ");
+        first = 0;
+        fprintf(fp, "{\"apply\": \"");
+        pd_fputs_json(fp, affect_apply_name(aff->apply));
+        fprintf(fp, "\", \"modifier\": %d}", aff->modifier);
+    }
+    fprintf(fp, "],\n");
+}
+
+/* Write a full object (and its contents recursively) as a JSON object.
+ * Caller writes the comma/newline padding around this. */
+static void pd_write_obj_json(FILE *fp, OBJ_T *obj, const char *ind)
+{
+    char ind2[64];
+    OBJ_T *child;
+    int i, first_child;
+    int is_hidden = IS_SET(obj->extra_flags, ITEM_HIDDEN);
+    snprintf(ind2, sizeof(ind2), "%s  ", ind);
+
+    fprintf(fp, "%s{\n", ind);
+    pd_json_int(fp, ind2, "vnum", obj->obj_index ? obj->obj_index->vnum : 0, 0);
+    pd_json_str(fp, ind2, "name", obj->short_descr);
+    pd_json_str(fp, ind2, "long_descr", obj->description);
+    pd_json_str(fp, ind2, "item_type", item_get_name(obj->item_type));
+    pd_json_int(fp, ind2, "level", obj->level, 0);
+    pd_json_int(fp, ind2, "weight", obj->weight, 0);
+    pd_json_int(fp, ind2, "cost", obj->cost, 0);
+    pd_json_int(fp, ind2, "condition", obj->condition, 0);
+    if (obj->material != MATERIAL_GENERIC)
+        pd_json_str(fp, ind2, "material", material_get_name(obj->material));
+    pd_json_str(fp, ind2, "extra_flags", extra_bit_name(obj->extra_flags));
+    if (obj->wear_flags != 0)
+        pd_json_str(fp, ind2, "wear_flags", wear_flag_name(obj->wear_flags));
+    pd_json_bool(fp, ind2, "hidden", is_hidden);
+    if (obj->timer > 0)
+        pd_json_int(fp, ind2, "timer", obj->timer, 0);
+
+    /* Values: v0..OBJ_VALUE_MAX-1 as raw integers */
+    fprintf(fp, "%s\"values\": {", ind2);
+    for (i = 0; i < OBJ_VALUE_MAX; i++) {
+        if (i > 0) fprintf(fp, ", ");
+        fprintf(fp, "\"v%d\": %d", i, (int)obj->v.value[i]);
+    }
+    fprintf(fp, "},\n");
+
+    /* Affects */
+    pd_write_affects_json(fp, obj->affect_first, ind2);
+
+    /* Contents */
+    fprintf(fp, "%s\"contents\": [", ind2);
+    first_child = 1;
+    for (child = obj->content_first; child != NULL; child = child->content_next) {
+        if (!first_child) fprintf(fp, ",");
+        fprintf(fp, "\n");
+        first_child = 0;
+        pd_write_obj_json(fp, child, ind2);
+    }
+    if (!first_child) fprintf(fp, "\n%s", ind2);
+    fprintf(fp, "]\n");
+    fprintf(fp, "%s}", ind);
+}
+
+/* Write a full NPC mob as a JSON object. */
+static void pd_write_mob_json(FILE *fp, CHAR_T *ch, const char *ind)
+{
+    char ind2[64];
+    MPROG_LIST_T *prg;
+    int first_prog;
+    MOB_INDEX_T *mi = ch->mob_index;
+    snprintf(ind2, sizeof(ind2), "%s  ", ind);
+
+    fprintf(fp, "%s{\n", ind);
+    pd_json_int(fp, ind2, "vnum", mi ? mi->vnum : 0, 0);
+    pd_json_str(fp, ind2, "name", ch->short_descr);
+    pd_json_str(fp, ind2, "long_descr", ch->long_descr);
+    pd_json_str(fp, ind2, "race", race_get_name(ch->race));
+    pd_json_int(fp, ind2, "level", ch->level, 0);
+    pd_json_int(fp, ind2, "alignment", ch->alignment, 0);
+    pd_json_str(fp, ind2, "alignment_name", align_name(ch->alignment));
+    pd_json_int(fp, ind2, "hp", ch->hit, 0);
+    pd_json_int(fp, ind2, "max_hp", ch->max_hit, 0);
+    pd_json_int(fp, ind2, "mana", ch->mana, 0);
+    pd_json_int(fp, ind2, "max_mana", ch->max_mana, 0);
+    pd_json_int(fp, ind2, "hitroll", ch->hitroll, 0);
+    pd_json_int(fp, ind2, "damroll", ch->damroll, 0);
+    pd_json_int(fp, ind2, "gold", (int)ch->gold, 0);
+    pd_json_str(fp, ind2, "sex", sex_name(ch->sex));
+    pd_json_str(fp, ind2, "size", size_get_name(ch->size));
+    pd_json_str(fp, ind2, "attack_type", attack_get_name(ch->attack_type));
+    pd_json_str(fp, ind2, "act_flags", mob_bit_name(ch->ext_mob));
+    pd_json_str(fp, ind2, "affected_by", affect_bit_name(ch->affected_by));
+    pd_json_str(fp, ind2, "off_flags", off_bit_name(ch->off_flags));
+    pd_json_str(fp, ind2, "imm_flags", res_bit_name(ch->imm_flags));
+    pd_json_str(fp, ind2, "res_flags", res_bit_name(ch->res_flags));
+    pd_json_str(fp, ind2, "vuln_flags", res_bit_name(ch->vuln_flags));
+
+    /* Armor */
+    fprintf(fp, "%s\"armor\": {\"pierce\": %d, \"bash\": %d, \"slash\": %d, \"exotic\": %d},\n",
+            ind2, ch->armor[0], ch->armor[1], ch->armor[2], ch->armor[3]);
+
+    /* Dice from mob_index */
+    if (mi != NULL) {
+        fprintf(fp, "%s\"hit_dice\": {\"num\": %d, \"size\": %d, \"bonus\": %d},\n",
+                ind2, mi->hit.number, mi->hit.size, mi->hit.bonus);
+        fprintf(fp, "%s\"damage_dice\": {\"num\": %d, \"size\": %d, \"bonus\": %d},\n",
+                ind2, mi->damage.number, mi->damage.size, mi->damage.bonus);
+    }
+
+    /* MobProgs */
+    fprintf(fp, "%s\"mobprogs\": [", ind2);
+    first_prog = 1;
+    if (mi != NULL) {
+        for (prg = mi->mprog_first; prg != NULL; prg = prg->mob_next) {
+            if (!first_prog) fprintf(fp, ", ");
+            first_prog = 0;
+            fprintf(fp, "{\"trigger\": \"");
+            pd_fputs_json(fp, mprog_type_to_name(prg->trig_type));
+            fprintf(fp, "\", \"phrase\": \"");
+            pd_fputs_json(fp, prg->trig_phrase ? prg->trig_phrase : "");
+            fprintf(fp, "\"}");
+        }
+    }
+    fprintf(fp, "]\n");
+    fprintf(fp, "%s}", ind);
 }
 
 void pd_write_snapshot(PD_INSTANCE_T *inst)
@@ -1161,6 +1320,12 @@ void pd_write_snapshot(PD_INSTANCE_T *inst)
         fprintf(fp, "      \"description\": \"");
         pd_fputs_json(fp, room->description ? room->description : "");
         fprintf(fp, "\",\n");
+        fprintf(fp, "      \"sector_type\": \"");
+        pd_fputs_json(fp, sector_get_name(room->sector_type));
+        fprintf(fp, "\",\n");
+        fprintf(fp, "      \"room_flags\": \"");
+        pd_fputs_json(fp, room_bit_name(room->room_flags));
+        fprintf(fp, "\",\n");
 
         fprintf(fp, "      \"exits\": {");
         first_exit = 1;
@@ -1175,68 +1340,42 @@ void pd_write_snapshot(PD_INSTANCE_T *inst)
         }
         fprintf(fp, "},\n");
 
-        /* Count live NPCs and generate mob array */
+        /* NPC mobs — full detail */
         {
             int mob_count = 0;
             int first_mob = 1;
-            MPROG_LIST_T *prg;
             CHAR_T *ch;
-            
-            /* Count mobs first */
-            for (ch = room->people_first; ch != NULL; ch = ch->room_next) {
-                if (IS_NPC(ch))
-                    mob_count++;
-            }
-            
+
+            for (ch = room->people_first; ch != NULL; ch = ch->room_next)
+                if (IS_NPC(ch)) mob_count++;
+
             fprintf(fp, "      \"mob_count\": %d,\n", mob_count);
             fprintf(fp, "      \"mobs\": [");
-            
-            /* Output mob array */
             for (ch = room->people_first; ch != NULL; ch = ch->room_next) {
                 if (IS_NPC(ch)) {
-                    if (!first_mob)
-                        fprintf(fp, ", ");
+                    if (!first_mob) fprintf(fp, ",");
+                    fprintf(fp, "\n");
                     first_mob = 0;
-                    fprintf(fp, "{\"vnum\": %d, \"name\": \"",
-                            ch->mob_index ? ch->mob_index->vnum : 0);
-                    pd_fputs_json(fp, ch->short_descr ? ch->short_descr : "");
-                    fprintf(fp, "\", \"hp\": %d, \"max_hp\": %d, \"mobprogs\": [",
-                            ch->hit, ch->max_hit);
-                    if (ch->mob_index != NULL) {
-                        int first_prog = 1;
-                        for (prg = ch->mob_index->mprog_first; prg != NULL; prg = prg->mob_next) {
-                            if (!first_prog)
-                                fprintf(fp, ", ");
-                            first_prog = 0;
-                            fprintf(fp, "{\"trigger\": \"");
-                            pd_fputs_json(fp, mprog_type_to_name(prg->trig_type));
-                            fprintf(fp, "\", \"phrase\": \"");
-                            pd_fputs_json(fp, prg->trig_phrase ? prg->trig_phrase : "");
-                            fprintf(fp, "\"}");
-                        }
-                    }
-                    fprintf(fp, "]}");
+                    pd_write_mob_json(fp, ch, "        ");
                 }
             }
+            if (!first_mob) fprintf(fp, "\n      ");
             fprintf(fp, "],\n");
         }
 
-        /* Generate objects array */
+        /* Objects — full detail, recursive */
         {
             int first_obj = 1;
             OBJ_T *obj;
-            
+
             fprintf(fp, "      \"objects\": [");
             for (obj = room->content_first; obj != NULL; obj = obj->content_next) {
-                if (!first_obj)
-                    fprintf(fp, ", ");
+                if (!first_obj) fprintf(fp, ",");
+                fprintf(fp, "\n");
                 first_obj = 0;
-                fprintf(fp, "{\"vnum\": %d, \"name\": \"",
-                        obj->obj_index ? obj->obj_index->vnum : 0);
-                pd_fputs_json(fp, obj->short_descr ? obj->short_descr : "");
-                fprintf(fp, "\", \"hidden\": %s}",
-                        IS_SET(obj->extra_flags, ITEM_HIDDEN) ? "true" : "false");
+                pd_write_obj_json(fp, obj, "        ");
             }
+            if (!first_obj) fprintf(fp, "\n      ");
             fprintf(fp, "]\n");
         }
         fprintf(fp, "    }");
@@ -1256,6 +1395,25 @@ void pd_delete_snapshot(PD_INSTANCE_T *inst)
     snprintf(filepath, sizeof(filepath), "%spd-inst-%d-%ld.json",
              PD_TEMP_DIR, inst->id, (long)inst->created_at);
     remove(filepath);
+}
+
+void pd_cleanup_orphaned_snapshots(void)
+{
+    DIR *dp;
+    struct dirent *ep;
+    char filepath[256];
+
+    dp = opendir(PD_TEMP_DIR);
+    if (dp == NULL)
+        return;
+    while ((ep = readdir(dp)) != NULL) {
+        if (strncmp(ep->d_name, "pd-inst-", 8) != 0)
+            continue;
+        snprintf(filepath, sizeof(filepath), "%s%s", PD_TEMP_DIR, ep->d_name);
+        remove(filepath);
+    }
+    closedir(dp);
+    log_string("pd_cleanup_orphaned_snapshots: cleaned up leftover instance snapshots.");
 }
 
 void pd_destroy_instance(PD_INSTANCE_T *inst)

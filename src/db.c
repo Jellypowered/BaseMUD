@@ -46,6 +46,7 @@
 #include "mobiles.h"
 #include "music.h"
 #include "objs.h"
+#include "pocket_dungeon.h"
 #include "portals.h"
 #include "recycle.h"
 #include "resets.h"
@@ -143,6 +144,10 @@ void boot_db(void)
     area_reinsert_resets_in_room_order_all();
 
     fix_mobprogs();
+
+    /* Clean up any orphaned pocket dungeon snapshot files from a previous
+     * crash so the editor does not show stale instances. */
+    pd_cleanup_orphaned_snapshots();
 
     /* Boot process is over(?) */
     in_boot_db = FALSE;

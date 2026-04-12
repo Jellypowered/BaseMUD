@@ -83,6 +83,62 @@
     "cost": 200,
     "wear_flags": "take"
   }},
+  {"object": {
+    "area": "pocketdungeon",
+    "anum": 56,
+    "name": "potion healing dungeon mountain frost",
+    "short_descr": "a frost-heart tincture",
+    "description": "A small sealed vial of frozen mountain water thickened to a blue-white gel that stings the palm with cold.",
+    "material": "glass",
+    "item_type": "potion",
+    "values": {"level": 20, "spell1": "cure critical"},
+    "level": 1,
+    "weight": 2,
+    "cost": 300,
+    "wear_flags": "take"
+  }},
+  {"object": {
+    "area": "pocketdungeon",
+    "anum": 57,
+    "name": "scroll ward dungeon mountain cold",
+    "short_descr": "a cold-written ward scroll",
+    "description": "Symbols pressed into frozen vellum with a needle of ice hold a brittle but reliable ward against the deep cold's worst effects.",
+    "material": "parchment",
+    "item_type": "scroll",
+    "values": {"level": 15, "spell1": "armor", "spell2": "refresh"},
+    "level": 1,
+    "weight": 1,
+    "cost": 200,
+    "wear_flags": "take"
+  }},
+  {"object": {
+    "area": "pocketdungeon",
+    "anum": 58,
+    "name": "potion healing dungeon stronghold iron",
+    "short_descr": "an iron-brew draught",
+    "description": "A dented soldier's flask filled with a bitter amber tonic that smells of iron and copper — field medicine, nothing fancy.",
+    "material": "glass",
+    "item_type": "potion",
+    "values": {"level": 15, "spell1": "cure serious"},
+    "level": 1,
+    "weight": 2,
+    "cost": 200,
+    "wear_flags": "take"
+  }},
+  {"object": {
+    "area": "pocketdungeon",
+    "anum": 59,
+    "name": "scroll bless dungeon stronghold field",
+    "short_descr": "a field command scroll",
+    "description": "A scroll of battle-hardened vellum, the runes pressed deep and sure — a ward for the soldier's body and spirit before the fighting starts.",
+    "material": "parchment",
+    "item_type": "scroll",
+    "values": {"level": 12, "spell1": "bless", "spell2": "armor"},
+    "level": 1,
+    "weight": 1,
+    "cost": 150,
+    "wear_flags": "take"
+  }},
 
   {"object": {
     "area": "pocketdungeon",
@@ -127,6 +183,7 @@
       {"level": 1, "apply": "armor class", "modifier": -3},
       {"level": 1, "apply": "strength",    "modifier": 1}
     ]
+  }}
  ,{"object": {
     "area": "pocketdungeon",
     "anum": 82,
@@ -304,7 +361,6 @@
       {"level": 1, "apply": "intelligence", "modifier": 2},
       {"level": 1, "apply": "mana",         "modifier": 8}
     ]
-  }}
   }},
   {"object": {
     "area": "pocketdungeon",
