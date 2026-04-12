@@ -163,14 +163,14 @@ int pd_get_difficulty_bonus(PD_INSTANCE_T *inst)
 
 /* C3: Trigger boss loot drops when boss dies.
  * Called from combat code when boss death is detected. */
-void pd_trigger_boss_loot(PD_INSTANCE_T *inst, CHAR_T *boss)
+void pd_trigger_boss_loot(PD_INSTANCE_T *inst, ROOM_INDEX_T *room)
 {
     PD_SEED_T *seed;
     OBJ_T *loot;
     OBJ_INDEX_T *oidx;
     int i, vnum_idx;
     
-    if (inst == NULL || boss == NULL || boss->in_room == NULL)
+    if (inst == NULL || room == NULL)
         return;
     
     if (inst->boss_killed)
@@ -190,7 +190,7 @@ void pd_trigger_boss_loot(PD_INSTANCE_T *inst, CHAR_T *boss)
         oidx = obj_get_index(seed->item_vnums[vnum_idx]);
         if (oidx != NULL) {
             loot = obj_create(oidx, inst->level + 5);  /* slightly higher level for boss drops */
-            obj_give_to_room(loot, boss->in_room);
+            obj_give_to_room(loot, room);
         }
     }
 }

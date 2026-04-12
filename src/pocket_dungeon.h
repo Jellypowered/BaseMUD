@@ -73,7 +73,7 @@ void pd_apply_affixes(PD_INSTANCE_T *inst);
 int pd_get_difficulty_bonus(PD_INSTANCE_T *inst);
 
 /* C3: Trigger boss loot drops (call when boss dies). */
-void pd_trigger_boss_loot(PD_INSTANCE_T *inst, CHAR_T *boss);
+void pd_trigger_boss_loot(PD_INSTANCE_T *inst, ROOM_INDEX_T *room);
 
 /* C4: Assign random powers to boss (call before boss spawns). */
 void pd_assign_boss_powers(PD_INSTANCE_T *inst);

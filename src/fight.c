@@ -726,16 +726,20 @@ bool damage_real(CHAR_T *ch, CHAR_T *victim, int dam, int dt, int dam_type,
         if (IS_NPC(victim))
             mob_rand_drop(victim);
 
+        /* C3: Capture pocket dungeon context BEFORE char_die() frees victim.
+         * char_die -> mobile_die -> char_extract -> char_free invalidates victim. */
+        PD_INSTANCE_T *pd_inst = IS_NPC(victim)
+            ? pd_find_instance_for_char((CHAR_T *)victim)
+            : NULL;
+        ROOM_INDEX_T *pd_death_room = (pd_inst != NULL) ? victim->in_room : NULL;
+
         corpse = char_die(victim);
         
-        /* C3: Trigger boss loot if victim was a boss in a pocket dungeon instance */
-        if (IS_NPC(victim)) {
-            PD_INSTANCE_T *pd_inst = pd_find_instance_for_char((CHAR_T *)victim);
-            if (pd_inst != NULL) {
-                pd_trigger_boss_loot(pd_inst, victim);
-                /* C2: Increment difficulty progression counter on mob death */
-                pd_inst->rooms_cleared++;
-            }
+        /* C3: Trigger boss loot and difficulty update using pre-captured pointers */
+        if (pd_inst != NULL) {
+            pd_trigger_boss_loot(pd_inst, pd_death_room);
+            /* C2: Increment difficulty progression counter on mob death */
+            pd_inst->rooms_cleared++;
         }
 
         /* Track PK kills and deaths. */
