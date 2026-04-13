@@ -4993,7 +4993,7 @@
           "command": "equip",
           "values": {
             "obj": 309,
-            "wear_loc": "arms",
+            "wear_loc": "feet",
             "global_limit": 99
           }
         },
@@ -5021,7 +5021,8 @@
             "global_limit": 99
           }
         }
-      ]
+      ],
+      "extra_description": []
     }
   },
   {

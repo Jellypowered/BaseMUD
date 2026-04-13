@@ -946,7 +946,7 @@
     "object": {
       "area": "sewer",
       "anum": 309,
-      "name": "greaves red",
+      "name": "greaves red rear claws",
       "short_descr": "a pair of a red dragon's rear claws",
       "description": "A pair of a red dragon's rear claws is on the floor.",
       "item_type": "armor",
@@ -960,7 +960,7 @@
       "weight": 400,
       "cost": 3700,
       "extra_flags": "magic antigood",
-      "wear_flags": "take feet arms",
+      "wear_flags": "take feet",
       "affects": [
         {
           "level": 29,
@@ -972,7 +972,8 @@
           "apply": "damage roll",
           "modifier": 2
         }
-      ]
+      ],
+      "extra_description": []
     }
   },
   {
