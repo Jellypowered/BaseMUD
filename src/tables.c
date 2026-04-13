@@ -1097,7 +1097,7 @@ WEAR_LOC_T wear_loc_table[WEAR_LOC_MAX + 2] = {
     {WEAR_LOC_CLOAK, "cloak", "as a cloak", "<worn as cloak>", ITEM_WEAR_CLOAK, 200, "You wear $p as a cloak.", "$n wears $p as a cloak."},
     {WEAR_LOC_EYES, "eyes", "over the eyes", "<worn over eyes>", ITEM_WEAR_EYES, 0, "You wear $p over your eyes.", "$n wears $p over $s eyes."},
     {WEAR_LOC_EARS, "ears", "on the ears", "<worn on ears>", ITEM_WEAR_EARS, 0, "You wear $p on your ears.", "$n wears $p on $s ears."},
-    {WEAR_LOC_FLOAT_2, "floating2", "floating nearby (2)", "<floating nearby 2>", ITEM_WEAR_FLOAT_2, 0, "You release $p and it floats near you.", "$n releases $p to float near $m."},
+    {WEAR_LOC_FLOAT_2, "floating2", "floating nearby (2)", "<floating nearby 2>", ITEM_WEAR_FLOAT, 0, "You release $p and it floats near you.", "$n releases $p to float near $m."},
     {WEAR_LOC_TATTOO, "tattoo", "as a tattoo", "<tattoo>", ITEM_WEAR_TATTOO, 0, "You mark $p on your skin.", "$n marks $p on $s skin."},
     {0},
 };

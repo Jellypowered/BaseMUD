@@ -1257,7 +1257,7 @@ DEFINE_DO_FUN(do_equipment)
     eq_print_slot(ch, "{CH{Wel{Cd      ", WEAR_LOC_HOLD);
     /* Special/floating */
     eq_print_slot(ch, "{CF{Wloatin{Cg  ", WEAR_LOC_FLOAT);
-    eq_print_slot(ch, "{CF{Wloat{C2    ", WEAR_LOC_FLOAT_2);
+    eq_print_slot(ch, "{CF{Wloatin{Cg    ", WEAR_LOC_FLOAT_2);
 }
 
 DEFINE_DO_FUN(do_compare)

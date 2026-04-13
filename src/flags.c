@@ -387,7 +387,6 @@ const FLAG_T wear_flags[] = {
     {"wearcloak", ITEM_WEAR_CLOAK, TRUE},
     {"weareyes", ITEM_WEAR_EYES, TRUE},
     {"wearears", ITEM_WEAR_EARS, TRUE},
-    {"wearfloat2", ITEM_WEAR_FLOAT_2, TRUE},
     {"weartattoo", ITEM_WEAR_TATTOO, TRUE},
     {0}};
 
