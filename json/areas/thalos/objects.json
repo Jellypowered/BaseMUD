@@ -610,7 +610,9 @@
       "level": 0,
       "weight": 20,
       "cost": 0,
-      "wear_flags": "take"
+      "wear_flags": "take hold",
+      "affects": [],
+      "extra_description": []
     }
   },
   {
@@ -711,14 +713,15 @@
       "weight": 10,
       "cost": 550,
       "extra_flags": "magic",
-      "wear_flags": "take wearfloat",
+      "wear_flags": "take hold wearfloat",
       "affects": [
         {
           "level": 5,
           "apply": "wisdom",
           "modifier": 1
         }
-      ]
+      ],
+      "extra_description": []
     }
   },
   {
@@ -734,14 +737,15 @@
       "weight": 10,
       "cost": 550,
       "extra_flags": "magic",
-      "wear_flags": "take wearfloat",
+      "wear_flags": "take hold wearfloat",
       "affects": [
         {
           "level": 5,
           "apply": "dexterity",
           "modifier": 1
         }
-      ]
+      ],
+      "extra_description": []
     }
   },
   {
@@ -780,14 +784,15 @@
       "weight": 10,
       "cost": 11,
       "extra_flags": "magic",
-      "wear_flags": "take wearfloat",
+      "wear_flags": "take hold wearfloat",
       "affects": [
         {
           "level": 5,
           "apply": "hp",
           "modifier": 1
         }
-      ]
+      ],
+      "extra_description": []
     }
   },
   {
@@ -803,14 +808,15 @@
       "weight": 10,
       "cost": 150,
       "extra_flags": "magic",
-      "wear_flags": "take wearfloat",
+      "wear_flags": "take hold wearfloat",
       "affects": [
         {
           "level": 0,
           "apply": "saves",
           "modifier": -1
         }
-      ]
+      ],
+      "extra_description": []
     }
   },
   {
@@ -864,7 +870,7 @@
       "weight": 10,
       "cost": 100,
       "extra_flags": "magic",
-      "wear_flags": "take wearfloat",
+      "wear_flags": "take hold wearfloat",
       "affects": [
         {
           "level": 0,
