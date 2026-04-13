@@ -3174,7 +3174,7 @@
           "command": "equip",
           "values": {
             "obj": 24,
-            "wear_loc": "head",
+            "wear_loc": "eyes",
             "global_limit": 80
           }
         }

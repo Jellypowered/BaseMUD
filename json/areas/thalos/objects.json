@@ -665,7 +665,7 @@
       "weight": 10,
       "cost": 550,
       "extra_flags": "magic",
-      "wear_flags": "take wearfloat",
+      "wear_flags": "take wearfloat wearfloat2",
       "affects": [
         {
           "level": 5,
@@ -688,7 +688,7 @@
       "weight": 10,
       "cost": 550,
       "extra_flags": "magic",
-      "wear_flags": "take wearfloat",
+      "wear_flags": "take wearfloat wearfloat2",
       "affects": [
         {
           "level": 5,

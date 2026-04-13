@@ -197,7 +197,7 @@
           "command": "equip",
           "values": {
             "obj": 30,
-            "wear_loc": "hold",
+            "wear_loc": "floating",
             "global_limit": 1
           }
         },
@@ -642,7 +642,7 @@
           "command": "equip",
           "values": {
             "obj": 31,
-            "wear_loc": "hold",
+            "wear_loc": "floating",
             "global_limit": 1
           }
         },
