@@ -1,0 +1,86 @@
+Shield Block Snippit by Xrakisis
+
+act_obj.c
+put this in void wear_obj
+  if (CAN_WEAR(obj, ITEM_WEAR_SHIELD))
+  {
+    if (!remove_obj(ch, WEAR_SHIELD, fReplace))
+      return;
+
+    if (!IS_NPC(ch) && !IS_FORM(ch, ITEM_WEAR_SHIELD))
+    {
+      send_to_char("You are unable to wear it.\n\r", ch);
+      return;
+    }
+    act("$n equips $p on $s arm.", ch, obj, NULL, TO_ROOM);
+    act("You equip $p on your arm.", ch, obj, NULL, TO_CHAR);
+    equip_char(ch, obj, WEAR_SHIELD);
+    return;
+  }
+
+at the top of void wear_obj you will see some shield stuff with 
+the WIELD and HOLD stuff. delete this. the above bit of code replaces
+it.
+
+act_info.c
+replace Off Hand with whatever you want to call a shield
+Buckler, Worn as Shield  etc in const   where_name 
+
+fight.c
+put this somewhere at the top of the file
+bool  check_shieldblock   args (( CHAR_DATA *ch, CHAR_DATA *victim, int dt ));
+
+fight.c:
+place: 
+
+      if (check_shieldblock(ch, victim, dt))
+	return;
+
+right under
+      if (check_parry(ch, victim, dt))
+        return;
+
+
+place this (below), below check dodge function
+
+/*
+ * Check for shield block.
+ */
+bool check_shieldblock(CHAR_DATA * ch, CHAR_DATA * victim, int dt)
+{
+  OBJ_DATA *obj = NULL;
+  int chance = 0;
+
+  if (IS_NPC(victim))
+    obj = NULL;
+  else
+  {
+      if ((obj = get_eq_char(victim, WEAR_SHIELD)) == NULL) 
+        return FALSE;
+  }
+  if (!IS_AWAKE(victim))
+    return FALSE;
+  if (!IS_NPC(ch))
+    chance -= (ch->wpn[dt - 1000] * 0.1);
+  else
+    chance -= (ch->level * 0.2);
+  if (!IS_NPC(victim))
+    chance += (victim->wpn[0] * 0.5);
+  else
+    chance += victim->level;
+
+  /* cutting corners */
+  if      (chance > 80)  chance = 80;
+  else if (chance < 20)  chance = 20;
+
+
+  /* cutting again */
+  if (chance > 90) chance = 90;
+
+  if (number_percent() >= chance)
+    return FALSE;
+    act("You Shield Block $n's attack.", ch, NULL, victim, TO_VICT);
+    act("$N Shield Blocks your attack.", ch, NULL, victim, TO_CHAR);
+  return TRUE;
+}
+

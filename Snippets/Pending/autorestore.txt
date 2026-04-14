@@ -1,0 +1,15 @@
+This is a very basic Auto-Restore code to be put in void gain_exp in update.c under the line that reads advance_level(ch,FALSE );
+
+put this line:
+
+ affect_strip(ch,gsn_plague);
+                affect_strip(ch,gsn_poison);
+                affect_strip(ch,gsn_blindness);
+                affect_strip(ch,gsn_sleep);
+                affect_strip(ch,gsn_curse);
+
+                ch->hit        = ch->max_hit;
+                ch->mana       = ch->max_mana;
+                ch->move       = ch->max_move;
+                update_pos( ch);
+ send_to_char( "<God Name> has give you the power to continue  ", ch );

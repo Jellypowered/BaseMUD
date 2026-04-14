@@ -9,6 +9,11 @@ Verified findings from actual integrations. Update this file as new patterns are
 - `make` will fail with `-Werror` if a new helper is left unused in a build target; the pocket dungeon mobprog module initially hit `pd_build_random_idle_behavior` until the dead helper was removed.
 - The workspace build task is the right verification path for BaseMUD changes; it catches warnings that the lightweight editor diagnostics can miss.
 
+## File Operation Notes
+
+- When moving files with `run_in_terminal`, use absolute paths for `Move-Item` to avoid dependence on terminal cwd. In one run, a command chain that included `Set-Location` was simplified by the tool output and made verification confusing.
+- For large move batches, verify completion with `list_dir` immediately after the move before retrying; retries can fail with `PathNotFound` simply because files were already moved.
+
 ## Pocket Dungeon Notes
 
 - Hidden caches only spawn when a seed populates `hide_keywords`, `hide_look_texts`, and `hide_hint_phrases`; `hide_hint_count` is derived from the `hide_keywords` array length.

@@ -1,0 +1,60 @@
+MaxWho will keep track of the maximum players to ever log onto your
+MUD. This is very easy to add. 
+
+In your main header, likely merc.h or mud.h, add MAX_WHO_FILE "maxwho.txt"
+
+Create a file in your area directory called maxwho.txt and add a single 0
+(zero) to the very top left line. Add nothing else, and save the file.
+
+Add the following code to your source however you see fit.
+
+This will eat a very little extra CPU when players do_count, but the
+effects seem negligible in testing.
+
+Enjoy!
+
+Dalsor Anskaven
+
+#define ptc printf_to_char
+/* if you dont have printf_to_char, change them to sprint, or get it! */
+
+void do_count ( CHAR_DATA *ch, char *argument )
+{
+    int count, max;
+    DESCRIPTOR_DATA *d;
+	FILE *fp;
+
+    count = 0;
+
+    if ( IS_NPC(ch) || ch->desc == NULL )
+    	return;
+
+    for ( d = descriptor_list; d != NULL; d = d->next )
+        if ( d->connected == CON_PLAYING && can_see( ch, d->character ) )
+	    count++;
+
+    max_on = UMAX(count,max_on);
+
+	if ( ( fp = fopen( MAX_WHO_FILE,"r" ) ) == NULL )
+	{
+	    log_string("Error reading from maxwho.txt");
+	    return;
+	}
+	max = fread_number( fp );
+	fclose(fp);
+
+	if ( max_on > max )
+	{
+		if ( ( fp = fopen( MAX_WHO_FILE,"w" ) ) == NULL )
+		{
+		    log_string("Error writing to maxwho.txt");
+		    return;
+		}
+		fprintf( fp, "%d\n", max_on );
+		fclose(fp);
+	}
+
+	ptc(ch,"The largest number of active players today was %d.\n\r", max_on );
+	ptc(ch,"The largest number of active players ever was %d.\n\r", max );
+	ptc(ch,"You can see %d characters.\n\rSome characters may be invisible to you.\n\r\n\r", count );
+}

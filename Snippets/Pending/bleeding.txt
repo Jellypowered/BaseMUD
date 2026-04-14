@@ -1,0 +1,154 @@
+*************************
+*                 BLEEDING                 *
+*************************
+
+This is a small bit that will show you how to make a character
+bleed during combat.  This works pretty good, i put in a scaled
+down version just to show you how to do it, you can add all
+the extras yourself.  It simply adds a new condition and sets that
+condition.  We have several levels of bleeding, but this only
+accomodates for -1-.  You will also need to make a do_bandage 
+skill and do a check to see if they have a bandage.  I might release
+that later, its quite easy.
+
+Add this to ACT_WIZ.C
+
+
+   if ( !IS_NPC(victim) )
+    {
+        sprintf( buf,
+            "Thirst: %d  Hunger: %d  Full: %d  Drunk: %d Bl: %d\n\r",  <---- A small bit here
+            victim->pcdata->condition[COND_THIRST],
+            victim->pcdata->condition[COND_HUNGER],
+            victim->pcdata->condition[COND_FULL],
+            victim->pcdata->condition[COND_DRUNK],
+            victim->pcdata->condition[COND_BLEEDING] );           <----Add This
+        send_to_char( buf, ch );
+    }            
+
+
+
+And This
+
+ if ( arg1[0] == '\0' || arg2[0] == '\0' || arg3[0] == '\0' )
+    {
+        send_to_char("Syntax:\n\r",ch);
+        send_to_char("  set char <name> <field> <value>\n\r",ch);
+        send_to_char( "  Field being one of:\n\r",                      ch );
+        send_to_char( "    str int wis dex con sex class level god\n\r",ch );
+        send_to_char( "    race group gold silver hp mana move prac\n\r",ch);
+        send_to_char( "    align train thirst hunger drunk full hunt\n\r",ch );
+        send_to_char( "    security bleeding\n\r", ch );                                             <----Add This
+  
+        return;
+    }         
+
+
+Add in a new bit in the SET section
+
+ if ( !str_prefix( arg2, "bleeding" ) )
+    {
+        if ( IS_NPC(victim) )
+        {
+            send_to_char( "Not on NPC's.\n\r", ch );
+            return;
+        }
+
+        if ( value < -1 || value > 100 )
+        {                    
+           send_to_char( "Bleeding range is -1 to 100.\n\r", ch );
+            return;
+        }
+
+        victim->pcdata->condition[COND_BLEEDING] = value;
+        return;
+    }            
+
+
+Add this bit to the section in FIGHT.C ( you might have to change yours a bit )
+
+        if ( victim->hit < victim->max_hit / 4 )
+           {
+            send_to_char( "You sure are BLEEDING!\n\r", victim );
+            gain_condition( victim, COND_BLEEDING, 1 );
+           }    
+
+
+
+Some stuff in SAVE.C
+
+ ch->pcdata->condition[COND_THIRST]   = 48;
+    ch->pcdata->condition[COND_FULL]     = 48;
+    ch->pcdata->condition[COND_HUNGER]   = 48;
+    ch->pcdata->condition[COND_BLEEDING] = 0;   <-- this makes them login at -0- you can change this.
+
+
+And this
+
+                ch->pcdata->condition[0] = fread_number( fp );
+                ch->pcdata->condition[1] = fread_number( fp );
+                ch->pcdata->condition[2] = fread_number( fp );
+                ch->pcdata->condition[3] = fread_number( fp );  <-- add this one in too
+                fMatch = TRUE;
+                break;        
+
+And this
+
+  fprintf( fp, "Cnd  %d %d %d %d %d\n",
+            ch->pcdata->condition[0],
+            ch->pcdata->condition[1],
+            ch->pcdata->condition[2],
+            ch->pcdata->condition[3],
+            ch->pcdata->condition[4] );      <--- add this one too
+
+
+I always get lost in SAVE.C, I think that is all the changes to that file.
+
+
+Add this to UPDATE.C
+
+  if ( !IS_NPC(ch))
+            {
+            if ( ch->pcdata->condition[COND_BLEEDING] > 0 )
+            {
+            send_to_char("You are {rbleeding!{x\n\r",ch);
+            ch->hit = ch->hit - (ch->hit * 15/100);
+            }
+            if (( ch->pcdata->condition[COND_BLEEDING] > 0 ) &&
+                  number_range( 0, 10 ) > 5 )
+            {
+            gain_condition( ch, COND_BLEEDING,  -1 );
+            send_to_char("Your {rbleeding{x slows.\n\r",ch);      
+            }
+            }
+
+
+
+As you can see this bit in update.c is very basic, but its only made to show
+you how to do it.  You can expand on it yourself and rearrange how it works.
+This makes em bleed and lose HP, then every now and then there condition
+returns to 0.  You can also create an object, pool of blood, whereever they rest
+or something.  And fix up the hp and movement loss etc....
+
+
+Add this cond to MERC.H
+
+#define COND_BLEEDING                 4     
+
+
+
+If i have left anything really important out please let me know.
+I just pulled these bits outta code as we did this a bit ago and
+ours is alot more advanced, but it works GREAT! and will add
+alot to your mud. Any questions direct them to me or the list.
+I am not a C god, so please give me a break if something is a 
+bit screwey...
+
+Grehyton
+
+The WURM Collective
+checkmate.lug.usf.edu 9000
+http://blackmagic.lug.usf.edu/~wurm
+grehyton@cleric.lug.usf.edu
+
+Enjoy

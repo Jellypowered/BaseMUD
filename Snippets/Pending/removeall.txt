@@ -1,0 +1,61 @@
+  /***************************************************************************
+  * (c) 2000 TAKA and the GHOST DANCER MUD PROJECT TEAM
+  *
+  * You may use this code provided you accept it's usage agreements
+  *
+  * Usage agreement
+  * 1) Is that you do not remove or modify this comment block.
+  * 2) You must give due credit in the help files
+  * 3) You email me at a_ghost_dancer@excite.com
+  * this helps me judge what snippets are popular and i welcome
+  * any ideas and if i find them worthy i may decide to code them
+  * for GHOST and distribute them on our page.
+  * 4) You must abid by all other ROM and MERC licences
+  * 5) Finally any improvements/bugs you find or make please share them
+  * so we can continue to put out quality snippets.
+  *
+  * Last thank you to all the ROM amd MERC folks for this wounderful code
+  * base know as ROM.
+  *
+  * The Ghost Dancer MUD Project Team and me TAKA thank you
+  * for your interest.
+  *
+  * You can email me at:
+  * TAKA
+  * a_ghost_dancer@excite.com
+  *
+  ***************************************************************************/
+
+
+  in ACT_OBJ.C
+  DO_REMOVE
+
+  find this code:
+  if ( arg[0] == '\0' )
+  {
+  send_to_char( "Remove what?\n\r", ch );
+  return;
+  }
+
+  add this code immediately following the above code.
+
+  /* remove all added taka of ghost dancers */
+  if ( !str_cmp( arg, "all" ) )
+  {
+  int iWear = 0;
+  for ( iWear = 0; iWear < MAX_WEAR; iWear++ )
+  {
+  if ( ( obj = get_eq_char( ch, iWear ) ) != NULL )
+  {
+
+  remove_obj( ch, obj->wear_loc, TRUE );
+
+  }
+
+  }
+  return;
+  }
+  /* end remove all by taka of ghost dancer */
+
+
+

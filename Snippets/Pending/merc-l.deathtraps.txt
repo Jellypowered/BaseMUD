@@ -1,0 +1,107 @@
+From twilight@boreal.alfred.eduWed Nov 22 15:05:05 1995
+Received: from maxvax.alfred.edu by mail2.netcom.com (8.6.10/Netcom)
+	id LAA01082; Mon, 20 Mar 1995 11:45:38 -0800
+Received: from aucmpsci.alfred.edu by bigvax.alfred.edu (MX V4.1 VAX) with
+          SMTP; Mon, 20 Mar 1995 14:46:08 EST
+Received: from boreal.alfred.edu.aucmpsci by aucmpsci.alfred.edu (4.1/SMI-4.1)
+          id AA11789; Sun, 19 Mar 95 22:14:47 EST
+Received: by boreal.alfred.edu.aucmpsci (4.1/SMI-4.1) id AA03545; Sun, 19 Mar
+          95 22:14:53 EST
+Date: Sun, 19 Mar 1995 22:14:52 -0500 (EST)
+From: Twilight Mud <twilight@boreal.alfred.edu>
+To: merc-l@netcom.com
+Subject: death traps
+Message-Id: <Pine.SUN.3.91.950319221359.3531C-100000@boreal.alfred.edu>
+Mime-Version: 1.0
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+
+As long as i am sending stuff out...might as well send this too. ;)
+Here is what is needed for deathtraps.....
+
+>> Add to merc.h in PULSE Declares
+
+#define PULSE_DEATHTRAP   ( 15 * PULSE_PER_SECOND)
+
+>> add to merc.h room flags
+
+#define ROOM_DEATHTRAP        ##### 
+
+>> add to local functions in update.c
+
+void    dtrap_update    args( ( void ) );
+
+>> add to functions in update.c
+
+
+void dtrap_update( void )
+{
+   CHAR_DATA *ch;
+   CHAR_DATA *ch_next;
+
+
+   for ( ch = char_list; ch != NULL; ch = ch_next)
+
+   {
+       ch_next = ch->next;
+
+       if (!IS_NPC(ch)
+       && !IS_IMMORTAL(ch)
+       && IS_SET(ch->in_room->room_flags, ROOM_DEATHTRAP) )
+       {
+
+          do_look( ch, "dt" );
+
+          if (ch->position == POS_STANDING && ch->hit > 20)
+             {
+             ch->position = POS_RESTING;
+              ch->hit /= 2;
+             send_to_char("You better get out of here fast!!!!\n\r", ch);
+             }
+             else
+             {
+             ch->hit = 1;
+             raw_kill(ch);
+             send_to_char("You are dead!!!!", ch);
+             }
+      }
+    }
+
+
+}
+
+
+>> add this stuff to update_handler
+
+static  int     pulse_dtrap;
+
+ if ( --pulse_dtrap    <= 0)
+    {
+        pulse_dtrap     = PULSE_DEATHTRAP;
+        dtrap_update     ( );
+    }
+
+
+>> That should be it!
+>> (Make an extra descrip called dt in the room with the death trap for
+>> added customization of each trap)
+--Helix
+
+
+
+ =============================================================================
+/   ______ _______ ____   _____   ___ __    _ ______    ____  ____   _____   /
+\  |  ____|__   __|  _ \ / ____\ / _ \| \  / |  ____|  / __ \|  _ \ / ____\  \
+/  | |__     | |  | |_| | |     | |_| | |\/| | |___   | |  | | |_| | |       /
+/  | ___|    | |  | ___/| |   __|  _  | |  | | ____|  | |  | |  __/| |   ___ \
+\  | |       | |  | |   | |___| | | | | |  | | |____  | |__| | |\ \| |___| | /
+/  |_|       |_|  |_|  o \_____/|_| |_|_|  |_|______|o \____/|_| \_|\_____/  \
+\                                                                            /
+ ============================================================================
+
+------------------------------------------------------------------------------
+ftp://ftp.game.org/pub/mud      FTP.GAME.ORG      http://www.game.org/ftpsite/
+------------------------------------------------------------------------------
+
+ This archive came from FTP.GAME.ORG, the ultimate source for MUD resources.
+
+------------------------------------------------------------------------------

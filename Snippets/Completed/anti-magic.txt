@@ -1,0 +1,133 @@
+
+NEW in 1.2  added the room dispel feature, when characters enter the room.
+
+
+This is a snippet to add anti magic rooms in your ROM 2.4 mud. It fairly easy and should work fine. If you experince any problems with the code you can email me at david@iwvisp.com
+If you use it please keep the first commented line.
+
+/*Anti magic rooms by Thorick of Wizards Realm */
+first do a clean compile.
+
+rm -fr *.o
+
+IN MERC.H look for 
+-----------------------------------------
+#define ROOM_PRIVATE            (J)
+#define ROOM_SAFE               (K)
+#define ROOM_SOLITARY           (L)
+#define ROOM_PET_SHOP           (M)
+#define ROOM_NO_RECALL          (N)
+#define ROOM_IMP_ONLY           (O)
+#define ROOM_GODS_ONLY          (P)
+#define ROOM_HEROES_ONLY        (Q)
+#define ROOM_NEWBIES_ONLY       (R)
+#define ROOM_LAW                (S)
+#define ROOM_NOWHERE            (T)
+
+and add
+
+#define ROOM_NOMAGIC            (U)
+
+incriment the letter if needed.
+
+IN TABLES.C look for
+------------------------------------------
+const struct flag_type room_flags[] =
+{
+  {"dark", ROOM_DARK, TRUE},
+  {"no_mob", ROOM_NO_MOB, TRUE},
+  {"indoors", ROOM_INDOORS, TRUE},
+  {"private", ROOM_PRIVATE, TRUE},
+  {"safe", ROOM_SAFE, TRUE},
+  {"solitary", ROOM_SOLITARY, TRUE},
+  {"pet_shop", ROOM_PET_SHOP, TRUE},
+  {"no_recall", ROOM_NO_RECALL, TRUE},
+  {"imp_only", ROOM_IMP_ONLY, TRUE},
+  {"gods_only", ROOM_GODS_ONLY, TRUE},
+  {"heroes_only", ROOM_HEROES_ONLY, TRUE},
+  {"newbies_only", ROOM_NEWBIES_ONLY, TRUE},
+  {"law", ROOM_LAW, TRUE},
+  {"nowhere", ROOM_NOWHERE, TRUE},
+
+and add
+
+{"nomagic", ROOM_NOMAGIC, TRUE},
+
+make sure you add it before 
+
+{NULL, 0, 0}
+
+IN MAGIC.C look for
+-------------------------------------------
+ if ( ch->position < skill_table[sn].minimum_position )
+    {
+        send_to_char( "You can't concentrate enough.\n\r", ch );
+        return;
+    }
+
+and below it add
+
+if (IS_SET (ch->in_room->room_flags, ROOM_NOMAGIC))
+    {
+        send_to_char( "You utter the words ... But nothing happens.\n\r",ch);
+        return;
+    }
+
+
+
+then look for 
+
+   if (check_dispel(level,victim,skill_lookup("weaken")))
+    {
+        act("$n looks stronger.",victim,NULL,NULL,TO_ROOM);
+        found = TRUE;
+    }
+
+    if (found)
+        send_to_char("Ok.\n\r",ch);
+
+and add
+
++    else if  (IS_SET (ch->in_room->room_flags, ROOM_NOMAGIC))
++         {
++         }
+
+    else
+        send_to_char("Spell failed.\n\r",ch);
+
+
+
+IN ACT_MOVE.C look for
+------------------------------------------------------
+
+            if (IS_SET(ch->in_room->room_flags,ROOM_LAW)
+            &&  (IS_NPC(fch) && IS_SET(fch->act,ACT_AGGRESSIVE)))
+            {
+                act("You can't bring $N into the city.",
+                    ch,NULL,fch,TO_CHAR);
+                act("You aren't allowed in the city.",
+                    fch,NULL,NULL,TO_CHAR);
+                continue;
+            }
+
+            act( "You follow $N.", fch, NULL, ch, TO_CHAR );
+            move_char( fch, door, TRUE );
+        }
+    }
+
+
+and add directly after
+
+            if (IS_SET (ch->in_room->room_flags, ROOM_NOMAGIC))
+               {
+                    spell_cancellation (skill_lookup ("cancellation"), MAX_LEVEL+50, ch, ch, TARGET_CHAR);
+                    spell_cancellation (skill_lookup ("cancellation"), MAX_LEVEL+50, ch, ch, TARGET_CHAR);
+                    spell_cancellation (skill_lookup ("cancellation"), MAX_LEVEL+50, ch, ch, TARGET_CHAR);
+                    spell_cancellation (skill_lookup ("cancellation"), MAX_LEVEL+50, ch, ch, TARGET_CHAR);
+     
+               }
+
+
+thats all , do a compile and reboot the mud. set a room for NOMAGIC. and Viola ! the character wont
+be able to cast spells , and he will instantly be dispeled upon entering.
+david@iwvisp.com

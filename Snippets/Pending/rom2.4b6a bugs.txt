@@ -1,0 +1,760 @@
+Instead of having a bunch of bugfix files for ROM 2.4, what
+I'm going to do is just keep one bugfix file. I will append
+the bugfixs to this txt file. That way I don't clutter up
+my directory with a TON of files. :).
+
+		-Darkoth.
+
+These fixes will apply to ANY version of ROM. It will also
+have OLC fixes and etc. 
+---------------------------------------------------------------
+
+
+From: Richard Sanders <belar@whisper.cneti.com>
+To: rom@rom.org
+Subject: bug fix
+
+This has probably been posted before, but I will do so again to make sure
+it is known.
+
+ok the first thing was that I fixed a routine in affect_modify so that it
+would properly drop weapons that had gotten too heavy to weild... it is at
+the bottom of affect_modify.  The variable 'depth' was never initialized
+
+This made a more subtle bug show up.  In fight.c:  make_corpse, there is a
+large for loop that transfers eq from character to corpse.  the skeleton
+is as follows: 
+
+OBJ_DATA *obj, *obj_next;
+
+for ( obj = ch->carrying; obj; obj = obj_next )
+{
+    obj_next = obj->next_content;
+    /* code here */
+}
+
+this is fine and dandy and as weird as the obj_next looks to me it is
+standard for lots of the rom code.  well when I fixed the weild bug, it
+made one case of this for loop crash us tho.  When obj is a +str+con eq
+and obj_next is the weilded weapon, and the character did not have enough
+natural str/con to weild the weapon.  Obj_from_char(obj) indirectly
+removed obj_next from the char and dropped it into the room.  this left us
+with a reference to an object that we thought was in a char instead of in
+the room like it was.  all of the sudden our for loop that should be
+iterating the char's inv was iterating the room contents.  We had multiple
+calls to obj_to_room on the same object, so a circular link occurred and
+caused a loop in show_list_to_char.  A character that made the mistake of
+picking up some of this eq just linked his/her inv into the growin list
+also.  This is the simple fix: 
+
+for ( obj = ch->carrying; obj; obj = obj->next_content )
+{
+    /* code here */
+}
+
+A simple bug, but so simple that it took almost 3 weeks to find, because I
+was not looking for it :)
+
+This default for loop structure is very common in the code and we will be
+looking out for possible reoccurances of this type of bug in the future...
+it is very easy to get a ref to an obj that is no longer in your list when
+so many diff functions are modifying the lists. 
+
+--------
+From: dennis@starlifter.reichel.net
+
+Players could previously "break a charm" by using nofollow.
+I corrected this in the most simple way possible. (below)
+
+void do_nofollow(CHAR_DATA *ch, char *argument)
+{
+
+--  if (IS_NPC(ch))
+++  if ( IS_NPC(ch) || IS_AFFECTED( ch, AFF_CHARM ) )
+        return;       
+ 
+    if (IS_SET(ch->act,PLR_NOFOLLOW))
+    {
+      send_to_char("You now accept followers.\n\r",ch);
+      REMOVE_BIT(ch->act,PLR_NOFOLLOW);
+    }
+    else
+    {
+      send_to_char("You no longer accept followers.\n\r",ch);
+      SET_BIT(ch->act,PLR_NOFOLLOW);
+      die_follower( ch );
+    }
+}
+
+Another thing I did, purely a matter of preference, is added to spell_charm:
+
+    if ( victim->position == POS_SLEEPING )
+    {
+        send_to_char( "You can not get your victim's attention.\n\r", ch );
+        send_to_char( "Your slumbers are briefly troubled.\n\r", victim );
+        return;
+    }
+
+Sleepers are more vulnerable to many forms of attack, but I elected to
+make them non-susceptible to charm.
+
+A charmie can't quit now, either, nor can be ordered to post a note or
+use the ooc channel.  
+
+Since I test for AFK in is_safe, I make it so a charmie can't set afk.
+
+A proposed rule of thumb: Each player incident that results in code changes
+should be balanced by one slaying and corpse eating :-)
+
+
+Happy Mudding, Dennis
+
+--------
+From: Daniel Schumacher <2579@MN.LAWSON.lawson.com>
+Subject: Dual Wield and multiple backstabing
+
+Ok here it is,
+
+ For those of you who want to have dual wield but do not want to make the   
+thief class unbalanced with the ability to have up to 3 backstabs with   
+the first attack. Here is a little positioning within the code.
+
+under:    void multi_hit( CHAR_DATA *ch, CHAR_DATA *victim, int dt )
+
+move the lines: if ( ch->fighting != victim || dt == gsn_backstab )
+      return;
+and place them between:
+  one_hit (ch, victim, dt, FALSE );
+
+place here ------->
+
+  if (get_eq_char (ch, WEAR_SECONDARY) )
+  
+Take into consideration that I have a class system that is very balanced   
+in my opinion. This is one of those FYI's that some people will not like   
+but ......that is there opinion. Have fun and I look forward to helping   
+more if possible.
+
+  Dan  
+--------
+in the dual wield patch i have saw that player can dual wield anything
+here is a fix on that which i add just put this check statement right
+under the function along witht he rest of the check statements:
+
+       if (obj->item_type != ITEM_WEAPON ) {
+        send_to_char("You can only weapons.\n\r",ch);
+        return;
+        }
+
+And also i know of another bug that if a person wield a heavy weapon then
+second wield and then remove the heavy weapon and wield anothner weapon
+This can bypass light strong weapons.
+
+Here is the fix.  Put this when you are wielding your primary weapon to
+check if that person is not wielding a secondary weapon.  If he is then
+tell em to remove the second weapon first.
+
+       if ( (get_eq_char( ch, WEAR_SECONDARY ) ) != NULL )
+    {
+        send_to_char( "Remove your secondary weapon first.\n\r", ch );
+        return;
+    }
+
+Fixes by Takeda (takeda@mathlab.sunysb.edu)
+--------
+From: nebby@worldnet.att.net
+
+I just went through this week and fixed all the dual wield problems...
+which include:
+ * Wielding anything as a second weapon.  If you wield a potion or
+something, the values usually correspond to the spell index number of
+the potion, which can give you insanely high amounts of damage on the
+secondary weapon.
+ * Although "second <weapon>" prevents you from carrying a heavy offhand
+weapon, if you second, then remove primary, there was no weight
+checking.  I changed it to removing primary caused secondary to become
+primary.
+ * If you are disarmed you keep your secondary in your off hand, and
+this is how you want it.
+ * I had a function for reincarnates to "create" a powerful weapon in
+their primary hand, and it now has weight checking also.
+ * Finally, for all the players who complained when the bug was removed,
+I added skills for offhand and another skill that would allow you to
+wield two equally weighted weapons if you wanted.
+
+-- 
+- Nebseni, scribe to the Gods
+  Head coder, Clandestine MUD (mud.bcn.net 1234)
+--------
+Here is a change for Rom 2.4:
+** In group_gain of fight.c
+
+add this:
+    int highestlevel = 0;
+
+Replace this line:
+    lch = (ch->leader != NULL) ? ch->leader : ch;
+With this:
+    for (lch = ch->in_room->people; lch != NULL; lch = lch->next_in_room)
+    {
+        if ( !is_same_group( lch, ch ) || IS_NPC(lch))
+            continue;
+
+        if (lch->level > highestlevel)
+            highestlevel = lch->level;
+    }
+
+Then Change the two level checks later to just one check that looks like 
+this:
+    if ( gch->level - highestlevel <= -5 )
+    {
+        send_to_char( "Your powers would be useless to such an advanced 
+group of adventurers\n\r",ch);
+        continue;
+    }
+
+In the old code, lch->level was equal to the group leaders level, which
+could be a level 1 player.  Then, for example, if a group member(level 50)
+killed a some mobile, the level 1 player would gain experience from
+it.  This was possible even without the level one landing a single blow.
+This new version corrects that.  If you have any remarks about this, 
+please let me know.  This is the first time I've posted a coding idea to this 
+group =).  And it hasn't been thouroughly tested yet, and I've been known 
+to not be accurate in logic ;).
+
+Lotus
+lostwaves.op.net 9000
+      ______________________________________
+      \__________________  _________________\
+	__      ______   \ \    __  __  _____
+	\ \     \  __ \   \ \   \ \ \ \ \  __\
+	 \ \     \ \ \ \   \ \   \ \ \ \ \ \___
+	  \ \____ \ \_\ \   \ \   \ \_\ \ \___ \
+	   \_____\ \_____\   \_\   \_____\    \ \
+	     __________________________________\ \
+	     \____________________________________\
+
+
+
+--------
+From: Oliver Jowett <oliver@sa-search.massey.ac.nz>
+Subject: page_to_char patch
+
+This patch modifies page_to_char to concatenate strings sent while another
+page_to_char is pending, rather that aborting the first, and also fixes a
+memory leak.  This affects (at least) IMC, which calls page_to_char
+asynchronously. 
+
+(untested and hand-edited patch follows - sorry 'bout that)
+
+Oliver
+
+
+--- old-src/comm.c	Thu Mar 20 16:56:28 1997
++++ src/comm.c	Fri Mar 21 12:51:01 1997
+@@ -2330,10 +2341,26 @@
+ #if defined(macintosh)
+ 	send_to_char(txt,ch);
+ #else
+-    ch->desc->showstr_head = alloc_mem(strlen(txt) + 1);
+-    strcpy(ch->desc->showstr_head,txt);
+-    ch->desc->showstr_point = ch->desc->showstr_head;
+-    show_string(ch->desc,"");
++    if (ch->desc->showstr_head &&
++	(strlen(txt)+strlen(ch->desc->showstr_head)+1) < 32000)
++    {
++      char *temp=alloc_mem(strlen(txt) + strlen(ch->desc->showstr_head) + 1);
++      strcpy(temp, ch->desc->showstr_head);
++      strcat(temp, txt);
++      ch->desc->showstr_point = temp + 
++	(ch->desc->showstr_point - ch->desc->showstr_head);
++      free_mem(ch->desc->showstr_head, strlen(ch->desc->showstr_head) + 1);
++      ch->desc->showstr_head=temp;
++    }
++    else
++    {
++      if (ch->desc->showstr_head)
++	free_mem(ch->desc->showstr_head, strlen(ch->desc->showstr_head)+1);
++      ch->desc->showstr_head = alloc_mem(strlen(txt) + 1);
++      strcpy(ch->desc->showstr_head,txt);
++      ch->desc->showstr_point = ch->desc->showstr_head;
++      show_string(ch->desc,"");
++    }
+ #endif
+ }
+ 
+--------
+From: "Ivan Toledo I." <itoledo@ramses.centic.utem.cl>
+To: Rom Mailing List <rom@rom.org>
+Subject: Pets aren't being extracted
+
+	Just wanted to note that if a player has a pet and gets to the
+	password prompt and fails the password check the pet isn't
+	extracted from char_list, pet->in_room == NULL... and
+	you will probably get segfaults. I made a quick fix
+	and I SUPPOSE that this works correctly...( at least i'm
+	not getting any bugs now ).
+
+	In close_socket :
+
+	if ( ( ch = dclose->character ) != NULL )
+	{
+		sprintf( log_buf, "Closing link to %s.", ch->name );
+		log_string( log_buf );
+
+		/* add this */
+		if ( ch->pet && ch->pet->in_room == NULL )
+		{
+			char_to_room( ch->pet, get_room_index(ROOM_VNUM_LIMBO) );
+			extract_char( ch->pet, TRUE );
+		}
+		/* stock code continues here */
+--------
+From: mlkesl <mlkesl@csclub.stthomas.edu>
+Subject: romobjl.v1 fix for use with Ivan's OLC
+
+Ok, I think I might have something to contribute once
+again to the group, I am glad for all the help I have
+got from the group, thanks everyone...
+
+On the subject of Erwin's romobjl.v1,
+I asked about it last night then today
+put a bunch log_strings into it to see
+where it was hanging, as I USED to know
+nothing about the OLC code I mindlessly 
+copied into the code...
+
+Well, OLC handles resets by room,
+rather than by area, or something..
+So, SMALL changed have to be made to
+Erwin's romobjl.v1 in order for it
+to work...
+
+The following is a small section of
+Erwin's code for printarea of romobjl.v1
+"+++" denotes a line to be added
+"---" denotes a line to be commented out
+
+<<<PREVIOUS CODE>>>
+void printarea (FILE *fp, AREA_DATA *pArea)
+{
+        MOB_INDEX_DATA *last_mob; 
+        ROOM_INDEX_DATA *last_room;
++++ROOM_INDEX_DATA *pRoom; 
+        RESET_DATA * pReset;
+        OBJ_RESET *list;
+        bool mob_reboot; 
++++int vnum;
+
+        list = new_list ();      
+        last_mob = NULL;
+        last_room = NULL;
+        mob_reboot = FALSE;
+
+        /* run through all the resets in that area*/
+---for (pReset = pArea->reset_first; pReset != NULL; pReset = pReset->next)
++++for ( vnum = pArea->min_vnum; vnum <= pArea->max_vnum; vnum++ )
++++if ( ( pRoom = get_room_index(vnum) ) )
++++   for ( pReset = pRoom->reset_first; pReset != NULL; pReset = pReset->next )
+<<<REST OF CODE ENSUES>>>
+
+With this addition to the code, it works perfectly for my mud with ivans olc...
+I am also the proud new owner of a 381k, 1995 line object dump file :p
+Thanks ERWIN!
+
+I hope someone finds this as useful as I have found everyone else's work to be.
+Thanks again all :)
+
+Mlkesl
+--------
+From: sardu@v-wave.com
+
+>I am using Lope's colour code, and very happy with it.
+>
+>However...
+>I want to call the function from the startup (before a character is loaded
+>into the game) and the arguments for the function are ( CHAR_DATA *ch,char
+>*argument).
+>
+>Can anyone tell me how to change this so the function is not dependent upon
+>character information?  I am trying to dissect the code line-by-line and
+>having a bit of difficulty.  Everything seems set on the function SET_BIT
+>looking for an act_flag of PLR_COLOUR.  I would like to change this so the
+>player need not have that flag, but only needs to say "Yes" upon startup.
+
+Set the bit in the descriptor_data instead of in the char_data and add
+another CON state for nanny() that asks the player whether they want colour
+or not.
+
+
+*** in merc.h:
+
+struct descriptor_data
+{
+    ...
+    bool                   colorbit;
+};
+
+#define CON_COLOUR_LOGIN     16 /* or whatever is next in your connection
+list */
+
+
+*** in comm.c, in function nanny():
+
+case CON_COLOUR_LOGIN:
+    if ( argument[0] == '\0' )
+	{
+	    close_socket( d );
+	    return;
+	}
+
+    switch( *argument )
+	{
+	case 'y' :
+	case 'Y' :
+		d->colorbit = TRUE;
+		d->connected = CON_GET_NAME;
+		write_to_buffer( d, "YOUR MUD'S COLOUR ENABLED MESSAGE
+HERE.\n\rName: ", 0 );
+		return;
+	case 'n' :
+	case 'N' :
+	  	d->colorbit= FALSE;
+	  	write_to_buffer( d, "Color off, use the 'colour' command to
+enable it.\n\rWhat is your name: ", 0 );
+		d->connected = CON_GET_NAME;
+		return;
+	default:
+		write_to_buffer(d,"Please type Y or N:", 0);
+		break;
+	}
+    break;
+
+You will also want to make this new CON state the default. I set it in
+recycle.c, if you manage memory from somewhere else, just do it wherever
+you init new descriptors.
+
+*** in recycle.c, in new_descriptor()
+	DESCRIPTOR_DATA *new_descriptor(void)
+	{
+	...
+	d->connected	= CON_COLOUR_LOGIN;
+	...
+	}
+
+That's about it, you can either check the descriptor bit for colour, or set
+PLR_COLOUR based on the descriptor bit.  If you use the desc bit, make sure
+you don't try setting it on mobs (which have no descriptor).  With a
+CHAR_DATA, use a check for a descriptor (just see if ch->desc != NULL)
+before you check the ch->desc->colorbit.
+
+You'll probably also want to put a "(SOME ANSI IN HERE)\n\r Do you see
+color?" message in your greeting message (in ../area/rom.are).
+
+(you'll need to check out http://www.transy.edu/~steven for more info)
+
+--
+Sardu
+xeomud
+telnet://mud.xeo.net:4000
+--------
+From: Paradise <cmosbob@erols.com>
+Subject: found a possible bug...
+
+in the make_corpse function, in fight.c, there may be a bug...
+
+when it puts the money into the corpse, it only checks for gold, not 
+silver, so if a mob only has silver, it doesnt get put into the corpse.
+
+to fix this, on our mud, we added this:
+
+"|| ch->silver > 0" into the if check
+
+Paradise
+--------
+If your getting rid of Midgaard check this out:
+
+From mhaney@earthlink.net Wed Mar 25 17:44:25 1998
+
+Here's some other things I found when starting from scratch:
+in db.c,  void load_rooms:  there's a hack to set the whole city of midgaard
+to room_law by vnum.  You probably don't need that.
+
+/* horrible hack */
+   if ( 3000 <= vnum && vnum < 3400)
+    SET_BIT(pRoomIndex->room_flags,ROOM_LAW);
+
+There's also a hack to suppress bad exit errors for the immortal area on
+boot-up.  (one-way exits)  Probably, you'll want to just scrap that.  I
+added a goofy_exits room flag to put on rooms
+with one-way or peculiar exits, and just suppress the errors when that flag
+is present.
+(I think that stuffs in void_fix_exits.)
+
+Finally, the vnums for guild rooms are coded into the class definitions.
+Probably, you want to change those too, so you don't find yourself wandering
+around your brand new area, and find a room you're not allowed in.  In
+addition to changing those numbers, you might want to change the rountine in
+move_char to ignore immortals when checking for class in guild rooms.
+
+Hope that helps, and Hello all, as I'm new to the list.
+Just glad I could introduce myself with an answer instead of a question.
+Don't expect me to ever be this concise again ;)
+
+Michael Haney  (known as Yukon or Stonefist in various mud-lands)
+--------
+From meige@ix.netcom.com Fri Mar 27 14:00:05 1998
+
+Dunno if stock ROM is supposed to handle this, but mine wasn't and it
+was annoying to see linkdead immortals all over the place and logging
+back in without seeing how many new messages I had.
+
+In update.c, in the update_char function, find the line that says
+if (IS_IMMORTAL(ch))
+and take out the block of code from that until it gets dones with
+putting the mortal characters and replace that block you took out with
+this:
+
+if (IS_IMMORTAL(ch) && (ch->desc != NULL))
+                ch->timer = 0;
+
+            if ( ++ch->timer >= 12 )
+            {
+                if ( ch->was_in_room == NULL && ch->in_room != NULL )
+                {
+                    ch->was_in_room = ch->in_room;
+                    if ( ch->fighting != NULL )
+                        stop_fighting( ch, TRUE );
+                    act( "$n disappears into the void.",
+                        ch, NULL, NULL, TO_ROOM );
+                    send_to_char( "You disappear into the void.\n\r", ch);
+                    if (ch->level > 1)
+                        save_char_obj( ch );
+                    char_from_room( ch );
+                    char_to_room( ch, get_room_index( ROOM_VNUM_LIMBO ));
+                }
+            }
+
+            if ( (ch->desc == NULL) && ( ch->timer >=15 ) ) /* dscnct
+after 15 ticks */
+            {
+              do_quit(ch,"");
+               return;
+            }
+
+--------
+For those with Mobprogs:
+
+From: AMASLIN@aardvark.ucs.ou.edu
+
+This may or may not be the problem, but it's something you might try.  We had a
+problem where, when a fido was killed and exploded, it would kill another fido
+in the same room and crash.  We fixed it by going into the mobprog code and
+making it so that mob damage like that only affects PC's (a simple 
+if (!IS_NPC(ch)) should do it).  We haven't had any problems since.
+
+
+Reorx of Ansalon MUD
+ansalon.mudservices.com 8679
+--------
+From: Hieronymous <hiero@netusa1.net>
+Subject: Alloc_mem BUG (Merc Diku 2.2)
+
+Hello, everyone -- 
+
+About a month and a half ago, one of the Implementors on our MUD sent the
+following message to this list with questions about the cause of this sort
+of bug.  The only suggestion anyone had was that it might have to do with
+color code.
+
+Anyway, after a lot of grief, we have puzzled out the cause of this bug and
+thought we'd first advise everyone on here in case you have problems with
+this at some point and second ask a couple questions as to what might be
+the best way to actually go about fixing the problem.
+
+We had started out thinking that perhaps the problem was generated
+somewhere in send_to_char or page_to_char, the latter of which I understand
+is not in stock Merc Diku 2.2 code.  One thing that troubled us was the
+reason that the bug always was for 64000, not for any other number. 
+Eventually, we found that checks in send_to_char and page_to_char were not
+stopping the bug (which only caused crashes sporadically).  Finally, it
+became clear that crashes occurred when a couple characters were attacking
+mobs that were self-generating with area effect spells (say, 40+ of those
+mobs), particularly those triggered with do_brandish.  An investigation of
+do_brandish revealed the use of the act function in comm.c, which in turn
+utilized write_to_buffer.  A quick test using those staves on a good-sized
+number of guardian vampires (who use the gate spell) corroborated our
+suspicions that these battles were causing the problem.  The MUD crashed
+with the same bug message after the eighth or ninth brandish.
+
+Now, we are not so confident with write_to_buffer, as we aren't clear on
+the purpose of certain of the variables used there (outtop, outsize, etc.).
+ Is it possible someone could explain the importance/use of each of the
+variables used in write_to_buffer? 
+
+Also, I thought I'd run our temporary bug fix by you folks and see if any
+of you have suggestions for improving it or reasons why we should not use
+it.
+
+In the final while loop we have the following:
+
+while ( d->outtop + length >= d->outsize )
+{
+     char *outbuf;
+
+/* new code begins here */
+     if ( ( 2 * d->outsize) > 63000 )
+     {
+        bug("Write_to_buffer:  outsize too large:  %d", d->outsize);
+        return;
+     }
+/* end of new code */
+
+     outbuf   = alloc_mem( 2 * d->outsize );
+  etc....
+
+This code *seems* to be working well, except for one problem.  For each
+message of damage to the various mobiles, a bug message is generated.  This
+means that for every brandish (after the 8th or 9th one), there are 40+ bug
+messages, which of course quickly makes for a large log file, at least if
+the battle goes on for a while.  Does anyone have a suggestion that could
+possibly generate a single bug message?  
+Also, is there any reason *not* to fix the problem this way?  Finally, is
+there any need to reinitialize d->outsize?  Or is that not necessary?
+
+Ok, I think that is all the questions about this code that we have at this
+time.  In advance, thanks for your help, and we hope our experience with
+this can help any others of you who have the same problem at some point. 
+:)
+
+Hieronymous
+NetherWorld
+ruby.telmaron.com 3666
+http://www.lexiconn.com/users/mud
+--------
+From: Garry Turkington <G.Turkington@Queens-Belfast.AC.UK>
+
+On Tue, 3 Mar 1998, Realm Of Eternal Darkness MUD wrote:
+> There was a hacker on my server tonight.  One that exploits bugs within
+> the mud.  Things like that recent discussion of the combine command, if
+> you have the outfit command, which most of you do.  Any char under level 6
+> can type it over and over, which will give them a shitload of crap in
+> their inventory, then if you remove combine and display you inventory, the
+> mud is fucked, 
+
+*sigh*, old bannerboy comes out to play again it seems.  This one has been
+around for a while.. removing the combine ability is a fix, removing
+do_outfit is another.  If you want to keep both, one of the problems is
+that do_outfit doesn't check to see if the char can carry the items it
+gives them, so it doesnt take a genius to develop a tintin loop to do the
+appropriate action.  Even if you check for this though, they still can
+abuse it.  A counter limiting the number of times they can do do_outfit is
+another possiblity.
+
+>also, try typing buy 99999999999 (item) at a shop where
+> item = anything that the shop sells, this will crash it too.  The sockets
+
+It's always a delicate issue talking about crash bugs on an open list,
+but since how to do it has been made public, doing the same to the fix
+can't hurt any more.  I won't go into why it works though, in case the
+principle gives some assholes ideas to try and find others.
+This was a new one on me.  Fix for it is in do_buy, where the sanity check
+is performed on the numeric argument to ensure no negatives.. since this
+was a problem back in B2, I'm not sure if this code is the fix in B3 or my
+own..but it will look darn similar.  Currently it's:
+
+if (number < -1)
+{
+  act("$n tells you 'Get real!'",keeper, NULL, ch, TO_VICT) ;
+  return ;
+}
+
+Change the condition to something like:
+
+if (count<-1 || count>100)
+
+The 100 is arbitrary, just make it the upper limit of objects you think
+anyone will realistically ever buy at one time.
+
+Hope that helps, unfortunately I have a sinking feeling that since this
+previous post Rom's all over the place have been cursed with wits trying
+this out.
+
+Garry
+--------
+From: Mull <andersoh@quoin.cqu.edu.au>
+
+Ok, stop me if you've heard this one.
+
+Ever noticed how you can see through closed doors when you scan on a stock
+2.4 rom?
+Here's a little fix I learned down Mexico way, goes a little like this...
+
+This is found in scan.c; assuming you have one, open it up and look for the
+function below.
+The lines marked with + are ones I added. If u see/have any problems with
+it, or just want to
+tell me how much of drongo I am, drop me a line.
+
+void scan_list(ROOM_INDEX_DATA *scan_room, CHAR_DATA *ch, sh_int depth,
+sh_int door)
+{
+   CHAR_DATA *rch;
+
+   if ( scan_room == NULL )
+      return;
+
++/*
++ * this used to cause a mysterious crash here, finally realized it was
++ * 'door' being -1, and rev_dir seems to have a problem with that...
++ * only acted up when it was done in a room with "extra" exits - Mull
++ */
++   if ( door != -1 && scan_room->exit[rev_dir[door]] != NULL
++   && IS_SET(scan_room->exit[rev_dir[door]]->exit_info,EX_CLOSED) )
++      return;
+
+   for (rch=scan_room->people; rch != NULL; rch=rch->next_in_room)
+   {
+      if (rch == ch)
+         continue;
+      if (!IS_NPC(rch) && rch->invis_level > get_trust(ch))
+         continue;
+      if (can_see(ch, rch))
+         scan_char(rch, ch, depth, door);
+   }
+   return;
+}
+
+-----------
+From: Thunder <thunder1@fast.net>
+
+>   Does anyone out there have any ideas what needs to be changed in
+> act()/act_new() to make it accept NPC's?  I have taken out the checks that
+> throw out anyone without a ->desc.  But there must be something else I am
+> forgetting.  Any thoughts would be greatly appreciated.
+> 
+
+Yeah this is an existing bug in the MOBProg snippet.  Here's what you
+need to do:
+
+In comm.c find this section of code in function void act_new(): 
+
+              if ((!IS_NPC(to) && to->desc == NULL )
+                   || (IS_NPC(to) && !HAS_TRIGGER(to, TRIG_ACT))
+                   || to->position < min_pos)
+                       continue; 
+
+And replace it with the following:
+
+ 	    /*
+	     * MOBProgram fix to allow MOBs to see acts()
+	     *   -- Thunder (thunder1@fast.net)
+	     */
+        if ( (to->desc == NULL
+        &&    (!IS_NPC(to) || !HAS_TRIGGER(to, TRIG_ACT)))
+        ||   to->position < min_pos )
+            continue;
+
+That should cure it. :)
+
+--------

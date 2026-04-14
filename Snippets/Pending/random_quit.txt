@@ -1,0 +1,53 @@
+I saw some other snippets for random logoff quotes, but they seemed to
+make it harder than what was necessary.  This is just a simple change
+to add a little flavor (that you should be able to add color to if you
+want).  You probably want to change the "witty" quotes that I provided.
+It's my first snippet, so be nice.
+
+I tested this under ROM2.4 and QuickMud, but it should drop into Merc,
+Envy, or most of their family easily enough.
+
+In act_comm.c, look for the do_quit function and find the line:
+    
+    send_to_char ("Alas, all good things must come to an end.\n\r", ch);    
+
+Replace that with the following chunk of code. A Very simple change.  To
+add more cases update the number_range and add in your cases.
+
+
+----------------------- Snippet --------------------------
+
+
+/*  Simple Random Quit Statements by Draun (2/19/2007)  */
+
+    char *message;
+        
+    switch (number_range (0, 6))
+    {
+        default:
+            message = "Alas, all good things must come to an end.\n\r";
+            break;
+        case 0:
+            message = "Some witty logoff quote Number 0.\n\r";        
+            break;
+        case 1:
+            message = "Some witty logoff quote Number 1.\n\r";               
+            break;
+        case 2:       
+            message = "Some witty logoff quote Number 2.\n\r";
+            break;
+        case 3:       
+            message = "Some witty logoff quote Number 3.\n\r";
+            break;
+        case 4:
+            message = "Some witty logoff quote Number 4.\n\r";
+            break;
+        case 5:
+            message = "Some witty logoff quote Number 5.\n\r";
+            break;
+        case 6:
+            message = "Some witty logoff quote Number 6.\n\r";
+            break;
+    }
+
+    send_to_char (message, ch);

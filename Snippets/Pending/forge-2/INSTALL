@@ -1,0 +1,97 @@
+Installation guide:
+
+(1.) Find a free bitvector in the ACT_'s and add ACT_FORGER in merc.h
+
+#define ACT_FORGER (XXX)
+
+(2.) Add this line to handler.c with the others ACT's
+
+	if (act_flags & ACT_FORGER      ) strcat(buf, " forger");
+
+(3.) Add this line to tables.c with the others ACT's
+
+	{   "forger",               XXX,      TRUE    },
+				    ^^^
+				 the bitvector you pick
+
+(4.) Increment MAX_SKILL by 6 (in merc.h)
+
+(5.) Add this to magic.h
+
+----------------------------------- cut here ----------------------------------
+
+DECLARE_SPELL_FUN(	spell_drain_blade	);
+DECLARE_SPELL_FUN(	spell_shocking_blade	);
+DECLARE_SPELL_FUN(	spell_flame_blade	);
+DECLARE_SPELL_FUN(	spell_frost_blade	);
+DECLARE_SPELL_FUN(	spell_sharp_blade	);
+DECLARE_SPELL_FUN(	spell_vorpal_blade	);
+
+----------------------------------- cut here ----------------------------------
+
+(6.) Add this to const.c
+
+----------------------------------- cut here ----------------------------------
+
+    {
+        "drain blade",		{ 53, 53, 53, 53 },     { 1,  1,  1,  1},
+        spell_drain_blade,	TAR_OBJ_INV,		POS_STANDING,
+	NULL,                   SLOT(500),       15,     12,
+        "",			"!Drain Blade!",	"$p looks less malevolant."
+    },
+
+    {
+        "shocking blade",	{ 53, 53, 53, 53 },     { 1,  1,  1,  1},
+        spell_shocking_blade,	TAR_OBJ_INV,		POS_STANDING,
+	NULL,                   SLOT(501),       15,     12,
+        "",			"!Shocking Blade!",	"$p looses its electrical charge."
+    },
+
+    {
+        "flame blade",		{ 53, 53, 53, 53 },     { 1,  1,  1,  1},
+        spell_flame_blade,	TAR_OBJ_INV,		POS_STANDING,
+	NULL,                   SLOT(502),       15,     12,
+        "",			"!Flame Blade!",	"$p looses its fiery glow."
+    },
+
+    {
+        "frost blade",		{ 53, 53, 53, 53 },     { 1,  1,  1,  1},
+        spell_frost_blade,	TAR_OBJ_INV,		POS_STANDING,
+	NULL,                   SLOT(503),       15,     12,
+        "",			"!Frost Blade!",	"$p warms back up."
+    },
+
+    {
+        "sharp blade",		{ 53, 53, 53, 53 },     { 1,  1,  1,  1},
+        spell_sharp_blade,	TAR_OBJ_INV,		POS_STANDING,
+	NULL,                   SLOT(504),       15,     12,
+        "",			"!Sharp Blade!",	"$p becomes quite dull."
+    },
+
+    {
+        "vorpal blade",		{ 53, 53, 53, 53 },     { 1,  1,  1,  1},
+        spell_vorpal_blade,	TAR_OBJ_INV,		POS_STANDING,
+	NULL,                   SLOT(505),       15,     12,
+        "",			"!Vorpal Blade!",	"$p becomes quite dull."
+    },
+
+----------------------------------- cut here ----------------------------------
+
+Modify the SLOT(XXX) to suit your code, and customize the level of the spells if
+you want players to get them, I don't like a lot having 100% of great weapons,
+so I don't give this spells to players.
+
+(7.) Copy forge.c to your source directory and add forge.o to your Makefile
+
+(8.) Make clean (rm *.o rom) and recompile the mud 
+
+(9.) Add one mob to one of your area files and start (or copyover) the mud and
+     enjoy a mud with a forger. 
+
+(10.) And remember to mail me telling what you think of it. 8)
+ 
+					Yago Diaz / yago@cerberus.uab.es
+
+
+P.S. If you don't have fixed the WEAPON_VORPAL affect you may fix it, if not
+     put a 0 cost to this modification 8)=        (WEAPON_VORPAL == nothing)

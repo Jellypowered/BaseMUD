@@ -1,0 +1,13 @@
+This file contains the necessary information in order to add a forger to a 
+Rom2.4b4 mud . The forger is a mob that is capable of modifying the weapons of
+the players for big quantities of money and add them the weapon special flags
+(VAMPIRIC, FLAME, FROST...) 
+It is a piece of quite simple code, quite similar to the healer, after revising
+it I thoroughly believe that they no longer remain bugs,  so I give it to the
+public and I wait for that you enjoy it, I don't request that you include me
+in the greetings neither that you put me in a help, with that you send me a
+mail saying me what you think of it or if you find any bug and you want to
+warn of it I will be charmed. Until soon! 8)
+
+					Yago Diaz / yago@cerberus.uab.es
+

@@ -1,0 +1,129 @@
+void dam_message (CHAR_DATA * ch, CHAR_DATA * victim, int dam, int dt, bool immune)
+{
+	char buf1[512], buf2[512], buf3[512];
+	const char *vs = "";
+	const char *vp = "";
+	const char *attack;
+	char punct;
+
+	if (ch == NULL || victim == NULL)
+		return;
+
+	if (dam == 0)
+		{ 	vs = "{Wmiss{x"; 			vp = "{Wmisses{x"; 	}
+	else if (dam <= 4)
+		{ 	vs = "scratch"; 			vp = "scratches"; 	}
+	else if (dam <= 8)
+		{	vs = "graze"; 				vp = "grazes"; 	}
+	else if (dam <= 12)
+		{	vs = "hit"; 				vp = "hits"; 	}
+	else if (dam <= 16)
+		{ 	vs = "injure"; 				vp = "injures"; 	}
+	else if (dam <= 20)
+		{ 	vs = "wound"; 				vp = "wounds"; 	}
+	else if (dam <= 24)
+		{	vs = "maul"; 				vp = "mauls"; 	}
+	else if (dam <= 28)
+		{ 	vs = "decimate"; 			vp = "decimates"; 	}
+	else if (dam <= 32)
+		{ 	vs = "devastate"; 			vp = "devastates"; 	}
+	else if (dam <= 36)
+		{ 	vs = "maim"; 				vp = "maims"; 	}
+	else if (dam <= 40)
+		{ 	vs = "{YMUTILATE{x"; 		vp = "{YMUTILATES{x"; 	}
+	else if (dam <= 44)
+		{ 	vs = "{wDISEMBOWEL{x"; 		vp = "{wDISEMBOWELS{x"; 	}
+	else if (dam <= 48)
+		{ 	vs = "{mDISMEMBER{x"; 		vp = "{mDISMEMBERS{x"; 	}
+	else if (dam <= 52)
+		{ 	vs = "{cMASSACRE{x"; 		vp = "{cMASSACRES{x"; 	}
+	else if (dam <= 56)
+		{ 	vs = "{GMANGLE{x"; 			vp = "{GMANGLES{x"; 	}
+	else if (dam <= 60)
+		{ 	vs = "{b*** {BDEMOLISH {b***{x"; 		vp = "{b*** {BDEMOLISHES {b***{x"; 	}
+	else if (dam <= 75)
+		{ 	vs = "{c*** {CDEVASTATE {c***{x"; 		vp = "{c*** {CDEVASTATES {c***{x"; 	}
+	else if (dam <= 100)
+		{ 	vs = "{M={W={M= {GO{gB{GL{gI{GT{gE{GR{gA{GT{gE {M={W={M={x"; 	vp = "{M={W={M= {GO{gB{GL{gI{GT{gE{GR{gA{GT{gE{GS {M={W={M={x"; 	}
+	else if (dam <= 125)
+		{ 	vs = "{G>{W>{G> {YA{yN{YN{yI{YH{yI{YL{yA{YT{yE {G<{W<{G<{x"; 	vp = "{G>{W>{G> {YA{yN{YN{yI{YH{yI{YL{yA{YT{yE{YS {G<{W<{G<{x"; 	}
+	else if (dam <= 150)
+		{ 	vs = "{Y<{W<{Y< {CE{cR{CA{cD{CI{cC{CA{cT{CE {Y>{W>{Y>{x"; 		vp = "{Y<{W<{Y< {CE{cR{CA{cD{CI{cC{CA{cT{CE{cS {Y>{W>{Y>{x"; 	}
+	else if (dam <= 250)
+		{ 	vs = "{R<{W*{R< {BE{bX{BT{bE{BR{bM{BI{bN{BA{bT{BE {R>{W*{R>{x"; vp = "{R<{W*{R< {BE{bX{BT{bE{BR{bM{BI{bN{BA{bT{BE{bS {R>{W*{R>"; 	}
+	else if (dam <= 450)
+		{ 	vs = "{Rdo {rU{RN{rS{RP{rE{RA{rK{RA{rB{RL{rE {Rthings to{x"; 	vp = "{Rdoes {rU{RN{rS{RP{rE{RA{rK{RA{rB{RL{rE {Rthings to{x"; 	}
+
+	punct = (dam <= 24) ? '.' : '!';
+
+	if (dt == TYPE_HIT) {
+		if (ch == victim) {
+			sprintf (buf1, "{3$n %s $melf%c{x", vp, punct);
+			sprintf (buf2, "{2You %s yourself%c{x", vs, punct);
+		}
+		else {
+			sprintf (buf1, "{3$n %s $N%c{x", vp, punct);
+			sprintf (buf2, "{2You %s $N%c{x", vs, punct);
+			sprintf (buf3, "{4$n %s you%c{x", vp, punct);
+		}
+	}
+	else {
+		if (dt >= 0 && dt < MAX_SKILL)
+			attack = skill_table[dt].noun_damage;
+		else if (dt >= TYPE_HIT && dt < TYPE_HIT + MAX_DAMAGE_MESSAGE)
+			attack = attack_table[dt - TYPE_HIT].noun;
+		else {
+			bug ("Dam_message: bad dt %d.", dt);
+			dt = TYPE_HIT;
+			attack = attack_table[0].name;
+		}
+
+		if (immune)
+		{
+		    if (ch == victim)
+		    {
+				sprintf(buf1,"{3$n is unaffected by $s own %s.{x",attack);
+				sprintf(buf2,"{2Luckily, you are immune to that.{x");
+			}
+		    else
+		    {
+		    	sprintf(buf1,"{3$N is unaffected by $n's %s!{x",attack);
+		    	sprintf(buf2,"{2$N is unaffected by your %s!{x",attack);
+		    	sprintf(buf3,"{4$n's %s is powerless against you.{x",attack);
+		    }
+		}
+		else
+		{
+		    if (ch == victim)
+		    {
+				sprintf( buf1, "{3$n's %s %s $m%c{x",attack,vp,punct);
+				sprintf( buf2, "{2Your %s %s you%c{x",attack,vp,punct);
+		    }
+			else
+				if (IS_SET(ch->act,PLR_AUTODAMAGE))
+		        {
+			         sprintf( buf1, "{3$n's %s %s $N%c",  attack, vp, punct );
+			         sprintf( buf2, "{2Your %s %s $N%c {G[{R%d{G]{x",  attack, vp, punct, dam );
+			         sprintf( buf3, "{4$n's %s %s you%c {G[{R%d{G]{x", attack, vp, punct, dam );
+		        }
+				else
+			    {
+			    	sprintf( buf1, "{3$n's %s %s $N%c{x",  attack, vp, punct );
+			    	sprintf( buf2, "{2Your %s %s $N%c{x",  attack, vp, punct );
+			    	sprintf( buf3, "{4$n's %s %s you%c{x", attack, vp, punct );
+			    }
+			}
+    	}
+
+	if (ch == victim) {
+		act (buf1, ch, NULL, NULL, TO_ROOM);
+		act (buf2, ch, NULL, NULL, TO_CHAR);
+	}
+	else {
+		act (buf1, ch, NULL, victim, TO_NOTVICT);
+		act (buf2, ch, NULL, victim, TO_CHAR);
+		act (buf3, ch, NULL, victim, TO_VICT);
+	}
+
+	return;
+}

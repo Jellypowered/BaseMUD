@@ -1,0 +1,125 @@
+/***********************************************************************
+ *  The following snippet was written by Ryan Loughran for             *
+ *  Rom 2.4 specific MUDs.  					       * 
+ * 								       *
+ *  Email: RPL2932@Gmail.com                                           *
+ *       							       *
+ *  Send any comments, flames, bug-reports, suggestions, requests,     * 
+ *  to the above email address. 				       *
+ ***********************************************************************/
+
+/*Add the ACT_IS_RESTRINGER flag to the others in MERC.H
+ *Search for: ACT_GAIN
+ */
+ 
+ #define ACT_IS_RESTRINGER	(Z)    /*Make sure you use an open bit*/
+
+/*Add the ACT_IS_RESTRINGER flag to the others in handler.c
+ *Search for: ACT_GAIN
+ */
+ if (act_flags & ACT_IS_RESTRINGER)
+     strcat (buf, " restringer");
+
+
+
+/*Add the following code to ACT_INFO.C or anywhere you see fit.
+ *I use Questpoints as the currency, you can easily change that
+ *To whatever you want to use.
+ *Most of this is taken from the DO_STRING command, and modified
+ *For player restringing.  Also thanks to Rhaelar from SDMUD
+ *For one section of this code (noted later).
+ */
+ 
+
+
+/*Restring code by Ryan Loughran from Echoes of Time.
+ *Email: Rpl2932@gmail.com
+ *Date: December 9, 2006
+ *Feel free to include this comment, or remove it!
+ */
+void do_restring (CHAR_DATA * ch, char *argument)
+{
+    char type[MAX_INPUT_LENGTH];    char arg1[MAX_INPUT_LENGTH];
+    char arg2[MAX_INPUT_LENGTH];
+    char arg3[MAX_INPUT_LENGTH];
+    CHAR_DATA *mob;
+    OBJ_DATA *obj;
+
+    smash_tilde (argument);
+    argument = one_argument (argument, arg1);
+    argument = one_argument (argument, arg2);
+    strcpy (arg3, argument);
+    
+    /*Stripped from SDMUD by Rhaelar.  Thanks ;)
+     */
+
+    for ( mob = ch->in_room->people; mob != NULL; mob = mob->next_in_room )
+    if ( IS_NPC ( mob ) && IS_SET ( mob->act, ACT_IS_RESTRINGER ) )
+            break;
+    
+    if ( mob == NULL || !can_see ( ch, mob ) )
+    {
+        send_to_char ( "{MYou can't do that here.{x\n\r", ch );
+        return;
+    }
+    
+    /*QP Check*/
+    if ( ch->questpoints < 300 )
+       {
+       send_to_char("{MRestrings cost {C300{M qusetpoints, you do not have enough.{x\n\r", ch);
+       return;
+       }
+    
+
+    if (/*type[0] == '\0'*/arg1[0] == '\0' || arg2[0] == '\0'
+        || arg3[0] == '\0')
+    {
+        send_to_char ("{CSyntax:{x\n\r", ch);
+        send_to_char ("  {GRestring <{Cname{G> <{Wfield{G> <{Cstring{G>{x\n\r", ch);
+        send_to_char ("    {Wfields: {Cname {Wshort {Glong{x \n\r", ch);
+        return;
+    }
+
+    if ( ( obj = get_obj_world ( ch, arg1 ) ) == NULL )
+    {
+        send_to_char ( "{MYou do not have that item.{x\n\r", ch );
+        return;
+    }
+
+
+
+        if (!str_prefix (arg2, "name"))
+        {
+            free_string (obj->name);
+            obj->name = str_dup (arg3);
+            ch->questpoints -= 100;
+            printf_to_char(ch, "{MHere you are {c%s{M.{x\n\r", ch->name);
+            send_to_char("{MYour items {Cname{M has been restrung.{X\n\r", ch);
+            send_to_char("{MYou have been charged {r100{M questpoints.  Thank you.{x\n\r", ch);
+            return;
+        }
+
+        if (!str_prefix (arg2, "short"))
+        {
+            free_string (obj->short_descr);
+            obj->short_descr = str_dup (arg3);
+            ch->questpoints -= 150;
+            printf_to_char(ch, "{MHere you are {c%s{M.{x\n\r", ch->name);
+            send_to_char("{MYour items {Gshort description{M has been restrung.{X\n\r", ch);
+            send_to_char("{MYou have been charged {r150{M questpoints.  Thank you.{x\n\r", ch);
+            return;
+        }
+
+        if (!str_prefix (arg2, "long"))
+        {
+            free_string (obj->description);
+            obj->description = str_dup (arg3);
+            ch->questpoints -= 200;
+            printf_to_char(ch, "{MHere you are {c%s{M.{x\n\r", ch->name);
+            send_to_char("{MYour items {Wlong description{M has been restrung.{x\n\r", ch);
+            send_to_char("{MYou have been charged {r200{M questpoints.  Thank you.{x\n\r", ch);
+            return;
+        }
+
+       
+}

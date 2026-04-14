@@ -1,0 +1,26 @@
+This snippet was taken from www.grayarea.com/sneak.htm and MAY NOT be
+posted on your web site. It MUST be linked back to the above URL for   
+download.   
+
+This is an extrememly powerful spell and should be reserved
+for high level players.
+
+void spell_acid_rain( int sn, int level, CHAR_DATA *ch, void *vo,int target )
+{
+    CHAR_DATA *victim = (CHAR_DATA *) vo;
+    int        dam,i;
+    i=8;
+   while (i > 0) {
+    dam = dice( level, 8 );
+    if ( saves_spell( level, victim, DAM_ACID ) )
+        dam /= 2;
+     if ( victim->in_room == ch->in_room )
+        {
+act("{RWaves of {GA{gc{Gi{gd{Gi{gc {BRain {gcalled by $n shower down upon $N!{x",ch,NULL,victim,TO_ROOM);
+act("{RWaves of {GA{gc{Gi{gd{Gi{gc {BRain {gshower down upon $N!{x",ch,NULL,victim,TO_CHAR); 
+    damage( ch, victim, dam, sn, DAM_ACID,TRUE ); }
+i--;
+    }
+    return;
+}
+

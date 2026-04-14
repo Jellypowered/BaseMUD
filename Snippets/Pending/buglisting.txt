@@ -1,0 +1,577 @@
+BUG listing of STOCK bugs by the Mage.
+
+These are some stock ROM2.4b4 and b6 bugs I have found.  Basic descriptions of
+fixes are included some OLC 1.81 bugs are also included:
+--------------------------------------------------------------------------
+Attacking while AFK:  Made sure you cannot attack while AFK.  Modified
+is_safe() for this.
+--------------------------------------------------------------------------
+act_new() with wiznet:  If someone typed a $t or $p with a delete
+command the mud would crash. This happened in the LOG wiznet with
+interp.c.  Modified and made a wiznet_special just for this
+log.. since it seems the only place a imm/user could send through
+those codes.
+--------------------------------------------------------------------------
+magic.c - Ventrilloquate Does not properly show victims names if the
+spell was not cast correctly.  Fixed by changing the spell to have
+these 4 lines replace the ones similiar to it.
+    sprintf(buf1, "%s says '%s'.\n\r",  
+            IS_NPC(vch) ? vch->short_descr : vch->name, target_name);
+    sprintf(buf2, "Someone makes %s say '%s'.\n\r", 
+           IS_NPC(vch) ? vch->short_descr : vch->name, target_name);
+--------------------------------------------------------------------------
+do_order - Changed to prevent a mob from going AFK.
+--------------------------------------------------------------------------
+do_steal - If the victim cannot SEE you then the yell will NOW reflect
+	 that.  It was shouting name no matter what.
+--------------------------------------------------------------------------
+magic.c - In some spells and skills Damage was called before affects.
+--------------------------------------------------------------------------
+fight.c   What if they died?  Was an affect leak.  Ray of truth, dirt
+	  kick, and demonfire were changed.
+--------------------------------------------------------------------------
+do_steal - Somehow could steal from a SAFE room.  Fixed.
+--------------------------------------------------------------------------
+handler.c - If you made a spell that used TO_RESIST and the person
+	  already had it via a race option it would remove that race
+	  option. Did an exclusive OR afterwards to always reset the
+	  RACE flags.
+--------------------------------------------------------------------------
+const.c - Identify and another spell had same slot.  I reordered all
+	my slots. No biggie since slots are not used
+--------------------------------------------------------------------------
+act_obj.c - Steal cannot steal NODROP items now.  
+--------------------------------------------------------------------------
+handler.c
+fight.c - If you lose an item via alignment zapping.  It will now
+	trigger the melt_drop flag.
+--------------------------------------------------------------------------
+act_obj.c - Haggle can gain you much money.  Changed it so.. that you
+	  can only sell up to 75% of value and haggle down to 76% of
+	  value. also..  If you entered.. by 10000000000 diamonds.. it
+	  would crash the system due to bit overflow.
+--------------------------------------------------------------------------
+special.c - Spec guard will attack imms with flags.  Changed this.
+--------------------------------------------------------------------------
+fight.c	  - Lore plain does not exist or work.  Yet it is listed.
+	  basically made a modified spell_identify for lore.
+--------------------------------------------------------------------------
+act_obj.c - Envenom will multienvenom a food item.  A pie.  You can
+	  make your skill 100% real easy this way.  Check to see if
+	  the pie was already envenomed and stopped check_improve if
+	  so. 
+	  - 4th spell on potion/scroll is not work.  Added the lines
+	  in quaff and recite to make them work.  oversite?
+--------------------------------------------------------------------------
+skill.c - In creation.  You basics are sword and you add
+	  weaponsmaster.. then decide you do not want it.  It will
+	  remove the rom basic field.  Fixes so that all basic skills
+	  for that class CANNOT be removed.
+--------------------------------------------------------------------------
+act_info.c - Race skills would be excluded if the class did not have
+	  the skill.  Fixed it so race skills could always be
+	  practiced regardless of class.
+--------------------------------------------------------------------------
+act_obj.c - When you WEAR and object.. if it was of type WEAR_BODY it
+	  would say torso instead.
+--------------------------------------------------------------------------
+magic.c - heat_metal did not trigger melt_drop flag.
+	I made melt_drop a function and placed it in all needed
+	  places. 
+--------------------------------------------------------------------------
+act_wiz.c - If you lower an IMM that had Holylight on.. to a
+	  mortal.. that mortal will not have holylight.  In do_advance
+	  just remove the bit if it was set.
+--------------------------------------------------------------------------
+	  - Alias r goto 3014 does not work.  This is due to
+	  find_location() not being able to determine that the passed
+	  in argument is a string due to extra spaces placed in the
+	  substitute.  I have a routine that strips front and back of
+	  strings to clean them up.  I places this in find_location
+	  and it fixed this particular problem.
+--------------------------------------------------------------------------
+comm.c - Page_to_char() allocates strlen + 1 and showstring
+	  deallocates strlen.  You then lose the +1 in memory.
+--------------------------------------------------------------------------
+skills.c - In the drop section there is a loop using the loop control
+	  variable i.  Inside the loop it is never used and only gn is
+	  used for group dropping.  This is a waste if never intended.
+	  the function is in parse_gen_groups()
+--------------------------------------------------------------------------
+fight.c - in one_hit..  skill hand_to_hand means NOTHING.
+--------------------------------------------------------------------------
+skills.c - In do_gain..  if you gain an ENTIRE
+	 group.. say.. protection and it has spells you cannot use
+	 based on your class.  Gain will gain them for you and you can
+	 use them even if they are not listed.  In order to fix this I
+	 went into gn_add() and made sure that it did NOT ADD any
+	 spell/skill that was toggeled to level -1(or 99).
+--------------------------------------------------------------------------
+fight.c - VORPAL??  Nothing is made of it.. so I added some
+	 functionality to add VORPAL to the system.
+--------------------------------------------------------------------------
+mob_prog.c - The CHK_MONEY is being calculated WRONG!.  It says it is 
+	   silver and yet.. it is not..  correct line should read.
+	   lval_char = lval_char->silver + (lval_char->gold * 100);
+--------------------------------------------------------------------------
+fight.c - check_assist() the Mobs can assist even if they are BLIND.
+	  This is simple fix: add a can_see(rch,ch) to the if attack line.
+--------------------------------------------------------------------------
+skills.c - Your TNL can lose exp when you lower you CP.  in do_gain right 
+	 at end.. where you train "points" you change to have a temp xp 
+	 var save the current exp in this level.. and add it AFTER the 
+	 new calc is made.
+	 xp = ch->exp - (ch-level * exp_per_level(*ch,ch->pcdata->points);
+	   ^^^  before the points are changed..
+	   and after the new ch->exp is calculated.. add this
+	   ch->exp += xp;
+	   -- you do have to declare XP.. :)
+--------------------------------------------------------------------------
+--  Swimming and Drowning are not implemented at all.!!  bug :)
+--------------------------------------------------------------------------
+effects.c - ACID pitting would never be saved when a character logged out.
+	  This enabled them to just reset the effect easy.  The issue has to 
+	  do with the way the affect is setup in the ACID effect.  It is WRONG.
+--------------------------------------------------------------------------
+magic.c  - IF an immortal is WIZI you can cast mass spells and have it revealed
+	 to you that an IMM is in the room.  MAss healing, calm, chain_lightning, 
+	 faerie_fog, mass_invis.  Just add a check to see if they are wizi imms and
+	 ignore them.
+--------------------------------------------------------------------------
+magic.c - earthquake would reveal the presence of WIZI Imms in the room.
+--------------------------------------------------------------------------
+comm.c - There are four places where free_char() is called.  This is not, in
+itself, a bug.  The bug is, those characters could theoretically have pets
+and if they do, those pets will not be freed.  You will sometimes see people
+login with "ghost" pets grouped with them - pets they didn't buy and not that
+are not actually in the room but are showing up on the group list.  To fix
+this, you need to use nuke_pets() before each and every call to free_char().
+Use the same argument that is passed to free_char() in each case.
+
+For example:
++   nuke_pets( d->character );
+     free_char( d->character );
+--------------------------------------------------------------------------
+act_wiz.c - In do_outfit() it is possible for twits to crash the mud by using
+outfit, remove all, outfit, remove all, etc., and repeating that several
+thousand times.  Once they do it enough, the MUD will crash when they try to
+look at their inventory.  This happens because ROM tries to allocate too much
+memory to display the number of items in show_list_to_char() which is found
+in act_info.c.  Ideally, you should plug that possible crash also by inserting
+this little check:
+
+act_info.c in the show_list_to_char() function:
+
+     count = 0;
+     for ( obj = list; obj != NULL; obj = obj->next_content )
+         count++;
++   if ( count > 5000 )
++   {
++       send_to_char( "That is WAY too much junk!  Drop some of it!\n\r", ch );
++       return;
++   }
+     prgpstrShow = alloc_mem( count * sizeof(char *) );
+     prgnShow    = alloc_mem( count * sizeof(int)    );
+     nShow       = 0;
+
+
+act_wiz.c in the do_outfit() function:
+
+     if (ch->level > 5 || IS_NPC(ch))
+     {
+         send_to_char("Find it yourself!\n\r",ch);
+         return;
+     }
+
++   if (ch->carry_number+4 > can_carry_n(ch))
++   {
++        send_to_char("You are carrying too much, try dropping some items.\n\r",ch);
++        return;
++   }
+
+     if ( ( obj = get_eq_char( ch, WEAR_LIGHT ) ) == NULL )
+     {
+
+A more elegant fix would be to also check for each item being in the possession
+of the character.  This requires a simple recursion which goes through
+inventory and all containers in inventory, counting the items.  In any even, the
+above fix will stop twits from crashing the mud by attaining 10,000 items with
+the outfit command.
+--------------------------------------------------------------------------
+act_wiz.c - in do_mstat
+
+    sprintf( buf, "Hp: %d/%d  Mana: %d/%d  Move: %d/%d  Practices: %d\n\r",
+ victim->hit,         victim->max_hit,
+ victim->mana,        victim->max_mana,
+ victim->move,        victim->max_move,
+ IS_NPC(ch) ? 0 : victim->practice ); /* this line */
+    send_to_char( buf, ch );
+
+    Should be:
+
+IS_NPC(victim) ? 0 : victim->practice ); 
+--------------------------------------------------------------------------
+Okay..  If you had an ALIAS with a " or a ' in it.. and saved it
+it would cause players to login without EQ and spells/skills. and sometimes
+crash the mud.
+in do_alias do not allow the creation of an alias with those chars in them
+simple.. yet effective for this strong bug.
+--------------------------------------------------------------------------
+Found a problem in the for-loop in fight.c/group_gain:
+The loop-variable (gch) isn't used in the checking for alignment changes:
+
+for ( gch = ch->in_room->people; gch != NULL; gch = gch->next_in_room )
+{
+    OBJ_DATA *obj;
+    OBJ_DATA *obj_next;
+
+    if ( !is_same_group( gch, ch ) || IS_NPC(gch))
+        continue;
+    xp = xp_compute( gch, victim, group_levels );  
+    sprintf( buf, "You receive %d experience points.\n\r", xp );
+    send_to_char( buf, gch );
+    gain_exp( gch, xp );
+
+>   for ( obj = ch->carrying; obj != NULL; obj = obj_next )
+    {
+        obj_next = obj->next_content;
+        if ( obj->wear_loc == WEAR_NONE )
+            continue;
+
+>       if ( ( IS_OBJ_STAT(obj, ITEM_ANTI_EVIL)    && IS_EVIL(ch)    )
+>       ||   ( IS_OBJ_STAT(obj, ITEM_ANTI_GOOD)    && IS_GOOD(ch)    )
+>       ||   ( IS_OBJ_STAT(obj, ITEM_ANTI_NEUTRAL) && IS_NEUTRAL(ch) ) )
+        {
+>           act( "You are zapped by $p.", ch, obj, NULL, TO_CHAR );
+>           act( "$n is zapped by $p.",   ch, obj, NULL, TO_ROOM );
+            obj_from_char( obj );
+>           obj_to_room( obj, ch->in_room );
+        }
+    }
+}
+Fix: replace all the mentioned ch's with gch's.
+--------------------------------------------------------------------------
+    In the same section there is the further problem of NODROP items being
+dropped by an alignment shift.  To remedy this, add the 3 lines marked by +.
+(This is the same section Edwin suggests changing each ch to a gch.)
+
+      for ( obj = ch->carrying; obj != NULL; obj = obj_next )
+        {
+        obj_next = obj->next_content;
+
+        if ( obj->wear_loc == WEAR_NONE )
+          continue;
+
+        if ( ( IS_OBJ_STAT(obj, ITEM_ANTI_EVIL)    && IS_EVIL(ch)    )
+        ||   ( IS_OBJ_STAT(obj, ITEM_ANTI_GOOD)    && IS_GOOD(ch)    )
+        ||   ( IS_OBJ_STAT(obj, ITEM_ANTI_NEUTRAL) && IS_NEUTRAL(ch) ) )
+          {
+          act( "|i|yYou are zapped by $p.|n", ch, obj, NULL, TO_CHAR );
+          act( "|i|y$n is zapped by $p.|n",   ch, obj, NULL, TO_ROOM );
+          obj_from_char( obj );
+
++         if ( IS_OBJ_STAT(obj,ITEM_NODROP) )
++           obj_to_char( obj, ch );
++         else
+            obj_to_room( obj, ch->in_room );
+          }
+        }
+--------------------------------------------------------------------------
+In olc_save.c check this out:
+
+char *fix_string( const char *str )
+{
+     static char strfix[MAX_STRING_LENGTH * 2];
+     int i;
+     int o;
+
+     if ( str == NULL )
+         return '\0';
+
+     for ( o = i = 0; str[i+o] != '\0'; i++ )
+     {
+         if (str[i+o] == '\r' || str[i+o] == '~')
+             o++;
+-       strfix[i] = str[i+o];
++       if ((strfix[i] = str[i+o]) == '\0')
++           break;
+     }
+     strfix[i] = '\0';
+     return strfix;
+}
+
+Before, if this thing hit something that ended in '\n\r\0', it bypassed the
+'\0' completely and went on into who knows what.  The only good thing about
+the code I had, I added a bounds check on this a long time ago because I
+didn't trust it... it's a good damn thing too.  It won't screw up on
+saving, because it catches the '\0' in strfix... BUT, it will keep going
+until it hits another '\0' which could be very soon, or it could be quite
+a while.
+
+What I added checks when it sets the strfix[i] and if it is setting a '\0'
+the string is done, so you break out... you don't increment i, bypassing
+the '\0', and going off into the wild binary yonder.
+--------------------------------------------------------------------------
+do_oset ignore.
+One of my staff pointed this bug out...when they tried to set an extra
+flag using set object it wouldn't set all it did was remove all the
+extra flags from the object. Having Ivan's OLC I quickly found a quick
+fix for this and here it is.
+
+if ( !str_prefix( arg2, "extra" ) )
+{
+     if ( ( value = flag_value( extra_flags, arg3 ) ) != NO_FLAG)
+     {
+         TOGGLE_BIT(obj->extra_flags, value);
+     }
+     return;
+}
+
+also add an #include "olc.h" with the rest of the includes at the top of
+act_wiz.c
+--------------------------------------------------------------------------
+In act_obj.c do_put in this section
+ /* 'put all container' or 'put all.obj container' */ 
+look for
+ &&   get_obj_weight(obj) < (container->value[3] * 10))
+                          ^
+                          ^
+                        change this to <=
+--------------------------------------------------------------------------
+Ok, I've found some more stock ROM memory leaks...  damn.
+
+These are all in save.c.
+
+In fread_char():
+
+     KEY( "Clan", ch->clan, clan_lookup(fread_string(fp)));
+
+The problem with this is, fread_string() is going to str_dup() whatever
+it reads in... and this never gets freed.  To fix this, you have to
+keep a pointer to the string you read in:
+
+if ( !str_cmp( word, "Clan" ) )
+{
+     char *tmp = fread_string(fp);
+     ch->clan = clan_lookup(tmp);
+     free_string(tmp);
+     fMatch = TRUE;
+     break;
+}
+
+In that same function, the same thing is done for race:
+
+     KEY( "Race", ch->race, race_lookup(fread_string(fp)));
+
+This needs to be fixed in the same way.
+
+And also, fread_pet() contains duplicates of these errors reading race
+and clan values.
+
+Can't believe I missed that one for all this time, bleah.
+--------------------------------------------------------------------------
+you can purchase IMMORTALS and MORTALS.
+in act_obj in do_list and do_buy for pets.. it does not check for
+IS_NPC.  It should otherwise a immortal with a nocancel flag on it
+will......  crash system by being bought.
+
+--------------------------------------------------------------------------
+in fight.c in do_bash.  the += GET_AC() line should be -=
+check it out.. you will find out why
+--------------------------------------------------------------------------
+PETS will disapear when someone goes linkdead.  Basically, the person
+is transfered to LIMBO and then forced to quit.  If you quit and your PET
+is not in the same room.. well..  he go bye bye.
+changed update.c to trans pet with char.. and idle_handling to make pet 
+go back.
+--------------------------------------------------------------------------
+olc_act.c in MEDIT(add_mprog) for the trigger..
+the one_argument(argument,phrase) line takes out all capital letters
+change it to strcpy(phrase,argument);
+--------------------------------------------------------------------------
+in bust_a_prompt make the %e option not work when you are blind.  A Prompt
+can show exits when you are blind.. if this is not done.
+--------------------------------------------------------------------------
+magic.c - bless spell.
+if (FIGHTING or AFFECTED)
+   send_to_char( You are already blessed) ??
+Bad message at best..
+If try to cast bless during fight get You are already Blessed? ack
+split it to two seperate if statements.
+--------------------------------------------------------------------------
+Found another stock ROM bug here in do_at() in act_wiz.c:
+
+     original = ch->in_room;
+     on = ch->on;
+     char_from_room( ch );
+     char_to_room( ch, location );
+     interpret( ch, argument );
+
+     /*
+      * See if 'ch' still exists before continuing!
+      * Handles 'at XXXX quit' case.
+      */
+     for ( wch = char_list; wch != NULL; wch = wch->next )
+     {
+	if ( wch == ch )
+	{
+	    char_from_room( ch );
+	    char_to_room( ch, original );
+	    ch->on = on;
+	    break;
+	}
+     }
+
+The problem with this section of code is what happens if 'on' is somehow
+extracted, picked up by the character, or moved from it's original room?
+With the above code, ch->on is set back to the original furniture,
+regardless of what happened to it - no check is made.
+
+I changed the last section of the code to make sure that the 'on' object is
+still present in the original room before ch->on is set back to it:
+
+     /*
+      * See if 'ch' still exists before continuing!
+      * Handles 'at XXXX quit' case.
+      */
+     for ( wch = char_list; wch != NULL; wch = wch->next )
+     {
+	if ( wch == ch )
+	{
+	    OBJ_DATA *obj;
+
+	    char_from_room( ch );
+	    char_to_room( ch, original );
+
+	    /* See if on still exists before setting ch->on back to it. */
+	    for ( obj = original->contents; obj; obj = obj->next_content )
+	    {
+		if ( obj == on )
+		{
+		    ch->on = on;
+		    break;
+		}
+	    }
+	    break;
+	}
+     }
+
+Note:  If you have mob programs you need to fix do_mpat() also! 
+--------------------------------------------------------------------------
+in save.c fread_char..  KEY("Prom") should be KEYS(Prom)
+use KEYS to free up STRINGS.. otherwise memory leaks.
+--------------------------------------------------------------------------
+in do_switch minor string overwriting at end.  Look at the prompt and
+free_string(victim->prompt) first.
+--------------------------------------------------------------------------
+Drop a corpse and have one in inventory.  examine corpse, which one
+does it examine? both?? I had this, not sure if Stock.
+--------------------------------------------------------------------------
+Change_sex.  Needs to have the affect applied AFTER the ACT statement
+talking about the change sex.
+--------------------------------------------------------------------------
+We had a recursive crash today on Abysmal.  I can't believe it has never
+happened before either, but here is how it works:
+
+A character gets to a "Hit return to continue" prompt.
+
+The character then lags terribly such that their output buffer grows to
+as big as it can and then overflows:
+
+         if (d->outsize >= 32000)
+         {
+             bug("Buffer overflow. Closing.\n\r",0);
+             close_socket(d);
+             return;
+         }
+
+Ok, in close_socket(), there is a section that looks like:
+
+     if ( dclose->outtop > 0 )
+         process_output( dclose, FALSE );
+
+That calls process_output() again.  In process output, it goes in and if
+they have d->showstr_point (meaning they are in the pager).  It calls
+write_to_buffer()...  that function when called on a descriptor that is
+already overflowed the buffer just tries to close_socket() again.
+
+Result?  A recursive loop that crashes the MUD.
+
+Here is an easy way to fix it, in process_output().  All this does is
+prevent ANY write_to_buffer() to the descriptor if fPrompt is FALSE.  The
+only time that should be FALSE is in close_socket().
+
+/*
+  * Low level output function.
+  */
+bool process_output( DESCRIPTOR_DATA *d, bool fPrompt )
+{
+     extern bool merc_down;
+
+     /*
+      * Bust a prompt.
+      */
+-   if (!merc_down && d->showstr_point)
++   if (fPrompt && !merc_down && d->showstr_point)
+         write_to_buffer(d,"[Hit Return to continue]\n\r",0);
+     else if (fPrompt && !merc_down && d->connected == CON_PLAYING)
+     {
+         CHAR_DATA *ch;
+         CHAR_DATA *victim;
+--------------------------------------------------------------------------
+From: Edwin Groothuis <mavetju@chello.nl>
+To: Rom Mailing-list <rom@rom.org>
+Subject: Overflow error in substitute alias / prefix
+Date: Thursday, October 14, 1999 11:01 AM
+
+Text is also available from URL below.
+
+Prefix
+
+  Problem
+  
+   When having a prefix and the command entered is too long, the mud will
+   crash.
+   
+  Cause
+  
+   The length of the prefix and the length of the command are incorrectly
+   checked against the length of the string they have to form.
+   
+  Checking
+  
+   Set your prefix to : and enter a command too long. First a function in
+   comm.c will complain, then your mud will crash.
+   
+  Patch
+  
+   In alias.c/substitute_alias(), fix the next lines:
+   
+/* check for prefix */
+if (ch->prefix[0] != '\0' && str_prefix("prefix",argument)) {
+-   if (strlen(ch->prefix) + strlen(argument) > MAX_INPUT_LENGTH)
++   if (strlen(ch->prefix) + strlen(argument) > MAX_INPUT_LENGTH-2)
+        send_to_char("Line to long, prefix not processed.\r\n",ch);
+    else {
+        sprintf(prefix,"%s %s",ch->prefix,argument);
+        argument = prefix;
+    }
+}
+--------------------------------------------------------------------------
+Problem: Can gate to a guild room that is NOT YOURS.
+Fix: Make a routine called check_gate and put all the checks for 
+the gate/portal/nexus spells in it.  Then put the check_gate function
+in those spells.  Basically, this will help out.
+Note: Clan rooms, Is Safe rooms, etc.  Think about WHAT ELSE you would do.
+--------------------------------------------------------------------------
+You can order a Pet to bash every round, rescue every round.  This is because
+there is no wait state for mobs.  This is solved by a couple things:
+putting a check for IS_NPC(ch) && ch->wait) return in interpret_cmd.  That 
+will fix the things.  Then you make sure that you can subtract a wait properly
+Do this in violence_update.  if (IS_NPC  &&  ch-wait) ch->wait-1;  I am not
+giving you exact code, but you should be able to fix that.  Make sure WAIT_STATE
+is adding the wait to a npc as well as a PC.  
+--------------------------------------------------------------------------
+Cursed Pets can recall with you.  I have done a really modified recall but 
+basically you do a IF_PET() and if cursed, dont recall.  Let your master know
+with a send_to_char or something.
