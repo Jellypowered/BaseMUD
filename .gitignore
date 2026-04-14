@@ -27,3 +27,4 @@ Makefile.bak
 !/json/temp/areas/.gitkeep
 /CompletedPlans
 /boot.log
+basemud.code-workspace
