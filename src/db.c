@@ -143,6 +143,7 @@ void boot_db(void)
      * files. This helps for debugging links when comparing .dump files. */
     area_reinsert_resets_in_room_order_all();
 
+    fix_resets();
     fix_mobprogs();
 
     /* Clean up any orphaned pocket dungeon snapshot files from a previous
@@ -880,6 +881,93 @@ void load_mobprogs(FILE *fp)
 }
 
 /* Translate mobprog vnums pointers to real code */
+/* Scan all 'E' resets and correct invalid wear locations to valid ones for the item. */
+void fix_resets(void)
+{
+    RESET_T *reset, *next;
+    OBJ_INDEX_T *obj_index;
+    int obj_vnum, wear_loc;
+    flag_t wear_flag;
+
+    log_f("Fixing equipment resets...");
+
+    for (reset = reset_data_get_first(); reset != NULL; reset = next)
+    {
+        next = reset_data_get_next(reset);
+        if (reset->command != 'E')
+            continue;
+
+        obj_vnum = reset->v.equip.obj_vnum;
+        wear_loc = reset->v.equip.wear_loc;
+
+        if ((obj_index = obj_get_index(obj_vnum)) == NULL)
+            continue;
+
+        wear_flag = wear_loc_get_flag(wear_loc);
+        if (!obj_index_can_wear_flag(obj_index, wear_flag))
+        {
+            log_f("Warning: 'E' for object %d (%s) into unequippable location '%s'.",
+                  obj_vnum, obj_index->short_descr, wear_loc_get_name(wear_loc));
+            SET_BIT(reset->room->area->area_flags, AREA_CHANGED);
+
+            if (obj_index_can_wear_flag(obj_index, ITEM_WEAR_HEAD))
+                reset->v.equip.wear_loc = WEAR_LOC_HEAD;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_WEAR_NECK))
+                reset->v.equip.wear_loc = (number_range(1, 20) <= 10) ? WEAR_LOC_NECK_1 : WEAR_LOC_NECK_2;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_WEAR_BODY))
+                reset->v.equip.wear_loc = WEAR_LOC_BODY;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_WEAR_ABOUT))
+                reset->v.equip.wear_loc = WEAR_LOC_ABOUT;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_WEAR_WAIST))
+                reset->v.equip.wear_loc = WEAR_LOC_WAIST;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_WEAR_ARMS))
+                reset->v.equip.wear_loc = WEAR_LOC_ARMS;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_WEAR_WRIST))
+                reset->v.equip.wear_loc = (number_range(1, 20) <= 10) ? WEAR_LOC_WRIST_L : WEAR_LOC_WRIST_R;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_WEAR_HANDS))
+                reset->v.equip.wear_loc = WEAR_LOC_HANDS;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_WEAR_LEGS))
+                reset->v.equip.wear_loc = WEAR_LOC_LEGS;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_WEAR_FEET))
+                reset->v.equip.wear_loc = WEAR_LOC_FEET;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_WEAR_SHIELD))
+                reset->v.equip.wear_loc = WEAR_LOC_SHIELD;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_WEAR_FINGER))
+                reset->v.equip.wear_loc = (number_range(1, 20) <= 10) ? WEAR_LOC_FINGER_L : WEAR_LOC_FINGER_R;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_WIELD))
+                reset->v.equip.wear_loc = WEAR_LOC_WIELD;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_HOLD))
+                reset->v.equip.wear_loc = WEAR_LOC_HOLD;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_WEAR_FLOAT))
+                reset->v.equip.wear_loc = WEAR_LOC_FLOAT;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_WEAR_BACK))
+                reset->v.equip.wear_loc = WEAR_LOC_BACK;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_WEAR_CLOAK))
+                reset->v.equip.wear_loc = WEAR_LOC_CLOAK;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_WEAR_EYES))
+                reset->v.equip.wear_loc = WEAR_LOC_EYES;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_WEAR_EARS))
+                reset->v.equip.wear_loc = WEAR_LOC_EARS;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_WEAR_TAIL))
+                reset->v.equip.wear_loc = WEAR_LOC_TAIL;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_WEAR_TATTOO))
+                reset->v.equip.wear_loc = WEAR_LOC_TATTOO;
+            else if (obj_index_can_wear_flag(obj_index, ITEM_TAKE))
+            {
+                if (obj_index->item_type == ITEM_LIGHT)
+                    reset->v.equip.wear_loc = WEAR_LOC_LIGHT;
+                else
+                    reset->v.equip.wear_loc = WEAR_LOC_NONE;
+            }
+            else
+            {
+                log_f("Warning: 'E' for object %d (%s) has no valid wear locations.",
+                      obj_vnum, obj_index->short_descr);
+            }
+        }
+    }
+}
+
 void fix_mobprogs(void)
 {
     MOB_INDEX_T *m;

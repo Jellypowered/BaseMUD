@@ -139,6 +139,7 @@ CHAR_T *char_get_keeper_room (const CHAR_T *ch);
 CHAR_T *char_get_trainer_room (const CHAR_T *ch);
 CHAR_T *char_get_practicer_room (const CHAR_T *ch);
 CHAR_T *char_get_gainer_room (const CHAR_T *ch);
+CHAR_T *char_get_restringer_room (const CHAR_T *ch);
 const char *char_get_class_name (const CHAR_T *ch);
 const char *char_get_position_str (const CHAR_T *ch, int position,
     const OBJ_T *on, int with_punct);

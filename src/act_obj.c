@@ -43,6 +43,7 @@
 #include "interp.h"
 #include "items.h"
 #include "lookup.h"
+#include "memory.h"
 #include "mob_prog.h"
 #include "objs.h"
 #include "players.h"
@@ -722,12 +723,41 @@ DEFINE_DO_FUN (do_wear) {
 
 DEFINE_DO_FUN (do_remove) {
     char arg[MAX_INPUT_LENGTH];
+    OBJ_T *obj_next;
     OBJ_T *obj;
+    const char *target;
+    int type;
+    bool success;
 
     DO_REQUIRE_ARG (arg, "Remove what?\n\r");
-    BAIL_IF ((obj = find_obj_own_worn (ch, arg)) == NULL,
-        "You do not have that item.\n\r", ch);
-    char_remove_obj (ch, obj->wear_loc, TRUE, FALSE);
+    target = do_obj_parse_arg (arg, &type);
+    success = FALSE;
+
+    if (type == OBJ_SINGLE) {
+        BAIL_IF ((obj = find_obj_own_worn (ch, target)) == NULL,
+            "You do not have that item.\n\r", ch);
+        char_remove_obj (ch, obj->wear_loc, TRUE, FALSE);
+        return;
+    }
+
+    for (obj = ch->content_first; obj != NULL; obj = obj_next) {
+        obj_next = obj->content_next;
+        if (obj->wear_loc == WEAR_LOC_NONE)
+            continue;
+        if (!char_can_see_obj (ch, obj))
+            continue;
+        if (type == OBJ_ALL_OF && !str_in_namelist (target, obj->name))
+            continue;
+        if (char_remove_obj (ch, obj->wear_loc, TRUE, FALSE))
+            success = TRUE;
+    }
+
+    if (!success) {
+        if (type == OBJ_ALL)
+            send_to_char ("You are not wearing anything.\n\r", ch);
+        else
+            send_to_char ("You do not have that item.\n\r", ch);
+    }
 }
 
 DEFINE_DO_FUN (do_sacrifice) {
@@ -808,6 +838,72 @@ DEFINE_DO_FUN (do_junk) {
     act ("$n junks $p.", ch, obj, NULL, TO_NOTCHAR);
     act ("You junk {C$p{x.", ch, obj, NULL, TO_CHAR);
     obj_extract (obj);
+}
+
+DEFINE_DO_FUN (do_restring) {
+    char arg1[MAX_INPUT_LENGTH];
+    char arg2[MAX_INPUT_LENGTH];
+    CHAR_T *restringer;
+    OBJ_T *obj;
+    int cost = 0;
+
+    BAIL_IF (IS_NPC (ch),
+        "Mobiles can't restring items.\n\r", ch);
+
+    BAIL_IF ((restringer = char_get_restringer_room (ch)) == NULL,
+        "You can't do that here.\n\r", ch);
+
+    if (!char_can_see_in_room (ch, restringer)) {
+        send_to_char ("You can't do that here.\n\r", ch);
+        return;
+    }
+
+    str_smash_tilde (argument);
+    argument = one_argument (argument, arg1);
+    argument = one_argument (argument, arg2);
+
+    if (arg1[0] == '\0' || arg2[0] == '\0' || argument[0] == '\0') {
+        send_to_char ("{CSyntax:{x\n\r", ch);
+        send_to_char ("  {Grestring <{Citem{G> <{Wfield{G> <{Cstring{G>{x\n\r", ch);
+        send_to_char ("    {Wfields: {Cname short long{x\n\r", ch);
+        return;
+    }
+
+    BAIL_IF ((obj = find_obj_here (ch, arg1)) == NULL,
+        "You do not have that item.\n\r", ch);
+
+    if (!str_prefix (arg2, "name"))
+        cost = 100;
+    else if (!str_prefix (arg2, "short"))
+        cost = 150;
+    else if (!str_prefix (arg2, "long"))
+        cost = 200;
+    else {
+        do_function (ch, &do_restring, "");
+        return;
+    }
+
+    if (ch->questpoints < cost) {
+        printf_to_char (ch, "Restringing that field costs {C%d{x quest points, "
+            "but you only have {C%d{x.\n\r", cost, ch->questpoints);
+        return;
+    }
+
+    if (!str_prefix (arg2, "name")) {
+        str_replace_dup (&(obj->name), argument);
+        send_to_char ("Your item's {Cname{x has been restrung.\n\r", ch);
+    }
+    else if (!str_prefix (arg2, "short")) {
+        str_replace_dup (&(obj->short_descr), argument);
+        send_to_char ("Your item's {Gshort description{x has been restrung.\n\r", ch);
+    }
+    else if (!str_prefix (arg2, "long")) {
+        str_replace_dup (&(obj->description), argument);
+        send_to_char ("Your item's {Wlong description{x has been restrung.\n\r", ch);
+    }
+
+    ch->questpoints -= cost;
+    printf_to_char (ch, "You have been charged {R%d{x quest points. Thank you.\n\r", cost);
 }
 
 DEFINE_DO_FUN (do_quaff) {

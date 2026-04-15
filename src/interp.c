@@ -243,6 +243,7 @@ const CMD_T cmd_table[] = {
     {"quaff", do_quaff, POS_RESTING, 0, LOG_NORMAL, 1},
     {"recite", do_recite, POS_RESTING, 0, LOG_NORMAL, 1},
     {"remove", do_remove, POS_RESTING, 0, LOG_NORMAL, 1},
+    {"restring", do_restring, POS_RESTING, 0, LOG_NORMAL, 1},
     {"sell", do_sell, POS_RESTING, 0, LOG_NORMAL, 1},
     {"take", do_get, POS_RESTING, 0, LOG_NORMAL, 1},
     {"sacrifice", do_sacrifice, POS_RESTING, 0, LOG_NORMAL, 1},

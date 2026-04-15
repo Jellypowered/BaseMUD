@@ -68,6 +68,7 @@ DECLARE_DO_FUN (do_recite);
 DECLARE_DO_FUN (do_brandish);
 DECLARE_DO_FUN (do_zap);
 DECLARE_DO_FUN (do_steal);
+DECLARE_DO_FUN (do_restring);
 DECLARE_DO_FUN (do_outfit);
 DECLARE_DO_FUN (do_play);
 DECLARE_DO_FUN (do_donate);

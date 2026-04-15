@@ -564,6 +564,8 @@
       "keyword": "HOLD REMOVE WEAR WIELD",
       "text": "Syntax: hold   <object>
               |Syntax: remove <object>
+              |Syntax: remove all
+              |Syntax: remove all.<object>
               |Syntax: wear   <object>
               |Syntax: wear   all
               |Syntax: wield  <object>
@@ -580,7 +582,8 @@
               |to use it properly.
               |
               |REMOVE will take any object from your equipment and put it back into your
-              |inventory.
+              |inventory. REMOVE ALL removes everything you are wearing. REMOVE
+              |ALL.<OBJECT> removes all worn items matching that keyword.
               |"
     },
     {

@@ -87,6 +87,14 @@
               |Banking system (player accounts, deposits/withdrawals, player transfers, ATM support) --
               |    TAKA (GhostMud)
               |
+              |Remove all / remove all.<item> command support --
+              |    TAKA (Ghost Dancer MUD Project Team)
+              |
+              |Restring command --
+              |    Ryan Loughran (Echoes of Time)
+              |
+              |Equipment reset validator/fixer (BadEQ) --
+              |    Markanth (Devil's Lament)
               |Random quit messages --
               |    Draun
               |",

@@ -1,0 +1,24 @@
+[{"help": {
+  "area": null,
+  "name": "restring",
+  "filename": "restring.are",
+  "pages": [
+    {
+      "keyword": "RESTRING",
+      "text": "Syntax: restring <item> <field> <text>
+              |
+              |The RESTRING command allows you to rename your equipment by paying quest
+              |points at a Restringer NPC. You must be in the same room as a mob flagged
+              |with the 'restringer' flag to use this service.
+              |
+              |Available fields and costs:
+              |  name        (100 qp) - Match-keyword for the item (wear <name>)
+              |  short       (150 qp) - Display name in inventory (a [item])
+              |  long        (200 qp) - Display name on the ground (A [item] lies here.)
+              |
+              |Restringing works only on items in your inventory or currently worn.
+              |",
+      "hide_keywords": true
+    }
+  ]
+}}]

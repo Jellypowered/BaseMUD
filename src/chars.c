@@ -1364,6 +1364,15 @@ CHAR_T *char_get_gainer_room(const CHAR_T *ch)
     return NULL;
 }
 
+CHAR_T *char_get_restringer_room(const CHAR_T *ch)
+{
+    CHAR_T *r;
+    for (r = ch->in_room->people_first; r; r = r->room_next)
+        if (IS_NPC(r) && EXT_IS_SET(r->ext_mob, MOB_RESTRINGER))
+            return r;
+    return NULL;
+}
+
 int char_format_exit_string(const CHAR_T *ch, const ROOM_INDEX_T *room,
                             int mode, char *out_buf, size_t out_size)
 {

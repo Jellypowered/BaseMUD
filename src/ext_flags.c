@@ -61,7 +61,7 @@ const EXT_FLAG_DEF_T mob_flags[] = {
     {"outdoors", MOB_OUTDOORS, TRUE},
     {"unused_act_7", MOB_UNUSED_FLAG_7, FALSE},
     {"indoors", MOB_INDOORS, TRUE},
-    {"unused_act_8", MOB_UNUSED_FLAG_8, FALSE},
+    {"restringer", MOB_RESTRINGER, TRUE},
     {"healer", MOB_IS_HEALER, TRUE},
     {"gain", MOB_GAIN, TRUE},
     {"update_always", MOB_UPDATE_ALWAYS, TRUE},

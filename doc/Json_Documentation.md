@@ -931,7 +931,7 @@ All multi-flag fields accept space-separated flag name strings. Omit the field e
 
 ### mob_flags
 
-`sentinel`, `scavenger`, `aggressive`, `stay_area`, `wimpy`, `pet`, `train`, `practice`, `undead`, `cleric`, `mage`, `thief`, `warrior`, `noalign`, `nopurge`, `outdoors`, `indoors`, `healer`, `gain`, `update_always`, `changer`, `noquest`
+`sentinel`, `scavenger`, `aggressive`, `stay_area`, `wimpy`, `pet`, `train`, `practice`, `undead`, `cleric`, `mage`, `thief`, `warrior`, `noalign`, `nopurge`, `outdoors`, `indoors`, `healer`, `gain`, `update_always`, `changer`, `noquest`, `banker`, `atm`, `restringer`
 
 > `npc` is set automatically and should not be included in mob_flags.
 
