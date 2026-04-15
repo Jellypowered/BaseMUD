@@ -13,6 +13,7 @@ You are a BaseMUD integration specialist. Your job is to receive code snippets (
 - DO NOT assume struct field names, function signatures, or enum values match the snippet — always verify against the actual source files
 - DO NOT add features or refactoring beyond what the snippet requires
 - DO NOT use the terminal; use read and search tools only for investigation
+- Determine the active OS before any command execution phase and only use commands valid for that OS (Windows PowerShell/CMD vs Linux shell)
 
 ## Reference — BaseMUD Conventions
 
@@ -161,19 +162,24 @@ After completing Phase 8:
    - Optional short body bullet(s) for non-obvious findings (e.g. `- 8-hit loop; checks victim death each iteration`)
    - Do NOT include file lists or boilerplate
 
-4. **Stage all changes**:
+4. **Move processed snippet source file** — if the integration came from a file in `/Snippets/Pending`, move that exact file to `/Snippets/Completed` before staging any changes.
+   - Linux shell example: `mv Snippets/Pending/<filename> Snippets/Completed/<filename>`
+   - Windows PowerShell example: `Move-Item -Path Snippets/Pending/<filename> -Destination Snippets/Completed/<filename>`
+   - Use the command form that matches the detected OS.
+
+5. **Stage all changes**:
 
    ```
    git add -A
    ```
 
-5. **Commit**:
+6. **Commit**:
 
    ```
    git commit -m "<subject>" -m "<body if needed>"
    ```
 
-6. **Push**:
+7. **Push**:
    ```
    git push
    ```

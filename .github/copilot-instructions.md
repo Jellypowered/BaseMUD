@@ -64,6 +64,15 @@ Always build using the workspace build task (`run_task`). Never run `make` via `
 
 Use `rg` in the terminal only as a last resort when built-in tools are genuinely insufficient. `rg` via PowerShell fails often due to quoting rules and unsupported flags (e.g. `--include` is not a ripgrep flag). Do not use `grep` — it aliases to `Select-String` in PowerShell and is unreliable.
 
+## OS Detection And Command Set
+
+Before running terminal commands, determine the active OS for the current environment and only use commands that are valid for that OS.
+
+- **Linux/macOS shells**: use POSIX-compatible commands and tooling.
+- **Windows PowerShell/CMD**: follow the Windows contract below; do not assume POSIX utilities exist.
+- **Do not mix command families** in one workflow step (for example, `sed`/`awk` patterns in PowerShell, or PowerShell-only cmdlets in POSIX shells).
+- **When command examples are documented**, adapt them to the detected OS before execution.
+
 ## Agent Contract — PowerShell / Windows
 
 - **Python**: use `python`, not `python3`.

@@ -16,6 +16,7 @@ You are a BaseMUD ↔ MUDEditor sync specialist. Your job is to audit and synchr
 - DO NOT run `make` directly in the terminal — use the `rebuild` workspace task
 - DO NOT commit both repos in one operation — commit MUDEditor separately from BaseMUD documentation changes
 - DO NOT add error handling or abstractions beyond what is needed for the sync
+- Determine the active OS before command execution and only use command syntax/tooling valid for that OS (Windows PowerShell/CMD vs Linux shell)
 
 ## Phase 1 — Struct Sync (`src/structs.h` → `web/shared/types/index.ts`)
 

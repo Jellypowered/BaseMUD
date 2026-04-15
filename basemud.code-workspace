@@ -1,16 +1,16 @@
 {
     "folders": [
         {
-            "name": "MUDEditor",
-            "path": "MUDEditor"
-        },
-        {
             "name": "BaseMUD",
             "path": "."
         },
         {
+            "name": "MUDEditor",
+            "path": "../MUDEditor"
+        },
+        {
             "name": "mudweb",
-            "path": "mudweb"
+            "path": "../mudweb"
         }
     ],
     "settings": {
