@@ -86,6 +86,9 @@
               |
               |Banking system (player accounts, deposits/withdrawals, player transfers, ATM support) --
               |    TAKA (GhostMud)
+              |
+              |Random quit messages --
+              |    Draun
               |",
       "hide_keywords": true
     }

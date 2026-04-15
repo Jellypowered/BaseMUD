@@ -106,6 +106,7 @@ DEFINE_DO_FUN(do_quit)
 {
     DESCRIPTOR_T *d, *d_next;
     int id;
+    const char *message;
 
     if (IS_NPC(ch))
         return;
@@ -115,7 +116,72 @@ DEFINE_DO_FUN(do_quit)
     BAIL_IF(ch->position <= POS_STUNNED,
             "You're not DEAD yet.\n\r", ch);
 
-    send_to_char("Alas, all good things must come to an end.\n\r", ch);
+    switch (number_range(0, 19))
+    {
+        default:
+        case 0:
+            message = "{CAlas, all good things must come to an end.{x\n\r";
+            break;
+        case 1:
+            message = "{GYou fold your map, bank the campfire, and step beyond the veil.{x\n\r";
+            break;
+        case 2:
+            message = "{YYou vanish in a puff of dust, blaming lag and fate equally.{x\n\r";
+            break;
+        case 3:
+            message = "{BYour legend pauses here, but your boots still point toward adventure.{x\n\r";
+            break;
+        case 4:
+            message = "{MYou whisper 'brb' to destiny and slip into the mortal world.{x\n\r";
+            break;
+        case 5:
+            message = "{CThe tavern keeps your stool warm while you handle worldly business.{x\n\r";
+            break;
+        case 6:
+            message = "{GYou sheathe your weapon and let the realm spin on without you... for now.{x\n\r";
+            break;
+        case 7:
+            message = "{YA distant voice calls your name. Even heroes answer eventually.{x\n\r";
+            break;
+        case 8:
+            message = "{BYou log off with dignity, mystery, and at least one unfinished quest.{x\n\r";
+            break;
+        case 9:
+            message = "{RYou retreat before the next mob can prove you were overconfident.{x\n\r";
+            break;
+        case 10:
+            message = "{CYou toss a coin to the barkeep and fade into moonlit streets.{x\n\r";
+            break;
+        case 11:
+            message = "{GReality casts recall. You fail your save.{x\n\r";
+            break;
+        case 12:
+            message = "{YYou leave the battlefield undefeated by all but bedtime.{x\n\r";
+            break;
+        case 13:
+            message = "{MYou close your spellbook before it can suggest one more bad idea.{x\n\r";
+            break;
+        case 14:
+            message = "{BA raven carries word: your presence is required elsewhere.{x\n\r";
+            break;
+        case 15:
+            message = "{CYou step through a private portal labeled 'real life.'{x\n\r";
+            break;
+        case 16:
+            message = "{GYou camp safely, trusting your enemies to wait politely.{x\n\r";
+            break;
+        case 17:
+            message = "{YThe stars dim, the torches fade, and your story rests until next login.{x\n\r";
+            break;
+        case 18:
+            message = "{MYou leave behind footprints, rumors, and an unpaid tab.{x\n\r";
+            break;
+        case 19:
+            message = "{WYou nod to the gods, mute your battle cry, and exit stage left.{x\n\r";
+            break;
+    }
+
+    send_to_char(message, ch);
     act("$n has left the game.", ch, NULL, NULL, TO_NOTCHAR);
     log_f("%s has quit.", ch->name);
     wiznet("$N rejoins the real world.", ch, NULL, WIZ_LOGINS, 0,

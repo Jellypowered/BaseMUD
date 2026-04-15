@@ -9,6 +9,11 @@ Verified findings from actual integrations. Update this file as new patterns are
 - `make` will fail with `-Werror` if a new helper is left unused in a build target; the pocket dungeon mobprog module initially hit `pd_build_random_idle_behavior` until the dead helper was removed.
 - The workspace build task is the right verification path for BaseMUD changes; it catches warnings that the lightweight editor diagnostics can miss.
 
+## Player Command Notes
+
+- Quit text is emitted in `do_quit` inside `src/act_player.c`; replacing the single `send_to_char(...)` call with a `number_range(...)` switch is the minimal pattern for randomized logoff lines.
+- Colorized quit lines should use `{X` tokens and end with `{x` reset before `\n\r`.
+
 ## File Operation Notes
 
 - When moving files with `run_in_terminal`, use absolute paths for `Move-Item` to avoid dependence on terminal cwd. In one run, a command chain that included `Set-Location` was simplified by the tool output and made verification confusing.
