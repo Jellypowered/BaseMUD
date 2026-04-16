@@ -81,5 +81,6 @@ DECLARE_DO_FUN (do_search);
 DECLARE_DO_FUN (do_visible);
 DECLARE_DO_FUN (do_recall);
 DECLARE_DO_FUN (do_enter);
+DECLARE_DO_FUN (do_swalk);
 
 #endif

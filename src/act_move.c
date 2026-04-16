@@ -45,6 +45,10 @@
 #include "tables.h"
 #include "utils.h"
 
+#include <ctype.h>
+#include <string.h>
+#include <stdlib.h>
+
 int do_door_filter_find (CHAR_T *ch, char *argument) {
     EXIT_T *pexit;
     int door;
@@ -698,4 +702,138 @@ DEFINE_DO_FUN (do_enter) {
     /* Enter the portal. */
     if (!item_enter_effect (portal, ch))
         send_to_char ("You can't enter that.\n\r", ch);
+}
+
+/* Speedwalk movement - sequentially execute movement commands from shorthand.
+ * Syntax: swalk [count][direction]...
+ * Example: swalk 2s3eu = south, south, east, east, east, up
+ * Original snippet by Jorge Pereira (Evren), adapted for BaseMUD. */
+
+/* Validate speedwalk syntax - contains only digits, directions, and whitespace. */
+static bool check_speedwalk (const char *s)
+{
+    bool found_char = FALSE;
+
+    while (*s) {
+        /* Allow directions (case-insensitive), digits, and whitespace. */
+        if (!strchr ("nsewudNSEWUD ", *s) && !isdigit ((unsigned char)*s))
+            return FALSE;
+
+        /* Require at least one direction letter. */
+        if (!isdigit ((unsigned char)*s) && *s != ' ')
+            found_char = TRUE;
+
+        s++;
+    }
+
+    return found_char;
+}
+
+/* Helper function to map direction character to direction constant. */
+static int direction_from_char (char c)
+{
+    switch (c | 0x20) {  /* Lowercase conversion. */
+        case 'n': return DIR_NORTH;
+        case 's': return DIR_SOUTH;
+        case 'e': return DIR_EAST;
+        case 'w': return DIR_WEST;
+        case 'u': return DIR_UP;
+        case 'd': return DIR_DOWN;
+        default: return -1;
+    }
+}
+
+DEFINE_DO_FUN (do_swalk)
+{
+    const char *s;
+    int count;
+    char tmp[MAX_INPUT_LENGTH];
+    char *t;
+    int direction;
+    EXIT_T *pexit;
+    int move_count;
+    ROOM_INDEX_T *start_room;
+
+    BAIL_IF (argument[0] == '\0',
+        "Syntax: swalk <list of directions>\n\rExample: swalk 2s3eu\n\r", ch);
+
+    BAIL_IF (ch->fighting != NULL,
+        "Maybe finish the fight first?!\n\r", ch);
+
+    if (!check_speedwalk (argument)) {
+        send_to_char ("That is not a valid speedwalk.\n\rValid directions: n(orth), s(outh), e(ast), w(est), u(p), d(own)\n\r", ch);
+        return;
+    }
+
+    /* Parse the speedwalk string and execute movements. */
+    s = argument;
+    move_count = 0;
+
+    while (*s) {
+        /* Skip whitespace. */
+        if (*s == ' ') {
+            s++;
+            continue;
+        }
+
+        /* Parse repetition count (if any). */
+        *(t = tmp) = '\0';
+        count = 1;
+
+        while (isdigit ((unsigned char)*s)) {
+            *t = *s;
+            *(++t) = '\0';
+            s++;
+        }
+
+        if (tmp[0] != '\0')
+            count = atoi (tmp);
+
+        /* Bail if no direction character follows. */
+        if (*s == '\0') {
+            send_to_char ("Invalid speedwalk syntax.\n\r", ch);
+            return;
+        }
+
+        /* Get direction from character. */
+        direction = direction_from_char (*s);
+        if (direction < 0) {
+            send_to_char ("That is not a valid direction.\n\r", ch);
+            return;
+        }
+
+        /* Execute the movement 'count' times. */
+        while (--count >= 0) {
+            /* Check if exit exists and is passable. */
+            if ((pexit = ch->in_room->exit[direction]) == NULL) {
+                printf_to_char (ch, "You can't go %s.\n\r",
+                    door_get_name (direction));
+                return;
+            }
+
+            /* Remember starting room and attempt move. */
+            start_room = ch->in_room;
+            char_move (ch, direction, FALSE);
+
+            /* If we didn't move, char_move already sent an error message. */
+            if (ch->in_room == start_room)
+                return;
+
+            move_count++;
+
+            /* Safety check - prevent infinite loops or massive moves. */
+            if (move_count > 100) {
+                send_to_char ("Speedwalk limit reached.\n\r", ch);
+                return;
+            }
+        }
+
+        s++;
+    }
+
+    /* Report successful speedwalk. */
+    if (move_count > 0) {
+        printf_to_char (ch, "(Speedwalked %d room%s)\n\r",
+            move_count, move_count == 1 ? "" : "s");
+    }
 }

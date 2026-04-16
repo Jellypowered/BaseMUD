@@ -80,6 +80,7 @@ const CMD_T cmd_table[] = {
     {"west", do_west, POS_STANDING, 0, LOG_NEVER, 0},
     {"up", do_up, POS_STANDING, 0, LOG_NEVER, 0},
     {"down", do_down, POS_STANDING, 0, LOG_NEVER, 0},
+    {"swalk", do_swalk, POS_STANDING, 0, LOG_NORMAL, 1},
 
     /* Common other commands.
      * Placed here so one and two letter abbreviations work. */

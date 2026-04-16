@@ -1,0 +1,33 @@
+[{"help": {
+  "area": null,
+  "name": "swalk",
+  "filename": "",
+  "pages": [
+    {
+      "keyword": "SWALK SPEEDWALK",
+      "text": "Syntax: swalk <directions>
+              |
+              |        Execute a sequence of movements using shorthand notation.
+              |        Swalk allows you to move through multiple rooms efficiently
+              |        by specifying direction and repetition counts in one command.
+              |
+              |        Valid directions: n (north), s (south), e (east), w (west)
+              |                          u (up), d (down)
+              |
+              |        Examples:
+              |          swalk 2s3eu     = go south twice, then east three times, up once
+              |          swalk n ne       = north, northeast (parsed as north then east)
+              |          swalk 5u         = up five times
+              |
+              |        Notes:
+              |          - You must be standing to use swalk
+              |          - Cannot speedwalk while in combat
+              |          - Speedwalk stops immediately if a move fails (locked door, no exit, etc)
+              |          - Maximum 100 consecutive moves in one speedwalk
+              |          - Directions are not case-sensitive
+              |
+              |        Related: north, south, east, west, up, down
+              |"
+    }
+  ]
+}}]
