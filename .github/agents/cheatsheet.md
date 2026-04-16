@@ -4,6 +4,38 @@ Verified findings from actual integrations. Update this file as new patterns are
 
 ---
 
+## Bleeding System and Bandage Skill
+
+### Condition System Extensions
+- New condition: `COND_BLEEDING` (index 4). Max value is `COND_HOURS_MAX (48)`.
+- Conditions stored in `ch->pcdata->cond_hours[]` array; length auto-expands with `COND_MAX`.
+- Condition predicates follow pattern: `DEFINE_COND_FUN(char_is_condition)` in `src/chars.c`, paired with declaration in `src/chars.h`.
+- Condition table entry in `src/tables.c` cond_table: `{COND_ID, "name", good_fun, bad_fun, msg_good, msg_bad, msg_better, msg_worse}`.
+
+### Skill Mapping for Bandage
+- `SKILL_MAP_BANDAGE` = slot 54. SKILL_MAP_MAX extended to 55.
+- Skill_map_table entry: `{SKILL_MAP_BANDAGE, "bandage"}` maps to JSON skill entry.
+- Global default skill: initialized to 50% in `player_set_default_skills()` (players.c) and `save.c` for new characters.
+
+### Bleeding Mechanics
+- **Trigger 1 (melee):** `one_hit()` in fight.c: 10% chance on successful damage_visible() call when `dt >= ATTACK_FIGHTING`.
+- **Trigger 2 (HP threshold):** Also in one_hit(): automatic trigger when `victim->hp < max_hp/4`.
+- **Damage:** Applied in `char_update()` in chars.c; damage = `max_hp / 20` (5%) per tick; messages scale by level (>30 heavy, >20 medium, >10 light, else minor).
+- **Decay:** 50% chance per tick (`number_percent() < 50`) to decrease by 1 via `player_change_condition()`.
+
+### Bandage Skill Implementation
+- Command handler: `DEFINE_DO_FUN(do_bandage)` in `src/act_skills.c` (mirrors spit_acid pattern).
+- Skill check: `skill >= number_percent()` for success; calls `player_try_skill_improve()` for both outcomes.
+- Restrictions: Fails if `ch->fighting != NULL` (cannot bandage in combat); fails if `COND_BLEEDING <= 0` (no wounds).
+- Action: Success reduces `COND_BLEEDING` by 1 via `player_change_condition()`.
+- Registered in `src/interp.c` command table: `{"bandage", do_bandage, POS_SITTING, ...}` — allows bandage while sitting or standing.
+
+### Help and Documentation
+- Help entry: `json/help/bandage.json` with dual keywords (BANDAGE + BLEEDING).
+- Player-visible in help system; bleeding stage descriptions match char_update messages.
+
+
+
 ## Build Notes
 
 - `make` will fail with `-Werror` if a new helper is left unused in a build target; the pocket dungeon mobprog module initially hit `pd_build_random_idle_behavior` until the dead helper was removed.

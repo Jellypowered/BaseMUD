@@ -876,3 +876,44 @@ DEFINE_DO_FUN(do_spit_acid)
     }
     check_killer(ch, victim);
 }
+
+DEFINE_DO_FUN(do_bandage)
+{
+    int skill;
+
+    if (ch->fighting != NULL)
+    {
+        send_to_char("You can't bandage wounds while fighting!\n\r", ch);
+        return;
+    }
+
+    if (ch->pcdata->cond_hours[COND_BLEEDING] <= 0)
+    {
+        send_to_char("You have no bleeding wounds to bandage.\n\r", ch);
+        player_try_skill_improve(ch, SN(BANDAGE), FALSE, 1);
+        return;
+    }
+
+    skill = char_get_skill(ch, SN(BANDAGE));
+    if (skill == 0)
+    {
+        send_to_char("You don't know how to bandage wounds.\n\r", ch);
+        return;
+    }
+
+    WAIT_STATE(ch, skill_table[SN(BANDAGE)].beats);
+
+    if (skill >= number_percent())
+    {
+        act("You carefully bandage your wounds.", ch, NULL, NULL, TO_CHAR);
+        act("$n skillfully bandages $s wounds.", ch, NULL, NULL, TO_NOTCHAR);
+        player_change_condition(ch, COND_BLEEDING, -1);
+        player_try_skill_improve(ch, SN(BANDAGE), TRUE, 1);
+    }
+    else
+    {
+        act("You fumble with the bandages.", ch, NULL, NULL, TO_CHAR);
+        act("$n fumbles with the bandages.", ch, NULL, NULL, TO_NOTCHAR);
+        player_try_skill_improve(ch, SN(BANDAGE), FALSE, 1);
+    }
+}

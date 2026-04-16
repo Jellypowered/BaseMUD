@@ -4426,5 +4426,16 @@
                   "spell_fun":  "spell_wish"
               }
 
+},
+{
+    "skill":  {
+                  "name":  "bandage",
+                  "classes":  {},
+                  "target":  "ignore",
+                  "min_position":  "sitting",
+                  "usage_beats":  12,
+                  "cmd_fun":  "do_bandage"
+              }
+
 }
 ]

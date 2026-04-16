@@ -1774,6 +1774,7 @@ SKILL_MAP_T skill_map_table[SKILL_MAP_MAX + 1] = {
     {SKILL_MAP_SILENCE, "silence"},
     {SKILL_MAP_SPIT_ACID, "spit acid"},
     {SKILL_MAP_SEARCH, "search"},
+    {SKILL_MAP_BANDAGE, "bandage"},
 
     {0}};
 
@@ -1858,6 +1859,7 @@ COND_T cond_table[COND_MAX + 1] = {
     {COND_FULL, "full", NULL, char_is_full, NULL, "You are full.\n\r", NULL, NULL},
     {COND_THIRST, "thirst", char_is_quenched, char_is_thirsty, "Your thirst is quenched.\n\r", "You are thirsty.\n\r", "You are no longer thirsty.\n\r", NULL},
     {COND_HUNGER, "hunger", char_is_fed, char_is_hungry, "You feel well-fed.\n\r", "You are hungry.\n\r", "You are no longer hungry.\n\r", NULL},
+    {COND_BLEEDING, "bleeding", NULL, char_is_bleeding, NULL, "You are bleeding.\n\r", NULL, NULL},
     {0}};
 
 const TRAIN_STAT_T train_stat_table[TRAIN_STAT_MAX + 1] = {

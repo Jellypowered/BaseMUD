@@ -1,0 +1,46 @@
+[{"help": {
+  "area": null,
+  "name": "bandage",
+  "filename": "bandage.are",
+  "pages": [
+    {
+      "keyword": "BANDAGE BLOOD WOUNDS",
+      "text": "Syntax: bandage
+                |
+                |Apply bandages to stop your bleeding wounds. You must be sitting and
+                |not actively fighting to use this skill.
+                |
+                |This skill reduces your bleeding condition, which is caused by taking
+                |heavy damage in combat. The success of bandaging depends on your skill
+                |percentage (default 50%). You cannot bandage while engaged in combat.
+                |
+                |See also: BLEEDING",
+      "hide_keywords": false
+    },
+    {
+      "keyword": "BLEEDING BLEED BLEED",
+      "text": "Syntax: (passive condition)
+                |
+                |You can become bleeding from your wounds during combat. There are
+                |several ways to incur bleeding:
+                |
+                |  * 10% chance on any melee hit you take
+                |  * Automatic trigger when your health drops below 1/4 of maximum
+                |
+                |Once bleeding, you will lose health each round equal to 5% of your
+                |maximum HP. The bleeding condition decreases naturally with a 50%
+                |chance per round.
+                |
+                |Bleeding progresses through four stages with varying messages:
+                |  - Level 1-10:  Your wounds trickle blood (light)
+                |  - Level 11-20: Your wounds ooze blood (medium)
+                |  - Level 21-30: You bleed from your wounds (heavy)
+                |  - Level 31+:   You bleed heavily from your wounds (critical)
+                |
+                |Use the BANDAGE skill to stop bleeding faster.
+                |
+                |See also: BANDAGE",
+      "hide_keywords": false
+    }
+  ]
+}}]

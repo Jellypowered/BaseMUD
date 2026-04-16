@@ -119,6 +119,7 @@ DECLARE_COND_FUN (char_is_quenched);
 DECLARE_COND_FUN (char_is_hungry);
 DECLARE_COND_FUN (char_is_fed);
 DECLARE_COND_FUN (char_is_full);
+DECLARE_COND_FUN (char_is_bleeding);
 
 /* Getter functions. */
 int char_get_vnum (const CHAR_T *ch);

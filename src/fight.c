@@ -428,6 +428,33 @@ void one_hit(CHAR_T *ch, CHAR_T *victim, int dt)
     }
     result = damage_visible(ch, victim, dam, dt, dam_type, damage_adj);
 
+    /* 10% chance to cause bleeding on successful melee hit */
+    if (result && dt >= ATTACK_FIGHTING && !IS_NPC(victim))
+    {
+        if (number_percent() < 10 && victim->pcdata->cond_hours[COND_BLEEDING] < COND_HOURS_MAX)
+        {
+            player_change_condition(victim, COND_BLEEDING, 1);
+            act("You begin to bleed from your wounds!", victim, NULL, NULL, TO_CHAR);
+        }
+    }
+    else if (result && dt >= ATTACK_FIGHTING && IS_NPC(victim))
+    {
+        if (number_percent() < 10 && victim->pcdata == NULL)
+        {
+            /* NPCs don't have pcdata, so we skip bleeding for them */
+        }
+    }
+
+    /* HP threshold bleeding trigger: if victim HP drops below 1/4 max */
+    if (result && victim->hit < (victim->max_hit / 4) && !IS_NPC(victim))
+    {
+        if (victim->pcdata->cond_hours[COND_BLEEDING] < COND_HOURS_MAX)
+        {
+            player_change_condition(victim, COND_BLEEDING, 1);
+            act("Your wounds open and begin to bleed!", victim, NULL, NULL, TO_CHAR);
+        }
+    }
+
     /* but do we have a funky weapon? */
     if (result && wield != NULL)
     {

@@ -619,6 +619,7 @@ bool load_char_obj(DESCRIPTOR_T *d, char *name)
         if (class_table[ch->class].default_group != NULL)
             player_add_skill_or_group(ch, class_table[ch->class].default_group, TRUE);
         ch->pcdata->learned[SN(RECALL)] = 50;
+        ch->pcdata->learned[SN(BANDAGE)] = 50;
     }
 
     /* fix levels */

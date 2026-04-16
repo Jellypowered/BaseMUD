@@ -358,7 +358,8 @@
 #define COND_FULL 1
 #define COND_THIRST 2
 #define COND_HUNGER 3
-#define COND_MAX 4
+#define COND_BLEEDING 4
+#define COND_MAX 5
 
 /* Types of attacks.
  * Must be non-overlapping with spell/skill types,
@@ -702,7 +703,8 @@
 #define SKILL_MAP_SILENCE   51
 #define SKILL_MAP_SPIT_ACID 52
 #define SKILL_MAP_SEARCH    53
-#define SKILL_MAP_MAX       54
+#define SKILL_MAP_BANDAGE   54
+#define SKILL_MAP_MAX       55
 
 /* B6: Compile-time assertion to catch skill registration misalignments */
 #if SKILL_MAP_SEARCH >= SKILL_MAP_MAX

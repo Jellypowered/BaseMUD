@@ -57,8 +57,8 @@ typedef unsigned char bool;
 
 /* system calls */
 #if !defined(__MINGW32__)
-int unlink();
-int system();
+int unlink(const char *);
+int system(const char *);
 #endif
 
 /* OS-dependent declarations.

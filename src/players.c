@@ -405,6 +405,8 @@ void player_set_default_skills(CHAR_T *ch)
     sh_int *learned = ch->pcdata->learned;
     if (learned[SN(RECALL)] < 50)
         learned[SN(RECALL)] = 50;
+    if (learned[SN(BANDAGE)] < 50)
+        learned[SN(BANDAGE)] = 50;
 }
 
 int player_get_skill_learned(const CHAR_T *ch, int sn)

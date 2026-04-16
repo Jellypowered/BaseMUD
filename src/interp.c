@@ -289,6 +289,7 @@ const CMD_T cmd_table[] = {
     {"quit", do_quit, POS_DEAD, 0, LOG_NORMAL, 1},
     {"recall", do_recall, POS_FIGHTING, 0, LOG_NORMAL, 1},
     {"/", do_recall, POS_FIGHTING, 0, LOG_NORMAL, 0},
+    {"bandage", do_bandage, POS_SITTING, 0, LOG_NORMAL, 1},
     {"rent", do_rent, POS_DEAD, 0, LOG_NORMAL, 0},
     {"save", do_save, POS_DEAD, 0, LOG_NORMAL, 1},
     {"search", do_search, POS_STANDING, 0, LOG_NORMAL, 1},

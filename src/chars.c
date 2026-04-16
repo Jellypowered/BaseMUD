@@ -1595,6 +1595,13 @@ DEFINE_COND_FUN(char_is_full)
                : FALSE;
 }
 
+DEFINE_COND_FUN(char_is_bleeding)
+{
+    if (char_is_npc(ch) || ch->pcdata == NULL)
+        return FALSE;
+    return (ch->pcdata->cond_hours[COND_BLEEDING] > 0) ? TRUE : FALSE;
+}
+
 bool char_is_pet(const CHAR_T *ch)
 {
     return (char_is_npc(ch) && EXT_IS_SET(ch->ext_mob, MOB_PET)) ? TRUE : FALSE;
@@ -2084,6 +2091,42 @@ void char_update(CHAR_T *ch)
             damage_quiet(ch, ch, poison->level / 10 + 1, SN(POISON),
                          DAM_POISON);
         }
+    }
+    else if (!IS_NPC(ch) && ch->pcdata->cond_hours[COND_BLEEDING] > 0 && ch != NULL)
+    {
+        int dam, bleeding_level;
+        bleeding_level = ch->pcdata->cond_hours[COND_BLEEDING];
+
+        /* Determine damage based on bleeding severity */
+        dam = UMAX(1, ch->max_hit / 20);  /* 5% of max HP */
+
+        /* Stage-based messages */
+        if (bleeding_level > 30)
+        {
+            send_to_char("You bleed heavily from your wounds.\n\r", ch);
+            act("$n bleeds heavily.", ch, NULL, NULL, TO_NOTCHAR);
+        }
+        else if (bleeding_level > 20)
+        {
+            send_to_char("You bleed from your wounds.\n\r", ch);
+            act("$n bleeds from wounds.", ch, NULL, NULL, TO_NOTCHAR);
+        }
+        else if (bleeding_level > 10)
+        {
+            send_to_char("Your wounds ooze blood.\n\r", ch);
+            act("$n's wounds ooze blood.", ch, NULL, NULL, TO_NOTCHAR);
+        }
+        else
+        {
+            send_to_char("Your wounds trickle blood.\n\r", ch);
+            act("$n's wounds trickle blood.", ch, NULL, NULL, TO_NOTCHAR);
+        }
+
+        damage_quiet(ch, ch, dam, SN(BANDAGE), DAM_BASH);
+
+        /* Bleeding decay: 50% chance per tick to decrease by 1 */
+        if (number_percent() < 50)
+            player_change_condition(ch, COND_BLEEDING, -1);
     }
     else
         char_damage_if_wounded(ch);
