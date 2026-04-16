@@ -2134,6 +2134,43 @@
               |
               |See also: WEAPONS SKILLS
               |"
+    },
+    {
+      "keyword": "RANGER RANGERS",
+      "text": "RANGER -- Nature's Warrior
+              |
+              |Rangers are skilled hunters and trackers who blend martial prowess
+              |with wilderness expertise. They are equally comfortable with bow
+              |and blade, and possess an affinity for nature and outdoor survival.
+              |
+              |Rangers are dexterous and quick, making them excellent archers and
+              |scouts. They gain mana for spellcasting, focusing on detection,
+              |tracking, and nature-based magic rather than destructive spellcraft.
+              |
+              |STAT FOCUS:
+              |  Dexterity is the Ranger's primary stat (trains for only 3 practice
+              |  points per boost, vs 5 for other stats). High dexterity improves
+              |  ranged accuracy, evasion, and sneaking ability.
+              |
+              |ABILITIES:
+              |  - Tracking and hunting skills (track, scan, search)
+              |  - Detection magic (detect hidden, detect evil/magic/poison/invis)
+              |  - Survival skills (climb, hide, sneak, cook, fletch)
+              |  - Combat skills (dodge, parry, disarm, rescue)
+              |  - Nature magic (spells for outdoor survival)
+              |  - Dual-wielding capability with spear/bow and secondary weapons
+              |
+              |PLAYSTYLE:
+              |  Rangers are versatile: they can scout ahead, track enemies, excel
+              |  in ranged combat, and support allies with detection magic. They
+              |  shine in outdoor areas and wilderness encounters.
+              |
+              |PRIMARY STAT: Dexterity
+              |HP/LEVEL: 11-15 (comparable to Warriors)
+              |MANA: Yes - Rangers learn tracking and nature spells
+              |
+              |See also: CLASSES SKILLS SPELLS COMBAT
+              |"
     }
   ]
 }}]

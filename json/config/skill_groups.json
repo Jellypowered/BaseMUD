@@ -252,5 +252,21 @@
     "skills": [
       "call lightning", "control weather", "faerie fire", "faerie fog", "lightning bolt"
     ]
+  }},
+  {"skill_group": {
+    "name": "ranger basics",
+    "classes": {"ranger": {"cost": 0}},
+    "skills": [
+      "spear", "track"
+    ]
+  }},
+  {"skill_group": {
+    "name": "ranger default",
+    "classes": {"ranger": {"cost": 40}},
+    "skills": [
+      "dodge", "parry", "rescue", "disarm", "second attack", "hide", "sneak", "scan",
+      "detect hidden", "detect evil", "detect magic", "detect poison", "detect invis",
+      "locate object", "infravision", "climb", "cook", "fletch"
+    ]
   }}
 ]
