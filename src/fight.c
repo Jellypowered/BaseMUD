@@ -49,6 +49,7 @@
 #include "players.h"
 #include "pocket_dungeon.h"
 #include "save.h"
+#include "special.h"
 #include "tables.h"
 #include "utils.h"
 #include "spell_summon.h"
@@ -1630,7 +1631,7 @@ int fight_compute_kill_exp(CHAR_T *gch, CHAR_T *victim, int total_levels)
     int xp, base_exp;
     int align, level_range;
     int change;
-    // int time_per_level;
+    int time_per_level;
 
     /* compute the base exp */
     level_range = victim->level - gch->level;
@@ -1671,6 +1672,55 @@ int fight_compute_kill_exp(CHAR_T *gch, CHAR_T *victim, int total_levels)
         break;
     default:
         base_exp = (level_range < -10) ? 0 : 100 + 20 * level_range;
+    }
+
+    /* Mob attribute bonuses (Fallen Angels XP system) */
+    if (IS_NPC(victim))
+    {
+        /* Affect-based bonuses */
+        if (affect_is_char_affected(victim, skill_lookup("sanctuary")))
+            base_exp = (base_exp * 130) / 100;
+        if (affect_is_char_affected(victim, skill_lookup("haste")))
+            base_exp = (base_exp * 120) / 100;
+
+        /* Offensive flag bonuses */
+        if (IS_SET(victim->off_flags, OFF_AREA_ATTACK))
+            base_exp = (base_exp * 120) / 100;
+        if (IS_SET(victim->off_flags, OFF_BACKSTAB))
+            base_exp = (base_exp * 120) / 100;
+        if (IS_SET(victim->off_flags, OFF_FAST))
+            base_exp = (base_exp * 120) / 100;
+        if (IS_SET(victim->off_flags, OFF_DODGE))
+            base_exp = (base_exp * 110) / 100;
+        if (IS_SET(victim->off_flags, OFF_PARRY))
+            base_exp = (base_exp * 110) / 100;
+
+        /* Special function bonuses */
+        if (victim->spec_fun != NULL)
+        {
+            /* Breath attacks: +25% */
+            if (victim->spec_fun == spec_breath_any ||
+                victim->spec_fun == spec_breath_acid ||
+                victim->spec_fun == spec_breath_fire ||
+                victim->spec_fun == spec_breath_frost ||
+                victim->spec_fun == spec_breath_gas ||
+                victim->spec_fun == spec_breath_lightning)
+            {
+                base_exp = (base_exp * 125) / 100;
+            }
+            /* Cast spells: +20% */
+            else if (victim->spec_fun == spec_cast_cleric ||
+                     victim->spec_fun == spec_cast_mage ||
+                     victim->spec_fun == spec_cast_undead)
+            {
+                base_exp = (base_exp * 120) / 100;
+            }
+            /* Poison: +10% */
+            else if (victim->spec_fun == spec_poison)
+            {
+                base_exp = (base_exp * 110) / 100;
+            }
+        }
     }
 
     /* do alignment computations */
@@ -1791,9 +1841,7 @@ int fight_compute_kill_exp(CHAR_T *gch, CHAR_T *victim, int total_levels)
     if (gch->level > 35)
         xp = 15 * xp / (gch->level - 25);
 
-    /* HOW DARE YOU!! */
-#if 0
-    /* reduce for playing time */
+    /* Playtime-based scaling: reduce XP gain for characters with many hours played */
     {
         /* compute quarter-hours per level */
         time_per_level = 4 *
@@ -1804,7 +1852,6 @@ int fight_compute_kill_exp(CHAR_T *gch, CHAR_T *victim, int total_levels)
             time_per_level = UMAX (time_per_level, (15 - gch->level));
         xp = xp * time_per_level / 12;
     }
-#endif
 
     /* randomize the rewards */
     xp = number_range(xp * 3 / 4, xp * 5 / 4);

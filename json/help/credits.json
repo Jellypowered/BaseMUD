@@ -95,8 +95,12 @@
               |
               |Equipment reset validator/fixer (BadEQ) --
               |    Markanth (Devil's Lament)
+              |
               |Random quit messages --
               |    Draun
+              |
+              |XP bonus system and mob attribute scaling --
+              |    Laurent Zilber, Jerome Despret (Fallen Angels MUD)
               |",
       "hide_keywords": true
     }

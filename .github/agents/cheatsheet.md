@@ -601,6 +601,41 @@ Areas support a `"hidden": true` boolean in their `area.json`. When set, the are
 
 ---
 
+## XP Bonus System (Fallen Angels Integration)
+
+Mobs with special attributes grant bonus XP when defeated, making stronger or more dangerous mobs reward additional experience. Integration in `fight_compute_kill_exp()` (src/fight.c).
+
+### Mob Attribute Bonuses
+
+Bonuses are **cumulative** — a mob with multiple modifiers stacks them (e.g., sanctuary + haste + spec = 1.3 × 1.2 × 1.25 = 1.95×).
+
+**Affect-based bonuses** (applied via `affect_is_char_affected()`):
+- `sanctuary` affect: **+30%** (base_exp × 130 / 100)
+- `haste` affect: **+20%** (base_exp × 120 / 100)
+
+**Offensive flag bonuses** (checked via `IS_SET(victim->off_flags, ...)`):
+- `OFF_AREA_ATTACK`: **+20%**
+- `OFF_BACKSTAB`: **+20%**
+- `OFF_FAST`: **+20%**
+- `OFF_DODGE`: **+10%**
+- `OFF_PARRY`: **+10%**
+
+**Special function bonuses** (function pointer comparison):
+- Breath functions (spec_breath_any/acid/fire/frost/gas/lightning): **+25%**
+- Cast functions (spec_cast_cleric/mage/undead): **+20%**
+- Poison function (spec_poison): **+10%**
+
+### Implementation Details
+- Bonuses applied after base_exp calculation, before alignment section
+- Only applied to NPCs (`IS_NPC(victim)` check)
+- Playtime scaling re-enabled: XP reduced for high-playtime characters via `time_per_level` (quarter-hours per level)
+- No changes to alignment XP multiplier system
+
+### Location
+- Function: `fight_compute_kill_exp()` in `src/fight.c` (lines ~1676-1726, mob bonuses section)
+
+---
+
 ## Furniture Object Values (item_type: furniture)
 
 BaseMUD furniture uses named keys in the `"values"` object — **not** ROM's `rest_bonus`/`sit_bonus`/`sleep_bonus`:
