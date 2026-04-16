@@ -1,0 +1,39 @@
+[{"help": {
+  "area": null,
+  "name": "counter",
+  "filename": "",
+  "pages": [
+    {
+      "keyword": "COUNTER",
+      "text": "Syntax: (automatic skill)
+              |
+              |        Counter is an advanced defensive fighting technique that
+              |        allows you to automatically reverse an opponent's attack
+              |        and hit them back with half the damage they were attempting
+              |        to deal. It triggers automatically when you are attacked.
+              |
+              |        Success depends on:
+              |          - Your counter skill level
+              |          - Your level compared to attacker
+              |          - Your dexterity versus theirs
+              |          - Your weapon skill compared to theirs
+              |          - Your strength versus theirs
+              |
+              |        When successful, your counter attack deals half damage
+              |        to the attacker and improves your counter skill.
+              |
+              |        Requirements:
+              |          - You must be awake
+              |          - You must have a weapon equipped
+              |          - You must be able to see your attacker
+              |          - You must have learned counter skill
+              |
+              |        Counter is a passive skill that activates automatically
+              |        during combat. Train it to increase your defense and
+              |        improve your chances of turning the tide of battle.
+              |
+              |        Related: armor class, dodge, parry, defend
+              |"
+    }
+  ]
+}}]

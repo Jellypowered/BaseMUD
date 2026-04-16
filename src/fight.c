@@ -207,6 +207,65 @@ static bool check_critical (CHAR_T *ch, CHAR_T *victim) {
     return TRUE;
 }
 
+/* Check if victim can counter attack. Returns TRUE if counter succeeds.
+ * Adapted from ROM24 snippet by Brian Babey (Varen).
+ * Success is based on victim's counter skill, level difference, dexterity, and weapon skill. */
+bool check_counter(CHAR_T *ch, CHAR_T *victim, int dam, int dt)
+{
+    int chance, sn_counter, sn_weapon;
+    OBJ_T *wield;
+
+    /* Can only counter if victim is awake, can see attacker, and has a weapon. */
+    if (!IS_AWAKE(victim) || !char_can_see_in_room(victim, ch) ||
+        (wield = char_get_weapon(victim)) == NULL)
+        return FALSE;
+
+    /* Check if victim has counter skill */
+    sn_counter = skill_lookup("counter");
+    if (sn_counter < 0 || char_get_skill(victim, sn_counter) < 1)
+        return FALSE;
+
+    /* Calculate counter success chance based on: */
+    chance = char_get_skill(victim, sn_counter) / 6;  /* Base probability */
+    chance += (victim->level - ch->level) / 2;         /* Level differential */
+    chance += 2 * (char_get_curr_stat(victim, STAT_DEX) -
+                   char_get_curr_stat(ch, STAT_DEX));  /* Dexterity */
+
+    /* Add weapon skill difference */
+    sn_weapon = char_get_weapon_sn(victim);
+    chance += (char_get_weapon_skill(victim, sn_weapon) -
+               char_get_weapon_skill(ch, sn_weapon));
+
+    /* Add strength differential for melee comparison */
+    chance += (char_get_curr_stat(victim, STAT_STR) -
+               char_get_curr_stat(ch, STAT_STR));
+
+    /* Check if counter succeeds */
+    if (number_percent() >= chance)
+        return FALSE;
+
+    /* Counter succeeded! Apply counter damage (half of incoming) */
+    dam = dam / 2;
+    if (dam < 1)
+        dam = 1;
+
+    /* Send messages */
+    act("{5You reverse $n's attack and counter with your own!{x",
+        ch, NULL, victim, TO_VICT);
+    act("{5$N reverses your attack!{x",
+        ch, NULL, victim, TO_CHAR);
+    act("{5$N reverses $n's attack with a counter!{x",
+        ch, NULL, victim, TO_NOTCHAR);
+
+    /* Apply counter damage back to attacker */
+    damage_quiet(victim, ch, dam, sn_counter, DAM_BASH);
+
+    /* Improve counter skill on successful use */
+    player_try_skill_improve(victim, sn_counter, TRUE, 6);
+
+    return TRUE;
+}
+
 /* Hit one guy once. */
 void one_hit(CHAR_T *ch, CHAR_T *victim, int dt)
 {
@@ -426,6 +485,11 @@ void one_hit(CHAR_T *ch, CHAR_T *victim, int dt)
         dam_message(ch, victim, 0, dt, FALSE, dam, damage_adj);
         return;
     }
+
+    /* Check if victim can counter attack. */
+    if (check_counter(ch, victim, dam, dt))
+        return;
+
     result = damage_visible(ch, victim, dam, dt, dam_type, damage_adj);
 
     /* 10% chance to cause bleeding on successful melee hit */
