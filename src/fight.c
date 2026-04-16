@@ -1784,7 +1784,7 @@ void dam_message(CHAR_T *ch, CHAR_T *victim, int dam, int dt,
         /* 7: bruise */
         {"bruise", "bruises", "{6bruise{x", "{6bruises{x"},
         /* 8: nip */
-        {"nip", "nips", "{6nip{x", "{6nips{x"},
+        {"nip", "nips", "{5nip{x", "{5nips{x"},
         /* 9: jab */
         {"jab", "jabs", "{5jab{x", "{5jabs{x"},
         /* 10: prod */
@@ -1808,7 +1808,7 @@ void dam_message(CHAR_T *ch, CHAR_T *victim, int dam, int dt,
         /* 19: batter */
         {"batter", "batters", "{1batter{x", "{1batters{x"},
         /* 20: crush */
-        {"crush", "crushes", "{1crush{x", "{1crushes{x"},
+        {"crush", "crushes", "{Ycrush{x", "{Ycrushes{x"},
         /* 21: decimate */
         {"decimate", "decimates", "{Ydecimate{x", "{Ydecimates{x"},
         /* 22: devastate */
@@ -1816,27 +1816,27 @@ void dam_message(CHAR_T *ch, CHAR_T *victim, int dam, int dt,
         /* 23: maim */
         {"maim", "maims", "{Rmaim{x", "{Rmaims{x"},
         /* 24: mutilate */
-        {"mutilate", "mutilates", "{Rmutilate{x", "{Rmutilates{x"},
+        {"mutilate", "mutilates", "{YMUTILATE{x", "{YMUTILATES{x"},
         /* 25: disembowel */
-        {"disembowel", "disembowels", "{Rdisembowel{x", "{Rdisembowels{x"},
+        {"disembowel", "disembowels", "{wDISEMBOWEL{x", "{wDISEMBOWELS{x"},
         /* 26: dismember */
-        {"dismember", "dismembers", "{Rdismember{x", "{Rdismembers{x"},
+        {"dismember", "dismembers", "{mDISMEMBER{x", "{mDISMEMBERS{x"},
         /* 27: massacre */
-        {"massacre", "massacres", "{MMASSACRE{x", "{MMASSACRES{x"},
+        {"massacre", "massacres", "{cMASSACRE{x", "{cMASSACRES{x"},
         /* 28: mangle */
-        {"mangle", "mangles", "{MMANGLE{x", "{MMANGLES{x"},
+        {"mangle", "mangles", "{GMANGLE{x", "{GMANGLES{x"},
         /* 29: obliterate */
-        {"obliterate", "obliterates", "{C=== OBLITERATE ==={x", "{C=== OBLITERATES ==={x"},
+        {"obliterate", "obliterates", "{b*** {BDEMOLISH {b***{x", "{b*** {BDEMOLISHES {b***{x"},
         /* 30: annihilate */
-        {"annihilate", "annihilates", "{B>>> ANNIHILATE <<<{x", "{B>>> ANNIHILATES <<<{x"},
+        {"annihilate", "annihilates", "{c*** {CDEVASTATE {c***{x", "{c*** {CDEVASTATES {c***{x"},
         /* 31: eradicate */
-        {"eradicate", "eradicates", "{G<<< ERADICATE >>>{x", "{G<<< ERADICATES >>>{x"},
+        {"eradicate", "eradicates", "{M={W={M= {GO{gB{GL{gI{GT{gE{GR{gA{GT{gE {M={W={M={x", "{M={W={M= {GO{gB{GL{gI{GT{gE{GR{gA{GT{gE{GS {M={W={M={x"},
         /* 32: destroy */
-        {"destroy", "destroys", "{Y### DESTROY ###{x", "{Y### DESTROYS ###{x"},
+        {"destroy", "destroys", "{G>{W>{G> {YA{yN{YN{yI{YH{yI{YL{yA{YT{yE {G<{W<{G<{x", "{G>{W>{G> {YA{yN{YN{yI{YH{yI{YL{yA{YT{yE{YS {G<{W<{G<{x"},
         /* 33: vaporize */
-        {"vaporize", "vaporizes", "{W*** VAPORIZE ***{x", "{W*** VAPORIZES ***{x"},
+        {"vaporize", "vaporizes", "{Y<{W<{Y< {CE{cR{CA{cD{CI{cC{CA{cT{CE {Y>{W>{Y>{x", "{Y<{W<{Y< {CE{cR{CA{cD{CI{cC{CA{cT{CE{cS {Y>{W>{Y>{x"},
         /* 34: shatter */
-        {"shatter", "shatters", "{W*** SHATTER ***{x", "{W*** SHATTERS ***{x"},
+        {"shatter", "shatters", "{R<{W*{R< {BE{bX{BT{bE{BR{bM{BI{bN{BA{bT{BE {R>{W*{R>{x", "{R<{W*{R< {BE{bX{BT{bE{BR{bM{BI{bN{BA{bT{BE{bS {R>{W*{R>{x"},
         /* 35: devastate (multi) */
         {"devastate", "devastates", "{R*** {YDEVASTATE{R ***{x", "{R*** {YDEVASTATES{R ***{x"},
         /* 36: obliterate (multi) */
@@ -1846,7 +1846,7 @@ void dam_message(CHAR_T *ch, CHAR_T *victim, int dam, int dt,
         /* 38: eradicate (multi) */
         {"eradicate", "eradicates", "{G<<< {YERADICATE{G >>>{x", "{G<<< {YERADICATES{G >>>{x"},
         /* 39: UNSPEAKABLE */
-        {"do UNSPEAKABLE things to", "does UNSPEAKABLE things to", "{W{{R!!! UNSPEAKABLE !!!{x", "{W{{R!!! UNSPEAKABLE !!!{x"}};
+        {"do UNSPEAKABLE things to", "does UNSPEAKABLE things to", "{Rdo {rU{RN{rS{RP{rE{RA{rK{RA{rB{RL{rE {Rthings to{x", "{Rdoes {rU{RN{rS{RP{rE{RA{rK{RA{rB{RL{rE {Rthings to{x"}};
 
     /* Map dam_percent to message index. */
     int idx;
