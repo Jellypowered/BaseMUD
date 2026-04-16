@@ -146,5 +146,86 @@
       "con": 18
     },
     "size": "large"
+  }},
+  {"player_race": {
+    "name": "half-elf",
+    "who_name": "Half-Elf",
+    "creation_points": 4,
+    "base_stats": {
+      "str": 12,
+      "int": 14,
+      "wis": 13,
+      "dex": 14,
+      "con": 12
+    },
+    "max_stats": {
+      "str": 17,
+      "int": 19,
+      "wis": 18,
+      "dex": 19,
+      "con": 17
+    },
+    "size": "medium"
+  }},
+  {"player_race": {
+    "name": "gnome",
+    "who_name": "Gnome",
+    "creation_points": 6,
+    "skills": ["dodge"],
+    "base_stats": {
+      "str": 11,
+      "int": 15,
+      "wis": 14,
+      "dex": 13,
+      "con": 12
+    },
+    "max_stats": {
+      "str": 16,
+      "int": 20,
+      "wis": 19,
+      "dex": 18,
+      "con": 17
+    },
+    "size": "small"
+  }},
+  {"player_race": {
+    "name": "drow",
+    "who_name": "Drow",
+    "creation_points": 5,
+    "base_stats": {
+      "str": 12,
+      "int": 14,
+      "wis": 13,
+      "dex": 15,
+      "con": 12
+    },
+    "max_stats": {
+      "str": 17,
+      "int": 19,
+      "wis": 18,
+      "dex": 20,
+      "con": 17
+    },
+    "size": "medium"
+  }},
+  {"player_race": {
+    "name": "vampire",
+    "who_name": "Vampire",
+    "creation_points": 6,
+    "base_stats": {
+      "str": 14,
+      "int": 13,
+      "wis": 13,
+      "dex": 13,
+      "con": 15
+    },
+    "max_stats": {
+      "str": 19,
+      "int": 18,
+      "wis": 18,
+      "dex": 18,
+      "con": 21
+    },
+    "size": "medium"
   }}
 ]
