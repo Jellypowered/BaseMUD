@@ -784,4 +784,81 @@ post-load hooks loop is likely missing or the function is not registered in
 - ✅ tsc: shared (no errors)
 - ✅ tsc: server (no errors)
 - ✅ tsc: client (no errors)
+
+---
+
+## Class Implementation Pattern
+
+**Workflow Skill**: `.github/skills/basemud-class-implementation/`
+
+### Data-Driven Implementation
+- All classes defined in `json/config/classes.json` — no C code modification needed
+- Classes fully specified at boot by JSON configuration
+- Build verification: `make clean && make -j4` (binary ~4.0MB)
+
+### Class JSON Structure
+- **Required fields**: `name`, `who_name` (3-char), `primary_stat`, `weapon`, `thac0_00`, `thac0_32`, `hp_gain_min`, `hp_gain_max`, `gains_mana`, `base_group`, `default_group`, `guild`, `titles`
+- **Titles**: 68 pairs (male/female), one per level or major milestone (1, 5, 10, 15, etc. to 32+)
+- **Primary stat training**: 3 points per attribute at creation based on `primary_stat` field
+- **Guild vnums**: 2 required — player guild (zone 30s vnum) and immortal area guild (zone 96 vnum)
+
+### Skill Infrastructure
+- Extract all available skills: `grep -o '"name":\s*"[^"]*"' json/config/skills.json | cut -d'"' -f4 | sort | uniq`
+- BaseMUD has 154+ skills with per-class level/effort requirements
+- Skills.json cannot be edited per-spec — use existing skills only; create skill groups instead
+
+### Skill Groups Pattern
+- **Basics group** (free at creation): 2-4 foundational skills (weapon + utility)
+- **Default group** (purchasable offer): 12-20 skills for major skill categories
+- Cost structure: `{"classname": {"cost": 0}}` (free) or `{"classname": {"cost": 40}}` (purchasable)
+- Cost 0 = auto-granted; cost 40-60 = point purchase
+
+### Help Documentation
+- Help entries: `json/help/help.json` with keywords and single piped-format entry
+- Keywords: uppercase classname(s) with plurals (e.g., `"RANGER RANGERS"`)
+- Content: class philosophy, primary stat, core abilities, playstyle guidance
+
+### Legacy Skills Compatibility Audit
+- When porting from ROM/Circle/Diku: Extract all `Skill 'name' level effort` entries from source
+- Cross-reference against 154+ BaseMUD skills
+- Document missing abilities by category: stances, specialized attacks, forms, rare utility
+- Typical coverage: 50-70% of legacy skills available; rest are ROM enhancements
+- **Not a blocker** — missing abilities documented in plan; implementation proceeds with available skills
+
+### Planning Phase
+- Create `/plan/[classname]-class-implementation.md` before coding
+- Include: design decisions, stat focus, mana capability, legacy skills analysis (if porting)
+- List all files to modify and risks/dependencies
+- Document guild vnums used
+
+### Review Checklist Before Commit
+1. All 68 titles present (no gaps in level progression)
+2. Skill group names match class name exactly (case-sensitive)
+3. All skills in groups exist in skills.json
+4. Help entry keywords unique and meaningful
+5. Build clean: `make clean && make -j4`
+6. Plan marked complete with date
+7. No unintended file modifications
+8. Commit references plan file
+
+### Known Patterns
+- **Stat progression**: 
+  - STR = warrior/paladin (melee, carry)
+  - DEX = ranger/thief (accuracy, dodge, ranged)
+  - INT = mage/cleric (spell power, mana)
+  - WIS = cleric/druid (healing, mana, perception)
+  - CON = all (HP, poison resist)
+  - CHA = bard (charm, animal companion)
+- **Mana**: `true` for casters/hybrids (wisdom-based mana), `false` for pure warriors
+- **Guild creation**: User manually creates .are rooms if using new vnums; existing vnum reuse requires no .are modification
+- **Weapon selection**: Match class archetype (spear=ranger, sword=warrior, staff=mage, etc.)
+
+### Example: Ranger Class (Real Implementation)
+- **Primary stat**: DEX (archery/tracking focus)
+- **Mana**: true (detection/utility spells)
+- **Weapon**: 3717 (spear)
+- **Skill groups**: "ranger basics" (spear, track) + "ranger default" (17 combat/detection)
+- **Guild rooms**: Created at vnums 3025 (grove.are), 9640 (newthalos.are)
+- **Skills coverage**: 42+ legacy Ranger skills available; 26 ROM-specific enhancements not in modern system
+- **Build result**: Binary 4.0MB, no errors; full playable class
 - ✅ BaseMUD rebuild (full clean + make, no warnings or errors)
