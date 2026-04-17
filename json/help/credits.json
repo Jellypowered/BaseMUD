@@ -101,6 +101,9 @@
               |
               |XP bonus system and mob attribute scaling --
               |    Laurent Zilber, Jerome Despret (Fallen Angels MUD)
+              |
+              |Diagonal exits (NE/NW/SE/SW) --
+              |    Carnage (ROM 2.4 snippet)
               |",
       "hide_keywords": true
     }

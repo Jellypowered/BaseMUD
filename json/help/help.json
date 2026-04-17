@@ -269,15 +269,24 @@
               |"
     },
     {
-      "keyword": "NORTH SOUTH EAST WEST UP DOWN",
+      "keyword": "NORTH SOUTH EAST WEST UP DOWN NORTHEAST NORTHWEST SOUTHEAST SOUTHWEST NE NW SE SW",
       "text": "Syntax: north
               |Syntax: south
               |Syntax: east
               |Syntax: west
               |Syntax: up
               |Syntax: down
+              |Syntax: northeast  (or: ne)
+              |Syntax: northwest  (or: nw)
+              |Syntax: southeast  (or: se)
+              |Syntax: southwest  (or: sw)
               |
               |Use these commands to walk in a particular direction.
+              |
+              |Note: diagonal directions (ne/nw/se/sw) are only available where a
+              |room has a diagonal exit.  They cannot be used in SWALK.
+              |
+              |Related: exits, swalk
               |"
     },
     {

@@ -25,8 +25,11 @@
               |          - Speedwalk stops immediately if a move fails (locked door, no exit, etc)
               |          - Maximum 100 consecutive moves in one speedwalk
               |          - Directions are not case-sensitive
+              |          - Diagonal exits (ne/nw/se/sw) are NOT supported by swalk; use
+              |            the full command name (e.g. 'ne' or 'northeast') directly
               |
-              |        Related: north, south, east, west, up, down
+              |        Related: north, south, east, west, up, down,
+              |                 northeast, northwest, southeast, southwest
               |"
     }
   ]

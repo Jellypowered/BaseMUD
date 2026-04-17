@@ -326,9 +326,7 @@ int number_percent (void) {
 
 /* Generate a random door. */
 int number_door (void) {
-    int door;
-    while ((door = number_mm () & 0x07) > 5);
-    return door;
+    return number_range (0, DIR_MAX - 1);
 }
 
 int number_bits (int width) {

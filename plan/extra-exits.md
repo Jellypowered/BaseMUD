@@ -25,6 +25,7 @@ BaseMUD uses table-driven direction lookups, so most code that loops `for (i = 0
 | `src/olc_redit.h` | Add 4 `REDIT` forward declarations |
 | `src/olc.c` | Add redit_table entries for ne/nw/se/sw (abbrev + full word) |
 | `src/pocket_dungeon.c` | Extend `pd_dir_names[DIR_MAX]` with 4 new names |
+| `src/utils.c` | Fix `number_door()` to use `number_range(0, DIR_MAX-1)` instead of bitmask capped at 5 |
 
 ### JSON / Data
 
@@ -32,11 +33,14 @@ BaseMUD uses table-driven direction lookups, so most code that loops `for (i = 0
 |------|--------|
 | `json/config/doors.json` | Add entries for dir 6–9 (NE/NW/SE/SW with from/to phrases and reverses) |
 
-### Documentation
+### Help / Documentation
 
 | File | Change |
 |------|--------|
 | `doc/Json_Documentation.md` | Update the `dir` field enum list to include diagonal directions |
+| `json/help/help.json` | Extend NORTH/SOUTH/... keyword entry with NE/NW/SE/SW and abbreviated forms |
+| `json/help/swalk.json` | Add note that diagonals are not supported in swalk; update Related line |
+| `json/help/credits.json` | Add Carnage (ROM 2.4 snippet) credit for diagonal exits |
 
 ### MUDEditor (TypeScript) — Full Audit
 
@@ -80,5 +84,8 @@ MUDEditor already has all 10 directions in shared types, parsers, and map layout
 - `update.c` uses `exit[5]` (hardcoded DIR_DOWN = 5) — no change needed; DOWN remains 5.
 - MUDEditor direction handling (types, parser, exporter, map layout, room editor) is already complete for all 10 directions.
 - `mobile_wander()` uses `number_bits(5)` (0–31) and checks `door < DIR_MAX` — with DIR_MAX=10, mobs will also wander diagonally when such exits exist, which is correct behavior.
+- `number_door()` in `utils.c` used `number_mm() & 0x07 > 5` producing only 0–5; fixed to `number_range(0, DIR_MAX-1)`. Callers affected: `do_flee`, `do_mpwalk` (random wander), `do_hunt` (decoy direction).
+- Old `.are` format rejects door values > 5 via `EXIT_IF_BUG`; diagonal exits are JSON-only by design.
+- JSON area files use `"dir": "northeast"` string names via `door_lookup()` — no loader changes needed; any room can have diagonal exits today.
 
-## Status: COMPLETED
+## Status: COMPLETED (April 16, 2026)
