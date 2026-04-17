@@ -52,6 +52,7 @@ void do_give_money (CHAR_T *ch, char *arg1, char *arg2, char *argument);
 DECLARE_DO_FUN (do_get);
 DECLARE_DO_FUN (do_put);
 DECLARE_DO_FUN (do_drop);
+DECLARE_DO_FUN (do_empty);
 DECLARE_DO_FUN (do_give);
 DECLARE_DO_FUN (do_envenom);
 DECLARE_DO_FUN (do_fill);

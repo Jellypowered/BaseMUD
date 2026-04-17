@@ -335,6 +335,19 @@
               |"
     },
     {
+      "keyword": "EMPTY",
+      "text": "Syntax: empty <container>
+              |Syntax: empty <container> into <container>
+              |
+              |EMPTY empties out the contents of a container you are carrying, dumping them
+              |on the ground or into another container.
+              |
+              |If you specify a destination container, all items will be transferred to that
+              |container (if they fit).  Otherwise, items fall to the ground.  Items marked
+              |with the melt-drop flag will dissolve into smoke as they fall.
+              |"
+    },
+    {
       "keyword": "EQUIPMENT INVENTORY",
       "text": "Syntax: equipment
               |Syntax: inventory

@@ -840,6 +840,87 @@ DEFINE_DO_FUN (do_junk) {
     obj_extract (obj);
 }
 
+/* Empty/unload command - empties container contents to floor or into another container
+ * Adapted from "dump" code by John Patrick (j.s.patrick@ieee.org)
+ * Named "empty" to avoid conflict with immortal debugging "dump" command  
+ */
+DEFINE_DO_FUN (do_empty) {
+    OBJ_T *container, *dest, *obj, *obj_next;
+    char arg1[MAX_INPUT_LENGTH];
+    char arg2[MAX_INPUT_LENGTH];
+
+    DO_REQUIRE_ARG (arg1, "Empty what?\n\r");
+    
+    /* Find the container to empty */
+    BAIL_IF ((container = find_obj_own_inventory (ch, arg1)) == NULL,
+        "You don't have that.\n\r", ch);
+    
+    BAIL_IF (!item_can_put_objs (container),
+        "You can't empty that.\n\r", ch);
+    
+    BAIL_IF_ACT (item_is_closed (container),
+        "$p is closed.", ch, container, NULL);
+
+    /* Check for optional destination container */
+    argument = one_argument (argument, arg2);
+    
+    /* Skip prepositions like 'into', 'in', 'on' */
+    if (!str_cmp (arg2, "into") || !str_cmp (arg2, "in") || !str_cmp (arg2, "on"))
+        argument = one_argument (argument, arg2);
+
+    if (arg2[0] != '\0') {
+        /* Emptying to another container */
+        if ((dest = find_obj_own_inventory (ch, arg2)) == NULL) {
+            if ((dest = find_obj_same_room (ch, arg2)) == NULL) {
+                send_to_char ("You don't see that here.\n\r", ch);
+                return;
+            }
+        }
+
+        BAIL_IF (!item_can_put_objs (dest),
+            "You can't empty into that.\n\r", ch);
+        
+        BAIL_IF_ACT (item_is_closed (dest),
+            "$p is closed.", ch, dest, NULL);
+
+        act2 ("You empty out the contents of $p into $P.",
+              "$n empties out the contents of $p into $P.",
+              ch, container, dest, 0, POS_RESTING);
+
+        for (obj = container->content_first; obj != NULL; obj = obj_next) {
+            obj_next = obj->content_next;
+
+            if (!item_can_fit_obj_in (dest, obj)) {
+                act ("$P won't fit into $p.", ch, container, obj, TO_CHAR);
+            } else {
+                obj_give_to_obj (obj, dest);
+            }
+        }
+    } else {
+        /* Emptying to the floor */
+        act2 ("You empty out the contents of $p.",
+              "$n empties out the contents of $p.",
+              ch, container, NULL, 0, POS_RESTING);
+
+        for (obj = container->content_first; obj != NULL; obj = obj_next) {
+            obj_next = obj->content_next;
+            
+            act2 ("  ... $p falls out onto the ground.",
+                  "  ... $p falls out onto the ground.",
+                  ch, obj, NULL, 0, POS_RESTING);
+
+            obj_give_to_room (obj, ch->in_room);
+
+            if (IS_OBJ_STAT (obj, ITEM_MELT_DROP)) {
+                act2 ("$p dissolves into smoke.",
+                      "$p dissolves into smoke.",
+                      ch, obj, NULL, 0, POS_RESTING);
+                obj_extract (obj);
+            }
+        }
+    }
+}
+
 DEFINE_DO_FUN (do_restring) {
     char arg1[MAX_INPUT_LENGTH];
     char arg2[MAX_INPUT_LENGTH];
