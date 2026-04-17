@@ -268,5 +268,55 @@
       "detect hidden", "detect evil", "detect magic", "detect poison", "detect invis",
       "locate object", "infravision", "climb", "cook", "fletch"
     ]
+  }},
+  {"skill_group": {
+    "name": "druid basics",
+    "classes": {"druid": {"cost": 0}},
+    "skills": [
+      "spear", "armor"
+    ]
+  }},
+  {"skill_group": {
+    "name": "druid default",
+    "classes": {"druid": {"cost": 40}},
+    "skills": [
+      "bless", "call lightning", "cure critical", "cure light", "cure serious", "detect hidden",
+      "detect magic", "detect poison", "dispel magic", "faerie fire", "faerie fog", "fireball",
+      "flamestrike", "heal", "identify", "know alignment", "lightning bolt", "locate object",
+      "magic missile", "protection evil", "remove curse", "sanctuary", "stone skin", "word of recall"
+    ]
+  }},
+  {"skill_group": {
+    "name": "paladin basics",
+    "classes": {"paladin": {"cost": 0}},
+    "skills": [
+      "sword", "enhanced damage"
+    ]
+  }},
+  {"skill_group": {
+    "name": "paladin default",
+    "classes": {"paladin": {"cost": 40}},
+    "skills": [
+      "bless", "cure light", "detect evil", "dispel evil", "dodge", "parry", "rescue",
+      "second attack", "shield block", "third attack", "disarm", "bash", "drink",
+      "identify", "know alignment", "protection evil", "stone skin", "shield"
+    ]
+  }},
+  {"skill_group": {
+    "name": "vampire basics",
+    "classes": {"vampire": {"cost": 0}},
+    "skills": [
+      "dagger", "hide"
+    ]
+  }},
+  {"skill_group": {
+    "name": "vampire default",
+    "classes": {"vampire": {"cost": 40}},
+    "skills": [
+      "dodge", "parry", "second attack", "third attack", "enhanced damage", "disarm",
+      "energy drain", "infravision", "detect magic", "locate object", "detect invis",
+      "invisibility", "detect evil", "identify", "know alignment", "protection evil",
+      "stone skin", "chill touch", "lightning bolt", "fly", "sneak", "hide"
+    ]
   }}
 ]

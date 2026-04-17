@@ -2171,6 +2171,121 @@
               |
               |See also: CLASSES SKILLS SPELLS COMBAT
               |"
+    },
+    {
+      "keyword": "DRUID DRUIDS",
+      "text": "DRUID -- Nature's Keeper
+              |
+              |Druids are priests of nature, drawing power from the primal forces
+              |of the earth, weather, and living things. They are masters of
+              |natural magic, capable of healing allies and calling down lightning
+              |upon enemies.
+              |
+              |Druids are wise and perceptive, with strong affinity for divine and
+              |natural magic. They gain mana for spellcasting and focus on healing,
+              |weather magic, protection spells, and nature-based combat.
+              |
+              |STAT FOCUS:
+              |  Wisdom is the Druid's primary stat (trains for only 3 practice
+              |  points per boost, vs 5 for other stats). High wisdom improves
+              |  spellcasting ability, mana pool, and perception.
+              |
+              |ABILITIES:
+              |  - Healing magic (cure light/serious/critical, heal)
+              |  - Weather magic (call lightning, control weather, lightning bolt)
+              |  - Protection spells (armor, stone skin, sanctuary, shield)
+              |  - Detection magic (detect hidden, detect magic/poison/evil)
+              |  - Combat skills (spear, parry, dodge, second attack)
+              |  - Divine blessings and buffs
+              |
+              |PLAYSTYLE:
+              |  Druids are essential healers and spellcasters who support their
+              |  groups while dealing respectable magical damage. They excel in
+              |  offensive and defensive casting, and can hold their own in combat
+              |  with melee weapons.
+              |
+              |PRIMARY STAT: Wisdom
+              |HP/LEVEL: 9-14 (lower than clerics, but respectable)
+              |MANA: Yes - Full spellcasting ability
+              |
+              |See also: CLASSES SKILLS SPELLS COMBAT
+              |"
+    },
+    {
+      "keyword": "PALADIN PALADINS",
+      "text": "PALADIN -- Holy Warrior
+              |
+              |Paladins are holy knights sworn to justice and righteousness. They
+              |combine martial prowess with divine power, making them formidable
+              |warriors who inspire confidence in their allies.
+              |
+              |Paladins are strong and skilled, combining combat mastery with
+              |limited healing and protection abilities. They gain NO mana and
+              |focus on martial combat enhanced with selected divine powers.
+              |
+              |STAT FOCUS:
+              |  Strength is the Paladin's primary stat (trains for only 3 practice
+              |  points per boost, vs 5 for other stats). High strength improves
+              |  melee damage, carry capacity, and weapon skill training.
+              |
+              |ABILITIES:
+              |  - Excellent melee combat (sword, bash, disarm, enhanced damage)
+              |  - Multiple attacks per round (second, third attack)
+              |  - Limited healing (cure light, bless)
+              |  - Divine protection (detect evil, dispel evil, shield, stone skin)
+              |  - Combat techniques (parry, dodge, rescue, shield block)
+              |  - Holy striking ability
+              |
+              |PLAYSTYLE:
+              |  Paladins are elite melee combatants who stand at the front lines.
+              |  They excel in direct combat and provide support through limited
+              |  healing and protection abilities. Their lack of mana keeps them
+              |  focused on physical combat skills.
+              |
+              |PRIMARY STAT: Strength
+              |HP/LEVEL: 12-15 (highest of any class)
+              |MANA: No - Physical combat focused
+              |
+              |See also: CLASSES SKILLS SPELLS COMBAT
+              |"
+    },
+    {
+      "keyword": "VAMPIRE VAMPIRES",
+      "text": "VAMPIRE -- Undead Predator
+              |
+              |Vampires are undead creatures of the night, blending supernatural
+              |abilities with martial skill. They are swift, cunning, and driven by
+              |primal hunger for energy and power.
+              |
+              |Vampires are dexterous and elusive, favoring speed and evasion over
+              |heavy armor. They gain NO mana and instead rely on their supernatural
+              |abilities, stealth, and magical techniques to survive.
+              |
+              |STAT FOCUS:
+              |  Dexterity is the Vampire's primary stat (trains for only 3 practice
+              |  points per boost, vs 5 for other stats). High dexterity improves
+              |  combat speed, accuracy, stealth, and evasion.
+              |
+              |ABILITIES:
+              |  - Swift melee combat (dagger, short blades, enhanced damage)
+              |  - Supernatural powers (energy drain, chill touch, detect magic)
+              |  - Stealth skills (hide, sneak, dodge, evasive tactics)
+              |  - Dark magic (combat spells, protection magic)
+              |  - Physical abilities (enhanced damage, multiple attacks)
+              |  - Flight and mobility (fly, shadow forms)
+              |
+              |PLAYSTYLE:
+              |  Vampires are swift, deadly skirmishers who excel at hit-and-run
+              |  tactics. They combine melee combat with magical abilities to
+              |  overwhelm enemies. Their lack of mana keeps them focused on
+              |  martial techniques and supernatural powers.
+              |
+              |PRIMARY STAT: Dexterity
+              |HP/LEVEL: 9-14
+              |MANA: No - Uses supernatural abilities instead
+              |
+              |See also: CLASSES SKILLS SPELLS COMBAT
+              |"
     }
   ]
 }}]
