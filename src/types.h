@@ -151,7 +151,8 @@
 #define WEAR_LOC_EARS  23
 #define WEAR_LOC_FLOAT_2 24
 #define WEAR_LOC_TATTOO 25
-#define WEAR_LOC_MAX   26
+#define WEAR_LOC_SECONDARY 26
+#define WEAR_LOC_MAX   27
 
 /* AC types */
 #define AC_PIERCE 0

@@ -760,6 +760,59 @@ DEFINE_DO_FUN (do_remove) {
     }
 }
 
+DEFINE_DO_FUN (do_second) {
+    char arg[MAX_INPUT_LENGTH];
+    OBJ_T *obj;
+    OBJ_T *primary;
+    int primary_weight;
+    int str_max_wield;
+
+    DO_REQUIRE_ARG (arg, "Wield what as a secondary weapon?\n\r");
+
+    /* Find the object in inventory */
+    BAIL_IF ((obj = find_obj_own_inventory (ch, arg)) == NULL,
+        "You do not have that item.\n\r", ch);
+
+    /* Check if it's a wieldable weapon */
+    BAIL_IF (!obj_can_wear_flag (obj, ITEM_WIELD),
+        "That is not a wieldable weapon.\n\r", ch);
+
+    /* Get primary weapon - must exist */
+    BAIL_IF ((primary = char_get_eq_by_wear_loc (ch, WEAR_LOC_WIELD)) == NULL,
+        "You must be wielding a primary weapon first.\n\r", ch);
+
+    /* Can't use shield with secondary weapon */
+    BAIL_IF (char_get_eq_by_wear_loc (ch, WEAR_LOC_SHIELD) != NULL,
+        "You cannot use a secondary weapon while using a shield.\n\r", ch);
+
+    /* Can't hold item with secondary weapon */
+    BAIL_IF (char_get_eq_by_wear_loc (ch, WEAR_LOC_HOLD) != NULL,
+        "You cannot use a secondary weapon while holding an item.\n\r", ch);
+
+    /* Secondary must be lighter than primary (max 50%) */
+    primary_weight = obj_get_weight (primary);
+    BAIL_IF (obj_get_weight (obj) > primary_weight / 2,
+        "Your secondary weapon must be considerably lighter than your primary weapon.\n\r", ch);
+
+    /* Check STR wield limit - secondary must fit in half the STR limit */
+    str_max_wield = char_str_max_wield_weight(ch);
+    BAIL_IF (obj_get_weight (obj) > str_max_wield / 2,
+        "This weapon is too heavy for your off-hand.\n\r", ch);
+
+    /* Check level requirement */
+    BAIL_IF (ch->level < obj->level,
+        "You must be high level to use this object.\n\r", ch);
+
+    /* Remove the old secondary weapon if one exists */
+    if (!char_remove_obj (ch, WEAR_LOC_SECONDARY, TRUE, FALSE))
+        return;
+
+    /* Equip the new secondary weapon */
+    act("$n wields $p in $s off-hand.", ch, obj, NULL, TO_NOTCHAR);
+    act("You wield $p in your off-hand.", ch, obj, NULL, TO_CHAR);
+    char_equip_obj (ch, obj, WEAR_LOC_SECONDARY);
+}
+
 DEFINE_DO_FUN (do_sacrifice) {
     char arg[MAX_INPUT_LENGTH];
     OBJ_T *obj;

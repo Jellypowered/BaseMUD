@@ -35,7 +35,7 @@ int should_assist_group (CHAR_T *bystander, CHAR_T *attacker, CHAR_T *victim);
 CHAR_T *random_group_target_in_room (CHAR_T *bystander, CHAR_T *ch);
 void check_assist (CHAR_T *ch, CHAR_T *victim);
 void multi_hit (CHAR_T *ch, CHAR_T *victim, int dt);
-void one_hit (CHAR_T *ch, CHAR_T *victim, int dt);
+void one_hit (CHAR_T *ch, CHAR_T *victim, int dt, bool secondary);
 bool damage_quiet (CHAR_T *ch, CHAR_T *victim, int dam, int dt, int dam_type);
 bool damage_visible (CHAR_T *ch, CHAR_T *victim, int dam, int dt, int dam_type,
     const char *damage_adj);

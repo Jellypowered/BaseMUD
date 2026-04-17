@@ -62,6 +62,7 @@ DECLARE_DO_FUN (do_sip);
 DECLARE_DO_FUN (do_eat);
 DECLARE_DO_FUN (do_wear);
 DECLARE_DO_FUN (do_remove);
+DECLARE_DO_FUN (do_second);
 DECLARE_DO_FUN (do_sacrifice);
 DECLARE_DO_FUN (do_junk);
 DECLARE_DO_FUN (do_quaff);

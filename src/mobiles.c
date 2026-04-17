@@ -393,7 +393,7 @@ void mobile_hit(CHAR_T *ch, CHAR_T *victim, int dt)
     int chance, number;
     CHAR_T *vch, *vch_next;
 
-    one_hit(ch, victim, dt);
+    one_hit(ch, victim, dt, FALSE);
     if (ch->fighting != victim)
         return;
 
@@ -404,14 +404,14 @@ void mobile_hit(CHAR_T *ch, CHAR_T *victim, int dt)
         {
             vch_next = vch->room_next;
             if ((vch != victim && vch->fighting == ch))
-                one_hit(ch, vch, dt);
+                one_hit(ch, vch, dt, FALSE);
         }
     }
 
     if (IS_AFFECTED(ch, AFF_HASTE) ||
         (IS_SET(ch->off_flags, OFF_FAST) && !IS_AFFECTED(ch, AFF_SLOW)))
     {
-        one_hit(ch, victim, dt);
+        one_hit(ch, victim, dt, FALSE);
     }
     if (ch->fighting != victim || dt == SN(BACKSTAB))
         return;
@@ -422,7 +422,7 @@ void mobile_hit(CHAR_T *ch, CHAR_T *victim, int dt)
 
     if (number_percent() < chance)
     {
-        one_hit(ch, victim, dt);
+        one_hit(ch, victim, dt, FALSE);
         if (ch->fighting != victim)
             return;
     }
@@ -433,7 +433,7 @@ void mobile_hit(CHAR_T *ch, CHAR_T *victim, int dt)
 
     if (number_percent() < chance)
     {
-        one_hit(ch, victim, dt);
+        one_hit(ch, victim, dt, FALSE);
         if (ch->fighting != victim)
             return;
     }

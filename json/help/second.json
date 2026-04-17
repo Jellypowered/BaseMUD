@@ -1,0 +1,39 @@
+[
+  {
+    "help": {
+      "area": null,
+      "name": "second",
+      "filename": "second.are",
+      "pages": [
+        {
+          "keyword": "SECOND OFFHAND DUALWIELD DUAL-WIELD",
+          "text": "Syntax: second <weapon>
+                 |offhand <weapon>
+                 |
+                 |Equip a weapon in your off-hand for dual-wielding. Allows you to
+                 |wield two weapons simultaneously in combat.
+                 |
+                 |Requirements:
+                 |  - You must already be wielding a primary weapon
+                 |  - Your secondary weapon must be considerably lighter than your
+                 |    primary weapon (at most 50% of primary weight)
+                 |  - You cannot use a shield or held item while dual-wielding
+                 |  - Your STR must support the weight of both weapons
+                 |
+                 |Combat Effects:
+                 |  - When your DUAL WIELD skill is high enough, your secondary
+                 |    weapon will attack automatically after your primary weapon
+                 |  - Your DUAL WIELD skill improves through practice in combat
+                 |  - The success chance depends on your dual wield skill and
+                 |    whether you're affected by slow effects
+                 |
+                 |Example:
+                 |  second dagger
+                 |  offhand shortsword
+                 |
+                 |See also: wield, hold, dual_wield"
+        }
+      ]
+    }
+  }
+]

@@ -711,7 +711,8 @@
 #define SKILL_MAP_SPIT_ACID 52
 #define SKILL_MAP_SEARCH    53
 #define SKILL_MAP_BANDAGE   54
-#define SKILL_MAP_MAX       55
+#define SKILL_MAP_DUAL_WIELD 55
+#define SKILL_MAP_MAX       56
 
 /* B6: Compile-time assertion to catch skill registration misalignments */
 #if SKILL_MAP_SEARCH >= SKILL_MAP_MAX

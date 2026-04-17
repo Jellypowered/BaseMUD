@@ -1,0 +1,50 @@
+[
+  {
+    "help": {
+      "area": null,
+      "name": "dual_wield",
+      "filename": "dual_wield.are",
+      "pages": [
+        {
+          "keyword": "DUAL_WIELD DUAL WIELD DUALWIELD DUAL-WIELD DUELING TWOHANDS",
+          "text": "Dual Wielding System
+                 |
+                 |Dual wielding allows fighters to wield two weapons simultaneously
+                 |for increased offensive capability.
+                 |
+                 |How It Works:
+                 |  - Equip a primary weapon with 'wield' or 'wear'
+                 |  - Equip a secondary weapon with 'second' or 'offhand'
+                 |  - Your secondary weapon must be significantly lighter than your
+                 |    primary (no more than 50% of primary weight)
+                 |  - In combat, you get attacks with both weapons
+                 |
+                 |Dual Wield Skill:
+                 |  - Improves through practice when successfully attacking with
+                 |    your secondary weapon
+                 |  - Higher skill = higher chance of secondary weapon attacks
+                 |  - Heavily affected by Dexterity and learned combat experience
+                 |  - Slowing effects reduce your dual wield chance
+                 |
+                 |Restrictions:
+                 |  - Cannot use a shield while dual-wielding
+                 |  - Cannot hold or wield other items while dual-wielding
+                 |  - Secondary weapon must be appropriate weapon type  
+                 |
+                 |Combat Mechanics:
+                 |  Round sequence:
+                 |  1. Primary weapon attack
+                 |  2. Secondary weapon attack (if skill check passes)
+                 |  3. Extra attacks from spells/skills (Haste, Second Attack, etc.)
+                 |
+                 |Typical Weapons for Off-Hand:
+                 |  - Dagger, Short Sword, Axe, Scimitar
+                 |  - Avoid heavy two-handed weapons
+                 |  - Avoid very light weapons (backstabs use primary)
+                 |
+                 |See also: second, wield, wear, skills"
+        }
+      ]
+    }
+  }
+]

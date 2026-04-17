@@ -4463,5 +4463,24 @@
                   "cmd_fun":  "do_bandage"
               }
 
+},
+{
+    "skill":  {
+                  "name":  "dual wield",
+                  "classes":  {
+                                      "warrior":  {
+                                                      "level":  20,
+                                                      "effort":  3
+                                                  },
+                                      "thief":  {
+                                                    "level":  22,
+                                                    "effort":  2
+                                                }
+                                  },
+                  "target":  "ignore",
+                  "min_position":  "standing",
+                  "usage_beats":  0
+              }
+
 }
 ]

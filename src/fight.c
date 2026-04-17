@@ -158,12 +158,29 @@ void multi_hit(CHAR_T *ch, CHAR_T *victim, int dt)
         return;
     }
 
-    one_hit(ch, victim, dt);
+    one_hit(ch, victim, dt, FALSE);
     if (ch->fighting != victim)
         return;
 
+    /* Check for secondary weapon dual-wield attack */
+    if (char_get_eq_by_wear_loc(ch, WEAR_LOC_SECONDARY) != NULL &&
+        char_get_eq_by_wear_loc(ch, WEAR_LOC_WIELD) != NULL)
+    {
+        int dw_chance = char_get_skill(ch, SN(DUAL_WIELD)) / 2;
+        if (IS_AFFECTED(ch, AFF_SLOW))
+            dw_chance /= 2;
+        
+        if (dw_chance > 0 && number_percent() < dw_chance)
+        {
+            one_hit(ch, victim, dt, TRUE);
+            player_try_skill_improve(ch, SN(DUAL_WIELD), TRUE, 5);
+            if (ch->fighting != victim)
+                return;
+        }
+    }
+
     if (IS_AFFECTED(ch, AFF_HASTE))
-        one_hit(ch, victim, dt);
+        one_hit(ch, victim, dt, FALSE);
     if (ch->fighting != victim || dt == SN(BACKSTAB))
         return;
 
@@ -173,7 +190,7 @@ void multi_hit(CHAR_T *ch, CHAR_T *victim, int dt)
 
     if (number_percent() < chance)
     {
-        one_hit(ch, victim, dt);
+        one_hit(ch, victim, dt, FALSE);
         player_try_skill_improve(ch, SN(SECOND_ATTACK), TRUE, 5);
         if (ch->fighting != victim)
             return;
@@ -186,7 +203,7 @@ void multi_hit(CHAR_T *ch, CHAR_T *victim, int dt)
 
     if (number_percent() < chance)
     {
-        one_hit(ch, victim, dt);
+        one_hit(ch, victim, dt, FALSE);
         player_try_skill_improve(ch, SN(THIRD_ATTACK), TRUE, 6);
         if (ch->fighting != victim)
             return;
@@ -271,7 +288,7 @@ bool check_counter(CHAR_T *ch, CHAR_T *victim, int dam, int dt)
 }
 
 /* Hit one guy once. */
-void one_hit(CHAR_T *ch, CHAR_T *victim, int dt)
+void one_hit(CHAR_T *ch, CHAR_T *victim, int dt, bool secondary)
 {
     OBJ_T *wield;
     char *damage_adj = NULL;
@@ -298,7 +315,10 @@ void one_hit(CHAR_T *ch, CHAR_T *victim, int dt)
 #endif
 
     /* Determine if there is a weapon in use. */
-    wield = char_get_weapon(ch);
+    if (!secondary)
+        wield = char_get_weapon(ch);
+    else
+        wield = char_get_eq_by_wear_loc(ch, WEAR_LOC_SECONDARY);
     fight_attack = (wield) ? wield->v.weapon.attack_type : ch->attack_type;
 
     /* If the attack is 'ATTACK_DEFAULT', use a non-skill 'fight' attack with
