@@ -284,7 +284,8 @@
               |Use these commands to walk in a particular direction.
               |
               |Note: diagonal directions (ne/nw/se/sw) are only available where a
-              |room has a diagonal exit.  They can also be used in SWALK (e.g. swalk 3ne).
+              |room has a diagonal exit.  Use them in SWALK like any other direction
+              |(e.g. swalk 3ne s e w).
               |
               |Related: exits, swalk
               |"

@@ -717,134 +717,88 @@ DEFINE_DO_FUN (do_enter) {
  * Example: swalk 2s3eu = south, south, east, east, east, up
  * Original snippet by Jorge Pereira (Evren), adapted for BaseMUD. */
 
-/* Validate speedwalk syntax - contains only digits, directions, and whitespace. */
-static bool check_speedwalk (const char *s)
+/* Map a space-separated direction token (with optional leading count) to a
+ * direction constant.  Accepts abbreviations: n s e w u d ne nw se sw
+ * (case-insensitive).  Returns -1 for unrecognised tokens. */
+static int direction_from_token (const char *s)
 {
-    bool found_char = FALSE;
+    char lo[4] = {0};
+    int i;
 
-    while (*s) {
-        /* Allow directions (case-insensitive), digits, and whitespace. */
-        if (!strchr ("nsewudNSEWUD ", *s) && !isdigit ((unsigned char)*s))
-            return FALSE;
+    for (i = 0; i < 3 && s[i]; i++)
+        lo[i] = s[i] | 0x20;
 
-        /* Require at least one direction letter. */
-        if (!isdigit ((unsigned char)*s) && *s != ' ')
-            found_char = TRUE;
-
-        s++;
-    }
-
-    return found_char;
-}
-
-/* Parse the next direction token from a speedwalk string.  Handles single-
- * character directions (n/s/e/w/u/d) and two-character diagonals (ne/nw/se/sw)
- * by peeking at the following character.  Advances *pp past the consumed
- * character(s) and returns the direction constant, or -1 on failure. */
-static int direction_from_swalk (const char **pp)
-{
-    char c    = (*pp)[0] | 0x20;  /* Lowercase. */
-    char next = (*pp)[1] | 0x20;
-
-    switch (c) {
-        case 'n':
-            if (next == 'e') { *pp += 2; return DIR_NE; }
-            if (next == 'w') { *pp += 2; return DIR_NW; }
-            (*pp)++; return DIR_NORTH;
-        case 's':
-            if (next == 'e') { *pp += 2; return DIR_SE; }
-            if (next == 'w') { *pp += 2; return DIR_SW; }
-            (*pp)++; return DIR_SOUTH;
-        case 'e': (*pp)++; return DIR_EAST;
-        case 'w': (*pp)++; return DIR_WEST;
-        case 'u': (*pp)++; return DIR_UP;
-        case 'd': (*pp)++; return DIR_DOWN;
-        default:  return -1;
-    }
+    if (!strcmp (lo, "n"))  return DIR_NORTH;
+    if (!strcmp (lo, "s"))  return DIR_SOUTH;
+    if (!strcmp (lo, "e"))  return DIR_EAST;
+    if (!strcmp (lo, "w"))  return DIR_WEST;
+    if (!strcmp (lo, "u"))  return DIR_UP;
+    if (!strcmp (lo, "d"))  return DIR_DOWN;
+    if (!strcmp (lo, "ne")) return DIR_NE;
+    if (!strcmp (lo, "nw")) return DIR_NW;
+    if (!strcmp (lo, "se")) return DIR_SE;
+    if (!strcmp (lo, "sw")) return DIR_SW;
+    return -1;
 }
 
 DEFINE_DO_FUN (do_swalk)
 {
-    const char *s;
+    char token[MAX_INPUT_LENGTH];
+    const char *dirstr;
     int count;
-    char tmp[MAX_INPUT_LENGTH];
-    char *t;
     int direction;
     EXIT_T *pexit;
     int move_count;
     ROOM_INDEX_T *start_room;
 
     BAIL_IF (argument[0] == '\0',
-        "Syntax: swalk <list of directions>\n\rExample: swalk 2s3eu\n\r", ch);
+        "Syntax: swalk <directions>\n\rExample: swalk 3ne s e w\n\r", ch);
 
     BAIL_IF (ch->fighting != NULL,
         "Maybe finish the fight first?!\n\r", ch);
 
-    if (!check_speedwalk (argument)) {
-        send_to_char ("That is not a valid speedwalk.\n\r"
-            "Valid directions: n, s, e, w, u, d, ne, nw, se, sw\n\r"
-            "Note: 'ne' (no space) means northeast; use 'n e' for north then east.\n\r", ch);
-        return;
-    }
-
-    /* Parse the speedwalk string and execute movements. */
-    s = argument;
     move_count = 0;
 
-    while (*s) {
-        /* Skip whitespace. */
-        if (*s == ' ') {
-            s++;
+    while (argument[0] != '\0') {
+        argument = one_argument (argument, token);
+
+        if (token[0] == '\0')
             continue;
+
+        /* Parse optional leading digit count (e.g. "3ne" -> count=3, dir="ne"). */
+        dirstr = token;
+        count  = 1;
+
+        if (isdigit ((unsigned char)*dirstr)) {
+            count = atoi (dirstr);
+            while (isdigit ((unsigned char)*dirstr))
+                dirstr++;
+            if (count <= 0)
+                count = 1;
         }
 
-        /* Parse repetition count (if any). */
-        *(t = tmp) = '\0';
-        count = 1;
-
-        while (isdigit ((unsigned char)*s)) {
-            *t = *s;
-            *(++t) = '\0';
-            s++;
-        }
-
-        if (tmp[0] != '\0')
-            count = atoi (tmp);
-
-        /* Bail if no direction character follows. */
-        if (*s == '\0') {
-            send_to_char ("Invalid speedwalk syntax.\n\r", ch);
-            return;
-        }
-
-        /* Get direction from next token (advances s past direction char(s)). */
-        direction = direction_from_swalk (&s);
+        direction = direction_from_token (dirstr);
         if (direction < 0) {
-            send_to_char ("That is not a valid direction.\n\r", ch);
+            printf_to_char (ch, "'%s' is not a valid direction.\n\r"
+                "Valid: n  s  e  w  u  d  ne  nw  se  sw\n\r", token);
             return;
         }
 
         /* Execute the movement 'count' times. */
-        while (--count >= 0) {
-            /* Check if exit exists and is passable. */
+        while (count-- > 0) {
             if ((pexit = ch->in_room->exit[direction]) == NULL) {
                 printf_to_char (ch, "You can't go %s.\n\r",
                     door_get_name (direction));
                 return;
             }
 
-            /* Remember starting room and attempt move. */
             start_room = ch->in_room;
             char_move (ch, direction, FALSE);
 
-            /* If we didn't move, char_move already sent an error message. */
             if (ch->in_room == start_room)
                 return;
 
-            move_count++;
-
-            /* Safety check - prevent infinite loops or massive moves. */
-            if (move_count > 100) {
+            if (++move_count > 100) {
                 send_to_char ("Speedwalk limit reached.\n\r", ch);
                 return;
             }

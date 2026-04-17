@@ -7,29 +7,25 @@
       "keyword": "SWALK SPEEDWALK",
       "text": "Syntax: swalk <directions>
               |
-              |        Execute a sequence of movements using shorthand notation.
-              |        Swalk allows you to move through multiple rooms efficiently
-              |        by specifying direction and repetition counts in one command.
+              |        Execute a sequence of space-separated movements.
+              |        Each token is an optional repeat count followed by a direction.
               |
-              |        Valid directions: n (north), s (south), e (east), w (west)
-              |                          u (up), d (down)
-              |                          ne (northeast), nw (northwest)
-              |                          se (southeast), sw (southwest)
+              |        Valid directions: n  s  e  w  u  d  ne  nw  se  sw
               |
               |        Examples:
-              |          swalk 2s3eu       = south twice, east three times, up once
-              |          swalk 3ne2sw      = northeast three times, southwest twice
-              |          swalk n e         = north then east (space-separated)
-              |          swalk ne          = northeast (two letters, no space)
-              |          swalk 5u          = up five times
+              |          swalk 3e 2n 1u 4w    = east x3, north x2, up x1, west x4
+              |          swalk ne s e w        = northeast, south, east, west
+              |          swalk 3ne 2sw n       = northeast x3, southwest x2, north
+              |          swalk 5u              = up five times
               |
               |        Notes:
+              |          - Directions must be space-separated
+              |          - Each direction token can have an optional leading count (e.g. 3ne)
               |          - You must be standing to use swalk
               |          - Cannot speedwalk while in combat
               |          - Speedwalk stops immediately if a move fails (locked door, no exit, etc)
               |          - Maximum 100 consecutive moves in one speedwalk
               |          - Directions are not case-sensitive
-              |          - 'ne' (no space) = northeast; 'n e' (space) = north then east
               |
               |        Related: north, south, east, west, up, down,
               |                 northeast, northwest, southeast, southwest
