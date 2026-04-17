@@ -311,11 +311,11 @@ const FLAG_T exit_flags[] = {
 
 const FLAG_T room_flags[] = {
     {"dark", ROOM_DARK, TRUE},
-    {"unused_room_1", ROOM_UNUSED_FLAG_1, FALSE},
+    {"deathtrap", ROOM_DEATHTRAP, TRUE},
     {"no_mob", ROOM_NO_MOB, TRUE},
     {"indoors", ROOM_INDOORS, TRUE},
-    {"unused_room_2", ROOM_UNUSED_FLAG_2, FALSE},
-    {"unused_room_3", ROOM_UNUSED_FLAG_3, FALSE},
+    {"teleport", ROOM_TELEPORT, TRUE},
+    {"falling", ROOM_FALLING_OBJECTS, TRUE},
     {"unused_room_4", ROOM_UNUSED_FLAG_4, FALSE},
     {"nomagic", ROOM_NOMAGIC, TRUE},
     {"unused_room_6", ROOM_UNUSED_FLAG_6, FALSE},

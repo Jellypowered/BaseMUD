@@ -27,8 +27,10 @@
 
 #include "update.h"
 
+#include "act_info.h"
 #include "areas.h"
 #include "chars.h"
+#include "rooms.h"
 #include "comm.h"
 #include "fight.h"
 #include "globals.h"
@@ -571,6 +573,143 @@ void pulse_update(void)
 #endif
 }
 
+/* Death trap room hazard updates. */
+void dtrap_update(void)
+{
+    CHAR_T *ch, *ch_next;
+    
+    for (ch = char_first; ch != NULL; ch = ch_next)
+    {
+        ch_next = ch->global_next;
+        
+        /* Only affects PCs, skip immortals */
+        if (IS_NPC(ch) || IS_IMMORTAL(ch))
+            continue;
+        
+        /* Check if in a death trap room */
+        if (!ch->in_room || !IS_SET(ch->in_room->room_flags, ROOM_DEATHTRAP))
+            continue;
+        
+        /* Apply 3-stage damage based on current HP state */
+        if (ch->hit >= ch->max_hit / 2)
+        {
+            /* Stage 1: Halve HP */
+            ch->hit = ch->hit / 2;
+            ch->position = POS_RESTING;
+            send_to_char("&RYou are caught in a deadly trap! Your body writhes in pain!&n\n", ch);
+            act("$n is caught in a deadly trap!", ch, NULL, NULL, TO_NOTCHAR);
+        }
+        else if (ch->hit > 1)
+        {
+            /* Stage 2: Reduce to 1 HP */
+            ch->hit = 1;
+            send_to_char("&RThe trap grinds on! You are barely clinging to life!&n\n", ch);
+            act("$n is nearly dead from the trap!", ch, NULL, NULL, TO_NOTCHAR);
+        }
+        else if (ch->hit > 0)
+        {
+            /* Stage 3: Death */
+            send_to_char("&RThe trap crushes you completely!&n\n", ch);
+            act("&R$n is crushed by the trap!&n", ch, NULL, NULL, TO_NOTCHAR);
+            char_die(ch);
+        }
+    }
+}
+
+/* Teleport room hazard updates. */
+void tele_update(void)
+{
+    CHAR_T *ch, *ch_next;
+    ROOM_INDEX_T *dest_room;
+    
+    for (ch = char_first; ch != NULL; ch = ch_next)
+    {
+        ch_next = ch->global_next;
+        
+        /* Only affects PCs, skip immortals */
+        if (IS_NPC(ch) || IS_IMMORTAL(ch))
+            continue;
+        
+        /* Check if in a teleport room */
+        if (!ch->in_room || !IS_SET(ch->in_room->room_flags, ROOM_TELEPORT))
+            continue;
+        
+        /* Determine destination */
+        if (ch->in_room->tele_dest == 0)
+        {
+            /* Random destination: pick a random vnum 1 to top_vnum_room */
+            do {
+                dest_room = room_get_index(number_range(1, top_vnum_room));
+            } while (dest_room == NULL);
+        }
+        else
+        {
+            /* Fixed destination vnum */
+            dest_room = room_get_index(ch->in_room->tele_dest);
+            if (dest_room == NULL)
+            {
+                /* Fallback to random if destination vnum doesn't exist */
+                do {
+                    dest_room = room_get_index(number_range(1, top_vnum_room));
+                } while (dest_room == NULL);
+            }
+        }
+        
+        /* Teleport with messages */
+        send_to_char("&CYou are caught in a swiftly moving teleport field!&n\n", ch);
+        act("&C$n vanishes in a swirl of teleportation energy!&n", ch, NULL, NULL, TO_NOTCHAR);
+        
+        /* Move character (this also removes from combat) */
+        char_from_room(ch);
+        char_to_room(ch, dest_room);
+        
+        act("&C$n appears in a swirl of teleportation energy!&n", ch, NULL, NULL, TO_NOTCHAR);
+        send_to_char("&CYou spin through the teleportation field and land in a new location!&n\n", ch);
+        do_look(ch, "");
+    }
+}
+
+/* Falling objects room hazard updates. */
+void falling_update(void)
+{
+    OBJ_T *obj, *obj_next;
+    ROOM_INDEX_T *dest_room;
+    CHAR_T *rch;
+    
+    for (obj = object_first; obj != NULL; obj = obj_next)
+    {
+        obj_next = obj->global_next;
+        
+        /* Skip objects that are in equipment or inventory */
+        if (obj->in_room == NULL)
+            continue;
+        
+        /* Only affect objects in air sectors with a down exit */
+        if (obj->in_room->sector_type != SECT_AIR)
+            continue;
+        
+        if (obj->in_room->exit[5] == NULL)
+            continue;
+        
+        /* Get destination room (below) */
+        dest_room = obj->in_room->exit[5]->to_room;
+        if (dest_room == NULL)
+            continue;
+        
+        /* Display falling message to current room occupants */
+        for (rch = obj->in_room->people_first; rch != NULL; rch = rch->room_next)
+            printf_to_char(rch, "&y%s falls away into the void below...&n\n\r", obj->short_descr);
+        
+        /* Move object to room below */
+        obj_take_from_room(obj);
+        obj_give_to_room(obj, dest_room);
+        
+        /* Display arrival message to destination room occupants */
+        for (rch = dest_room->people_first; rch != NULL; rch = rch->room_next)
+            printf_to_char(rch, "&y%s floats by, descending from above...&n\n\r", obj->short_descr);
+    }
+}
+
 /* Handle all kinds of updates.
  * Called once per pulse from game loop.
  * Random times to defeat tick-timing clients and players. */
@@ -620,6 +759,34 @@ void update_handler(void)
         weather_update();
         char_update_all();
         obj_update_all();
+    }
+
+    /* Room hazard updates */
+    {
+        static int pulse_dtrap = 0;
+        while (--pulse_dtrap <= 0)
+        {
+            pulse_dtrap += PULSE_DEATHTRAP;
+            dtrap_update();
+        }
+    }
+
+    {
+        static int pulse_tele = 0;
+        while (--pulse_tele <= 0)
+        {
+            pulse_tele += PULSE_TELEPORT;
+            tele_update();
+        }
+    }
+
+    {
+        static int pulse_falling = 0;
+        while (--pulse_falling <= 0)
+        {
+            pulse_falling += PULSE_FALLING;
+            falling_update();
+        }
     }
 
     aggr_update();

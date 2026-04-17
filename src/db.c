@@ -623,7 +623,7 @@ void load_rooms(FILE *fp)
         fread_string_replace(fp, &room_index->name);
         fread_string_replace(fp, &room_index->description);
 
-        /* Area number */ fread_number(fp);
+        room_index->tele_dest = fread_number(fp);  /* Teleport destination vnum (was unused zero field) */
 
         room_index->room_flags = fread_flag(fp, room_flags);
         /* horrible hack */

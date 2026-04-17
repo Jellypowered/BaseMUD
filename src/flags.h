@@ -330,11 +330,11 @@
 /* Room flags.
  * Used in #ROOMS. */
 #define ROOM_DARK (BIT_01)
-#define ROOM_UNUSED_FLAG_1 (BIT_02) /* old: death */
+#define ROOM_DEATHTRAP (BIT_02) /* death trap room */
 #define ROOM_NO_MOB (BIT_03)
 #define ROOM_INDOORS (BIT_04)
-#define ROOM_UNUSED_FLAG_2 (BIT_05) /* old: lawful */
-#define ROOM_UNUSED_FLAG_3 (BIT_06) /* old: neutral */
+#define ROOM_TELEPORT (BIT_05) /* teleport room */
+#define ROOM_FALLING_OBJECTS (BIT_06) /* falling objects room */
 #define ROOM_UNUSED_FLAG_4 (BIT_07) /* old: chaotic */
 #define ROOM_NOMAGIC (BIT_08)
 #define ROOM_UNUSED_FLAG_6 (BIT_09) /* old: tunnel */

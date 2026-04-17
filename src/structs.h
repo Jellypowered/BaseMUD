@@ -1298,6 +1298,7 @@ struct room_index_data
     sh_int heal_rate;
     sh_int mana_rate;
     sh_int clan;
+    sh_int tele_dest;         /* Teleport destination vnum (0 = random) */
     PORTAL_EXIT_T *portal;
     OBJ_RECYCLE_T rec_data;
 };
