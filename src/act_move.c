@@ -737,17 +737,29 @@ static bool check_speedwalk (const char *s)
     return found_char;
 }
 
-/* Helper function to map direction character to direction constant. */
-static int direction_from_char (char c)
+/* Parse the next direction token from a speedwalk string.  Handles single-
+ * character directions (n/s/e/w/u/d) and two-character diagonals (ne/nw/se/sw)
+ * by peeking at the following character.  Advances *pp past the consumed
+ * character(s) and returns the direction constant, or -1 on failure. */
+static int direction_from_swalk (const char **pp)
 {
-    switch (c | 0x20) {  /* Lowercase conversion. */
-        case 'n': return DIR_NORTH;
-        case 's': return DIR_SOUTH;
-        case 'e': return DIR_EAST;
-        case 'w': return DIR_WEST;
-        case 'u': return DIR_UP;
-        case 'd': return DIR_DOWN;
-        default: return -1;
+    char c    = (*pp)[0] | 0x20;  /* Lowercase. */
+    char next = (*pp)[1] | 0x20;
+
+    switch (c) {
+        case 'n':
+            if (next == 'e') { *pp += 2; return DIR_NE; }
+            if (next == 'w') { *pp += 2; return DIR_NW; }
+            (*pp)++; return DIR_NORTH;
+        case 's':
+            if (next == 'e') { *pp += 2; return DIR_SE; }
+            if (next == 'w') { *pp += 2; return DIR_SW; }
+            (*pp)++; return DIR_SOUTH;
+        case 'e': (*pp)++; return DIR_EAST;
+        case 'w': (*pp)++; return DIR_WEST;
+        case 'u': (*pp)++; return DIR_UP;
+        case 'd': (*pp)++; return DIR_DOWN;
+        default:  return -1;
     }
 }
 
@@ -769,7 +781,9 @@ DEFINE_DO_FUN (do_swalk)
         "Maybe finish the fight first?!\n\r", ch);
 
     if (!check_speedwalk (argument)) {
-        send_to_char ("That is not a valid speedwalk.\n\rValid directions: n(orth), s(outh), e(ast), w(est), u(p), d(own)\n\r", ch);
+        send_to_char ("That is not a valid speedwalk.\n\r"
+            "Valid directions: n, s, e, w, u, d, ne, nw, se, sw\n\r"
+            "Note: 'ne' (no space) means northeast; use 'n e' for north then east.\n\r", ch);
         return;
     }
 
@@ -803,8 +817,8 @@ DEFINE_DO_FUN (do_swalk)
             return;
         }
 
-        /* Get direction from character. */
-        direction = direction_from_char (*s);
+        /* Get direction from next token (advances s past direction char(s)). */
+        direction = direction_from_swalk (&s);
         if (direction < 0) {
             send_to_char ("That is not a valid direction.\n\r", ch);
             return;
@@ -835,8 +849,6 @@ DEFINE_DO_FUN (do_swalk)
                 return;
             }
         }
-
-        s++;
     }
 
     /* Report successful speedwalk. */

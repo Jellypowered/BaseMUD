@@ -13,11 +13,15 @@
               |
               |        Valid directions: n (north), s (south), e (east), w (west)
               |                          u (up), d (down)
+              |                          ne (northeast), nw (northwest)
+              |                          se (southeast), sw (southwest)
               |
               |        Examples:
-              |          swalk 2s3eu     = go south twice, then east three times, up once
-              |          swalk n ne       = north, northeast (parsed as north then east)
-              |          swalk 5u         = up five times
+              |          swalk 2s3eu       = south twice, east three times, up once
+              |          swalk 3ne2sw      = northeast three times, southwest twice
+              |          swalk n e         = north then east (space-separated)
+              |          swalk ne          = northeast (two letters, no space)
+              |          swalk 5u          = up five times
               |
               |        Notes:
               |          - You must be standing to use swalk
@@ -25,8 +29,7 @@
               |          - Speedwalk stops immediately if a move fails (locked door, no exit, etc)
               |          - Maximum 100 consecutive moves in one speedwalk
               |          - Directions are not case-sensitive
-              |          - Diagonal exits (ne/nw/se/sw) are NOT supported by swalk; use
-              |            the full command name (e.g. 'ne' or 'northeast') directly
+              |          - 'ne' (no space) = northeast; 'n e' (space) = north then east
               |
               |        Related: north, south, east, west, up, down,
               |                 northeast, northwest, southeast, southwest
