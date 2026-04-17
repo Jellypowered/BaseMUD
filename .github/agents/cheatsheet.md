@@ -49,6 +49,20 @@ Verified findings from actual integrations. Update this file as new patterns are
 - `MOB_RESTRINGER` is bit 25 (replacing `MOB_UNUSED_FLAG_8`). Used for `do_restring` service NPC check.
 - `fix_resets()` in `src/db.c` scans all 'E' resets and corrects invalid wear locations to valid ones for each object using `obj_index_can_wear_flag()` and `wear_loc_get_flag()`. Logs warnings and marks areas as `AREA_CHANGED`.
 
+## Idle Command
+
+- Source: Ferric of MelmothMUD, enhanced by Dennis Reichel (Snippets/Pending/idle.c).
+- Implementation: `DEFINE_DO_FUN(do_idle)` in `src/act_info.c` (line ~1227).
+- Uses **modern BaseMUD patterns**:
+  - Descriptor iteration: `for (d = descriptor_first; d != NULL; d = d->global_next)` with `CH(d)` macro.
+  - Visibility check: `char_can_see_anywhere(ch, vch)` (NOT old `can_see()`).
+  - Position string: `char_get_position_str(ch, vch->position, NULL, FALSE)`.
+  - OLC editor name: `olc_ed_name(vch)` returns `const char*` (NOT int).
+- **Include required**: `#include "olc.h"` in act_info.c for olc_ed_name().
+- **Empty string handling**: Use `status[0] = '\0'` directly instead of `snprintf(status, sizeof(status), "")` to avoid format warnings.
+- Command displays: Name, Idle ticks, Hours played, Hours/level ratio, Position, Status (OLC editor or "Quest"), Host.
+- Includes 1% easter egg ("You have become better at idleness!").
+
 ## File Operation Notes
 
 - When moving files with `run_in_terminal`, use absolute paths for `Move-Item` to avoid dependence on terminal cwd. In one run, a command chain that included `Set-Location` was simplified by the tool output and made verification confusing.

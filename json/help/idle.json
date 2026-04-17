@@ -1,0 +1,33 @@
+[
+  {
+    "help": {
+      "area": null,
+      "name": "idle",
+      "filename": "idle.are",
+      "pages": [
+        {
+          "keyword": "IDLE NOIDLE",
+          "text": "Syntax: idle
+                 |
+                 |Display a list of all visible players with detailed idle and
+                 |playtime information.
+                 |
+                 |Columns displayed:
+                 |  Players  - Character name
+                 |  Idle     - Number of game ticks idle (1 tick = 1/4 second)
+                 |  Hours    - Total hours played (including this session)
+                 |  HpL      - Average hours played per level
+                 |  Position - Current position (standing, sitting, resting, etc.)
+                 |  Status   - Current activity (OLC editor name or Quest if questing)
+                 |  Host     - Hostname or IP address of player connection
+                 |
+                 |Example:
+                 |  idle
+                 |
+                 |This is useful for determining when players have been inactive
+                 |or what they are currently doing on the MUD."
+        }
+      ]
+    }
+  }
+]

@@ -64,6 +64,7 @@ DECLARE_DO_FUN (do_weather);
 DECLARE_DO_FUN (do_help);
 DECLARE_DO_FUN (do_whois);
 DECLARE_DO_FUN (do_who);
+DECLARE_DO_FUN (do_idle);
 DECLARE_DO_FUN (do_count);
 DECLARE_DO_FUN (do_inventory);
 DECLARE_DO_FUN (do_equipment);

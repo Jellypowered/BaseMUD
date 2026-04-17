@@ -47,6 +47,7 @@
 #include "tables.h"
 #include "update.h"
 #include "utils.h"
+#include "olc.h"
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -1222,6 +1223,50 @@ DEFINE_DO_FUN(do_who)
     buf_free(output);
     free(show_class);
     free(show_race);
+}
+
+DEFINE_DO_FUN(do_idle)
+{
+    DESCRIPTOR_T *d;
+    char buf[MAX_STRING_LENGTH];
+    char status[MAX_STRING_LENGTH];
+
+    send_to_char("Players     Idle  Hours  HpL Position        Status  Host\n\r"
+                 "--------------------------------------------------------------------\n\r", ch);
+
+    for (d = descriptor_first; d != NULL; d = d->global_next)
+    {
+        CHAR_T *vch = CH(d);
+
+        if (d->connected != CON_PLAYING)
+            continue;
+        if (IS_NPC(vch) || !char_can_see_anywhere(ch, vch))
+            continue;
+
+        /* Determine status */
+        if (vch->desc && vch->desc->editor)
+            snprintf(status, sizeof(status), "%s", olc_ed_name(vch));
+        else if (vch->countdown > 0)
+            snprintf(status, sizeof(status), "Quest");
+        else
+            status[0] = '\0';
+
+        /* Format output line */
+        snprintf(buf, sizeof(buf), "%-12s%4d%7d%5.1f %-16s%-8s%-30.30s\n\r",
+                 vch->name,
+                 vch->timer,
+                 (vch->played + (int)(current_time - vch->logon)) / 3600,
+                 (float)(vch->played + (int)(current_time - vch->logon)) / (3600 * UMAX(1, vch->level)),
+                 char_get_position_str(ch, vch->position, NULL, FALSE),
+                 status,
+                 vch->desc ? vch->desc->host : "No descriptor");
+        send_to_char(buf, ch);
+    }
+
+    if (number_percent() == 1)
+        send_to_char("You have become better at idleness!\n\r", ch);
+
+    send_to_char("\n\r", ch);
 }
 
 /* for keeping track of the player count */

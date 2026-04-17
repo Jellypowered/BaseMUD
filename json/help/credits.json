@@ -104,6 +104,9 @@
               |
               |Diagonal exits (NE/NW/SE/SW) --
               |    Carnage (ROM 2.4 snippet)
+              |
+              |Idle command --
+              |    Ferric (MelmothMUD) / Dennis Reichel (enhancement)
               |",
       "hide_keywords": true
     }

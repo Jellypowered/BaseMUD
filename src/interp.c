@@ -147,6 +147,7 @@ const CMD_T cmd_table[] = {
     {"explored", do_explored, POS_DEAD, 0, LOG_NORMAL, 1},
     /*  {"groups",      do_groups,      POS_SLEEPING, 0,  LOG_NORMAL, 1}, */
     {"help", do_help, POS_DEAD, 0, LOG_NORMAL, 1},
+    {"idle", do_idle, POS_DEAD, 0, LOG_NORMAL, 1},
     {"info", do_groups, POS_SLEEPING, 0, LOG_NORMAL, 1},
     {"motd", do_motd, POS_DEAD, 0, LOG_NORMAL, 1},
     {"read", do_read, POS_RESTING, 0, LOG_NORMAL, 1},
