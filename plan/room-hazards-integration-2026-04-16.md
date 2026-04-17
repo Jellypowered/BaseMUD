@@ -86,4 +86,11 @@ Three room-based hazard systems with separate pulse handlers. All use available 
 
 ---
 
-## Status: NOT STARTED
+## Status: COMPLETED (2026-04-16)
+
+All three room hazard systems successfully implemented, tested, and pushed.
+
+**Commit:** 7308b6b "Integrate three room hazard systems: death traps, teleport rooms, and falling objects"
+**Build:** Clean compilation with -Werror flag verified
+**Files modified:** 11 files, 268 insertions
+**Snippets moved:** merc-l.deathtraps.txt, teleport.c, falling.c → Completed/
