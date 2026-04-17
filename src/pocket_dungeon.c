@@ -1105,7 +1105,8 @@ static void pd_freeze_obj_recursive(OBJ_T *obj)
 }
 
 static const char *pd_dir_names[DIR_MAX] = {
-    "north", "east", "south", "west", "up", "down"
+    "north", "east", "south", "west", "up", "down",
+    "northeast", "northwest", "southeast", "southwest"
 };
 
 /* Write a single character c to fp, JSON-encoding where necessary. */

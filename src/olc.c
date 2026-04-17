@@ -71,6 +71,10 @@ const OLC_CMD_T redit_table[] = {
     {"w", redit_west},
     {"u", redit_up},
     {"d", redit_down},
+    {"ne", redit_northeast},
+    {"nw", redit_northwest},
+    {"se", redit_southeast},
+    {"sw", redit_southwest},
 
     {"commands", show_commands},
     {"create", redit_create},
@@ -90,6 +94,10 @@ const OLC_CMD_T redit_table[] = {
     {"west", redit_west},
     {"up", redit_up},
     {"down", redit_down},
+    {"northeast", redit_northeast},
+    {"northwest", redit_northwest},
+    {"southeast", redit_southeast},
+    {"southwest", redit_southwest},
 
     /* New reset commands. */
     {"mreset", redit_mreset},

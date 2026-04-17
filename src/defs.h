@@ -354,7 +354,11 @@
 #define DIR_WEST 3
 #define DIR_UP 4
 #define DIR_DOWN 5
-#define DIR_MAX 6
+#define DIR_NE 6
+#define DIR_NW 7
+#define DIR_SE 8
+#define DIR_SW 9
+#define DIR_MAX 10
 
 /* Conditions. */
 #define COND_DRUNK 0

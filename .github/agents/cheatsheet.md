@@ -83,6 +83,17 @@ Verified findings from actual integrations. Update this file as new patterns are
 ## MUDEditor Notes
 
 - The MUDEditor `tsc` tasks in the workspace currently point at `node_modules\.bin\tsc` under `web/shared` and `web/client`, which fails with “The system cannot find the path specified.” Use editor diagnostics or a corrected path from `web/` when validating those packages.
+## Diagonal Exits (NE/NW/SE/SW)
+
+DIR_NE=6, DIR_NW=7, DIR_SE=8, DIR_SW=9; DIR_MAX changed from 6 to 10.
+
+- `door_table[]` in `tables.c` extended with 4 new sentinel-terminated entries. Reverse pairs: NE↔SW, NW↔SE.
+- `doors.json` in `json/config/` extended with `dir` 6–9 entries.
+- Player commands registered in `interp.c`: ne/nw/se/sw (abbreviation) + northeast/northwest/southeast/southwest (full word).
+- OLC REDIT: `redit_table` in `olc.c` and handlers/declarations in `olc_redit.c`/`olc_redit.h` extended.
+- `pd_dir_names[DIR_MAX]` in `pocket_dungeon.c` extended with 4 new entries (required to avoid NULL crash).
+- All `for (i = 0; i < DIR_MAX; i++)` and `door_lookup()`/`door_get()` calls auto-handle new directions once DIR_MAX and door_table are updated — no manual changes needed in `act_info.c`, `chars.c`, `hunt.c`, `fight.c`, `rooms.c`, `scan`, etc.
+- MUDEditor already had all 10 directions in shared types, parsers, map layout, and RoomEditor before this change.
 
 ## Git Rebase Notes
 

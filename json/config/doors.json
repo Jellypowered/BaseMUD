@@ -46,5 +46,37 @@
     "short_name": "D",
     "to_phrase": "below you",
     "from_phrase": "from below"
+  }},
+  {"door": {
+    "dir": 6,
+    "reverse": 9,
+    "name": "northeast",
+    "short_name": "NE",
+    "to_phrase": "to the northeast",
+    "from_phrase": "from the northeast"
+  }},
+  {"door": {
+    "dir": 7,
+    "reverse": 8,
+    "name": "northwest",
+    "short_name": "NW",
+    "to_phrase": "to the northwest",
+    "from_phrase": "from the northwest"
+  }},
+  {"door": {
+    "dir": 8,
+    "reverse": 7,
+    "name": "southeast",
+    "short_name": "SE",
+    "to_phrase": "to the southeast",
+    "from_phrase": "from the southeast"
+  }},
+  {"door": {
+    "dir": 9,
+    "reverse": 6,
+    "name": "southwest",
+    "short_name": "SW",
+    "to_phrase": "to the southwest",
+    "from_phrase": "from the southwest"
   }}
 ]

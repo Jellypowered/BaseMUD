@@ -384,6 +384,14 @@ DEFINE_DO_FUN (do_up)
     { char_move (ch, DIR_UP, FALSE); }
 DEFINE_DO_FUN (do_down)
     { char_move (ch, DIR_DOWN, FALSE); }
+DEFINE_DO_FUN (do_northeast)
+    { char_move (ch, DIR_NE, FALSE); }
+DEFINE_DO_FUN (do_northwest)
+    { char_move (ch, DIR_NW, FALSE); }
+DEFINE_DO_FUN (do_southeast)
+    { char_move (ch, DIR_SE, FALSE); }
+DEFINE_DO_FUN (do_southwest)
+    { char_move (ch, DIR_SW, FALSE); }
 
 DEFINE_DO_FUN (do_open)
     { do_door (ch, argument, "open",   do_open_object,   do_open_door); }

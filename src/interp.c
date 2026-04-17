@@ -80,6 +80,14 @@ const CMD_T cmd_table[] = {
     {"west", do_west, POS_STANDING, 0, LOG_NEVER, 0},
     {"up", do_up, POS_STANDING, 0, LOG_NEVER, 0},
     {"down", do_down, POS_STANDING, 0, LOG_NEVER, 0},
+    {"ne", do_northeast, POS_STANDING, 0, LOG_NEVER, 0},
+    {"nw", do_northwest, POS_STANDING, 0, LOG_NEVER, 0},
+    {"se", do_southeast, POS_STANDING, 0, LOG_NEVER, 0},
+    {"sw", do_southwest, POS_STANDING, 0, LOG_NEVER, 0},
+    {"northeast", do_northeast, POS_STANDING, 0, LOG_NEVER, 0},
+    {"northwest", do_northwest, POS_STANDING, 0, LOG_NEVER, 0},
+    {"southeast", do_southeast, POS_STANDING, 0, LOG_NEVER, 0},
+    {"southwest", do_southwest, POS_STANDING, 0, LOG_NEVER, 0},
     {"swalk", do_swalk, POS_STANDING, 0, LOG_NORMAL, 1},
 
     /* Common other commands.

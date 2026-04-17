@@ -944,12 +944,16 @@ SECTOR_T sector_table[SECT_MAX + 1] = {
 
 /* for doors */
 DOOR_T door_table[DIR_MAX + 1] = {
-    {DIR_NORTH, "north", "from the north", "to the north", DIR_SOUTH, "N"},
-    {DIR_EAST, "east", "from the east", "to the east", DIR_WEST, "E"},
-    {DIR_SOUTH, "south", "from the south", "to the south", DIR_NORTH, "S"},
-    {DIR_WEST, "west", "from the west", "to the west", DIR_EAST, "W"},
-    {DIR_UP, "up", "from above", "above you", DIR_DOWN, "U"},
-    {DIR_DOWN, "down", "from below", "below you", DIR_UP, "D"},
+    {DIR_NORTH, "north",     "from the north",     "to the north",     DIR_SOUTH, "N"},
+    {DIR_EAST,  "east",      "from the east",      "to the east",      DIR_WEST,  "E"},
+    {DIR_SOUTH, "south",     "from the south",      "to the south",     DIR_NORTH, "S"},
+    {DIR_WEST,  "west",      "from the west",      "to the west",      DIR_EAST,  "W"},
+    {DIR_UP,    "up",        "from above",         "above you",        DIR_DOWN,  "U"},
+    {DIR_DOWN,  "down",      "from below",         "below you",        DIR_UP,    "D"},
+    {DIR_NE,    "northeast", "from the northeast", "to the northeast", DIR_SW,    "NE"},
+    {DIR_NW,    "northwest", "from the northwest", "to the northwest", DIR_SE,    "NW"},
+    {DIR_SE,    "southeast", "from the southeast", "to the southeast", DIR_NW,    "SE"},
+    {DIR_SW,    "southwest", "from the southwest", "to the southwest", DIR_NE,    "SW"},
     {0},
 };
 

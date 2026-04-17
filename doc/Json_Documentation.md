@@ -210,7 +210,7 @@ Social message strings use substitution placeholders: `$n` actor name, `$N` targ
 
 | Field         | Type           | Req   | Notes                                                                              |
 | ------------- | -------------- | ----- | ---------------------------------------------------------------------------------- |
-| `dir`         | string (enum)  | yes   | `"north"`, `"south"`, `"east"`, `"west"`, `"up"`, `"down"`.                        |
+| `dir`         | string (enum)  | yes   | `"north"`, `"south"`, `"east"`, `"west"`, `"up"`, `"down"`, `"northeast"`, `"northwest"`, `"southeast"`, `"southwest"`. |
 | `to`          | integer (anum) | (opt) | Anum of the destination room within the same area. Omit for portal exits.          |
 | `description` | string         | (opt) | Text shown when player looks in this direction.                                    |
 | `keyword`     | string         | (opt) | Space-separated nouns identifying the door (used with open/close/lock).            |

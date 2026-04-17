@@ -814,6 +814,14 @@ REDIT (redit_up)
     { return redit_change_exit (ch, argument, DIR_UP)    ? TRUE : FALSE; }
 REDIT (redit_down)
     { return redit_change_exit (ch, argument, DIR_DOWN)  ? TRUE : FALSE; }
+REDIT (redit_northeast)
+    { return redit_change_exit (ch, argument, DIR_NE)    ? TRUE : FALSE; }
+REDIT (redit_northwest)
+    { return redit_change_exit (ch, argument, DIR_NW)    ? TRUE : FALSE; }
+REDIT (redit_southeast)
+    { return redit_change_exit (ch, argument, DIR_SE)    ? TRUE : FALSE; }
+REDIT (redit_southwest)
+    { return redit_change_exit (ch, argument, DIR_SW)    ? TRUE : FALSE; }
 
 REDIT (redit_ed) {
     ROOM_INDEX_T *room;
