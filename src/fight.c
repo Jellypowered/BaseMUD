@@ -107,6 +107,9 @@ void check_assist(CHAR_T *ch, CHAR_T *victim)
             continue;
         if (rch->fighting != NULL)
             continue;
+        /* FIX: ROM bug - mobs shouldn't assist if they can't see */
+        if (!char_can_see_in_room(rch, ch))
+            continue;
 
         /* check players or charmed NPCs */
         if (!IS_NPC(ch) || IS_AFFECTED(ch, AFF_CHARM))
@@ -1605,18 +1608,20 @@ void group_gain(CHAR_T *ch, CHAR_T *victim)
             }
         }
 
-        for (obj = ch->content_first; obj != NULL; obj = obj_next)
+        /* FIX: ROM bug - alignment zapping should check gch, not ch
+         * Only the killer was having items zapped in group fights */
+        for (obj = gch->content_first; obj != NULL; obj = obj_next)
         {
             obj_next = obj->content_next;
             if (obj->wear_loc == WEAR_LOC_NONE)
                 continue;
 
-            if ((IS_OBJ_STAT(obj, ITEM_ANTI_EVIL) && IS_EVIL(ch)) ||
-                (IS_OBJ_STAT(obj, ITEM_ANTI_GOOD) && IS_GOOD(ch)) ||
-                (IS_OBJ_STAT(obj, ITEM_ANTI_NEUTRAL) && IS_NEUTRAL(ch)))
+            if ((IS_OBJ_STAT(obj, ITEM_ANTI_EVIL) && IS_EVIL(gch)) ||
+                (IS_OBJ_STAT(obj, ITEM_ANTI_GOOD) && IS_GOOD(gch)) ||
+                (IS_OBJ_STAT(obj, ITEM_ANTI_NEUTRAL) && IS_NEUTRAL(gch)))
             {
-                act("You are zapped by $p.", ch, obj, NULL, TO_CHAR);
-                act("$n is zapped by $p.", ch, obj, NULL, TO_NOTCHAR);
+                act("You are zapped by $p.", gch, obj, NULL, TO_CHAR);
+                act("$n is zapped by $p.", gch, obj, NULL, TO_NOTCHAR);
                 obj_give_to_room(obj, ch->in_room);
             }
         }

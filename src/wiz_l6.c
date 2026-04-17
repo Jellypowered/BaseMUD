@@ -61,7 +61,17 @@ DEFINE_DO_FUN (do_at) {
     for (wch = char_first; wch; wch = wch->global_next) {
         if (wch == ch) {
             char_to_room (ch, original);
-            ch->on = on;
+            /* FIX: ROM bug - verify 'on' object still exists in original room
+             * before restoring ch->on to prevent pointer to freed object */
+            if (on != NULL) {
+                OBJ_T *obj;
+                for (obj = original->content_first; obj != NULL; obj = obj->content_next) {
+                    if (obj == on) {
+                        ch->on = on;
+                        break;
+                    }
+                }
+            }
             break;
         }
     }
