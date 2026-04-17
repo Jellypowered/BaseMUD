@@ -26,6 +26,7 @@ BaseMUD uses table-driven direction lookups, so most code that loops `for (i = 0
 | `src/olc.c` | Add redit_table entries for ne/nw/se/sw (abbrev + full word) |
 | `src/pocket_dungeon.c` | Extend `pd_dir_names[DIR_MAX]` with 4 new names |
 | `src/utils.c` | Fix `number_door()` to use `number_range(0, DIR_MAX-1)` instead of bitmask capped at 5 |
+| `src/act_move.c` (swalk) | Rewrite `do_swalk` with space-separated token grammar; add `direction_from_token()` supporting all 10 directions |
 
 ### JSON / Data
 
@@ -39,7 +40,7 @@ BaseMUD uses table-driven direction lookups, so most code that loops `for (i = 0
 |------|--------|
 | `doc/Json_Documentation.md` | Update the `dir` field enum list to include diagonal directions |
 | `json/help/help.json` | Extend NORTH/SOUTH/... keyword entry with NE/NW/SE/SW and abbreviated forms |
-| `json/help/swalk.json` | Add note that diagonals are not supported in swalk; update Related line |
+| `json/help/swalk.json` | Rewrite help for space-separated token grammar with diagonal support |
 | `json/help/credits.json` | Add Carnage (ROM 2.4 snippet) credit for diagonal exits |
 
 ### MUDEditor (TypeScript) — Full Audit

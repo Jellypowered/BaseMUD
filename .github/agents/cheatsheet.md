@@ -93,6 +93,8 @@ DIR_NE=6, DIR_NW=7, DIR_SE=8, DIR_SW=9; DIR_MAX changed from 6 to 10.
 - OLC REDIT: `redit_table` in `olc.c` and handlers/declarations in `olc_redit.c`/`olc_redit.h` extended.
 - `pd_dir_names[DIR_MAX]` in `pocket_dungeon.c` extended with 4 new entries (required to avoid NULL crash).
 - All `for (i = 0; i < DIR_MAX; i++)` and `door_lookup()`/`door_get()` calls auto-handle new directions once DIR_MAX and door_table are updated — no manual changes needed in `act_info.c`, `chars.c`, `hunt.c`, `fight.c`, `rooms.c`, `scan`, etc.
+- `number_door()` in `utils.c` was hardcoded to return 0–5 via bitmask; fixed to `number_range(0, DIR_MAX-1)`. Callers: `do_flee`, `do_mpwalk`, `do_hunt` decoy.
+- `do_swalk` rewritten with a space-separated token grammar: each token is `[count]<dir>` (e.g. `3ne`, `sw`, `2n`). `direction_from_token()` does exact string match against all 10 abbreviations. Old char-peek helpers removed.
 - MUDEditor already had all 10 directions in shared types, parsers, map layout, and RoomEditor before this change.
 
 ## Git Rebase Notes
