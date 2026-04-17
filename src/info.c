@@ -121,7 +121,7 @@ DEFINE_DO_FUN(do_news)
 
         for (i = 0; info_table[i].name != NULL; i++)
         {
-            if (info_table[i].level <= get_trust(ch))
+            if (info_table[i].level <= char_get_trust(ch))
             {
                 strcat(buf, info_table[i].name);
                 strcat(buf, " ");
@@ -138,7 +138,7 @@ DEFINE_DO_FUN(do_news)
     /* Try to toggle a specific info category */
     flag = info_lookup(argument);
 
-    if (flag == 0 || get_trust(ch) < info_table[flag].level)
+    if (flag == 0 || char_get_trust(ch) < info_table[flag].level)
     {
         send_to_char("No such option.\n\r", ch);
         return;
@@ -183,7 +183,7 @@ void news(const char *string, CHAR_T *ch, OBJ_T *obj,
             && IS_SET(d->character->info, INFO_ON)
             && (!flag || IS_SET(d->character->info, flag))
             && (!flag_skip || !IS_SET(d->character->info, flag_skip))
-            && get_trust(d->character) >= min_level
+            && char_get_trust(d->character) >= min_level
             && d->character != ch)
         {
             send_to_char("{mINFO:{x ", d->character);
