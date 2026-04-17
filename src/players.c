@@ -911,7 +911,8 @@ void player_update(CHAR_T *ch)
         item_is_lit(obj))
         item_light_fade(obj);
 
-    if (IS_IMMORTAL(ch))
+    /* bug fix: only reset timer if connected (allow linkdead immortals to eventually quit) */
+    if (IS_IMMORTAL(ch) && (ch->desc != NULL))
         ch->timer = 0;
 
     if (++ch->timer >= 12)

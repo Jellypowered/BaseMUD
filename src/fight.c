@@ -1304,7 +1304,7 @@ OBJ_T *make_corpse(CHAR_T *ch)
         name = ch->short_descr;
         corpse = obj_create(obj_get_index(OBJ_VNUM_CORPSE_NPC), 0);
         corpse->timer = number_range(3, 6);
-        if (ch->gold > 0)
+        if (ch->gold > 0 || ch->silver > 0)  /* bug fix: include silver check */
         {
             obj_give_to_obj(obj_create_money(ch->gold, ch->silver), corpse);
             ch->gold = 0;
@@ -1557,7 +1557,6 @@ void group_gain(CHAR_T *ch, CHAR_T *victim)
         group_levels = ch->level;
     }
 
-    /* lch = (ch->leader != NULL) ? ch->leader : ch; */
     for (gch = ch->in_room->people_first; gch != NULL; gch = gch->room_next)
     {
         OBJ_T *obj;
@@ -1565,18 +1564,11 @@ void group_gain(CHAR_T *ch, CHAR_T *victim)
         if (!is_same_group(gch, ch) || IS_NPC(gch))
             continue;
 
-        /* Taken out, add it back if you want it */
-#if 0
-        if (gch->level - lch->level >= 5) {
-            send_to_char ("You are too high for this group.\n\r", gch);
-            continue;
-        }
-
-        if (gch->level - lch->level <= -5) {
+        /* Level range check using highest group member level (bug fix: re-enabled) */
+        if (gch->level - group_levels < -500) {
             send_to_char ("You are too low for this group.\n\r", gch);
             continue;
         }
-#endif
 
         xp = fight_compute_kill_exp(gch, victim, group_levels);
         if (!IS_NPC (gch) && EXT_IS_SET (gch->ext_plr, PLR_NOEXP)) {

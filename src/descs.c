@@ -38,6 +38,7 @@
 #include "interp.h"
 #include "memory.h"
 #include "recycle.h"
+#include "rooms.h"
 #include "utils.h"
 
 #include <string.h>
@@ -235,6 +236,13 @@ void close_socket (DESCRIPTOR_T *dclose) {
 
     if ((ch = dclose->character) != NULL) {
         log_f ("Closing link to %s.", ch->name);
+
+        /* Extract pet before going linkdead (bug fix) */
+        if (ch->pet != NULL && ch->pet->in_room == NULL)
+        {
+            char_to_room (ch->pet, room_get_index (ROOM_VNUM_LIMBO));
+            char_extract (ch->pet);
+        }
 
         /* cut down on wiznet spam when rebooting */
         /* If ch is writing note or playing, just lose link otherwise clear char */

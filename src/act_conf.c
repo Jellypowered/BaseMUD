@@ -490,6 +490,10 @@ DEFINE_DO_FUN (do_noloot) {
 }
 
 DEFINE_DO_FUN (do_nofollow) {
+    /* Prevent charmed followers from breaking free */
+    BAIL_IF (IS_AFFECTED (ch, AFF_CHARM),
+        "You can't do that while under magical influence.\n\r", ch);
+    
     do_ext_flag_toggle (ch, TRUE, &(ch->ext_plr), PLR_NOFOLLOW,
         "You now accept followers.\n\r",
         "You no longer accept followers.\n\r");
