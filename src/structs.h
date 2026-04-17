@@ -657,6 +657,8 @@ struct pc_data
     int pkdeaths;   /* PK deaths */
     long balance;   /* Bank account gold */
     long sbalance;  /* Bank account silver */
+    char *explored;     /* bitpacked room exploration map (heap, dynamic) */
+    int explored_size;  /* size of explored buffer in bytes */
 
 #ifdef IMC
     IMC_CHARDATA *imcchardata;

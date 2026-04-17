@@ -770,6 +770,18 @@ DEFINE_DO_FUN(do_score)
 
     if (!IS_NPC(ch))
     {
+        /* Exploration stats */
+        if (ch->pcdata != NULL)
+        {
+            int explored = explore_roomcount(ch);
+            int total_rooms = (top_vnum_room > 0) ? top_vnum_room : 1;
+            double percent = (double)explored / (total_rooms / 100.0);
+            
+            sprintf(buf, "[{2Explored{x] Rooms: {Y%d{x of {Y%d{x [{Y%.1f%%{x]\n\r",
+                explored, total_rooms, percent);
+            send_to_char(buf, ch);
+        }
+        
         sprintf(buf, "[{1PK Stats{x] Kills: {Y%d{x  Deaths: {Y%d{x\n\r",
             ch->pcdata->pkkills, ch->pcdata->pkdeaths);
         send_to_char(buf, ch);
@@ -842,6 +854,43 @@ DEFINE_DO_FUN(do_time)
 
     printf_to_char(ch, "ROM started up at %s.\n\rThe system time is %s.\n\r",
                    str_boot_time, (char *)ctime_fixed(&current_time));
+}
+
+DEFINE_DO_FUN(do_explored)
+{
+    char buf[MAX_STRING_LENGTH];
+    int explored, total_rooms;
+    double percent;
+    
+    BAIL_IF(IS_NPC(ch),
+            "NPCs don't track exploration.\n\r", ch);
+    BAIL_IF(ch->pcdata == NULL,
+            "You have no player data.\n\r", ch);
+    
+    explored = explore_roomcount(ch);
+    total_rooms = (top_vnum_room > 0) ? top_vnum_room : 1;
+    percent = (double)explored / (total_rooms / 100.0);
+    
+    sprintf(buf, "{B================================================================={x\n\r");
+    send_to_char(buf, ch);
+    
+    sprintf(buf, "{GExploration Report{x\n\r");
+    send_to_char(buf, ch);
+    
+    sprintf(buf, "{B================================================================={x\n\r");
+    send_to_char(buf, ch);
+    
+    sprintf(buf, "Rooms explored  : {Y%d{x\n\r", explored);
+    send_to_char(buf, ch);
+    
+    sprintf(buf, "Total rooms     : {Y%d{x\n\r", total_rooms);
+    send_to_char(buf, ch);
+    
+    sprintf(buf, "Percentage      : {Y%.1f%%{x\n\r", percent);
+    send_to_char(buf, ch);
+    
+    sprintf(buf, "{B================================================================={x\n\r");
+    send_to_char(buf, ch);
 }
 
 DEFINE_DO_FUN(do_weather)

@@ -56,6 +56,8 @@
 #include "act_move.h"
 #include "act_player.h"
 
+#include <stdlib.h>
+
 /* used for saving */
 static int save_number = 0;
 
@@ -287,6 +289,33 @@ void char_to_room(CHAR_T *ch, ROOM_INDEX_T *room_index)
             ch->in_room->area->age = 0;
         }
         ++ch->in_room->area->nplayer;
+        
+        /* Track room exploration */
+        if (ch->pcdata != NULL && ch->in_room != NULL)
+        {
+            int vnum = ch->in_room->vnum;
+            int needed_bytes = (vnum / 8) + 1;
+            
+            /* Expand buffer if needed */
+            if (ch->pcdata->explored == NULL || ch->pcdata->explored_size < needed_bytes)
+            {
+                char *new_explored = calloc(needed_bytes, sizeof(char));
+                if (new_explored != NULL)
+                {
+                    if (ch->pcdata->explored != NULL)
+                    {
+                        memcpy(new_explored, ch->pcdata->explored, ch->pcdata->explored_size);
+                        free(ch->pcdata->explored);
+                    }
+                    ch->pcdata->explored = new_explored;
+                    ch->pcdata->explored_size = needed_bytes;
+                }
+            }
+            
+            /* Mark room as explored */
+            if (ch->pcdata->explored != NULL && ch->pcdata->explored_size > 0)
+                explore_set_bit(ch->pcdata->explored, ch->pcdata->explored_size, vnum);
+        }
     }
 
     if (char_has_active_light(ch))

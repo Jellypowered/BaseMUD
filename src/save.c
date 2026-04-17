@@ -310,6 +310,10 @@ void fwrite_char(CHAR_T *ch, FILE *fp)
                 paf->apply, paf->bits);
     }
 
+    /* Write exploration data */
+    if (!IS_NPC(ch) && ch->pcdata != NULL)
+        explore_fwrite_rle(ch->pcdata->explored, ch->pcdata->explored_size, fp);
+
 #ifdef IMC
     imc_savechar(ch, fp);
 #endif
@@ -1153,6 +1157,14 @@ void fread_char(CHAR_T *ch, FILE *fp)
                 ch->in_room = room_get_index(fread_number(fp));
                 if (ch->in_room == NULL)
                     ch->in_room = room_get_index(ROOM_VNUM_LIMBO);
+                match = TRUE;
+                break;
+            }
+
+            if (!str_cmp(word, "RoomRLE"))
+            {
+                if (ch->pcdata != NULL)
+                    explore_fread_rle(&(ch->pcdata->explored), &(ch->pcdata->explored_size), fp);
                 match = TRUE;
                 break;
             }

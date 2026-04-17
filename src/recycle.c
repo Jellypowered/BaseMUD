@@ -537,6 +537,8 @@ DEFINE_INIT_FUN(pcdata_init)
     pcdata->last_note = calloc(BOARD_MAX, sizeof(time_t));
     pcdata->colour = calloc(COLOUR_SETTING_MAX, sizeof(flag_t));
     pcdata->buffer = buf_new();
+    pcdata->explored = NULL;
+    pcdata->explored_size = 0;
 }
 
 DEFINE_DISPOSE_FUN(pcdata_dispose)
@@ -564,6 +566,7 @@ DEFINE_DISPOSE_FUN(pcdata_dispose)
     free(pcdata->cond_hours);
     free(pcdata->last_note);
     free(pcdata->colour);
+    free(pcdata->explored);
 }
 
 DEFINE_DISPOSE_FUN(buf_dispose)

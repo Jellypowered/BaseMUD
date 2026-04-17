@@ -58,6 +58,7 @@ DECLARE_DO_FUN (do_exits);
 DECLARE_DO_FUN (do_worth);
 DECLARE_DO_FUN (do_score);
 DECLARE_DO_FUN (do_affects);
+DECLARE_DO_FUN (do_explored);
 DECLARE_DO_FUN (do_time);
 DECLARE_DO_FUN (do_weather);
 DECLARE_DO_FUN (do_help);

@@ -365,6 +365,21 @@
               |"
     },
     {
+      "keyword": "EXPLORED",
+      "text": "Syntax: explored
+              |
+              |EXPLORED displays detailed statistics about the rooms you have explored in the
+              |world. It shows the total number of rooms you've visited, the total number of
+              |rooms in the game world, and your exploration percentage.
+              |
+              |Exploration is tracked automatically as you move through the world. Your
+              |exploration data is saved with your character file and persists between logins.
+              |
+              |You can also view a brief summary of your exploration progress in the SCORE
+              |command output.
+              |"
+    },
+    {
       "keyword": "SPIT ACID NOSPITACID",
       "text": "Syntax: spit
               |

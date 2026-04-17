@@ -37,6 +37,7 @@
 
 #include "structs.h"
 
+#include "explore.h"
 #include "flags.h"
 #include "ext_flags.h"
 #include "types.h"
