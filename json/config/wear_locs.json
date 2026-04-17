@@ -268,5 +268,15 @@
     "ac_bonus": 0,
     "wear_msg_self": "You mark {C$p{x on your skin.",
     "wear_msg_room": "$n marks $p on $s skin."
+  }},
+  {"wear_loc": {
+    "type": 26,
+    "name": "offhand",
+    "phrase": "wielded in off-hand",
+    "look_msg": "<wielded in off-hand>",
+    "wear_flag": "wield",
+    "ac_bonus": 0,
+    "wear_msg_self": "You wield {C$p{x in your off-hand.",
+    "wear_msg_room": "$n wields $p in $s off-hand."
   }}
 ]
