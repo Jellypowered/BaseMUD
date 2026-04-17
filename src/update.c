@@ -691,6 +691,10 @@ void falling_update(void)
         if (obj->in_room->exit[5] == NULL)
             continue;
         
+        /* Skip if exit is closed (but allow hidden exits) */
+        if (IS_SET(obj->in_room->exit[5]->exit_flags, EX_CLOSED))
+            continue;
+        
         /* Get destination room (below) */
         dest_room = obj->in_room->exit[5]->to_room;
         if (dest_room == NULL)
