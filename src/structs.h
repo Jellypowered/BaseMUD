@@ -545,6 +545,7 @@ struct char_data
     EXT_FLAGS_T ext_plr;
     flag_t comm;   /* RT added to pad the vector */
     flag_t wiznet; /* wiz stuff */
+    flag_t info;   /* info broadcast stuff */
     flag_t imm_flags;
     flag_t res_flags;
     flag_t vuln_flags;

@@ -423,6 +423,14 @@
 #define WIZ_PREFIX (BIT_19)
 #define WIZ_SPAM (BIT_20)
 
+/* INFO broadcast flags */
+#define INFO_ON (BIT_01)
+#define INFO_LEVELS (BIT_02)
+#define INFO_CONSENT (BIT_03)
+#define INFO_DEATHS (BIT_04)
+#define INFO_LOGINS (BIT_05)
+#define INFO_QUESTS (BIT_06)
+
 /* memory settings */
 #define MEM_CUSTOMER (BIT_01)
 #define MEM_SELLER (BIT_02)
@@ -484,6 +492,7 @@ extern const FLAG_T furniture_flags[];
 extern const FLAG_T dam_flags[];
 extern const FLAG_T ban_flags[];
 extern const FLAG_T wiz_flags[];
+extern const FLAG_T info_flags[];
 
 /* Function prototypes for flag management. */
 flag_t flag_lookup(const FLAG_T *flag_table, const char *name);

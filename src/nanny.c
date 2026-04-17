@@ -1059,6 +1059,7 @@ DEFINE_NANNY_FUN(nanny_read_motd)
         ch->perm_stat[class_table[ch->class].attr_prime] += 3;
 
         ch->level = 1;
+        ch->info = INFO_ON | INFO_LEVELS | INFO_CONSENT | INFO_DEATHS | INFO_LOGINS | INFO_QUESTS;
         ch->exp = player_get_exp_per_level(ch);
         ch->hit = ch->max_hit;
         ch->mana = ch->max_mana;

@@ -501,3 +501,12 @@ const FLAG_T wiz_flags[] = {
     {"prefix", WIZ_PREFIX, TRUE},
     {"spam", WIZ_SPAM, TRUE},
     {0}};
+
+const FLAG_T info_flags[] = {
+    {"on", INFO_ON, TRUE},
+    {"levels", INFO_LEVELS, TRUE},
+    {"consent", INFO_CONSENT, TRUE},
+    {"deaths", INFO_DEATHS, TRUE},
+    {"logins", INFO_LOGINS, TRUE},
+    {"quests", INFO_QUESTS, TRUE},
+    {0}};

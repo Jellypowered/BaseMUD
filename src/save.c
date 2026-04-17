@@ -207,6 +207,8 @@ void fwrite_char(CHAR_T *ch, FILE *fp)
     fprintf(fp, "Comm %s\n", fwrite_flags_static(comm_flags, ch->comm));
     if (ch->wiznet)
         fprintf(fp, "Wizn %s\n", fwrite_flags_static(wiz_flags, ch->wiznet));
+    if (ch->info)
+        fprintf(fp, "Info %s\n", fwrite_flags_static(info_flags, ch->info));
     if (ch->invis_level)
         fprintf(fp, "Invi %d\n", ch->invis_level);
     if (ch->incog_level)
@@ -1092,6 +1094,7 @@ void fread_char(CHAR_T *ch, FILE *fp)
 
         case 'I':
             KEY("Id", ch->id, fread_number(fp));
+            KEY("Info", ch->info, fread_flag(fp, info_flags));
             KEY("InvisLevel", ch->invis_level, fread_number(fp));
             KEY("Inco", ch->incog_level, fread_number(fp));
             KEY("Invi", ch->invis_level, fread_number(fp));

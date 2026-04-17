@@ -924,3 +924,51 @@ post-load hooks loop is likely missing or the function is not registered in
 - **Skills coverage**: 42+ legacy Ranger skills available; 26 ROM-specific enhancements not in modern system
 - **Build result**: Binary 4.0MB, no errors; full playable class
 - ✅ BaseMUD rebuild (full clean + make, no warnings or errors)
+
+---
+
+## Info Broadcast System (Voltec 1998, BaseMUD 2026)
+
+**Pattern**: Subscription-based player broadcast system (like wiznet but for all players).
+
+### Integration Notes
+- **Flag definitions**: `INFO_ON`, `INFO_LEVELS`, `INFO_CONSENT`, `INFO_DEATHS`, `INFO_LOGINS`, `INFO_QUESTS` in flags.h / flags.c
+- **Command**: `news` (aliases: `broadcast`, `system`) — `POS_DEAD`, logs `LOG_NORMAL`
+- **Struct field**: `flag_t info;` on `CHAR_T` (added after `wiznet` field in structs.h)
+- **New files**: `src/info.h` + `src/info.c` (auto-picked by Makefile wildcard)
+- **Header includes**: Needed in `interp.c` to resolve `do_news` reference
+- **Save format**: `Info <flags>` keyword in player files (read via `fread_flag(fp, info_flags)`, write via `fwrite_flags_static(info_flags, ...)`)
+- **New character defaults**: All flags enabled: `ch->info = INFO_ON | INFO_LEVELS | INFO_CONSENT | INFO_DEATHS | INFO_LOGINS | INFO_QUESTS;` (set in nanny.c around line 1061 when `ch->level == 0`)
+
+### Command Handler (`do_news`)
+- **No args**: Toggle `INFO_ON` flag
+- **"on" / "off"**: Explicit toggle (case-insensitive)
+- **"show"**: List available categories based on trust level
+- **"status"**: Display current subscriptions
+- **category name**: Toggle individual category (levels, deaths, logins, etc.)
+
+### Broadcast Function (`news()`)
+- **Signature**: `void news(const char *string, CHAR_T *ch, OBJ_T *obj, flag_t flag, flag_t flag_skip, int min_level)`
+- **Loop pattern**: `for (d = descriptor_first; d != NULL; d = d->global_next)` (modern BaseMUD)
+- **Checks**: `CON_PLAYING`, `INFO_ON`, specific flag, flag_skip, min_level, `ch->character != ch` (don't send to self)
+- **Message format**: `{mINFO:{x ` prefix + `act_new(string, ...)` with `TO_CHAR` and `POS_DEAD`
+
+### Lookup Function (`info_lookup()`)
+- Returns 0 (zero) if not found (not -1 like wiznet)
+- Used in command handler to toggle categories by name
+
+### Admin Gating Pattern
+- No separate `INFO_ADMIN` category
+- Gate by setting min_level in `news()` call: broadcasts to players with `get_trust() >= min_level`
+- Example: admin quest announcement sends with `min_level = LEVEL_IMMORTAL` (kills don't receive if they can't see it)
+
+### Help Documentation
+- **File**: `json/help/news.json`
+- **Keywords**: `NEWS BROADCAST SYSTEM` (primary + aliases)
+- **Content**: Syntax, category descriptions, default behavior, usage notes
+
+### Build Validation
+- ✅ files: 6 new/modified (flags.h, flags.c, structs.h, save.c, interp.c, nanny.c)
+- ✅ files: 2 created (src/info.h, src/info.c, json/help/news.json)
+- ✅ build: `make clean && make` — no errors or warnings
+- ✅ integration: Dates from 1998 snippet adapted to 2026 BaseMUD patterns

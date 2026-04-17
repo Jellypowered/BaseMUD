@@ -33,6 +33,7 @@
 #include "descs.h"
 #include "find.h"
 #include "globals.h"
+#include "info.h"
 #include "lookup.h"
 #include "memory.h"
 #include "utils.h"
@@ -148,7 +149,9 @@ const CMD_T cmd_table[] = {
     /*  {"groups",      do_groups,      POS_SLEEPING, 0,  LOG_NORMAL, 1}, */
     {"help", do_help, POS_DEAD, 0, LOG_NORMAL, 1},
     {"idle", do_idle, POS_DEAD, 0, LOG_NORMAL, 1},
-    {"info", do_groups, POS_SLEEPING, 0, LOG_NORMAL, 1},
+    {"news", do_news, POS_DEAD, 0, LOG_NORMAL, 1},
+    {"broadcast", do_news, POS_DEAD, 0, LOG_NORMAL, 1},
+    {"system", do_news, POS_DEAD, 0, LOG_NORMAL, 1},
     {"motd", do_motd, POS_DEAD, 0, LOG_NORMAL, 1},
     {"read", do_read, POS_RESTING, 0, LOG_NORMAL, 1},
     {"report", do_report, POS_RESTING, 0, LOG_NORMAL, 1},

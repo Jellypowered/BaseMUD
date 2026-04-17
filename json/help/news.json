@@ -1,0 +1,16 @@
+[
+  {
+    "help": {
+      "area": null,
+      "name": "news",
+      "filename": "help.are",
+      "pages": [
+        {
+          "keyword": "NEWS BROADCAST SYSTEM",
+          "text": "The news system broadcasts important server events to interested players.\n|\n|SYNTAX:\n|  news                 - Toggle news on/off\n|  news on              - Turn news on\n|  news off             - Turn news off\n|  news show            - List available news categories\n|  news status          - Show your current news settings\n|  news <category>     - Toggle a specific news category\n|\n|ALIASES: broadcast, system\n|\n|CATEGORIES:\n|  on       - Main news toggle (must be on to receive anything)\n|  deaths   - Player deaths and quests completed\n|  logins   - Player login announcements\n|  levels   - Player level ups and advancements\n|  consent  - Consent-based activities\n|  quests   - Quest-related announcements\n|\n|By default, new characters receive all news categories. You can customize\n|which announcements you see by toggling individual categories on and off.\n|Use 'news status' to see your current settings.",
+          "hide_keywords": false
+        }
+      ]
+    }
+  }
+]
