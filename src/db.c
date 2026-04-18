@@ -885,8 +885,12 @@ void load_mobprogs(FILE *fp)
 void fix_resets(void)
 {
     RESET_T *reset, *next;
+    RESET_T *owner_reset;
     OBJ_INDEX_T *obj_index;
+    MOB_INDEX_T *owner_mob_index;
     int obj_vnum, wear_loc;
+    int room_vnum, owner_mob_vnum;
+    const char *owner_mob_name;
     flag_t wear_flag;
 
     log_f("Fixing equipment resets...");
@@ -906,9 +910,47 @@ void fix_resets(void)
         wear_flag = wear_loc_get_flag(wear_loc);
         if (!obj_index_can_wear_flag(obj_index, wear_flag))
         {
-            log_f("Warning: 'E' for object %d (%s) into unequippable location '%s'.",
-                  obj_vnum, obj_index->short_descr, wear_loc_get_name(wear_loc));
-            SET_BIT(reset->room->area->area_flags, AREA_CHANGED);
+            if (reset->room != NULL)
+            {
+                room_vnum = reset->room->vnum;
+                owner_mob_vnum = -1;
+                owner_mob_name = NULL;
+
+                for (owner_reset = reset->room_prev; owner_reset != NULL;
+                     owner_reset = owner_reset->room_prev)
+                {
+                    if (owner_reset->command != 'M')
+                        continue;
+
+                    owner_mob_vnum = owner_reset->v.mob.mob_vnum;
+                    owner_mob_index = mobile_get_index(owner_mob_vnum);
+                    owner_mob_name = owner_mob_index ? owner_mob_index->short_descr : NULL;
+                    break;
+                }
+
+                if (owner_mob_vnum >= 0)
+                {
+                    log_f("Warning: 'E' for object %d (%s) into unequippable location '%s' in room %d, owned by mob %d (%s).",
+                          obj_vnum, obj_index->short_descr,
+                          wear_loc_get_name(wear_loc), room_vnum,
+                          owner_mob_vnum,
+                          owner_mob_name ? owner_mob_name : "unknown mob");
+                }
+                else
+                {
+                    log_f("Warning: 'E' for object %d (%s) into unequippable location '%s' in room %d, no owning mob reset.",
+                          obj_vnum, obj_index->short_descr,
+                          wear_loc_get_name(wear_loc), room_vnum);
+                }
+
+                SET_BIT(reset->room->area->area_flags, AREA_CHANGED);
+            }
+            else
+            {
+                log_f("Warning: 'E' for object %d (%s) into unequippable location '%s'.",
+                      obj_vnum, obj_index->short_descr,
+                      wear_loc_get_name(wear_loc));
+            }
 
             if (obj_index_can_wear_flag(obj_index, ITEM_WEAR_HEAD))
                 reset->v.equip.wear_loc = WEAR_LOC_HEAD;
