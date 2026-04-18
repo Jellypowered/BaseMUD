@@ -266,7 +266,7 @@
     "skills": [
       "dodge", "parry", "rescue", "disarm", "second attack", "hide", "sneak", "scan",
       "detect hidden", "detect evil", "detect magic", "detect poison", "detect invis",
-      "locate object", "infravision", "climb", "cook", "fletch"
+      "locate object", "infravision", "climb", "cook", "fletch", "map"
     ]
   }},
   {"skill_group": {

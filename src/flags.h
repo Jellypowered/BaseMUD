@@ -350,6 +350,7 @@
 #define ROOM_NEWBIES_ONLY (BIT_18)
 #define ROOM_LAW (BIT_19)
 #define ROOM_NOWHERE (BIT_20)
+#define ROOM_WILDERNESS (BIT_21) /* outdoor wilderness rooms (map-accessible) */
 
 /* Exit flags.
  * Used in #ROOMS. */

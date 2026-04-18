@@ -43,6 +43,7 @@
 
 #include "act_conf.h"
 #include "act_fight.h"
+#include "act_map.h"
 #include "act_group.h"
 #include "act_info.h"
 #include "act_move.h"
@@ -307,6 +308,7 @@ const CMD_T cmd_table[] = {
     {"recall", do_recall, POS_FIGHTING, 0, LOG_NORMAL, 1},
     {"/", do_recall, POS_FIGHTING, 0, LOG_NORMAL, 0},
     {"bandage", do_bandage, POS_SITTING, 0, LOG_NORMAL, 1},
+    {"map",     do_map,     POS_STANDING, 0, LOG_NORMAL, 1},
     {"rent", do_rent, POS_DEAD, 0, LOG_NORMAL, 0},
     {"save", do_save, POS_DEAD, 0, LOG_NORMAL, 1},
     {"search", do_search, POS_STANDING, 0, LOG_NORMAL, 1},
@@ -372,7 +374,8 @@ const CMD_T cmd_table[] = {
     {"incognito", do_incognito, POS_DEAD, IM, LOG_NORMAL, 1},
     {"invis", do_invis, POS_DEAD, IM, LOG_NORMAL, 0},
     {"log", do_log, POS_DEAD, L1, LOG_ALWAYS, 1},
-    {"memory", do_memory, POS_DEAD, IM, LOG_NORMAL, 1},
+    {"memory",   do_memory,   POS_DEAD, IM, LOG_NORMAL, 1},
+    {"smallmap", do_smallmap, POS_DEAD, IM, LOG_NORMAL, 1},
     {"mwhere", do_mwhere, POS_DEAD, IM, LOG_NORMAL, 1},
     {"owhere", do_owhere, POS_DEAD, IM, LOG_NORMAL, 1},
     {"peace", do_peace, POS_DEAD, L5, LOG_NORMAL, 1},

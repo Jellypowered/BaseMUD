@@ -973,3 +973,37 @@ post-load hooks loop is likely missing or the function is not registered in
 - ✅ files: 2 created (src/info.h, src/info.c, json/help/news.json)
 - ✅ build: `make clean && make` — no errors or warnings
 - ✅ integration: Dates from 1998 snippet adapted to 2026 BaseMUD patterns
+---
+
+## ASCII Automap (map skill)
+
+- Source: `Snippets/Pending/asciimap.c` by mlkesl@stthomas.edu.
+- Implementation: `src/act_map.c` + `src/act_map.h` (stub pre-existed).
+- `SKILL_MAP_MAP = 56`, `SKILL_MAP_MAX = 57` — both already defined before integration.
+- `skill_map_table[]` entry `{SKILL_MAP_MAP, "map"}` also pre-existed in `tables.c`.
+
+### ROM → BaseMUD Adaptation Table
+| ROM snippet | BaseMUD |
+|---|---|
+| `pexit->u1.to_room` | `pexit->to_room` |
+| `can_see_room(ch, r)` | `char_can_see_room(ch, r)` |
+| `rev_dir[door]` | `REV_DIR(door)` macro |
+| `IS_SET(pexit->exit_info, EX_CLOSED)` | `IS_SET(pexit->exit_flags, EX_CLOSED)` |
+| `IS_SET(ch->act, PLR_HOLYLIGHT)` | `EXT_IS_SET(ch->ext_plr, PLR_HOLYLIGHT)` |
+| `get_room_index(vnum)` | `room_get_index(vnum)` |
+| `room_is_dark(room, ch)` | `room_is_dark(room)` (single arg) |
+| `CHAR_DATA` / `ROOM_INDEX_DATA` / `EXIT_DATA` | `CHAR_T` / `ROOM_INDEX_T` / `EXIT_T` |
+
+### Sector Types (BaseMUD has only 11)
+BaseMUD `SECT_MAX = 11` (sectors 0–10). Missing in snippet but NOT in BaseMUD:
+`SECT_ROAD`, `SECT_ENTER`, `SECT_ROCK_MOUNTAIN`, `SECT_SNOW_MOUNTAIN`, `SECT_SWAMP`, `SECT_JUNGLE`, `SECT_RUINS` — all absent; drop from switch tables.
+
+### Required Includes for act_map.c
+Must include `"lookup.h"` (for `door_get` used by `REV_DIR` macro) and `"interp.h"` (for `one_argument`).
+`door_get` is not declared in any obvious header — it comes from `DEC_SIMPLE_HASH_BUNDLE(door, DOOR_T)` in `lookup.h`.
+
+### Skill Registration
+- Ranger: level 8, effort 1 (add to `"ranger default"` group in `skill_groups.json`)
+- Other classes: level 49, effort 1 (in `skills.json` classes block)
+- Command: `{"map", do_map, POS_STANDING, 0, LOG_NORMAL, 1}` in `interp.c`
+- `do_smallmap` registered at `IM` trust level

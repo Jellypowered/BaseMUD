@@ -1781,6 +1781,7 @@ SKILL_MAP_T skill_map_table[SKILL_MAP_MAX + 1] = {
     {SKILL_MAP_SEARCH, "search"},
     {SKILL_MAP_BANDAGE, "bandage"},
     {SKILL_MAP_DUAL_WIELD, "dual wield"},
+    {SKILL_MAP_MAP, "map"},
 
     {0}};
 

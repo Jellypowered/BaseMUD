@@ -4481,5 +4481,48 @@
                   "usage_beats":  0
               }
 
+},
+{
+    "skill":  {
+                  "name":  "map",
+                  "classes":  {
+                                      "ranger":  {
+                                                     "level":  8,
+                                                     "effort":  1
+                                                 },
+                                      "mage":    {
+                                                     "level":  49,
+                                                     "effort":  1
+                                                 },
+                                      "cleric":  {
+                                                     "level":  49,
+                                                     "effort":  1
+                                                 },
+                                      "thief":   {
+                                                     "level":  49,
+                                                     "effort":  1
+                                                 },
+                                      "warrior": {
+                                                     "level":  49,
+                                                     "effort":  1
+                                                 },
+                                      "druid":   {
+                                                     "level":  49,
+                                                     "effort":  1
+                                                 },
+                                      "paladin": {
+                                                     "level":  49,
+                                                     "effort":  1
+                                                 },
+                                      "vampire": {
+                                                     "level":  49,
+                                                     "effort":  1
+                                                 }
+                                  },
+                  "target":  "ignore",
+                  "min_position":  "standing",
+                  "usage_beats":  12
+              }
+
 }
 ]

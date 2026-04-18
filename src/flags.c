@@ -330,6 +330,7 @@ const FLAG_T room_flags[] = {
     {"newbies_only", ROOM_NEWBIES_ONLY, TRUE},
     {"law", ROOM_LAW, TRUE},
     {"nowhere", ROOM_NOWHERE, TRUE},
+    {"wilderness", ROOM_WILDERNESS, TRUE},
     {0}};
 
 const FLAG_T extra_flags[] = {

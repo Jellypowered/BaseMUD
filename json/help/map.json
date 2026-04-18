@@ -1,0 +1,53 @@
+[{"help": {
+  "area": null,
+  "name": "map",
+  "filename": "map.are",
+  "pages": [
+    {
+      "keyword": "MAP AUTOMAP WILDERNESS MAP",
+      "text": "Syntax: map
+                |        map <size>
+                |
+                |Draws a color-coded ASCII map of the wilderness terrain surrounding
+                |your current position. The map is centered on you and shows the sector
+                |type of each visible room.
+                |
+                |Map symbols:
+                |  {R*{x  You (your current position)
+                |  {G\"{x  Field / Grassland
+                |  {g@{x  Forest
+                |  {y^{x  Hills
+                |  {R^{x  Mountain
+                |  {B~{x  Shallow water
+                |  {b~{x  Deep water
+                |  {Y={x  Desert
+                |  {C%{x  Air
+                |  {W%{x  Inside
+                |  {W#{x  City
+                |  {DX{x  Unused/impassable
+                |  {D?{x  One-way or maze passage
+                |    (space)  Unexplored
+                |
+                |Rangers learn this skill naturally as part of their wilderness training.
+                |Other classes may practice it starting at level 49.
+                |
+                |Immortals may specify an optional size argument (6-38) to control the
+                |view radius. The 'smallmap' command provides a compressed overview.
+                |
+                |See also: SMALLMAP",
+      "hide_keywords": false
+    },
+    {
+      "keyword": "SMALLMAP",
+      "text": "Syntax: smallmap
+                |        smallmap <size>
+                |
+                |Immortal-only command. Displays a compressed version of the ASCII
+                |automap by sampling every other grid cell. Useful for getting a broad
+                |overview of large wilderness areas.
+                |
+                |See also: MAP",
+      "hide_keywords": false
+    }
+  ]
+}}]
