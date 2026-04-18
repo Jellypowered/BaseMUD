@@ -1,0 +1,2863 @@
+[
+  {
+    "object": {
+      "area": "under2",
+      "anum": 1,
+      "name": "scale eye",
+      "short_descr": "Scale of the enforcer",
+      "description": "A brown scale glitters somewhat in the lighting",
+      "action_descr": "cloth",
+      "item_type": "armor",
+      "values": {
+        "v0": "AD",
+        "v1": "AD",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow lock",
+      "wear_flags": "take body",
+      "weight": 30,
+      "cost": 5,
+      "affects": [
+        {
+          "apply": "13",
+          "modifier": 1
+        },
+        {
+          "apply": "1",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 2,
+      "name": "blood eye",
+      "short_descr": "Blood shot eye",
+      "description": "A blood shot eye that looks half mad",
+      "action_descr": "wood",
+      "item_type": "wand",
+      "values": {
+        "v0": 2,
+        "v1": 2,
+        "v2": "'flamestrike'",
+        "v3": 0
+      },
+      "extra_flags": "glow nopurge",
+      "wear_flags": "finger neck head",
+      "weight": 15,
+      "cost": 3
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 3,
+      "name": "eye slime",
+      "short_descr": "Slime of the enforcing eye",
+      "description": "Brown putrid slime",
+      "action_descr": "glass",
+      "item_type": "potion",
+      "values": {
+        "v0": 19,
+        "v1": 28,
+        "v2": 20,
+        "v3": 0
+      },
+      "extra_flags": "glow",
+      "wear_flags": "take finger neck head",
+      "weight": 10,
+      "cost": 1
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 4,
+      "name": "eye justice",
+      "short_descr": "A huge eye of justice",
+      "description": "The ripped out eye of the enforcer beholder",
+      "action_descr": "wood",
+      "item_type": "staff",
+      "values": {
+        "v0": 2,
+        "v1": 2,
+        "v2": "'lightning",
+        "v3": "bolt'",
+        "v4": 0
+      },
+      "extra_flags": "glow nopurge",
+      "wear_flags": "neck head",
+      "weight": 20,
+      "cost": 3
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 5,
+      "name": "eye stalk beholder",
+      "short_descr": "Beholder's eyestalk",
+      "description": "An eyestalk of a beholder",
+      "action_descr": "wood",
+      "item_type": "staff",
+      "values": {
+        "v0": 2,
+        "v1": 2,
+        "v2": "'energy",
+        "v3": "drain'",
+        "v4": 0
+      },
+      "extra_flags": "glow nopurge",
+      "wear_flags": "neck head",
+      "weight": 15,
+      "cost": 3
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 6,
+      "name": "gnome mace",
+      "short_descr": "Glinting gnome mace",
+      "description": "A dull greyish mace of gnomish design",
+      "action_descr": "wood",
+      "item_type": "weapon",
+      "values": {
+        "v0": 4,
+        "v1": 5,
+        "v2": "pound",
+        "v3": 0
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 17,
+      "cost": 4,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 5
+        },
+        {
+          "apply": "18",
+          "modifier": 1
+        },
+        {
+          "apply": "13",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 7,
+      "name": "drow sword darkness",
+      "short_descr": "Sword of darkness",
+      "description": "A drow blade seems to cast a shadow of darkness around it",
+      "action_descr": "steel",
+      "item_type": "weapon",
+      "values": {
+        "v0": 4,
+        "v1": 4,
+        "v2": "slice",
+        "v3": 0
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 15,
+      "cost": 4,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 3
+        },
+        {
+          "apply": "18",
+          "modifier": 3
+        },
+        {
+          "apply": "1",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 8,
+      "name": "grey helm",
+      "short_descr": "Dark grey helm",
+      "description": "A helm of duergar make lies abandoned off to the side",
+      "action_descr": "steel",
+      "item_type": "armor",
+      "values": {
+        "v0": "AC",
+        "v1": "AC",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow evil",
+      "wear_flags": "take neck",
+      "weight": 20,
+      "cost": 3,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 2
+        },
+        {
+          "apply": "1",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 9,
+      "name": "sleeves knowledge",
+      "short_descr": "Sleeves of knowledge",
+      "description": "Sleeves that bear many arcane signs rest here",
+      "action_descr": "steel",
+      "item_type": "armor",
+      "values": {
+        "v0": "BCD",
+        "v1": "ACD",
+        "v2": "BD",
+        "v3": 0
+      },
+      "extra_flags": "glow bless",
+      "wear_flags": "finger neck body",
+      "weight": 43,
+      "cost": 3,
+      "affects": [
+        {
+          "apply": "12",
+          "modifier": 15
+        },
+        {
+          "apply": "3",
+          "modifier": 2
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 10,
+      "name": "blood stone",
+      "short_descr": "A piece of polished blood stone",
+      "description": "A small polished stone that has flecks of red in a dark green base",
+      "action_descr": "stone",
+      "item_type": "treasure",
+      "values": {
+        "v0": 0,
+        "v1": 0,
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow",
+      "wear_flags": "",
+      "weight": 1,
+      "cost": 0
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 11,
+      "name": "breast plate",
+      "short_descr": "Breast plate of strength",
+      "description": "A breast plate emits an aura of power",
+      "action_descr": "unknown",
+      "item_type": "armor",
+      "values": {
+        "v0": "ADE",
+        "v1": "ADE",
+        "v2": "CE",
+        "v3": 0
+      },
+      "extra_flags": "glow lock",
+      "wear_flags": "take body head",
+      "weight": 43,
+      "cost": 4,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 7
+        },
+        {
+          "apply": "18",
+          "modifier": 5
+        },
+        {
+          "apply": "13",
+          "modifier": 50
+        },
+        {
+          "apply": "1",
+          "modifier": 5
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 12,
+      "name": "holy symbol xevior",
+      "short_descr": "A shining holy symbol of Xevior",
+      "description": "A holy symbol of Xevior floats above the ground",
+      "action_descr": "gold",
+      "item_type": "armor",
+      "values": {
+        "v0": 0,
+        "v1": 0,
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow nopurge",
+      "wear_flags": "",
+      "weight": 43,
+      "cost": 3,
+      "affects": [
+        {
+          "apply": "4",
+          "modifier": 2
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 13,
+      "name": "leather pants",
+      "short_descr": "Ripped leather pants",
+      "description": "A pair of dirty ripped leather pants lies abandoned on the floor",
+      "action_descr": "leather",
+      "item_type": "armor",
+      "values": {
+        "v0": "AC",
+        "v1": "AC",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow invis",
+      "wear_flags": "take neck",
+      "weight": 16,
+      "cost": 3
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 14,
+      "name": "purple worm scale",
+      "short_descr": "Small purple worm scale",
+      "description": "A small scale from a purple looks as if it can be worn on the arm",
+      "action_descr": "cloth",
+      "item_type": "armor",
+      "values": {
+        "v0": "ABCD",
+        "v1": "ACD",
+        "v2": "BC",
+        "v3": 0
+      },
+      "extra_flags": "glow noremove",
+      "wear_flags": "finger neck body",
+      "weight": 44,
+      "cost": 3,
+      "affects": [
+        {
+          "apply": "18",
+          "modifier": 4
+        },
+        {
+          "apply": "13",
+          "modifier": 25
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 15,
+      "name": "huge purple worm scale",
+      "short_descr": "Huge purple worm scale",
+      "description": "A huge purple worm scale lies discarded off to the side",
+      "action_descr": "cloth",
+      "item_type": "armor",
+      "values": {
+        "v0": "ABCD",
+        "v1": "E",
+        "v2": "AC",
+        "v3": 0
+      },
+      "extra_flags": "glow antigood",
+      "wear_flags": "take finger neck body",
+      "weight": 46,
+      "cost": 4,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 4
+        },
+        {
+          "apply": "13",
+          "modifier": 15
+        },
+        {
+          "apply": "12",
+          "modifier": 20
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 16,
+      "name": "gauntlet eye",
+      "short_descr": "Gauntlets of the eye",
+      "description": "A pair of gauntlets with the design of an eye on them rest here",
+      "action_descr": "gold amethyst",
+      "item_type": "armor",
+      "values": {
+        "v0": "ACD",
+        "v1": "BCD",
+        "v2": "AC",
+        "v3": 0
+      },
+      "extra_flags": "glow nodrop",
+      "wear_flags": "finger neck body",
+      "weight": 43,
+      "cost": 3,
+      "affects": [
+        {
+          "apply": "18",
+          "modifier": 4
+        },
+        {
+          "apply": "13",
+          "modifier": 30
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 17,
+      "name": "helm eye",
+      "short_descr": "Helm of the eye",
+      "description": "A helm lies here with a huge eye centred on it",
+      "action_descr": "steel",
+      "item_type": "armor",
+      "values": {
+        "v0": "BCD",
+        "v1": "BCD",
+        "v2": "BC",
+        "v3": 0
+      },
+      "extra_flags": "glow evil",
+      "wear_flags": "take finger neck body",
+      "weight": 46,
+      "cost": 4,
+      "affects": [
+        {
+          "apply": "24",
+          "modifier": -2
+        },
+        {
+          "apply": "17",
+          "modifier": -5
+        },
+        {
+          "apply": "13",
+          "modifier": 15
+        },
+        {
+          "apply": "12",
+          "modifier": 15
+        },
+        {
+          "apply": "5",
+          "modifier": 2
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 18,
+      "name": "pin",
+      "short_descr": "A very sharp large pin",
+      "description": "A small pin glints in the light",
+      "action_descr": "steel",
+      "item_type": "weapon",
+      "values": {
+        "v0": 5,
+        "v1": 5,
+        "v2": "pierce",
+        "v3": 0
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 22,
+      "cost": 1,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 2
+        },
+        {
+          "apply": "18",
+          "modifier": 2
+        },
+        {
+          "apply": "13",
+          "modifier": -15
+        },
+        {
+          "apply": "1",
+          "modifier": -3
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 19,
+      "name": "muck branch",
+      "short_descr": "Very muddy branch",
+      "description": "A branch covered in muck lies discarded off to the side",
+      "action_descr": "unknown",
+      "item_type": "weapon",
+      "values": {
+        "v0": 5,
+        "v1": 5,
+        "v2": "blast",
+        "v3": 0
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 21,
+      "cost": 15,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 2
+        },
+        {
+          "apply": "18",
+          "modifier": -5
+        },
+        {
+          "apply": "2",
+          "modifier": -2
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 20,
+      "name": "dart",
+      "short_descr": "A small deadly dart",
+      "description": "A little dart lies on the ground",
+      "action_descr": "unknown",
+      "item_type": "weapon",
+      "values": {
+        "v0": 1,
+        "v1": 1,
+        "v2": "slash",
+        "v3": 0
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 1,
+      "cost": 0,
+      "affects": [
+        {
+          "apply": "18",
+          "modifier": 2
+        },
+        {
+          "apply": "3",
+          "modifier": 1
+        },
+        {
+          "apply": "1",
+          "modifier": -2
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 21,
+      "name": "wand",
+      "short_descr": "A black wand inlaid with gold symbols",
+      "description": "A small black wand waits to be tested",
+      "action_descr": "wood",
+      "item_type": "wand",
+      "values": {
+        "v0": 10,
+        "v1": 10,
+        "v2": "'faerie",
+        "v3": "fog'",
+        "v4": 0
+      },
+      "extra_flags": "glow nopurge",
+      "wear_flags": "finger neck body head",
+      "weight": 20,
+      "cost": 2
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 22,
+      "name": "girth",
+      "short_descr": "Girth of protection",
+      "description": "A girth lies here glowing softly with power",
+      "action_descr": "mithril",
+      "item_type": "armor",
+      "values": {
+        "v0": "BCD",
+        "v1": "ABCD",
+        "v2": "BC",
+        "v3": 0
+      },
+      "extra_flags": "glow antineutral",
+      "wear_flags": "take finger neck body",
+      "weight": 45,
+      "cost": 2,
+      "affects": [
+        {
+          "apply": "17",
+          "modifier": -10
+        },
+        {
+          "apply": "13",
+          "modifier": 20
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 23,
+      "name": "eyes",
+      "short_descr": "Dull eyes",
+      "description": "Two small eyes that have lost their shine wait to be used",
+      "action_descr": "unknown",
+      "item_type": "armor",
+      "values": {
+        "v0": "CD",
+        "v1": "ABD",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow evil",
+      "wear_flags": "take finger body",
+      "weight": 38,
+      "cost": 1,
+      "affects": [
+        {
+          "apply": "4",
+          "modifier": -3
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 24,
+      "name": "iron sword",
+      "short_descr": "An Iron Sword",
+      "description": "A very large sword made out of iron lies ready",
+      "action_descr": "iron",
+      "item_type": "weapon",
+      "values": {
+        "v0": 5,
+        "v1": 8,
+        "v2": "slash",
+        "v3": 0
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 40,
+      "cost": 45,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 4
+        },
+        {
+          "apply": "18",
+          "modifier": 2
+        },
+        {
+          "apply": "13",
+          "modifier": 10
+        },
+        {
+          "apply": "1",
+          "modifier": 2
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 25,
+      "name": "stone mace",
+      "short_descr": "A Huge Stone Mace",
+      "description": "A large mace made completely of stone waits to be used",
+      "action_descr": "stone",
+      "item_type": "weapon",
+      "values": {
+        "v0": 4,
+        "v1": 10,
+        "v2": "pound",
+        "v3": 0
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 38,
+      "cost": 25,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 5
+        },
+        {
+          "apply": "18",
+          "modifier": 2
+        },
+        {
+          "apply": "1",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 26,
+      "name": "shield",
+      "short_descr": "Black Shield of Protection",
+      "description": "A black shield waits to protect it's owner",
+      "action_descr": "steel",
+      "item_type": "armor",
+      "values": {
+        "v0": "BCD",
+        "v1": "BCD",
+        "v2": "BC",
+        "v3": 0
+      },
+      "extra_flags": "glow antigood",
+      "wear_flags": "finger neck body",
+      "weight": 42,
+      "cost": 4,
+      "affects": [
+        {
+          "apply": "17",
+          "modifier": -15
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 27,
+      "name": "stone",
+      "short_descr": "A small black stone",
+      "description": "A very small black stone almost escapes your notice",
+      "action_descr": "stone",
+      "item_type": "armor",
+      "values": {
+        "v0": 0,
+        "v1": 0,
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow nopurge",
+      "wear_flags": "",
+      "weight": 39,
+      "cost": 1,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": -5
+        },
+        {
+          "apply": "18",
+          "modifier": -5
+        },
+        {
+          "apply": "14",
+          "modifier": -150
+        },
+        {
+          "apply": "5",
+          "modifier": -3
+        },
+        {
+          "apply": "1",
+          "modifier": -3
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 28,
+      "name": "horn",
+      "short_descr": "Demon Horn",
+      "description": "A glowing demon horn waits to be wielded",
+      "action_descr": "bone",
+      "item_type": "weapon",
+      "values": {
+        "v0": 4,
+        "v1": 10,
+        "v2": "stab",
+        "v3": 0
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 40,
+      "cost": 4,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 4
+        },
+        {
+          "apply": "18",
+          "modifier": 1
+        },
+        {
+          "apply": "17",
+          "modifier": -10
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 29,
+      "name": "translucent robe",
+      "short_descr": "Translucent Robe",
+      "description": "A semi-transparent robe lies on the floor",
+      "action_descr": "cloth",
+      "item_type": "armor",
+      "values": {
+        "v0": "C",
+        "v1": "C",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow antievil",
+      "wear_flags": "neck",
+      "weight": 13,
+      "cost": 2,
+      "affects": [
+        {
+          "apply": "13",
+          "modifier": 10
+        },
+        {
+          "apply": "5",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 30,
+      "name": "belt",
+      "short_descr": "Belt of pleasure",
+      "description": "A thin belt lies on the ground offering you much joy",
+      "action_descr": "leather",
+      "item_type": "armor",
+      "values": {
+        "v0": "C",
+        "v1": "C",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow antineutral",
+      "wear_flags": "neck",
+      "weight": 11,
+      "cost": 1,
+      "affects": [
+        {
+          "apply": "2",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 31,
+      "name": "noble ring",
+      "short_descr": "Ring of nobility",
+      "description": "A small beautiful ring is ready to worn",
+      "action_descr": "silver",
+      "item_type": "treasure",
+      "values": {
+        "v0": 0,
+        "v1": 0,
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow hum",
+      "wear_flags": "",
+      "weight": 14,
+      "cost": 1,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 1
+        },
+        {
+          "apply": "13",
+          "modifier": 5
+        },
+        {
+          "apply": "3",
+          "modifier": -2
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 32,
+      "name": "gold teeth",
+      "short_descr": "Gold Teeth",
+      "description": "A couple golden teeth wait to be used",
+      "action_descr": "gold",
+      "item_type": "armor",
+      "values": {
+        "v0": "C",
+        "v1": "C",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow evil",
+      "wear_flags": "neck",
+      "weight": 16,
+      "cost": 1,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 2
+        },
+        {
+          "apply": "1",
+          "modifier": -1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 33,
+      "name": "broken bottle",
+      "short_descr": "A broken bottle",
+      "description": "A broken bottle lies on the ground",
+      "action_descr": "glass",
+      "item_type": "weapon",
+      "values": {
+        "v0": 3,
+        "v1": 3,
+        "v2": "slash",
+        "v3": 0
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 11,
+      "cost": 2,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 2
+        },
+        {
+          "apply": "2",
+          "modifier": -1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 34,
+      "name": "dusty boots",
+      "short_descr": "A pair of dusty boots",
+      "description": "A pair of dusty boots lie forgotten on the ground",
+      "action_descr": "leather",
+      "item_type": "armor",
+      "values": {
+        "v0": "D",
+        "v1": "D",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow magic",
+      "wear_flags": "body",
+      "weight": 33,
+      "cost": 2,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": -3
+        },
+        {
+          "apply": "14",
+          "modifier": -50
+        },
+        {
+          "apply": "2",
+          "modifier": -3
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 35,
+      "name": "gnome hat",
+      "short_descr": "A gnome hat",
+      "description": "A gnome hat rests here just waiting to be taken",
+      "action_descr": "steel",
+      "item_type": "armor",
+      "values": {
+        "v0": "BD",
+        "v1": "BD",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow evil",
+      "wear_flags": "finger body",
+      "weight": 30,
+      "cost": 2,
+      "affects": [
+        {
+          "apply": "18",
+          "modifier": 3
+        },
+        {
+          "apply": "2",
+          "modifier": 2
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 36,
+      "name": "boots of flying",
+      "short_descr": "Boots of flying",
+      "description": "A pair of boots hover just above the ground",
+      "action_descr": "unknown",
+      "item_type": "armor",
+      "values": {
+        "v0": "BE",
+        "v1": "BE",
+        "v2": "AD",
+        "v3": 0
+      },
+      "extra_flags": "glow magic",
+      "wear_flags": "finger head",
+      "weight": 31,
+      "cost": 2,
+      "affects": [
+        {
+          "apply": "2",
+          "modifier": 4
+        },
+        {
+          "apply": "14",
+          "modifier": 200
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 37,
+      "name": "bracer strength",
+      "short_descr": "Bracer of strength",
+      "description": "A very powerful looking bracer hums on the ground",
+      "action_descr": "platinum",
+      "item_type": "armor",
+      "values": {
+        "v0": "CE",
+        "v1": "ACE",
+        "v2": "CD",
+        "v3": 0
+      },
+      "extra_flags": "glow antineutral",
+      "wear_flags": "take neck head",
+      "weight": 30,
+      "cost": 3,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 3
+        },
+        {
+          "apply": "1",
+          "modifier": 4
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 38,
+      "name": "slaver whip",
+      "short_descr": "Slaver's Whip",
+      "description": "A long dangerous looking whip waits to used against a slave",
+      "action_descr": "leather",
+      "item_type": "weapon",
+      "values": {
+        "v0": 4,
+        "v1": 7,
+        "v2": "whip",
+        "v3": 0
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 23,
+      "cost": 4,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 5
+        },
+        {
+          "apply": "18",
+          "modifier": -4
+        },
+        {
+          "apply": "5",
+          "modifier": -2
+        },
+        {
+          "apply": "4",
+          "modifier": -4
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 39,
+      "name": "manacles",
+      "short_descr": "A pair of manacles",
+      "description": "A pair of manacles waits to be worn",
+      "action_descr": "iron",
+      "item_type": "armor",
+      "values": {
+        "v0": 0,
+        "v1": 0,
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow nodrop",
+      "wear_flags": "",
+      "weight": 20,
+      "cost": 4,
+      "affects": [
+        {
+          "apply": "13",
+          "modifier": -25
+        },
+        {
+          "apply": "5",
+          "modifier": -3
+        },
+        {
+          "apply": "1",
+          "modifier": -3
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 40,
+      "name": "cloak",
+      "short_descr": "A mage cloak",
+      "description": "A long flowing cloak that glows lies here",
+      "action_descr": "cloth",
+      "item_type": "armor",
+      "values": {
+        "v0": "AD",
+        "v1": "AD",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow dark",
+      "wear_flags": "take body",
+      "weight": 28,
+      "cost": 2,
+      "affects": [
+        {
+          "apply": "12",
+          "modifier": 25
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 41,
+      "name": "sword jagged long",
+      "short_descr": "a jagged long sword",
+      "description": "A jagged long sword rests on the ground",
+      "action_descr": "steel",
+      "item_type": "weapon",
+      "values": {
+        "v0": 6,
+        "v1": 5,
+        "v2": "slash",
+        "v3": 0
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 26,
+      "cost": 5,
+      "affects": [
+        {
+          "apply": "18",
+          "modifier": 4
+        },
+        {
+          "apply": "17",
+          "modifier": -10
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 42,
+      "name": "ebony dagger",
+      "short_descr": "an ebony dagger",
+      "description": "An ebony dagger lies off to your side",
+      "action_descr": "ebony",
+      "item_type": "weapon",
+      "values": {
+        "v0": 6,
+        "v1": 5,
+        "v2": "pierce",
+        "v3": 0
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 26,
+      "cost": 4,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 3
+        },
+        {
+          "apply": "18",
+          "modifier": 3
+        },
+        {
+          "apply": "17",
+          "modifier": -10
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 43,
+      "name": "glowing sphere",
+      "short_descr": "A glowing sphere",
+      "description": "A glowing sphere lights up the room",
+      "action_descr": "unknown",
+      "item_type": "light",
+      "values": {
+        "v0": 0,
+        "v1": 999,
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow nopurge",
+      "wear_flags": "",
+      "weight": 3,
+      "cost": 0,
+      "affects": [
+        {
+          "apply": "12",
+          "modifier": 20
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 44,
+      "name": "blue bracer",
+      "short_descr": "A midnight blue bracer",
+      "description": "A dark blue bracer lies on the ground",
+      "action_descr": "bronze",
+      "item_type": "armor",
+      "values": {
+        "v0": "AC",
+        "v1": "AC",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow noremove",
+      "wear_flags": "neck",
+      "weight": 16,
+      "cost": 3,
+      "affects": [
+        {
+          "apply": "2",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 45,
+      "name": "ebony morning star",
+      "short_descr": "An ebony morning star",
+      "description": "An ebony morning star rests on the ground",
+      "action_descr": "ebony",
+      "item_type": "weapon",
+      "values": {
+        "v0": 4,
+        "v1": 5,
+        "v2": "blast",
+        "v3": 0
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 17,
+      "cost": 6,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 4
+        },
+        {
+          "apply": "18",
+          "modifier": 2
+        },
+        {
+          "apply": "5",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 46,
+      "name": "drow chainmail",
+      "short_descr": "Black drow chainmail",
+      "description": "A black suit of chainmail lies ready to be taken",
+      "action_descr": "iron",
+      "item_type": "armor",
+      "values": {
+        "v0": "AC",
+        "v1": "AC",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow lock",
+      "wear_flags": "take neck",
+      "weight": 16,
+      "cost": 5,
+      "affects": [
+        {
+          "apply": "13",
+          "modifier": 4
+        },
+        {
+          "apply": "2",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 47,
+      "name": "drow sword",
+      "short_descr": "A drow sword",
+      "description": "A dark sword lies on the ground",
+      "action_descr": "steel",
+      "item_type": "weapon",
+      "values": {
+        "v0": 3,
+        "v1": 4,
+        "v2": "slice",
+        "v3": 0
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 10,
+      "cost": 5,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 1
+        },
+        {
+          "apply": "18",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 48,
+      "name": "drow dagger",
+      "short_descr": "A drow dagger",
+      "description": "A dark dagger lies on the ground",
+      "action_descr": "steel",
+      "item_type": "weapon",
+      "values": {
+        "v0": 3,
+        "v1": 3,
+        "v2": "pierce",
+        "v3": 0
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 11,
+      "cost": 3,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 1
+        },
+        {
+          "apply": "18",
+          "modifier": 2
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 49,
+      "name": "drow mace",
+      "short_descr": "A drow mace",
+      "description": "A dark mace lies on the ground",
+      "action_descr": "wood",
+      "item_type": "weapon",
+      "values": {
+        "v0": 3,
+        "v1": 3,
+        "v2": "pound",
+        "v3": 0
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 11,
+      "cost": 4,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 2
+        },
+        {
+          "apply": "18",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 50,
+      "name": "duergar breastplate",
+      "short_descr": "Duergar breastplate",
+      "description": "A breastplate of duergar make lies ready",
+      "action_descr": "brass",
+      "item_type": "armor",
+      "values": {
+        "v0": "AC",
+        "v1": "AC",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow lock",
+      "wear_flags": "take neck",
+      "weight": 12,
+      "cost": 4,
+      "affects": [
+        {
+          "apply": "17",
+          "modifier": -5
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 51,
+      "name": "duergar helm",
+      "short_descr": "A duergar helm",
+      "description": "A helm of duergar make lies ready",
+      "action_descr": "brass",
+      "item_type": "armor",
+      "values": {
+        "v0": "AB",
+        "v1": "AB",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow evil",
+      "wear_flags": "take finger",
+      "weight": 6,
+      "cost": 2,
+      "affects": [
+        {
+          "apply": "17",
+          "modifier": -3
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 52,
+      "name": "duergar shield",
+      "short_descr": "A duergar shield",
+      "description": "A shield of duergar designs lies ready",
+      "action_descr": "brass",
+      "item_type": "armor",
+      "values": {
+        "v0": "AB",
+        "v1": "AB",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow antigood",
+      "wear_flags": "take finger",
+      "weight": 6,
+      "cost": 3,
+      "affects": [
+        {
+          "apply": "17",
+          "modifier": -2
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 53,
+      "name": "duergar leggings",
+      "short_descr": "Duergar leggings",
+      "description": "A pair of leggings lie ready",
+      "action_descr": "brass",
+      "item_type": "armor",
+      "values": {
+        "v0": "AC",
+        "v1": "AC",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow invis",
+      "wear_flags": "take neck",
+      "weight": 12,
+      "cost": 4,
+      "affects": [
+        {
+          "apply": "17",
+          "modifier": -2
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 54,
+      "name": "duergar bracer",
+      "short_descr": "A duergar bracer",
+      "description": "A bracer of duergar design lies ready",
+      "action_descr": "silver",
+      "item_type": "armor",
+      "values": {
+        "v0": "BC",
+        "v1": "BC",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow noremove",
+      "wear_flags": "finger neck",
+      "weight": 11,
+      "cost": 3,
+      "affects": [
+        {
+          "apply": "17",
+          "modifier": -2
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 55,
+      "name": "brown mushroom",
+      "short_descr": "A brown mushroom",
+      "description": "A brown mushroom lies here looking tasty",
+      "action_descr": "food",
+      "item_type": "food",
+      "values": {
+        "v0": "CD",
+        "v1": 0,
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow",
+      "wear_flags": "neck body",
+      "weight": 1,
+      "cost": 2
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 56,
+      "name": "large mushroom",
+      "short_descr": "A large mushroom",
+      "description": "A large mushroom lies on the ground",
+      "action_descr": "food",
+      "item_type": "food",
+      "values": {
+        "v0": "ADE",
+        "v1": 0,
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow",
+      "wear_flags": "take body head",
+      "weight": 1,
+      "cost": 5
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 57,
+      "name": "red moss",
+      "short_descr": "Red moss",
+      "description": "Some red moss lies on the ground",
+      "action_descr": "food",
+      "item_type": "pill",
+      "values": {
+        "v0": 15,
+        "v1": 15,
+        "v2": 39,
+        "v3": 0
+      },
+      "extra_flags": "glow",
+      "wear_flags": "neck body",
+      "weight": 5,
+      "cost": 2
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 58,
+      "name": "dirty root",
+      "short_descr": "a dirty root",
+      "description": "A dirty root lies on the ground.",
+      "action_descr": "food",
+      "item_type": "pill",
+      "values": {
+        "v0": 1,
+        "v1": 67,
+        "v2": 66,
+        "v3": 0
+      },
+      "extra_flags": "glow",
+      "wear_flags": "take finger neck body",
+      "weight": 5,
+      "cost": 1
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 59,
+      "name": "scroll reveal",
+      "short_descr": "Scroll of reveal",
+      "description": "A scroll lies on the ground",
+      "action_descr": "vellum",
+      "item_type": "scroll",
+      "values": {
+        "v0": 73,
+        "v1": 0,
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow",
+      "wear_flags": "take finger neck body",
+      "weight": 5,
+      "cost": 1
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 60,
+      "name": "hand shocking grasp",
+      "short_descr": "Hand of shocking grasp",
+      "description": "A hand lies on the ground",
+      "action_descr": "wood",
+      "item_type": "wand",
+      "values": {
+        "v0": 4,
+        "v1": 4,
+        "v2": "'identify'",
+        "v3": 0
+      },
+      "extra_flags": "glow nopurge",
+      "wear_flags": "take finger neck head legs",
+      "weight": 20,
+      "cost": 2
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 61,
+      "name": "potion detection",
+      "short_descr": "Potion of detection",
+      "description": "A potion of detection waits to be used",
+      "action_descr": "glass",
+      "item_type": "potion",
+      "values": {
+        "v0": 19,
+        "v1": 44,
+        "v2": 20,
+        "v3": 0
+      },
+      "extra_flags": "glow",
+      "wear_flags": "take finger neck body",
+      "weight": 10,
+      "cost": 2
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 62,
+      "name": "svirfneblin leggings",
+      "short_descr": "Svirfneblin leggings",
+      "description": "A pair of svirfneblin leggings lies on the ground waiting to be taken",
+      "action_descr": "steel",
+      "item_type": "armor",
+      "values": {
+        "v0": "BC",
+        "v1": "BC",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow invis",
+      "wear_flags": "finger neck",
+      "weight": 17,
+      "cost": 3,
+      "affects": [
+        {
+          "apply": "17",
+          "modifier": -5
+        },
+        {
+          "apply": "1",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 63,
+      "name": "necklace nobility",
+      "short_descr": "Necklace of nobility",
+      "description": "A beautiful necklace waits to be worn",
+      "action_descr": "cloth",
+      "item_type": "armor",
+      "values": {
+        "v0": "AC",
+        "v1": "AC",
+        "v2": 0,
+        "v3": "P"
+      },
+      "extra_flags": "glow dark",
+      "wear_flags": "take neck",
+      "weight": 16,
+      "cost": 3,
+      "affects": [
+        {
+          "apply": "17",
+          "modifier": -4
+        },
+        {
+          "apply": "5",
+          "modifier": 1
+        },
+        {
+          "apply": "4",
+          "modifier": -1
+        },
+        {
+          "apply": "3",
+          "modifier": -1
+        },
+        {
+          "apply": "1",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 64,
+      "name": "broadsword vision",
+      "short_descr": "A broadsword named 'Vision'",
+      "description": "A beautifully crafted broadsword lies on the ground",
+      "action_descr": "steel",
+      "item_type": "weapon",
+      "values": {
+        "v0": 4,
+        "v1": 4,
+        "v2": "slice",
+        "v3": 0
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 17,
+      "cost": 4,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 2
+        },
+        {
+          "apply": "18",
+          "modifier": 2
+        },
+        {
+          "apply": "13",
+          "modifier": 10
+        },
+        {
+          "apply": "1",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 65,
+      "name": "thieve's patch",
+      "short_descr": "Thieve's patch",
+      "description": "A small patch lies on the ground",
+      "action_descr": "cloth",
+      "item_type": "armor",
+      "values": {
+        "v0": "AC",
+        "v1": "AC",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow noremove",
+      "wear_flags": "take neck",
+      "weight": 16,
+      "cost": 2,
+      "affects": [
+        {
+          "apply": "18",
+          "modifier": 5
+        },
+        {
+          "apply": "2",
+          "modifier": 2
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 66,
+      "name": "thieve's gloves",
+      "short_descr": "Thieve's gloves",
+      "description": "A pair of thin leather gloves rests on the ground",
+      "action_descr": "leather",
+      "item_type": "armor",
+      "values": {
+        "v0": "AC",
+        "v1": "AC",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow nodrop",
+      "wear_flags": "take neck",
+      "weight": 18,
+      "cost": 2,
+      "affects": [
+        {
+          "apply": "18",
+          "modifier": 3
+        },
+        {
+          "apply": "2",
+          "modifier": 2
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 67,
+      "name": "gold chain",
+      "short_descr": "A gold chain",
+      "description": "A gold chain glints in the light",
+      "action_descr": "gold",
+      "item_type": "armor",
+      "values": {
+        "v0": "AC",
+        "v1": "BC",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow dark",
+      "wear_flags": "take neck",
+      "weight": 19,
+      "cost": 2,
+      "affects": [
+        {
+          "apply": "24",
+          "modifier": -2
+        },
+        {
+          "apply": "23",
+          "modifier": -1
+        },
+        {
+          "apply": "22",
+          "modifier": -2
+        },
+        {
+          "apply": "21",
+          "modifier": -2
+        },
+        {
+          "apply": "20",
+          "modifier": -1
+        },
+        {
+          "apply": "18",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 68,
+      "name": "lucky dice",
+      "short_descr": "Lucky dice",
+      "description": "A pair of dice glow softly",
+      "action_descr": "bone",
+      "item_type": "armor",
+      "values": {
+        "v0": "AC",
+        "v1": "AC",
+        "v2": "AC",
+        "v3": 0
+      },
+      "extra_flags": "glow visdeath",
+      "wear_flags": "take neck",
+      "weight": 20,
+      "cost": 2,
+      "affects": [
+        {
+          "apply": "24",
+          "modifier": -1
+        },
+        {
+          "apply": "23",
+          "modifier": -2
+        },
+        {
+          "apply": "22",
+          "modifier": -1
+        },
+        {
+          "apply": "21",
+          "modifier": -1
+        },
+        {
+          "apply": "20",
+          "modifier": -1
+        },
+        {
+          "apply": "18",
+          "modifier": 1
+        },
+        {
+          "apply": "13",
+          "modifier": 20
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 69,
+      "name": "dark cloak",
+      "short_descr": "A dark cloak",
+      "description": "A very dark cloak lies in the shadows",
+      "action_descr": "cloth",
+      "item_type": "armor",
+      "values": {
+        "v0": "BC",
+        "v1": "BC",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow dark",
+      "wear_flags": "take finger neck",
+      "weight": 23,
+      "cost": 3,
+      "affects": [
+        {
+          "apply": "18",
+          "modifier": 3
+        },
+        {
+          "apply": "17",
+          "modifier": -4
+        },
+        {
+          "apply": "2",
+          "modifier": 2
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 70,
+      "name": "golden earring",
+      "short_descr": "Golden earring",
+      "description": "A small golden earring glints softly in the light",
+      "action_descr": "gold",
+      "item_type": "armor",
+      "values": {
+        "v0": "D",
+        "v1": "D",
+        "v2": "AC",
+        "v3": 0
+      },
+      "extra_flags": "glow visdeath",
+      "wear_flags": "body",
+      "weight": 25,
+      "cost": 1,
+      "affects": [
+        {
+          "apply": "13",
+          "modifier": 10
+        },
+        {
+          "apply": "3",
+          "modifier": 1
+        },
+        {
+          "apply": "2",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 71,
+      "name": "jewelled dagger",
+      "short_descr": "A jewelled dagger",
+      "description": "A jewelled dagger looks as if it could cut through anything",
+      "action_descr": "steel",
+      "item_type": "weapon",
+      "values": {
+        "v0": 4,
+        "v1": 11,
+        "v2": "pierce",
+        "v3": "D"
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 47,
+      "cost": 3,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 2
+        },
+        {
+          "apply": "18",
+          "modifier": 8
+        },
+        {
+          "apply": "17",
+          "modifier": -5
+        },
+        {
+          "apply": "2",
+          "modifier": 2
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 72,
+      "name": "hand",
+      "short_descr": "A hand grasping an orb",
+      "description": "A hand grasping an orb lies on the ground",
+      "action_descr": "unknown",
+      "item_type": "light",
+      "values": {
+        "v0": 0,
+        "v1": 999,
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow nopurge",
+      "wear_flags": "",
+      "weight": 15,
+      "cost": 3,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 1
+        },
+        {
+          "apply": "12",
+          "modifier": 50
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 73,
+      "name": "robe",
+      "short_descr": "A long flowing robe",
+      "description": "A beautiful robe lies pooled on the ground",
+      "action_descr": "leather",
+      "item_type": "armor",
+      "values": {
+        "v0": "ACD",
+        "v1": "ACD",
+        "v2": "BC",
+        "v3": 0
+      },
+      "extra_flags": "glow antievil",
+      "wear_flags": "take neck body",
+      "weight": 40,
+      "cost": 4,
+      "affects": [
+        {
+          "apply": "3",
+          "modifier": 2
+        },
+        {
+          "apply": "12",
+          "modifier": 50
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 74,
+      "name": "blade of poison",
+      "short_descr": "A blade of poison",
+      "description": "A dark blade rests here humming quietly",
+      "action_descr": "iron",
+      "item_type": "weapon",
+      "values": {
+        "v0": 4,
+        "v1": 5,
+        "v2": "pierce",
+        "v3": "H"
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 20,
+      "cost": 3,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 3
+        },
+        {
+          "apply": "18",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 75,
+      "name": "assassin's sleeves",
+      "short_descr": "Assassin's sleeves",
+      "description": "A pair of black sleeves rests here",
+      "action_descr": "cloth",
+      "item_type": "armor",
+      "values": {
+        "v0": "BC",
+        "v1": "ABC",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow bless",
+      "wear_flags": "finger neck",
+      "weight": 22,
+      "cost": 3,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 2
+        },
+        {
+          "apply": "18",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 76,
+      "name": "skull tattoo",
+      "short_descr": "Skull tattoo",
+      "description": "A weird glimmer lies on the ground, shaped like a skull",
+      "action_descr": "bone",
+      "item_type": "armor",
+      "values": {
+        "v0": 0,
+        "v1": 0,
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow noremove",
+      "wear_flags": "",
+      "weight": 23,
+      "cost": 1,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 2
+        },
+        {
+          "apply": "13",
+          "modifier": 5
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 77,
+      "name": "choke wire",
+      "short_descr": "A choke wire",
+      "description": "A thin wire lies on the ground humming",
+      "action_descr": "unknown",
+      "item_type": "weapon",
+      "values": {
+        "v0": 5,
+        "v1": 5,
+        "v2": "crush",
+        "v3": 0
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 25,
+      "cost": 1,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 4
+        },
+        {
+          "apply": "18",
+          "modifier": -5
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 78,
+      "name": "assassin's mask",
+      "short_descr": "An assassin's mask",
+      "description": "A mask keep changing on the ground",
+      "action_descr": "cloth",
+      "item_type": "armor",
+      "values": {
+        "v0": "AD",
+        "v1": "ABC",
+        "v2": "AC",
+        "v3": 0
+      },
+      "extra_flags": "glow evil",
+      "wear_flags": "take body",
+      "weight": 27,
+      "cost": 3,
+      "affects": [
+        {
+          "apply": "13",
+          "modifier": 20
+        },
+        {
+          "apply": "5",
+          "modifier": -1
+        },
+        {
+          "apply": "1",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 79,
+      "name": "flaming dagger tattoo",
+      "short_descr": "Flaming dagger tattoo",
+      "description": "A weird glimmer lies on the ground, shaped like a dagger",
+      "action_descr": "unknown",
+      "item_type": "armor",
+      "values": {
+        "v0": "AD",
+        "v1": "D",
+        "v2": "C",
+        "v3": 0
+      },
+      "extra_flags": "glow noremove",
+      "wear_flags": "take body",
+      "weight": 29,
+      "cost": 1,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 2
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 80,
+      "name": "wyvern tattoo",
+      "short_descr": "Wyvern tattoo",
+      "description": "A weird glimmer lies on the ground, shaped like a wyvern",
+      "action_descr": "ink",
+      "item_type": "armor",
+      "values": {
+        "v0": "ABC",
+        "v1": "ABC",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow noremove",
+      "wear_flags": "take finger neck",
+      "weight": 31,
+      "cost": 1,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 3
+        },
+        {
+          "apply": "18",
+          "modifier": 1
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 81,
+      "name": "dragon tattoo",
+      "short_descr": "Dragon tattoo",
+      "description": "A weird glimmer lies on the ground, shaped like a dragon",
+      "action_descr": "unknown",
+      "item_type": "armor",
+      "values": {
+        "v0": "ABE",
+        "v1": "ABE",
+        "v2": "ABC",
+        "v3": 0
+      },
+      "extra_flags": "glow noremove",
+      "wear_flags": "take finger head",
+      "weight": 46,
+      "cost": 1,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 5
+        },
+        {
+          "apply": "18",
+          "modifier": 5
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 82,
+      "name": "diamond helm",
+      "short_descr": "A diamond helm",
+      "description": "A helm sparkles and glints in the light",
+      "action_descr": "diamond",
+      "item_type": "armor",
+      "values": {
+        "v0": "E",
+        "v1": "ABCD",
+        "v2": "D",
+        "v3": 0
+      },
+      "extra_flags": "glow evil",
+      "wear_flags": "take finger neck body",
+      "weight": 47,
+      "cost": 2,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 3
+        },
+        {
+          "apply": "13",
+          "modifier": 25
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 83,
+      "name": "keeper's shield",
+      "short_descr": "The keeper's shield",
+      "description": "A large shield that looks as if it were made of stone lies here",
+      "action_descr": "stone",
+      "item_type": "armor",
+      "values": {
+        "v0": "ABCD",
+        "v1": "E",
+        "v2": "D",
+        "v3": 0
+      },
+      "extra_flags": "glow antigood",
+      "wear_flags": "head",
+      "weight": 49,
+      "cost": 10,
+      "affects": [
+        {
+          "apply": "23",
+          "modifier": -2
+        },
+        {
+          "apply": "21",
+          "modifier": -2
+        },
+        {
+          "apply": "20",
+          "modifier": -2
+        },
+        {
+          "apply": "17",
+          "modifier": -15
+        },
+        {
+          "apply": "13",
+          "modifier": 50
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 84,
+      "name": "clan ring",
+      "short_descr": "A demon clan signet ring",
+      "description": "A red and black ring glows and hums softly on the ground",
+      "action_descr": "gold",
+      "item_type": "treasure",
+      "values": {
+        "v0": 0,
+        "v1": 0,
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow hum",
+      "wear_flags": "",
+      "weight": 17,
+      "cost": 1,
+      "affects": [
+        {
+          "apply": "18",
+          "modifier": 1
+        },
+        {
+          "apply": "13",
+          "modifier": 15
+        },
+        {
+          "apply": "12",
+          "modifier": 10
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 85,
+      "name": "demon bracer",
+      "short_descr": "Demon bracer",
+      "description": "A black and red bracer lies on the ground",
+      "action_descr": "steel",
+      "item_type": "armor",
+      "values": {
+        "v0": "ABC",
+        "v1": "AC",
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow noremove",
+      "wear_flags": "take finger neck",
+      "weight": 21,
+      "cost": 3,
+      "affects": [
+        {
+          "apply": "12",
+          "modifier": 15
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 86,
+      "name": "demon blade",
+      "short_descr": "A demon blade",
+      "description": "A black blade hums on the ground",
+      "action_descr": "steel",
+      "item_type": "weapon",
+      "values": {
+        "v0": 5,
+        "v1": 6,
+        "v2": "slash",
+        "v3": 0
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 23,
+      "cost": 6,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 3
+        },
+        {
+          "apply": "18",
+          "modifier": 3
+        },
+        {
+          "apply": "17",
+          "modifier": -5
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 87,
+      "name": "gem gate",
+      "short_descr": "Gem of gate",
+      "description": "A large black gem lies on the ground",
+      "action_descr": "wood",
+      "item_type": "wand",
+      "values": {
+        "v0": 5,
+        "v1": 5,
+        "v2": "'bless'",
+        "v3": 0
+      },
+      "extra_flags": "glow nopurge",
+      "wear_flags": "take finger legs",
+      "weight": 25,
+      "cost": 3
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 88,
+      "name": "demon plate",
+      "short_descr": "Demon Plate",
+      "description": "A black suite of plate mail rests on the ground",
+      "action_descr": "steel",
+      "item_type": "armor",
+      "values": {
+        "v0": "BD",
+        "v1": "BD",
+        "v2": "C",
+        "v3": 0
+      },
+      "extra_flags": "glow lock",
+      "wear_flags": "finger body",
+      "weight": 30,
+      "cost": 9,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 2
+        },
+        {
+          "apply": "17",
+          "modifier": -5
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 89,
+      "name": "demon fire",
+      "short_descr": "{RDemon Fire{x",
+      "description": "A strange flame burns here.",
+      "action_descr": "fire",
+      "item_type": "armor",
+      "values": {
+        "v0": "CE",
+        "v1": "CE",
+        "v2": "CD",
+        "v3": 0
+      },
+      "extra_flags": "glow antigood",
+      "wear_flags": "finger neck head",
+      "weight": 37,
+      "cost": 0,
+      "affects": [
+        {
+          "apply": "19",
+          "modifier": 6
+        },
+        {
+          "apply": "17",
+          "modifier": -15
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 90,
+      "name": "fire gem",
+      "short_descr": "A fire gem",
+      "description": "A large red gem seems to be on fire",
+      "action_descr": "fire",
+      "item_type": "wand",
+      "values": {
+        "v0": 5,
+        "v1": 5,
+        "v2": "'fireball'",
+        "v3": 0
+      },
+      "extra_flags": "glow nopurge",
+      "wear_flags": "take finger legs",
+      "weight": 30,
+      "cost": 3
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 91,
+      "name": "stealth",
+      "short_descr": "Statue of the a God",
+      "description": "A statue of a god stands off to the side",
+      "action_descr": "wood",
+      "item_type": "container",
+      "values": {
+        "v0": "C",
+        "v1": 0,
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "",
+      "wear_flags": "body legs feet hands arms shield",
+      "weight": 1,
+      "cost": 0
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 92,
+      "name": "brains",
+      "short_descr": "brains of the god",
+      "description": "A foul greyish mush sits here",
+      "action_descr": "unknown",
+      "item_type": "money",
+      "values": {
+        "v0": 0,
+        "v1": 0,
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow",
+      "wear_flags": "",
+      "weight": 1,
+      "cost": 1
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 93,
+      "name": "gold pile merchants",
+      "short_descr": "merchant's gold",
+      "description": "Merchant's gold sits here in a pile",
+      "action_descr": "gold",
+      "item_type": "money",
+      "values": {
+        "v0": 0,
+        "v1": 0,
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow",
+      "wear_flags": "",
+      "weight": 1,
+      "cost": 1
+    }
+  },
+  {
+    "object": {
+      "area": "under2",
+      "anum": 94,
+      "name": "gold pile",
+      "short_descr": "not so rich merchant gold",
+      "description": "A small pile of gold",
+      "action_descr": "gold",
+      "item_type": "money",
+      "values": {
+        "v0": 0,
+        "v1": 0,
+        "v2": 0,
+        "v3": 0
+      },
+      "extra_flags": "glow",
+      "wear_flags": "",
+      "weight": 1,
+      "cost": 1
+    }
+  }
+]

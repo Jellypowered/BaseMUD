@@ -1,0 +1,14 @@
+[
+  {
+    "area": {
+      "name": "under2",
+      "filename": "",
+      "title": "UnderDark",
+      "credits": "Silence UnderDark",
+      "min_vnum": 16000,
+      "max_vnum": 16499,
+      "builders": "",
+      "security": 9
+    }
+  }
+]

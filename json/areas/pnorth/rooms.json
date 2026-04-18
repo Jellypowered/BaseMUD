@@ -1,0 +1,2705 @@
+[
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 0,
+      "name": "The Gathic Range road",
+      "description": "You travel upon a road that stretches from Midgaard to the towering\nmountains of the north.  The road is worn, scattered with rocks, and not\neasy to travel.  The shadows of the mountains fill this road each day,\nleaving everything nearby in a sort of twilight.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 1
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "portal": "pnorth-south-1"
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 1,
+      "name": "The Gathic Range road",
+      "description": "You travel upon a road that stretches from Midgaard to the towering\nmountains of the north.  The road is worn, scattered with rocks, and not\neasy to travel.  The shadows of the mountains fill this road each day,\nleaving everything nearby in a sort of twilight.  \nTo the east is a forge, and a rather grand one at that.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 2
+        },
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "portal": "pnorth-east-1"
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 0
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 2,
+      "name": "The Gathic Range road",
+      "description": "You travel upon a road that stretches from Midgaard to the towering\nmountains of the north.  The road is worn, scattered with rocks, and not\neasy to travel.  The shadows of the mountains fill this road each day,\nleaving everything nearby in a sort of twilight.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 3
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 1
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 3,
+      "name": "The Gathic Range road",
+      "description": "You travel upon a road that stretches from Midgaard to the towering\nmountains of the north.  The road is worn, scattered with rocks, and not\neasy to travel.  The shadows of the mountains fill this road each day,\nleaving everything nearby in a sort of twilight.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 4
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 2
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 4,
+      "name": "The Gathic Range road",
+      "description": "You travel upon a road that stretches from Midgaard to the towering\nmountains of the north.  The road is worn, scattered with rocks, and not\neasy to travel.  The shadows of the mountains fill this road each day,\nleaving everything nearby in a sort of twilight.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 5
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 3
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 5,
+      "name": "The Gathic Range road",
+      "description": "You travel upon a road that stretches from Midgaard to the towering\nmountains of the north.  The road is worn, scattered with rocks, and not\neasy to travel.  The shadows of the mountains fill this road each day,\nleaving everything nearby in a sort of twilight.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 6
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 4
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 6,
+      "name": "The Gathic Range road",
+      "description": "You travel upon a road that stretches from Midgaard to the towering\nmountains of the north.  The road is worn, scattered with rocks, and not\neasy to travel.  The shadows of the mountains fill this road each day,\nleaving everything nearby in a sort of twilight.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 7
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 5
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 7,
+      "name": "The Gathic Range road",
+      "description": "You travel upon a road that stretches from Midgaard to the towering\nmountains of the north.  The road is worn, scattered with rocks, and not\neasy to travel.  The shadows of the mountains fill this road each day,\nleaving everything nearby in a sort of twilight.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 8
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 6
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 8,
+      "name": "The Gathic Range road",
+      "description": "You travel upon a road that stretches from Midgaard to the towering\nmountains of the north.  The road is worn, scattered with rocks, and not\neasy to travel.  The shadows of the mountains fill this road each day,\nleaving everything nearby in a sort of twilight.  \nTo the west you can see a dry river bed that has become a road of sorts.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 9
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 7
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 14
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 9,
+      "name": "The Gathic Range road",
+      "description": "You travel upon a road that stretches from Midgaard to the towering\nmountains of the north.  The road is worn, scattered with rocks, and not\neasy to travel.  The shadows of the mountains fill this road each day,\nleaving everything nearby in a sort of twilight.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 10
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 8
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 10,
+      "name": "The Gathic Range road",
+      "description": "You travel upon a road that stretches from Midgaard to the towering\nmountains of the north.  The road is worn, scattered with rocks, and not\neasy to travel.  The shadows of the mountains fill this road each day,\nleaving everything nearby in a sort of twilight.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 11
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 9
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 11,
+      "name": "The Gathic Range road",
+      "description": "You travel upon a road that stretches from Midgaard to the towering\nmountains of the north.  The road is worn, scattered with rocks, and not\neasy to travel.  The shadows of the mountains fill this road each day,\nleaving everything nearby in a sort of twilight.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 12
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 10
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 12,
+      "name": "The Gathic Range road",
+      "description": "You travel upon a road that stretches from Midgaard to the towering\nmountains of the north.  The road is worn, scattered with rocks, and not\neasy to travel.  The shadows of the mountains fill this road each day,\nleaving everything nearby in a sort of twilight.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 13
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 11
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 13,
+      "name": "The Gathic Range road",
+      "description": "You travel upon a road that stretches from Midgaard to the towering\nmountains of the north.  The road is worn, scattered with rocks, and not\neasy to travel.  The shadows of the mountains fill this road each day,\nleaving everything nearby in a sort of twilight.  \nHere at the base of the mountains, they seem much taller.\nTo the east is a well-taken care of path, maintained by the dwarves.\nTo climb the mountains, you must go up.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 23
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 12
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 28
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 14,
+      "name": "A dry riverbed",
+      "description": "This dry riverbed has been travelled, but not by many.  It is apparent\nthat this is no trade route, or game path, but a difficult journey even for\na hardy adventurer.  The path is not impossible, however difficult.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 8
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 15
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 15,
+      "name": "A dry riverbed",
+      "description": "This dry riverbed has been travelled, but not by many.  It is apparent\nthat this is no trade route, or game path, but a difficult journey even for\na hardy adventurer.  The path is not impossible, however difficult.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 14
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 16
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 16,
+      "name": "A dry riverbed",
+      "description": "This dry riverbed has been travelled, but not by many.  It is apparent\nthat this is no trade route, or game path, but a difficult journey even for\na hardy adventurer.  The path is not impossible, however difficult.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 17
+        },
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 15
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 17,
+      "name": "A dry riverbed",
+      "description": "This dry riverbed has been travelled, but not by many.  It is apparent\nthat this is no trade route, or game path, but a difficult journey even for\na hardy adventurer.  The path is not impossible, however difficult.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 18
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 16
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 18,
+      "name": "A dry riverbed",
+      "description": "This dry riverbed has been travelled, but not by many.  It is apparent\nthat this is no trade route, or game path, but a difficult journey even for\na hardy adventurer.  The path is not impossible, however difficult.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 17
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 19
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 19,
+      "name": "A dry riverbed",
+      "description": "This dry riverbed has been travelled, but not by many.  It is apparent\nthat this is no trade route, or game path, but a difficult journey even for\na hardy adventurer.  The path is not impossible, however difficult.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 20
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 18
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 20,
+      "name": "A dry riverbed",
+      "description": "This dry riverbed has been travelled, but not by many.  It is apparent\nthat this is no trade route, or game path, but a difficult journey even for\na hardy adventurer.  The path is not impossible, however difficult.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 19
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 21
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 21,
+      "name": "A dry riverbed",
+      "description": "This dry riverbed has been travelled, but not by many.  It is apparent\nthat this is no trade route, or game path, but a difficult journey even for\na hardy adventurer.  The path is not impossible, however difficult.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 22
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 20
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 22,
+      "name": "A dry riverbed",
+      "description": "This dry riverbed has been travelled, but not by many.  It is apparent\nthat this is no trade route, or game path, but a difficult journey even for\na hardy adventurer.  The path is not impossible, however difficult.  \nTo the north, the first of the many tall mountains stands.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "portal": "pnorth-north-1"
+        },
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 21
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 23,
+      "name": "Dwarven trail",
+      "description": "This well-maintained path is heavily used by the dwarves that mine and\nshape their ore.  It is used just as heavily by those seeking out the\nwonderful items the dwarves can make.  Adventures seeking a fight should\ncertainly do so carefully.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 24
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 13
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 24,
+      "name": "Dwarven trail",
+      "description": "This well-maintained path is heavily used by the dwarves that mine and\nshape their ore.  It is used just as heavily by those seeking out the\nwonderful items the dwarves can make.  Adventures seeking a fight should\ncertainly do so carefully.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 23
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 25
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 25,
+      "name": "Dwarven trail",
+      "description": "This well-maintained path is heavily used by the dwarves that mine and\nshape their ore.  It is used just as heavily by those seeking out the\nwonderful items the dwarves can make.  Adventures seeking a fight should\ncertainly do so carefully.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 26
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 24
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 26,
+      "name": "Dwarven trail",
+      "description": "This well-maintained path is heavily used by the dwarves that mine and\nshape their ore.  It is used just as heavily by those seeking out the\nwonderful items the dwarves can make.  Adventures seeking a fight should\ncertainly do so carefully.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 27
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 25
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 27,
+      "name": "Dwarven trail",
+      "description": "This well-maintained path is heavily used by the dwarves that mine and\nshape their ore.  It is used just as heavily by those seeking out the\nwonderful items the dwarves can make.  Adventures seeking a fight should\ncertainly do so carefully.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "portal": "pnorth-north-4"
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 26
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 28,
+      "name": "A steep mountain trail",
+      "description": "Even those hardy enough to regularly climb the mighty Gothic Range for\nsport have a difficult time on this path.  It is steep enough that at times,\nthose walking this path must use their hands as well as their feet.  Rocks\nscatter and slide with every misplaced step, and loud noises cause small\nlandslides.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 29
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 13
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 29,
+      "name": "A steep mountain trail",
+      "description": "Even those hardy enough to regularly climb the mighty Gothic Range for\nsport have a difficult time on this path.  It is steep enough that at times,\nthose walking this path must use their hands as well as their feet.  Rocks\nscatter and slide with every misplaced step, and loud noises cause small\nlandslides.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 30
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 28
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 30,
+      "name": "A steep mountain trail",
+      "description": "Even those hardy enough to regularly climb the mighty Gothic Range for\nsport have a difficult time on this path.  It is steep enough that at times,\nthose walking this path must use their hands as well as their feet.  Rocks\nscatter and slide with every misplaced step, and loud noises cause small\nlandslides.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 31
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 29
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 31,
+      "name": "A steep mountain trail",
+      "description": "Even those hardy enough to regularly climb the mighty Gothic Range for\nsport have a difficult time on this path.  It is steep enough that at times,\nthose walking this path must use their hands as well as their feet.  Rocks\nscatter and slide with every misplaced step, and loud noises cause small\nlandslides.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 32
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 30
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 32,
+      "name": "A steep mountain trail",
+      "description": "Even those hardy enough to regularly climb the mighty Gothic Range for\nsport have a difficult time on this path.  It is steep enough that at times,\nthose walking this path must use their hands as well as their feet.  Rocks\nscatter and slide with every misplaced step, and loud noises cause small\nlandslides.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 33
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 31
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 33,
+      "name": "A steep mountain trail",
+      "description": "Even those hardy enough to regularly climb the mighty Gothic Range for\nsport have a difficult time on this path.  It is steep enough that at times,\nthose walking this path must use their hands as well as their feet.  Rocks\nscatter and slide with every misplaced step, and loud noises cause small\nlandslides.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 34
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 32
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 34,
+      "name": "A steep mountain trail",
+      "description": "Even those hardy enough to regularly climb the mighty Gothic Range for\nsport have a difficult time on this path.  It is steep enough that at times,\nthose walking this path must use their hands as well as their feet.  Rocks\nscatter and slide with every misplaced step, and loud noises cause small\nlandslides.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 33
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 35
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 35,
+      "name": "A steep mountain trail",
+      "description": "Even those hardy enough to regularly climb the mighty Gothic Range for\nsport have a difficult time on this path.  It is steep enough that at times,\nthose walking this path must use their hands as well as their feet.  Rocks\nscatter and slide with every misplaced step, and loud noises cause small\nlandslides.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 36
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 34
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 36,
+      "name": "A steep mountain trail",
+      "description": "Even those hardy enough to regularly climb the mighty Gothic Range for\nsport have a difficult time on this path.  It is steep enough that at times,\nthose walking this path must use their hands as well as their feet.  Rocks\nscatter and slide with every misplaced step, and loud noises cause small\nlandslides.  \nTo the east is a long, wide canyon that stretches far into the distance.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 37
+        },
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 41
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 35
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 37,
+      "name": "A steep mountain trail",
+      "description": "Even those hardy enough to regularly climb the mighty Gothic Range for\nsport have a difficult time on this path.  It is steep enough that at times,\nthose walking this path must use their hands as well as their feet.  Rocks\nscatter and slide with every misplaced step, and loud noises cause small\nlandslides.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 38
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 36
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 38,
+      "name": "A steep mountain trail",
+      "description": "Even those hardy enough to regularly climb the mighty Gothic Range for\nsport have a difficult time on this path.  It is steep enough that at times,\nthose walking this path must use their hands as well as their feet.  Rocks\nscatter and slide with every misplaced step, and loud noises cause small\nlandslides.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 39
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 37
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 39,
+      "name": "A steep mountain trail",
+      "description": "Even those hardy enough to regularly climb the mighty Gothic Range for\nsport have a difficult time on this path.  It is steep enough that at times,\nthose walking this path must use their hands as well as their feet.  Rocks\nscatter and slide with every misplaced step, and loud noises cause small\nlandslides.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 40
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 38
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 40,
+      "name": "A steep mountain trail",
+      "description": "Even those hardy enough to regularly climb the mighty Gothic Range for\nsport have a difficult time on this path.  It is steep enough that at times,\nthose walking this path must use their hands as well as their feet.  Rocks\nscatter and slide with every misplaced step, and loud noises cause small\nlandslides.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 39
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "portal": "pnorth-west-1"
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 63
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 41,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 42
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 36
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 42,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 43
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 41
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 43,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 45
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 42
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 44,
+      "name": "",
+      "description": "",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 43
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 45,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 43
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 46
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 46,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.  \nStrait above is the Aarakocran city, if you can but fly.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 47
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "portal": "pnorth-up-1"
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 45
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 47,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 48
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 46
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 48,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 49
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 47
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 49,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 48
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 50
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 50,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 51
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 49
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 51,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 52
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 50
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 52,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 53
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 51
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 53,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 54
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 52
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 54,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 55
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 53
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 55,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.  \nA large set of doors bar the entrance to a cave to the south.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 56
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "door",
+          "key": -14500,
+          "portal": "pnorth-south-2"
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 54
+        }
+      ],
+      "resets": [
+        {
+          "command": "door",
+          "values": {
+            "dir": "south",
+            "state": "closed"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 56,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 57
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 55
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 57,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 58
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 56
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 58,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 59
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 57
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 59,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 60
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 58
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 60,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 61
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 59
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 61,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 62
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 60
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 62,
+      "name": "A long canyon road",
+      "description": "The walls of this canyon are impossible to climb.  They seem to be walls\nfor a huge house, while the clouds make up the roof.  The canyon itself\nstretches as far as you can see, promising a long journey wherever you are\nbound.  \nHere the canyon ends, but a path leads away, if you brave the climb down.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 61
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "portal": "pnorth-down-1"
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 63,
+      "name": "A steep mountain trail",
+      "description": "Even those hardy enough to regularly climb the mighty Gothic Range for\nsport have a difficult time on this path.  It is steep enough that at times,\nthose walking this path must use their hands as well as their feet.  Rocks\nscatter and slide with every misplaced step, and loud noises cause small\nlandslides.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 64
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 40
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 64,
+      "name": "A steep mountain trail",
+      "description": "Even those hardy enough to regularly climb the mighty Gothic Range for\nsport have a difficult time on this path.  It is steep enough that at times,\nthose walking this path must use their hands as well as their feet.  Rocks\nscatter and slide with every misplaced step, and loud noises cause small\nlandslides.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 65
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 63
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 65,
+      "name": "A steep mountain trail",
+      "description": "Even those hardy enough to regularly climb the mighty Gothic Range for\nsport have a difficult time on this path.  It is steep enough that at times,\nthose walking this path must use their hands as well as their feet.  Rocks\nscatter and slide with every misplaced step, and loud noises cause small\nlandslides.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 66
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 64
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 66,
+      "name": "A steep mountain trail",
+      "description": "Even those hardy enough to regularly climb the mighty Gothic Range for\nsport have a difficult time on this path.  It is steep enough that at times,\nthose walking this path must use their hands as well as their feet.  Rocks\nscatter and slide with every misplaced step, and loud noises cause small\nlandslides.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 67
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 65
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 67,
+      "name": "The Gathic range",
+      "description": "You stand atop the tallest mountain range of the realms - The Gathic\nRange.  Named for a fearless adventurer that came to the realms long ago,\ncoming down from these very mountains and telling tales of strange lands,\nimpossible to find these days.  From here, you can nearly see the entire\nrealm.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 68
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 66
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 74
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "portal": "pnorth-up-2"
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 68,
+      "name": "The Gathic range",
+      "description": "You stand atop the tallest mountain range of the realms - The Gathic\nRange.  Named for a fearless adventurer that came to the realms long ago,\ncoming down from these very mountains and telling tales of strange lands,\nimpossible to find these days.  From here, you can nearly see the entire\nrealm.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 69
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 67
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 69,
+      "name": "The Gathic range",
+      "description": "You stand atop the tallest mountain range of the realms - The Gathic\nRange.  Named for a fearless adventurer that came to the realms long ago,\ncoming down from these very mountains and telling tales of strange lands,\nimpossible to find these days.  From here, you can nearly see the entire\nrealm.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 70
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 68
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 70,
+      "name": "The Gathic range",
+      "description": "You stand atop the tallest mountain range of the realms - The Gathic\nRange.  Named for a fearless adventurer that came to the realms long ago,\ncoming down from these very mountains and telling tales of strange lands,\nimpossible to find these days.  From here, you can nearly see the entire\nrealm.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 71
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 69
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 71,
+      "name": "The Gathic range",
+      "description": "You stand atop the tallest mountain range of the realms - The Gathic\nRange.  Named for a fearless adventurer that came to the realms long ago,\ncoming down from these very mountains and telling tales of strange lands,\nimpossible to find these days.  From here, you can nearly see the entire\nrealm.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 72
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 70
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 72,
+      "name": "The Gathic range",
+      "description": "You stand atop the tallest mountain range of the realms - The Gathic\nRange.  Named for a fearless adventurer that came to the realms long ago,\ncoming down from these very mountains and telling tales of strange lands,\nimpossible to find these days.  From here, you can nearly see the entire\nrealm.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 73
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 71
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 73,
+      "name": "The base of The Hub",
+      "description": "To the north lies a tall mountain, one of the tallest of the Gathic\nRange.  It is known only as The Hub, and according to legend was simply\nplaced here by the gods, unlike normal mountains, which grow slowly like\nplants made of rock.  Few have dared climb this mountain, for the fear of\nangering the gods of old.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "portal": "pnorth-north-5"
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 72
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "portal": "pnorth-down-2"
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 74,
+      "name": "The Gathic range",
+      "description": "You stand atop the tallest mountain range of the realms - The Gathic\nRange.  Named for a fearless adventurer that came to the realms long ago,\ncoming down from these very mountains and telling tales of strange lands,\nimpossible to find these days.  From here, you can nearly see the entire\nrealm.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 67
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 75
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 75,
+      "name": "The Gathic range",
+      "description": "You stand atop the tallest mountain range of the realms - The Gathic\nRange.  Named for a fearless adventurer that came to the realms long ago,\ncoming down from these very mountains and telling tales of strange lands,\nimpossible to find these days.  From here, you can nearly see the entire\nrealm.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 74
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 76
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 76,
+      "name": "The Gathic range",
+      "description": "You stand atop the tallest mountain range of the realms - The Gathic\nRange.  Named for a fearless adventurer that came to the realms long ago,\ncoming down from these very mountains and telling tales of strange lands,\nimpossible to find these days.  From here, you can nearly see the entire\nrealm.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 75
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 77
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 77,
+      "name": "The Gathic range",
+      "description": "You stand atop the tallest mountain range of the realms - The Gathic\nRange.  Named for a fearless adventurer that came to the realms long ago,\ncoming down from these very mountains and telling tales of strange lands,\nimpossible to find these days.  From here, you can nearly see the entire\nrealm.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 78
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 76
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 78,
+      "name": "The Gathic range",
+      "description": "You stand atop the tallest mountain range of the realms - The Gathic\nRange.  Named for a fearless adventurer that came to the realms long ago,\ncoming down from these very mountains and telling tales of strange lands,\nimpossible to find these days.  From here, you can nearly see the entire\nrealm.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 77
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 79
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 79,
+      "name": "Mount Filthy",
+      "description": "The tallest of the tall mountains, is of course, Mount Filthy.  Somewhere\non the impassible side of this peak, the mighty yet disgusting Filthy River\nbegins, so yes, this mountain is the one to blame.  Why from this vantage\npoint, you can see the entire path of the Filthy River, and how it's almost\nreached the ocean.  Give it another hundred years, it may get there.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 78
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 80
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 80,
+      "name": "Mount Filthy",
+      "description": "The tallest of the tall mountains, is of course, Mount Filthy.  Somewhere\non the impassible side of this peak, the mighty yet disgusting Filthy River\nbegins, so yes, this mountain is the one to blame.  Why from this vantage\npoint, you can see the entire path of the Filthy River, and how it's almost\nreached the ocean.  Give it another hundred years, it may get there.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 81
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 79
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 81,
+      "name": "Mount Filthy",
+      "description": "The tallest of the tall mountains, is of course, Mount Filthy.  Somewhere\non the impassible side of this peak, the mighty yet disgusting Filthy River\nbegins, so yes, this mountain is the one to blame.  Why from this vantage\npoint, you can see the entire path of the Filthy River, and how it's almost\nreached the ocean.  Give it another hundred years, it may get there.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 80
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 82
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 82,
+      "name": "Mount Filthy",
+      "description": "The tallest of the tall mountains, is of course, Mount Filthy.  Somewhere\non the impassible side of this peak, the mighty yet disgusting Filthy River\nbegins, so yes, this mountain is the one to blame.  Why from this vantage\npoint, you can see the entire path of the Filthy River, and how it's almost\nreached the ocean.  Give it another hundred years, it may get there.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 83
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 81
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 83,
+      "name": "The peak of Mount Filthy",
+      "description": "Here, on top of the world itself, you should stop and marvel.  Before you\nstretches the entire realms, and all of it is there for you to view.  For\nthis is the peak of Mount Filthy, believed to be the tallest mountain in the\nentire world.  Only one person has ever claimed otherwise, an adventurer,\nlike you, that came from lands so far away that they can't smell the stench\nof the Filthy River.  \nWhich is a VERY far way away indeed.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 82
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 84
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 84,
+      "name": "Mount Filthy",
+      "description": "The tallest of the tall mountains, is of course, Mount Filthy.  Somewhere\non the impassible side of this peak, the mighty yet disgusting Filthy River\nbegins, so yes, this mountain is the one to blame.  Why from this vantage\npoint, you can see the entire path of the Filthy River, and how it's almost\nreached the ocean.  Give it another hundred years, it may get there.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 83
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 85
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 85,
+      "name": "Mount Filthy",
+      "description": "The tallest of the tall mountains, is of course, Mount Filthy.  Somewhere\non the impassible side of this peak, the mighty yet disgusting Filthy River\nbegins, so yes, this mountain is the one to blame.  Why from this vantage\npoint, you can see the entire path of the Filthy River, and how it's almost\nreached the ocean.  Give it another hundred years, it may get there.  \nTo the north leads into what is believed to be The Abyss.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "portal": "pnorth-north-6"
+        },
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 84
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 86
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 86,
+      "name": "Mount Filthy",
+      "description": "The tallest of the tall mountains, is of course, Mount Filthy.  Somewhere\non the impassible side of this peak, the mighty yet disgusting Filthy River\nbegins, so yes, this mountain is the one to blame.  Why from this vantage\npoint, you can see the entire path of the Filthy River, and how it's almost\nreached the ocean.  Give it another hundred years, it may get there.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 85
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 87
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 87,
+      "name": "Mount Filthy",
+      "description": "The tallest of the tall mountains, is of course, Mount Filthy.  Somewhere\non the impassible side of this peak, the mighty yet disgusting Filthy River\nbegins, so yes, this mountain is the one to blame.  Why from this vantage\npoint, you can see the entire path of the Filthy River, and how it's almost\nreached the ocean.  Give it another hundred years, it may get there.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 86
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 88
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 88,
+      "name": "Mount Filthy",
+      "description": "The tallest of the tall mountains, is of course, Mount Filthy.  Somewhere\non the impassible side of this peak, the mighty yet disgusting Filthy River\nbegins, so yes, this mountain is the one to blame.  Why from this vantage\npoint, you can see the entire path of the Filthy River, and how it's almost\nreached the ocean.  Give it another hundred years, it may get there.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 87
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 89
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 89,
+      "name": "The base of Mount Filthy",
+      "description": "The tallest of the tall mountains, is of course, Mount Filthy.  Here at\nthe base of the mountain, all that can be seen is...  Well...  A very damn\ntall mountain, of course!",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 90
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 88
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 90,
+      "name": "The Low Steppe hills",
+      "description": "Here the mountains end, only some hills remain - the Low Steppe hills. \nThis seldom-used path you currently walk leads up into the mountains, and\ndown into the plains.  It is rumored that the entrance to the strangest land\nof the realms is around here...  Somewhere.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 89
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 91
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 91,
+      "name": "The Low Steppe hills",
+      "description": "Here the mountains end, only some hills remain - the Low Steppe hills. \nThis seldom-used path you currently walk leads up into the mountains, and\ndown into the plains.  It is rumored that the entrance to the strangest land\nof the realms is around here...  Somewhere.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 90
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 92
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 92,
+      "name": "The Low Steppe hills",
+      "description": "Here the mountains end, only some hills remain - the Low Steppe hills. \nThis seldom-used path you currently walk leads up into the mountains, and\ndown into the plains.  It is rumored that the entrance to the strangest land\nof the realms is around here...  Somewhere.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "to": 91
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -14500,
+          "portal": "pnorth-west-2"
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "pnorth",
+      "anum": 99,
+      "name": "Last room of north path",
+      "description": "",
+      "sector_type": "0",
+      "room_flags": ""
+    }
+  }
+]

@@ -1,0 +1,1014 @@
+[
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 0,
+      "name": "Darkness",
+      "description": "Your head swirls and you cannot breath.  The darkness is like a blanket\nover your body, and seems to try to prevent your movement.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 4
+        },
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 3
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 5
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 1
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 21
+        }
+      ],
+      "resets": [
+        {
+          "command": "randomize",
+          "values": {}
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 1,
+      "name": "Outside the Darkness",
+      "description": "To the south of you is an impenetrable mass of darkness that lights\ndoes not escape.  Dare you traverse into it?",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 2
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 0
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 2,
+      "name": "Approaching Darkness",
+      "description": "You see a tunnel of darkness further to your south.  A terrible feeling\nof foreboding comes over you, and an incredible sense of danger and fear\nfills your bones.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 17
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 1
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 3,
+      "name": "Outside of Darkness",
+      "description": "To the west of you is an impenetrable mass of darkness that lights\ndoes not escape.  Dare you traverse into it?",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 6
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 0
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 4,
+      "name": "Outside of Darkness",
+      "description": "To the north of you is an impenetrable mass of darkness that lights\ndoes not escape.  Dare you traverse into it?",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 0
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 7
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 5,
+      "name": "Outside of Darkness",
+      "description": "To the east of you is an impenetrable mass of darkness that lights\ndoes not escape.  Dare you traverse into it?",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 0
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 8
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 6,
+      "name": "Approaching Darkness",
+      "description": "You see a funnel of darkness further to your west.  A terrible feeling\nof foreboding comes over you, and an incredible sense of danger and fear\nfills your bones.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 18
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 3
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 7,
+      "name": "Appraoching the Darkness",
+      "description": "You see a funnel of darkness further to your north.  A terrible feeling\nof foreboding comes over you, and an incredible sense of danger and fear\nfills your bones.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 4
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 19
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 8,
+      "name": "Approaching the Darkness",
+      "description": "You see a funnel of darkness further to your east.  A terrible feeling\nof foreboding comes over you, and an incredible sense of danger and fear\nfills your bones.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 5
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 20
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 9,
+      "name": "Void",
+      "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 13
+        },
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 12
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 11
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 10
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 14
+        }
+      ],
+      "resets": [
+        {
+          "command": "randomize",
+          "values": {}
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 10,
+      "name": "Void",
+      "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 9
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 15
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 17
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 16
+        }
+      ],
+      "resets": [
+        {
+          "command": "randomize",
+          "values": {}
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 11,
+      "name": "Void",
+      "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 9
+        }
+      ],
+      "resets": [
+        {
+          "command": "randomize",
+          "values": {}
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 12,
+      "name": "Void",
+      "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 9
+        }
+      ],
+      "resets": [
+        {
+          "command": "randomize",
+          "values": {}
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 13,
+      "name": "Void",
+      "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 9
+        }
+      ],
+      "resets": [
+        {
+          "command": "randomize",
+          "values": {}
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 14,
+      "name": "Void",
+      "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 9
+        }
+      ],
+      "resets": [
+        {
+          "command": "randomize",
+          "values": {}
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 15,
+      "name": "Void",
+      "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 19
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 10
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 18
+        }
+      ],
+      "resets": [
+        {
+          "command": "randomize",
+          "values": {}
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 16,
+      "name": "Void",
+      "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 10
+        }
+      ],
+      "resets": [
+        {
+          "command": "randomize",
+          "values": {}
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 17,
+      "name": "Void",
+      "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 2
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 10
+        }
+      ],
+      "resets": [
+        {
+          "command": "randomize",
+          "values": {}
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 18,
+      "name": "Void",
+      "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 15
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 6
+        }
+      ],
+      "resets": [
+        {
+          "command": "randomize",
+          "values": {}
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 19,
+      "name": "Void",
+      "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 20
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 7
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 15
+        }
+      ],
+      "resets": [
+        {
+          "command": "randomize",
+          "values": {}
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 20,
+      "name": "Void",
+      "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 19
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 8
+        }
+      ],
+      "resets": [
+        {
+          "command": "randomize",
+          "values": {}
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 21,
+      "name": "Darkness",
+      "description": "Your head swirls and you cannot breath.  The darkness is like a blanket\nover your body, and seems to try to prevent your movement.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 24
+        },
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 22
+        },
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 23
+        },
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 25
+        },
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "door",
+          "key": -11401,
+          "to": 26
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 0
+        }
+      ],
+      "resets": [
+        {
+          "command": "door",
+          "values": {
+            "dir": "up",
+            "state": "closed"
+          }
+        },
+        {
+          "command": "randomize",
+          "values": {}
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 22,
+      "name": "North",
+      "description": "You are standing in a cold region at the northern tip of Domina,\nand shiver in the cold.  A blizzard is raging, and snow is being\nblown miles in seconds.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "south",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 21
+        }
+      ],
+      "resets": [
+        {
+          "command": "mobile",
+          "values": {
+            "mob": 0,
+            "global_limit": 1,
+            "room_limit": 1
+          }
+        },
+        {
+          "command": "equip",
+          "values": {
+            "obj": 0,
+            "global_limit": 0,
+            "wear_loc": "rwrist"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 23,
+      "name": "East",
+      "description": "Your feet dip into the east river, off the eastern coast of Domina,\nand the warm water sifts up between your toes, comforting you and\nwarming your body.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "west",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 21
+        }
+      ],
+      "resets": [
+        {
+          "command": "mobile",
+          "values": {
+            "mob": 1,
+            "global_limit": 1,
+            "room_limit": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 24,
+      "name": "South",
+      "description": "The air is hot and humid here, and the sun beats down on you like\nthere is no tomorrow.  Heat waves make you see mirages, but since\nyou are still in a good state of mind there is no problem\ndistinguishing between real and unreal, right?",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "north",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 21
+        }
+      ],
+      "resets": [
+        {
+          "command": "mobile",
+          "values": {
+            "mob": 2,
+            "global_limit": 1,
+            "room_limit": 1
+          }
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 25,
+      "name": "West",
+      "description": "You are standing on top of a high mountain, looking down\nat the continent of Domina.  It is hard to see anything except\nvegetation, but it looks like you can see the city of\nAnon far to the east.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "east",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "",
+          "key": -11401,
+          "to": 21
+        }
+      ],
+      "resets": [
+        {
+          "command": "mobile",
+          "values": {
+            "mob": 3,
+            "global_limit": 1,
+            "room_limit": 1
+          }
+        },
+        {
+          "command": "equip",
+          "values": {
+            "obj": 1,
+            "global_limit": 0,
+            "wear_loc": "rwrist"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 26,
+      "name": "Tower",
+      "description": "You stand in a furnished, yet charred, library.  The desks are\nburnt at the edges, and the books are mostly dust.  Nothing\ncan be seen through the windows, and there is no source of\nlight.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "up",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "door",
+          "key": -11401,
+          "to": 27
+        },
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "closed",
+          "key": -11401,
+          "to": 21
+        }
+      ],
+      "resets": [
+        {
+          "command": "door",
+          "values": {
+            "dir": "up",
+            "state": "closed"
+          }
+        },
+        {
+          "command": "door",
+          "values": {
+            "dir": "down",
+            "state": "locked"
+          }
+        },
+        {
+          "command": "mobile",
+          "values": {
+            "mob": 4,
+            "global_limit": 2,
+            "room_limit": 2
+          }
+        }
+      ]
+    }
+  },
+  {
+    "room": {
+      "area": "Darkness",
+      "anum": 27,
+      "name": "Rift",
+      "description": "You are standing at the opening to a giant rift, where incantations\nfrom evil creatures are performed.  It is watched very closely, and\nso are you.",
+      "sector_type": "0",
+      "room_flags": "",
+      "doors": [
+        {
+          "dir": "down",
+          "description": "",
+          "keyword": "",
+          "exit_flags": "door",
+          "key": -11401,
+          "to": 26
+        }
+      ],
+      "resets": [
+        {
+          "command": "door",
+          "values": {
+            "dir": "down",
+            "state": "closed"
+          }
+        },
+        {
+          "command": "mobile",
+          "values": {
+            "mob": 5,
+            "global_limit": 1,
+            "room_limit": 1
+          }
+        },
+        {
+          "command": "equip",
+          "values": {
+            "obj": 2,
+            "global_limit": 0,
+            "wear_loc": "rwrist"
+          }
+        }
+      ]
+    }
+  }
+]

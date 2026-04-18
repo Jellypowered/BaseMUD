@@ -1,0 +1,95 @@
+[
+  {
+    "object": {
+      "area": "Darkness",
+      "anum": 0,
+      "name": "club",
+      "short_descr": "a club",
+      "description": "A giant club rests here.",
+      "action_descr": "wood",
+      "item_type": "weapon",
+      "values": {
+        "v0": 4,
+        "v1": 11,
+        "v2": "pound",
+        "v3": "B"
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 50,
+      "cost": 23,
+      "affects": [
+        {
+          "apply": "18",
+          "modifier": 4
+        },
+        {
+          "apply": "19",
+          "modifier": 2
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "Darkness",
+      "anum": 1,
+      "name": "big rock",
+      "short_descr": "a big rock",
+      "description": "A big rock is here.",
+      "action_descr": "stone",
+      "item_type": "weapon",
+      "values": {
+        "v0": 4,
+        "v1": 11,
+        "v2": "pound",
+        "v3": "B"
+      },
+      "extra_flags": "glow inventory",
+      "wear_flags": "",
+      "weight": 50,
+      "cost": 50,
+      "affects": [
+        {
+          "apply": "18",
+          "modifier": 4
+        },
+        {
+          "apply": "19",
+          "modifier": 2
+        }
+      ]
+    }
+  },
+  {
+    "object": {
+      "area": "Darkness",
+      "anum": 2,
+      "name": "black hole",
+      "short_descr": "a black hole",
+      "description": "A black hole is here, distorting space and time.",
+      "action_descr": "air",
+      "item_type": "armor",
+      "values": {
+        "v0": "BCD",
+        "v1": "BCD",
+        "v2": "BD",
+        "v3": 0
+      },
+      "extra_flags": "glow lock",
+      "wear_flags": "finger neck body",
+      "weight": 51,
+      "cost": 1,
+      "affects": [
+        {
+          "apply": "17",
+          "modifier": -10
+        },
+        {
+          "apply": "2",
+          "modifier": 2
+        }
+      ]
+    }
+  }
+]

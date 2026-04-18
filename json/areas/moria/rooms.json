@@ -218,7 +218,7 @@
         },
         {
           "dir": "south",
-          "portal": "moria-south-1"
+          "portal": "moria-south-1-2-2"
         }
       ]
     }
@@ -264,7 +264,7 @@
       "extra_description": [
         {
           "keyword": "sign",
-          "description": "The sign says:\n\n        /---------------------\\\n        | The Mines of Moria! |\n        |                     |\n        | Four levels.        |\n        |                     |\n        | Watch for mages!    |\n        |                     |\n        \\---------------------/\n                 | |\n                 | |\n                 | |\n                 | |\n                 | |"
+          "description": "The sign says:\n\n        /---------------------\\\n The Mines of Moria! |\n\n Four levels.        |\n\n Watch for mages!    |\n\n        \\---------------------/\n\n\n\n\n"
         },
         {
           "keyword": "bushes",

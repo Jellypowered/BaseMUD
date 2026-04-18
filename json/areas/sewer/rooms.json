@@ -4058,7 +4058,7 @@
       "doors": [
         {
           "dir": "up",
-          "to": 279
+          "portal": "sewer-up-3"
         }
       ]
     }

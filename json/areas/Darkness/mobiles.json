@@ -1,0 +1,128 @@
+[
+  {
+    "mobile": {
+      "area": "Darkness",
+      "anum": 0,
+      "name": "frost giant",
+      "short_descr": "a frost giant",
+      "long_descr": "A large form towers over you and swings his mighty club.",
+      "description": "The frost giant has no respect for any life, and does not care\nwhat happens to him.  He is a fierce warrior, and unfortuneatly\nnot anyone's ally.",
+      "level": 46,
+      "race": "giant",
+      "mob_flags": "npc sentinel aggressive stay_area",
+      "affected_by": "detect_invis detect_hidden infrared protect_evil",
+      "alignment": -450,
+      "hit_dice": "50d10+4500",
+      "mana_dice": "1d1+114",
+      "damage_dice": "5d8+19",
+      "start_pos": "D",
+      "default_pos": "I",
+      "sex": "HI"
+    }
+  },
+  {
+    "mobile": {
+      "area": "Darkness",
+      "anum": 1,
+      "name": "small squid",
+      "short_descr": "a small squid",
+      "long_descr": "A small squid hops out of the water at you.",
+      "description": "The squid squirts its black stuff and you cannot even see it.",
+      "level": 34,
+      "race": "human",
+      "mob_flags": "npc sentinel aggressive stay_area",
+      "affected_by": "detect_invis detect_hidden infrared protect_evil",
+      "alignment": -120,
+      "hit_dice": "6d12+900",
+      "mana_dice": "1d1+114",
+      "damage_dice": "4d6+8",
+      "start_pos": "stand",
+      "default_pos": "stand",
+      "sex": "none"
+    }
+  },
+  {
+    "mobile": {
+      "area": "Darkness",
+      "anum": 2,
+      "name": "giant scorpian",
+      "short_descr": "a giant scorpian",
+      "long_descr": "A giant scorpian is here scrounging for food.",
+      "description": "The scorpian has a sharp sting and deadly venom.  It would be a bad\nthing to get too close.  It has a hard shell that looks nearly\nimpossible to crack into.",
+      "level": 46,
+      "race": "human",
+      "mob_flags": "npc sentinel aggressive stay_area",
+      "affected_by": "detect_invis detect_hidden infrared protect_evil",
+      "alignment": -200,
+      "hit_dice": "50d10+7000",
+      "mana_dice": "1d1+114",
+      "damage_dice": "8d6+28",
+      "start_pos": "stand",
+      "default_pos": "stand",
+      "sex": "male"
+    }
+  },
+  {
+    "mobile": {
+      "area": "Darkness",
+      "anum": 3,
+      "name": "stone giant",
+      "short_descr": "a stone giant",
+      "long_descr": "A large form towers over you and wields a heavy rock.",
+      "description": "The stone giant has no respect for any life, and does not care\nwhat happens to him.  He is a fierce warrior, and unfortuneatly\nnot anyone's ally.",
+      "level": 46,
+      "race": "giant",
+      "mob_flags": "npc sentinel aggressive stay_area",
+      "affected_by": "detect_invis detect_hidden infrared protect_evil",
+      "alignment": -450,
+      "hit_dice": "50d10+4500",
+      "mana_dice": "1d1+114",
+      "damage_dice": "5d8+19",
+      "start_pos": "D",
+      "default_pos": "I",
+      "sex": "HI"
+    }
+  },
+  {
+    "mobile": {
+      "area": "Darkness",
+      "anum": 4,
+      "name": "shadow",
+      "short_descr": "the shadow",
+      "long_descr": "A force of mighty elements is upon you, and it sure is MAD!",
+      "description": "The shadow does not like to be intruded upon, and it does not\ntake kindly to anyone.  With a huge magical burst, hundreds\nof creatures are notified to your existance, and in moments\nthey will be upon you.",
+      "level": 55,
+      "race": "human",
+      "mob_flags": "npc sentinel aggressive stay_area mage",
+      "affected_by": "",
+      "alignment": -900,
+      "hit_dice": "50d10+7100",
+      "mana_dice": "1d1+114",
+      "damage_dice": "10d4+23",
+      "start_pos": "stand",
+      "default_pos": "stand",
+      "sex": "none"
+    }
+  },
+  {
+    "mobile": {
+      "area": "Darkness",
+      "anum": 5,
+      "name": "force of darkness",
+      "short_descr": "the force",
+      "long_descr": "The origin and force of darkness itself is here.",
+      "description": "You cannot actually see it, but it strikes every ounce of fear\nin your body and hurts you deep within.  You feel its presence\nand can detect its location, but that does not help you much.",
+      "level": 60,
+      "race": "human",
+      "mob_flags": "npc sentinel aggressive stay_area cleric",
+      "affected_by": "",
+      "alignment": -1000,
+      "hit_dice": "0d0+0",
+      "mana_dice": "0d0+0",
+      "damage_dice": "0d0+0",
+      "start_pos": "stand",
+      "default_pos": "stand",
+      "sex": "none"
+    }
+  }
+]

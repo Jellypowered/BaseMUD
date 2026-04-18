@@ -1,648 +1,2194 @@
 [
-  {"class": {
-    "name": "mage",
-    "who_name": "Mag",
-    "primary_stat": "int",
-    "weapon": 3701,
-    "guild": [3018, 9618],
-    "skill_adept": 75,
-    "thac0_00": 20,
-    "thac0_32": 6,
-    "hp_gain_min": 6,
-    "hp_gain_max": 8,
-    "gains_mana": true,
-    "base_group": "mage basics",
-    "default_group": "mage default",
-    "can_sneak_away": false,
-    "titles": [
-      {"male": "Man", "female": "Woman"},
-      {"male": "Apprentice of Magic", "female": "Apprentice of Magic"},
-      {"male": "Spell Student", "female": "Spell Student"},
-      {"male": "Scholar of Magic", "female": "Scholar of Magic"},
-      {"male": "Delver in Spells", "female": "Delveress in Spells"},
-      {"male": "Medium of Magic", "female": "Medium of Magic"},
-      {"male": "Scribe of Magic", "female": "Scribess of Magic"},
-      {"male": "Seer", "female": "Seeress"},
-      {"male": "Sage", "female": "Sage"},
-      {"male": "Illusionist", "female": "Illusionist"},
-      {"male": "Abjurer", "female": "Abjuress"},
-      {"male": "Invoker", "female": "Invoker"},
-      {"male": "Enchanter", "female": "Enchantress"},
-      {"male": "Conjurer", "female": "Conjuress"},
-      {"male": "Magician", "female": "Witch"},
-      {"male": "Creator", "female": "Creator"},
-      {"male": "Savant", "female": "Savant"},
-      {"male": "Magus", "female": "Craftess"},
-      {"male": "Wizard", "female": "Wizard"},
-      {"male": "Warlock", "female": "War Witch"},
-      {"male": "Sorcerer", "female": "Sorceress"},
-      {"male": "Elder Sorcerer", "female": "Elder Sorceress"},
-      {"male": "Grand Sorcerer", "female": "Grand Sorceress"},
-      {"male": "Great Sorcerer", "female": "Great Sorceress"},
-      {"male": "Golem Maker", "female": "Golem Maker"},
-      {"male": "Greater Golem Maker", "female": "Greater Golem Maker"},
-      {"male": "Maker of Stones", "female": "Maker of Stones"},
-      {"male": "Maker of Potions", "female": "Maker of Potions"},
-      {"male": "Maker of Scrolls", "female": "Maker of Scrolls"},
-      {"male": "Maker of Wands", "female": "Maker of Wands"},
-      {"male": "Maker of Staves", "female": "Maker of Staves"},
-      {"male": "Demon Summoner", "female": "Demon Summoner"},
-      {"male": "Greater Demon Summoner", "female": "Greater Demon Summoner"},
-      {"male": "Dragon Charmer", "female": "Dragon Charmer"},
-      {"male": "Greater Dragon Charmer", "female": "Greater Dragon Charmer"},
-      {"male": "Master of all Magic", "female": "Master of all Magic"},
-      {"male": "Master Mage", "female": "Master Mage"},
-      {"male": "Master Mage", "female": "Master Mage"},
-      {"male": "Master Mage", "female": "Master Mage"},
-      {"male": "Master Mage", "female": "Master Mage"},
-      {"male": "Master Mage", "female": "Master Mage"},
-      {"male": "Master Mage", "female": "Master Mage"},
-      {"male": "Master Mage", "female": "Master Mage"},
-      {"male": "Master Mage", "female": "Master Mage"},
-      {"male": "Master Mage", "female": "Master Mage"},
-      {"male": "Master Mage", "female": "Master Mage"},
-      {"male": "Master Mage", "female": "Master Mage"},
-      {"male": "Master Mage", "female": "Master Mage"},
-      {"male": "Master Mage", "female": "Master Mage"},
-      {"male": "Master Mage", "female": "Master Mage"},
-      {"male": "Master Mage", "female": "Master Mage"},
-      {"male": "Mage Hero", "female": "Mage Heroine"},
-      {"male": "Avatar of Magic", "female": "Avatar of Magic"},
-      {"male": "Angel of Magic", "female": "Angel of Magic"},
-      {"male": "Demigod of Magic", "female": "Demigoddess of Magic"},
-      {"male": "Immortal of Magic", "female": "Immortal of Magic"},
-      {"male": "God of Magic", "female": "Goddess of Magic"},
-      {"male": "Deity of Magic", "female": "Deity of Magic"},
-      {"male": "Supremity of Magic", "female": "Supremity of Magic"},
-      {"male": "Creator", "female": "Creator"},
-      {"male": "Implementor", "female": "Implementress"}
-    ]
-  }},
-  {"class": {
-    "name": "cleric",
-    "who_name": "Cle",
-    "primary_stat": "wis",
-    "weapon": 3700,
-    "guild": [3003, 9619],
-    "skill_adept": 75,
-    "thac0_00": 20,
-    "thac0_32": 2,
-    "hp_gain_min": 7,
-    "hp_gain_max": 10,
-    "gains_mana": true,
-    "base_group": "cleric basics",
-    "default_group": "cleric default",
-    "can_sneak_away": false,
-    "titles": [
-      {"male": "Man", "female": "Woman"},
-      {"male": "Believer", "female": "Believer"},
-      {"male": "Attendant", "female": "Attendant"},
-      {"male": "Acolyte", "female": "Acolyte"},
-      {"male": "Novice", "female": "Novice"},
-      {"male": "Missionary", "female": "Missionary"},
-      {"male": "Adept", "female": "Adept"},
-      {"male": "Deacon", "female": "Deaconess"},
-      {"male": "Vicar", "female": "Vicaress"},
-      {"male": "Priest", "female": "Priestess"},
-      {"male": "Minister", "female": "Lady Minister"},
-      {"male": "Canon", "female": "Canon"},
-      {"male": "Levite", "female": "Levitess"},
-      {"male": "Curate", "female": "Curess"},
-      {"male": "Monk", "female": "Nun"},
-      {"male": "Healer", "female": "Healess"},
-      {"male": "Chaplain", "female": "Chaplain"},
-      {"male": "Expositor", "female": "Expositress"},
-      {"male": "Bishop", "female": "Bishop"},
-      {"male": "Arch Bishop", "female": "Arch Lady of the Church"},
-      {"male": "Patriarch", "female": "Matriarch"},
-      {"male": "Elder Patriarch", "female": "Elder Matriarch"},
-      {"male": "Grand Patriarch", "female": "Grand Matriarch"},
-      {"male": "Great Patriarch", "female": "Great Matriarch"},
-      {"male": "Demon Killer", "female": "Demon Killer"},
-      {"male": "Greater Demon Killer", "female": "Greater Demon Killer"},
-      {"male": "Cardinal of the Sea", "female": "Cardinal of the Sea"},
-      {"male": "Cardinal of the Earth", "female": "Cardinal of the Earth"},
-      {"male": "Cardinal of the Air", "female": "Cardinal of the Air"},
-      {"male": "Cardinal of the Ether", "female": "Cardinal of the Ether"},
-      {"male": "Cardinal of the Heavens", "female": "Cardinal of the Heavens"},
-      {"male": "Avatar of an Immortal", "female": "Avatar of an Immortal"},
-      {"male": "Avatar of a Deity", "female": "Avatar of a Deity"},
-      {"male": "Avatar of a Supremity", "female": "Avatar of a Supremity"},
-      {"male": "Avatar of an Implementor", "female": "Avatar of an Implementor"},
-      {"male": "Master of all Divinity", "female": "Mistress of all Divinity"},
-      {"male": "Master Cleric", "female": "Master Cleric"},
-      {"male": "Master Cleric", "female": "Master Cleric"},
-      {"male": "Master Cleric", "female": "Master Cleric"},
-      {"male": "Master Cleric", "female": "Master Cleric"},
-      {"male": "Master Cleric", "female": "Master Cleric"},
-      {"male": "Master Cleric", "female": "Master Cleric"},
-      {"male": "Master Cleric", "female": "Master Cleric"},
-      {"male": "Master Cleric", "female": "Master Cleric"},
-      {"male": "Master Cleric", "female": "Master Cleric"},
-      {"male": "Master Cleric", "female": "Master Cleric"},
-      {"male": "Master Cleric", "female": "Master Cleric"},
-      {"male": "Master Cleric", "female": "Master Cleric"},
-      {"male": "Master Cleric", "female": "Master Cleric"},
-      {"male": "Master Cleric", "female": "Master Cleric"},
-      {"male": "Master Cleric", "female": "Master Cleric"},
-      {"male": "Holy Hero", "female": "Holy Heroine"},
-      {"male": "Holy Avatar", "female": "Holy Avatar"},
-      {"male": "Angel", "female": "Angel"},
-      {"male": "Demigod", "female": "Demigoddess"},
-      {"male": "Immortal", "female": "Immortal"},
-      {"male": "God", "female": "Goddess"},
-      {"male": "Deity", "female": "Deity"},
-      {"male": "Supreme Master", "female": "Supreme Mistress"},
-      {"male": "Creator", "female": "Creator"},
-      {"male": "Implementor", "female": "Implementress"}
-    ]
-  }},
-  {"class": {
-    "name": "thief",
-    "who_name": "Thi",
-    "primary_stat": "dex",
-    "weapon": 3701,
-    "guild": [3028, 9639],
-    "skill_adept": 75,
-    "thac0_00": 20,
-    "thac0_32": -4,
-    "hp_gain_min": 8,
-    "hp_gain_max": 13,
-    "gains_mana": false,
-    "base_group": "thief basics",
-    "default_group": "thief default",
-    "can_sneak_away": true,
-    "titles": [
-      {"male": "Man", "female": "Woman"},
-      {"male": "Pilferer", "female": "Pilferess"},
-      {"male": "Footpad", "female": "Footpad"},
-      {"male": "Filcher", "female": "Filcheress"},
-      {"male": "Pick-Pocket", "female": "Pick-Pocket"},
-      {"male": "Sneak", "female": "Sneak"},
-      {"male": "Pincher", "female": "Pincheress"},
-      {"male": "Cut-Purse", "female": "Cut-Purse"},
-      {"male": "Snatcher", "female": "Snatcheress"},
-      {"male": "Sharper", "female": "Sharpress"},
-      {"male": "Rogue", "female": "Rogue"},
-      {"male": "Robber", "female": "Robber"},
-      {"male": "Magsman", "female": "Magswoman"},
-      {"male": "Highwayman", "female": "Highwaywoman"},
-      {"male": "Burglar", "female": "Burglaress"},
-      {"male": "Thief", "female": "Thief"},
-      {"male": "Knifer", "female": "Knifer"},
-      {"male": "Quick-Blade", "female": "Quick-Blade"},
-      {"male": "Killer", "female": "Murderess"},
-      {"male": "Brigand", "female": "Brigand"},
-      {"male": "Cut-Throat", "female": "Cut-Throat"},
-      {"male": "Spy", "female": "Spy"},
-      {"male": "Grand Spy", "female": "Grand Spy"},
-      {"male": "Master Spy", "female": "Master Spy"},
-      {"male": "Assassin", "female": "Assassin"},
-      {"male": "Greater Assassin", "female": "Greater Assassin"},
-      {"male": "Master of Vision", "female": "Mistress of Vision"},
-      {"male": "Master of Hearing", "female": "Mistress of Hearing"},
-      {"male": "Master of Smell", "female": "Mistress of Smell"},
-      {"male": "Master of Taste", "female": "Mistress of Taste"},
-      {"male": "Master of Touch", "female": "Mistress of Touch"},
-      {"male": "Crime Lord", "female": "Crime Mistress"},
-      {"male": "Infamous Crime Lord", "female": "Infamous Crime Mistress"},
-      {"male": "Greater Crime Lord", "female": "Greater Crime Mistress"},
-      {"male": "Master Crime Lord", "female": "Master Crime Mistress"},
-      {"male": "Godfather", "female": "Godmother"},
-      {"male": "Master Thief", "female": "Master Thief"},
-      {"male": "Master Thief", "female": "Master Thief"},
-      {"male": "Master Thief", "female": "Master Thief"},
-      {"male": "Master Thief", "female": "Master Thief"},
-      {"male": "Master Thief", "female": "Master Thief"},
-      {"male": "Master Thief", "female": "Master Thief"},
-      {"male": "Master Thief", "female": "Master Thief"},
-      {"male": "Master Thief", "female": "Master Thief"},
-      {"male": "Master Thief", "female": "Master Thief"},
-      {"male": "Master Thief", "female": "Master Thief"},
-      {"male": "Master Thief", "female": "Master Thief"},
-      {"male": "Master Thief", "female": "Master Thief"},
-      {"male": "Master Thief", "female": "Master Thief"},
-      {"male": "Master Thief", "female": "Master Thief"},
-      {"male": "Master Thief", "female": "Master Thief"},
-      {"male": "Assassin Hero", "female": "Assassin Heroine"},
-      {"male": "Avatar of Death", "female": "Avatar of Death"},
-      {"male": "Angel of Death", "female": "Angel of Death"},
-      {"male": "Demigod of Assassins", "female": "Demigoddess of Assassins"},
-      {"male": "Immortal Assasin", "female": "Immortal Assassin"},
-      {"male": "God of Assassins", "female": "God of Assassins"},
-      {"male": "Deity of Assassins", "female": "Deity of Assassins"},
-      {"male": "Supreme Master", "female": "Supreme Mistress"},
-      {"male": "Creator", "female": "Creator"},
-      {"male": "Implementor", "female": "Implementress"}
-    ]
-  }},
-  {"class": {
-    "name": "warrior",
-    "who_name": "War",
-    "primary_stat": "str",
-    "weapon": 3702,
-    "guild": [3022, 9633],
-    "skill_adept": 75,
-    "thac0_00": 20,
-    "thac0_32": -10,
-    "hp_gain_min": 11,
-    "hp_gain_max": 15,
-    "gains_mana": false,
-    "base_group": "warrior basics",
-    "default_group": "warrior default",
-    "can_sneak_away": false,
-    "titles": [
-      {"male": "Man", "female": "Woman"},
-      {"male": "Swordpupil", "female": "Swordpupil"},
-      {"male": "Recruit", "female": "Recruit"},
-      {"male": "Sentry", "female": "Sentress"},
-      {"male": "Fighter", "female": "Fighter"},
-      {"male": "Soldier", "female": "Soldier"},
-      {"male": "Warrior", "female": "Warrior"},
-      {"male": "Veteran", "female": "Veteran"},
-      {"male": "Swordsman", "female": "Swordswoman"},
-      {"male": "Fencer", "female": "Fenceress"},
-      {"male": "Combatant", "female": "Combatess"},
-      {"male": "Hero", "female": "Heroine"},
-      {"male": "Myrmidon", "female": "Myrmidon"},
-      {"male": "Swashbuckler", "female": "Swashbuckleress"},
-      {"male": "Mercenary", "female": "Mercenaress"},
-      {"male": "Swordmaster", "female": "Swordmistress"},
-      {"male": "Lieutenant", "female": "Lieutenant"},
-      {"male": "Champion", "female": "Lady Champion"},
-      {"male": "Dragoon", "female": "Lady Dragoon"},
-      {"male": "Cavalier", "female": "Lady Cavalier"},
-      {"male": "Knight", "female": "Lady Knight"},
-      {"male": "Grand Knight", "female": "Grand Knight"},
-      {"male": "Master Knight", "female": "Master Knight"},
-      {"male": "Paladin", "female": "Paladin"},
-      {"male": "Grand Paladin", "female": "Grand Paladin"},
-      {"male": "Demon Slayer", "female": "Demon Slayer"},
-      {"male": "Greater Demon Slayer", "female": "Greater Demon Slayer"},
-      {"male": "Dragon Slayer", "female": "Dragon Slayer"},
-      {"male": "Greater Dragon Slayer", "female": "Greater Dragon Slayer"},
-      {"male": "Underlord", "female": "Underlord"},
-      {"male": "Overlord", "female": "Overlord"},
-      {"male": "Baron of Thunder", "female": "Baroness of Thunder"},
-      {"male": "Baron of Storms", "female": "Baroness of Storms"},
-      {"male": "Baron of Tornadoes", "female": "Baroness of Tornadoes"},
-      {"male": "Baron of Hurricanes", "female": "Baroness of Hurricanes"},
-      {"male": "Baron of Meteors", "female": "Baroness of Meteors"},
-      {"male": "Master Warrior", "female": "Master Warrior"},
-      {"male": "Master Warrior", "female": "Master Warrior"},
-      {"male": "Master Warrior", "female": "Master Warrior"},
-      {"male": "Master Warrior", "female": "Master Warrior"},
-      {"male": "Master Warrior", "female": "Master Warrior"},
-      {"male": "Master Warrior", "female": "Master Warrior"},
-      {"male": "Master Warrior", "female": "Master Warrior"},
-      {"male": "Master Warrior", "female": "Master Warrior"},
-      {"male": "Master Warrior", "female": "Master Warrior"},
-      {"male": "Master Warrior", "female": "Master Warrior"},
-      {"male": "Master Warrior", "female": "Master Warrior"},
-      {"male": "Master Warrior", "female": "Master Warrior"},
-      {"male": "Master Warrior", "female": "Master Warrior"},
-      {"male": "Master Warrior", "female": "Master Warrior"},
-      {"male": "Master Warrior", "female": "Master Warrior"},
-      {"male": "Knight Hero", "female": "Knight Heroine"},
-      {"male": "Avatar of War", "female": "Avatar of War"},
-      {"male": "Angel of War", "female": "Angel of War"},
-      {"male": "Demigod of War", "female": "Demigoddess of War"},
-      {"male": "Immortal Warlord", "female": "Immortal Warlord"},
-      {"male": "God of War", "female": "God of War"},
-      {"male": "Deity of War", "female": "Deity of War"},
-      {"male": "Supreme Master of War", "female": "Supreme Mistress of War"},
-      {"male": "Creator", "female": "Creator"},
-      {"male": "Implementor", "female": "Implementress"}
-    ]
-  }},
-  {"class": {
-    "name": "ranger",
-    "who_name": "Ran",
-    "primary_stat": "dex",
-    "weapon": 3717,
-    "guild": [3025, 9640],
-    "skill_adept": 75,
-    "thac0_00": 18,
-    "thac0_32": 6,
-    "hp_gain_min": 11,
-    "hp_gain_max": 15,
-    "gains_mana": true,
-    "base_group": "ranger basics",
-    "default_group": "ranger default",
-    "can_sneak_away": false,
-    "titles": [
-      {"male": "Man", "female": "Woman"},
-      {"male": "Runner", "female": "Runner"},
-      {"male": "Strider", "female": "Strider"},
-      {"male": "Scout", "female": "Scout"},
-      {"male": "Scout Master", "female": "Scout Master"},
-      {"male": "Courser", "female": "Courser"},
-      {"male": "Tracker", "female": "Tracker"},
-      {"male": "Guide", "female": "Guidess"},
-      {"male": "Pathfinder", "female": "Pathfinder"},
-      {"male": "Explorer", "female": "Explorer"},
-      {"male": "Hunter", "female": "Huntess"},
-      {"male": "Beastmaster", "female": "Beastmistress"},
-      {"male": "Falconer", "female": "Falconess"},
-      {"male": "Feralan", "female": "Feralan"},
-      {"male": "Guardian", "female": "Guardian"},
-      {"male": "Justifier", "female": "Justifier"},
-      {"male": "Stalker", "female": "Stalker"},
-      {"male": "Warden", "female": "Warden"},
-      {"male": "Herbalist", "female": "Herbalist"},
-      {"male": "Environmentalist", "female": "Environmentalist"},
-      {"male": "Journeyman", "female": "Journeywoman"},
-      {"male": "Traveller", "female": "Traveller"},
-      {"male": "Wanderer", "female": "Wanderer"},
-      {"male": "Ranger Squire", "female": "Ranger Squiress"},
-      {"male": "Ranger Knight", "female": "Ranger Knight"},
-      {"male": "Ranger Lord", "female": "Ranger Lady"},
-      {"male": "Goblin Slayer", "female": "Goblin Slayer"},
-      {"male": "Gnoll Slayer", "female": "Gnoll Slayer"},
-      {"male": "Ogre Slayer", "female": "Ogre Slayer"},
-      {"male": "Minotaur Slayer", "female": "Minotaur Slayer"},
-      {"male": "Giant Slayer", "female": "Giant Slayer"},
-      {"male": "Skylord", "female": "Skylady"},
-      {"male": "Waterlord", "female": "Waterlady"},
-      {"male": "Treelord", "female": "Treelady"},
-      {"male": "Friend of Dryads", "female": "Friend of Dryads"},
-      {"male": "Friend of Pixies", "female": "Friend of Pixies"},
-      {"male": "Friend of Elves", "female": "Friend of Elves"},
-      {"male": "Swamp Master", "female": "Swamp Mistress"},
-      {"male": "Desert Master", "female": "Desert Mistress"},
-      {"male": "Mountain Master", "female": "Mountain Mistress"},
-      {"male": "Forest Master", "female": "Forest Mistress"},
-      {"male": "Defender of Plants", "female": "Defender of Plants"},
-      {"male": "Defender of Animals", "female": "Defender of Animals"},
-      {"male": "Defender of the Earth", "female": "Defender of the Earth"},
-      {"male": "Defender of Nature", "female": "Defender of Nature"},
-      {"male": "Defender of the Realms", "female": "Defender of the Realms"},
-      {"male": "Lord of the Plants", "female": "Lady of the Plants"},
-      {"male": "Lord of the Animals", "female": "Lady of the Animals"},
-      {"male": "Lord of the Earth", "female": "Lady of the Earth"},
-      {"male": "Lord of Nature", "female": "Lady of Nature"},
-      {"male": "Avatar", "female": "Avatar"},
-      {"male": "Neophyte", "female": "Neophyte"},
-      {"male": "Acolyte", "female": "Acolyte"},
-      {"male": "Creator", "female": "Creator"},
-      {"male": "Savior", "female": "Savior"},
-      {"male": "Demi God", "female": "Demi Goddess"},
-      {"male": "Immortal", "female": "Immortal"},
-      {"male": "Lesser God", "female": "Lesser Goddess"},
-      {"male": "God", "female": "Goddess"},
-      {"male": "Greater God", "female": "Greater Goddess"},
-      {"male": "Ascendant God", "female": "Ascendant Goddess"},
-      {"male": "Exalted God", "female": "Exalted Goddess"},
-      {"male": "Ancient One", "female": "Ancient One"},
-      {"male": "Eternal One", "female": "Eternal One"},
-      {"male": "Infinite One", "female": "Infinite One"},
-      {"male": "Supreme Entity", "female": "Supreme Entity"}
-    ]
-  }},
-  {"class": {
-    "name": "druid",
-    "who_name": "Dru",
-    "primary_stat": "wis",
-    "weapon": 10315,
-    "guild": [3037, 9641],
-    "skill_adept": 95,
-    "thac0_00": 18,
-    "thac0_32": 7,
-    "hp_gain_min": 9,
-    "hp_gain_max": 14,
-    "gains_mana": true,
-    "base_group": "druid basics",
-    "default_group": "druid default",
-    "can_sneak_away": false,
-    "titles": [
-      {"male": "Man", "female": "Woman"},
-      {"male": "Believer", "female": "Believer"},
-      {"male": "Attendant", "female": "Attendant"},
-      {"male": "Acolyte", "female": "Acolyte"},
-      {"male": "Novice", "female": "Novice"},
-      {"male": "Missionary", "female": "Missionary"},
-      {"male": "Adept", "female": "Adept"},
-      {"male": "Deacon", "female": "Deaconess"},
-      {"male": "Vicar", "female": "Vicaress"},
-      {"male": "Priest", "female": "Priestess"},
-      {"male": "Minister", "female": "Lady Minister"},
-      {"male": "Canon", "female": "Canon"},
-      {"male": "Levite", "female": "Levitess"},
-      {"male": "Curate", "female": "Curess"},
-      {"male": "Monk", "female": "Nun"},
-      {"male": "Healer", "female": "Healess"},
-      {"male": "Chaplain", "female": "Chaplain"},
-      {"male": "Expositor", "female": "Expositress"},
-      {"male": "Bishop", "female": "Bishop"},
-      {"male": "Arch Druid", "female": "Arch Druidess"},
-      {"male": "Patriarch", "female": "Matriarch"},
-      {"male": "Elder Druid", "female": "Elder Druidess"},
-      {"male": "Grand Druid", "female": "Grand Druidess"},
-      {"male": "Great Druid", "female": "Great Druidess"},
-      {"male": "Demon Killer", "female": "Demon Killer"},
-      {"male": "Greater Demon Killer", "female": "Greater Demon Killer"},
-      {"male": "Druid of the Sea", "female": "Druidess of the Sea"},
-      {"male": "Druid of the Earth", "female": "Druidess of the Earth"},
-      {"male": "Druid of the Air", "female": "Druidess of the Air"},
-      {"male": "Druid of the Ether", "female": "Druidess of the Ether"},
-      {"male": "Druid of the Heavens", "female": "Druidess of the Heavens"},
-      {"male": "High Druid of the Sea", "female": "High Druidess of the Sea"},
-      {"male": "High Druid of the Earth", "female": "High Druidess of the Earth"},
-      {"male": "High Druid of the Air", "female": "High Druidess of the Air"},
-      {"male": "High Druid of the Ether", "female": "High Druidess of the Ether"},
-      {"male": "High Druid of the Heavens", "female": "High Druidess of the Heavens"},
-      {"male": "Saviour of the Sea", "female": "Saviour of the Sea"},
-      {"male": "Saviour of the Earth", "female": "Saviour of the Earth"},
-      {"male": "Saviour of the Air", "female": "Saviour of the Air"},
-      {"male": "Saviour of the Ether", "female": "Saviour of the Ether"},
-      {"male": "Saviour of the Void", "female": "Saviour of the Void"},
-      {"male": "Supreme Druid of Virtue", "female": "Supreme Druidess of Virtue"},
-      {"male": "Supreme Druid of Humility", "female": "Supreme Druidess of Humility"},
-      {"male": "Supreme Druid of Light", "female": "Supreme Druidess of Light"},
-      {"male": "Supreme Druid of Power", "female": "Supreme Druidess of Power"},
-      {"male": "Avatar of an Immortal", "female": "Avatar of an Immortal"},
-      {"male": "Avatar of a Deity", "female": "Avatar of a Deity"},
-      {"male": "Avatar of a Supremity", "female": "Avatar of a Supremity"},
-      {"male": "Avatar of an Implementor", "female": "Avatar of an Implementor"},
-      {"male": "Master of all Divinity", "female": "Mistress of all Divinity"},
-      {"male": "Avatar", "female": "Avatar"},
-      {"male": "Neophyte", "female": "Neophyte"},
-      {"male": "Acolyte", "female": "Acolyte"},
-      {"male": "Creator", "female": "Creator"},
-      {"male": "Savior", "female": "Savior"},
-      {"male": "Demi God", "female": "Demi Goddess"},
-      {"male": "Immortal", "female": "Immortal"},
-      {"male": "Lesser God", "female": "Lesser Goddess"},
-      {"male": "God", "female": "Goddess"},
-      {"male": "Greater God", "female": "Greater Goddess"},
-      {"male": "Ascendant God", "female": "Ascendant Goddess"},
-      {"male": "Exalted God", "female": "Exalted Goddess"},
-      {"male": "Ancient One", "female": "Ancient One"},
-      {"male": "Eternal One", "female": "Eternal One"},
-      {"male": "Infinite One", "female": "Infinite One"},
-      {"male": "Supreme Entity", "female": "Supreme Entity"}
-    ]
-  }},
-  {"class": {
-    "name": "paladin",
-    "who_name": "Pal",
-    "primary_stat": "str",
-    "weapon": 10313,
-    "guild": [3013, 9642],
-    "skill_adept": 91,
-    "thac0_00": 18,
-    "thac0_32": 6,
-    "hp_gain_min": 12,
-    "hp_gain_max": 15,
-    "gains_mana": false,
-    "base_group": "paladin basics",
-    "default_group": "paladin default",
-    "can_sneak_away": false,
-    "titles": [
-      {"male": "Man", "female": "Woman"},
-      {"male": "Keeper", "female": "Keeper"},
-      {"male": "Keeper of Purity", "female": "Keeper of Purity"},
-      {"male": "Keeper of Valor", "female": "Keeper of Valor"},
-      {"male": "Keeper of Loyalty", "female": "Keeper of Loyalty"},
-      {"male": "Keeper of Truth", "female": "Keeper of Truth"},
-      {"male": "Keeper of Justice", "female": "Keeper of Justice"},
-      {"male": "Keeper of the Faith", "female": "Keeper of the Faith"},
-      {"male": "Protector of Purity", "female": "Protector of Purity"},
-      {"male": "Protector of Valor", "female": "Protector of Valor"},
-      {"male": "Protector of Loyalty", "female": "Protector of Loyalty"},
-      {"male": "Protector of Truth", "female": "Protector of Truth"},
-      {"male": "Protector of Justice", "female": "Protector of Justice"},
-      {"male": "Protector of the Faith", "female": "Protector of the Faith"},
-      {"male": "Defender of Purity", "female": "Defender of Purity"},
-      {"male": "Defender of Valor", "female": "Defender of Valor"},
-      {"male": "Defender of Loyalty", "female": "Defender of Loyalty"},
-      {"male": "Defender of Truth", "female": "Defender of Truth"},
-      {"male": "Defender of Justice", "female": "Defender of Justice"},
-      {"male": "Defender of the Faith", "female": "Defender of the Faith"},
-      {"male": "Warder of Purity", "female": "Warder of Purity"},
-      {"male": "Warder of Valor", "female": "Warder of Valor"},
-      {"male": "Warder of Loyalty", "female": "Warder of Loyalty"},
-      {"male": "Warder of Truth", "female": "Warder of Truth"},
-      {"male": "Warder of Justice", "female": "Warder of Justice"},
-      {"male": "Warder of the Faith", "female": "Warder of the Faith"},
-      {"male": "Justiciar of Purity", "female": "Justiciar of Purity"},
-      {"male": "Justiciar of Valor", "female": "Justiciar of Valor"},
-      {"male": "Justiciar of Loyalty", "female": "Justiciar of Loyalty"},
-      {"male": "Justiciar of Truth", "female": "Justiciar of Truth"},
-      {"male": "Justiciar of Justice", "female": "Justiciar of Justice"},
-      {"male": "Justiciar of the Faith", "female": "Justiciar of the Faith"},
-      {"male": "Chevalier of Purity", "female": "Chevalier of Purity"},
-      {"male": "Chevalier of Valor", "female": "Chevalier of Valor"},
-      {"male": "Chevalier of Loyalty", "female": "Chevalier of Loyalty"},
-      {"male": "Chevalier of Truth", "female": "Chevalier of Truth"},
-      {"male": "Chevalier of Justice", "female": "Chevalier of Justice"},
-      {"male": "Chevalier of the Faith", "female": "Chevalier of the Faith"},
-      {"male": "Guardian of Purity", "female": "Guardian of Purity"},
-      {"male": "Guardian of Valor", "female": "Guardian of Valor"},
-      {"male": "Guardian of Loyalty", "female": "Guardian of Loyalty"},
-      {"male": "Guardian of Truth", "female": "Guardian of Truth"},
-      {"male": "Guardian of Justice", "female": "Guardian of Justice"},
-      {"male": "Guardian of the Faith", "female": "Guardian of the Faith"},
-      {"male": "Knight Templar", "female": "Knight Templar"},
-      {"male": "Neophyte", "female": "Neophyte"},
-      {"male": "Acolyte", "female": "Acolyte"},
-      {"male": "Creator", "female": "Creator"},
-      {"male": "Savior", "female": "Savior"},
-      {"male": "Demi God", "female": "Demi Goddess"},
-      {"male": "Immortal", "female": "Immortal"},
-      {"male": "Lesser God", "female": "Lesser Goddess"},
-      {"male": "God", "female": "Goddess"},
-      {"male": "Greater God", "female": "Greater Goddess"},
-      {"male": "Ascendant God", "female": "Ascendant Goddess"},
-      {"male": "Exalted God", "female": "Exalted Goddess"},
-      {"male": "Ancient One", "female": "Ancient One"},
-      {"male": "Eternal One", "female": "Eternal One"},
-      {"male": "Infinite One", "female": "Infinite One"},
-      {"male": "Supreme Entity", "female": "Supreme Entity"}
-    ]
-  }},
-  {"class": {
-    "name": "vampire",
-    "who_name": "Vam",
-    "primary_stat": "dex",
-    "weapon": 10312,
-    "guild": [3036, 9643],
-    "skill_adept": 95,
-    "thac0_00": 18,
-    "thac0_32": 7,
-    "hp_gain_min": 9,
-    "hp_gain_max": 14,
-    "gains_mana": false,
-    "base_group": "vampire basics",
-    "default_group": "vampire default",
-    "can_sneak_away": false,
-    "titles": [
-      {"male": "Vampire", "female": "Vampiress"},
-      {"male": "Apprentice of Blood", "female": "Apprentice of Blood"},
-      {"male": "Blood Student", "female": "Blood Student"},
-      {"male": "Scholar of Blood", "female": "Scholar of Blood"},
-      {"male": "Delver in Blood", "female": "Delveress in Blood"},
-      {"male": "Medium of Blood", "female": "Medium of Blood"},
-      {"male": "Scribe of Blood", "female": "Scribess of Blood"},
-      {"male": "Seer of Blood", "female": "Seeress of Blood"},
-      {"male": "Blood Sage", "female": "Blood Sage"},
-      {"male": "Illusionist", "female": "Illusionist"},
-      {"male": "Abjurer", "female": "Abjuress"},
-      {"male": "Invoker", "female": "Invoker"},
-      {"male": "Enchanter", "female": "Enchantress"},
-      {"male": "Conjurer", "female": "Conjuress"},
-      {"male": "Magician", "female": "Witch"},
-      {"male": "Maker", "female": "Maker"},
-      {"male": "Savant", "female": "Savant"},
-      {"male": "Magus", "female": "Craftess"},
-      {"male": "Warlock", "female": "War Witch"},
-      {"male": "Demi-Sorcerer", "female": "Demi-Sorceress"},
-      {"male": "Sorcerer", "female": "Sorceress"},
-      {"male": "Elder Sorcerer", "female": "Elder Sorceress"},
-      {"male": "Grand Sorcerer", "female": "Grand Sorceress"},
-      {"male": "Great Sorcerer", "female": "Great Sorceress"},
-      {"male": "Zombie Maker", "female": "Zombie Maker"},
-      {"male": "Greater Zombie Maker", "female": "Greater Zombie Maker"},
-      {"male": "Maker of Stones", "female": "Maker of Stones"},
-      {"male": "Maker of Poisons", "female": "Maker of Poisons"},
-      {"male": "Maker of Slaves", "female": "Maker of Slaves"},
-      {"male": "Green Wizard", "female": "Green Wizard"},
-      {"male": "Brown Wizard", "female": "Brown Wizard"},
-      {"male": "Blue Wizard", "female": "Blue Wizard"},
-      {"male": "Red Wizard", "female": "Red Wizard"},
-      {"male": "Grey Wizard", "female": "Grey Wizard"},
-      {"male": "White Wizard", "female": "White Wizard"},
-      {"male": "Silver Wizard", "female": "Silver Wizard"},
-      {"male": "Gold Wizard", "female": "Gold Wizard"},
-      {"male": "Platinum Wizard", "female": "Platinum Wizard"},
-      {"male": "Diamond Wizard", "female": "Diamond Wizard"},
-      {"male": "Archmage of Rods", "female": "Archmage of Rods"},
-      {"male": "Archmage of Wands", "female": "Archmage of Wands"},
-      {"male": "Archmage of Staves", "female": "Archmage of Staves"},
-      {"male": "Archmage of Orbs", "female": "Archmage of Orbs"},
-      {"male": "Demon Summoner", "female": "Demon Summoner"},
-      {"male": "Greater Demon Summoner", "female": "Greater Demon Summoner"},
-      {"male": "Dragon Charmer", "female": "Dragon Charmer"},
-      {"male": "Greater Dragon Charmer", "female": "Greater Dragon Charmer"},
-      {"male": "Master of Demons", "female": "Mistress of Demons"},
-      {"male": "Master of Dragons", "female": "Mistress of Dragons"},
-      {"male": "Master of all Magic", "female": "Mistress of all Magic"},
-      {"male": "Avatar", "female": "Avatar"},
-      {"male": "Neophyte", "female": "Neophyte"},
-      {"male": "Acolyte", "female": "Acolyte"},
-      {"male": "Creator", "female": "Creator"},
-      {"male": "Savior", "female": "Savior"},
-      {"male": "Demi God", "female": "Demi Goddess"},
-      {"male": "Immortal", "female": "Immortal"},
-      {"male": "Lesser God", "female": "Lesser Goddess"},
-      {"male": "God", "female": "Goddess"},
-      {"male": "Greater God", "female": "Greater Goddess"},
-      {"male": "Ascendant God", "female": "Ascendant Goddess"},
-      {"male": "Exalted God", "female": "Exalted Goddess"},
-      {"male": "Ancient One", "female": "Ancient One"},
-      {"male": "Eternal One", "female": "Eternal One"},
-      {"male": "Infinite One", "female": "Infinite One"},
-      {"male": "Supreme Entity", "female": "Supreme Entity"}
-    ]
-  }}
+  {
+    "class": {
+      "name": "mage",
+      "who_name": "Mag",
+      "primary_stat": "int",
+      "weapon": 3701,
+      "guild": [
+        3018,
+        9618
+      ],
+      "skill_adept": 75,
+      "thac0_00": 20,
+      "thac0_32": 6,
+      "hp_gain_min": 6,
+      "hp_gain_max": 8,
+      "gains_mana": true,
+      "base_group": "mage basics",
+      "default_group": "mage default",
+      "can_sneak_away": false,
+      "titles": [
+        {
+          "male": "Man",
+          "female": "Woman"
+        },
+        {
+          "male": "Apprentice of Magic",
+          "female": "Apprentice of Magic"
+        },
+        {
+          "male": "Spell Student",
+          "female": "Spell Student"
+        },
+        {
+          "male": "Scholar of Magic",
+          "female": "Scholar of Magic"
+        },
+        {
+          "male": "Delver in Spells",
+          "female": "Delveress in Spells"
+        },
+        {
+          "male": "Medium of Magic",
+          "female": "Medium of Magic"
+        },
+        {
+          "male": "Scribe of Magic",
+          "female": "Scribess of Magic"
+        },
+        {
+          "male": "Seer",
+          "female": "Seeress"
+        },
+        {
+          "male": "Sage",
+          "female": "Sage"
+        },
+        {
+          "male": "Illusionist",
+          "female": "Illusionist"
+        },
+        {
+          "male": "Abjurer",
+          "female": "Abjuress"
+        },
+        {
+          "male": "Invoker",
+          "female": "Invoker"
+        },
+        {
+          "male": "Enchanter",
+          "female": "Enchantress"
+        },
+        {
+          "male": "Conjurer",
+          "female": "Conjuress"
+        },
+        {
+          "male": "Magician",
+          "female": "Witch"
+        },
+        {
+          "male": "Creator",
+          "female": "Creator"
+        },
+        {
+          "male": "Savant",
+          "female": "Savant"
+        },
+        {
+          "male": "Magus",
+          "female": "Craftess"
+        },
+        {
+          "male": "Wizard",
+          "female": "Wizard"
+        },
+        {
+          "male": "Warlock",
+          "female": "War Witch"
+        },
+        {
+          "male": "Sorcerer",
+          "female": "Sorceress"
+        },
+        {
+          "male": "Elder Sorcerer",
+          "female": "Elder Sorceress"
+        },
+        {
+          "male": "Grand Sorcerer",
+          "female": "Grand Sorceress"
+        },
+        {
+          "male": "Great Sorcerer",
+          "female": "Great Sorceress"
+        },
+        {
+          "male": "Golem Maker",
+          "female": "Golem Maker"
+        },
+        {
+          "male": "Greater Golem Maker",
+          "female": "Greater Golem Maker"
+        },
+        {
+          "male": "Maker of Stones",
+          "female": "Maker of Stones"
+        },
+        {
+          "male": "Maker of Potions",
+          "female": "Maker of Potions"
+        },
+        {
+          "male": "Maker of Scrolls",
+          "female": "Maker of Scrolls"
+        },
+        {
+          "male": "Maker of Wands",
+          "female": "Maker of Wands"
+        },
+        {
+          "male": "Maker of Staves",
+          "female": "Maker of Staves"
+        },
+        {
+          "male": "Demon Summoner",
+          "female": "Demon Summoner"
+        },
+        {
+          "male": "Greater Demon Summoner",
+          "female": "Greater Demon Summoner"
+        },
+        {
+          "male": "Dragon Charmer",
+          "female": "Dragon Charmer"
+        },
+        {
+          "male": "Greater Dragon Charmer",
+          "female": "Greater Dragon Charmer"
+        },
+        {
+          "male": "Master of all Magic",
+          "female": "Master of all Magic"
+        },
+        {
+          "male": "Master Mage",
+          "female": "Master Mage"
+        },
+        {
+          "male": "Master Mage",
+          "female": "Master Mage"
+        },
+        {
+          "male": "Master Mage",
+          "female": "Master Mage"
+        },
+        {
+          "male": "Master Mage",
+          "female": "Master Mage"
+        },
+        {
+          "male": "Master Mage",
+          "female": "Master Mage"
+        },
+        {
+          "male": "Master Mage",
+          "female": "Master Mage"
+        },
+        {
+          "male": "Master Mage",
+          "female": "Master Mage"
+        },
+        {
+          "male": "Master Mage",
+          "female": "Master Mage"
+        },
+        {
+          "male": "Master Mage",
+          "female": "Master Mage"
+        },
+        {
+          "male": "Master Mage",
+          "female": "Master Mage"
+        },
+        {
+          "male": "Master Mage",
+          "female": "Master Mage"
+        },
+        {
+          "male": "Master Mage",
+          "female": "Master Mage"
+        },
+        {
+          "male": "Master Mage",
+          "female": "Master Mage"
+        },
+        {
+          "male": "Master Mage",
+          "female": "Master Mage"
+        },
+        {
+          "male": "Master Mage",
+          "female": "Master Mage"
+        },
+        {
+          "male": "Mage Hero",
+          "female": "Mage Heroine"
+        },
+        {
+          "male": "Avatar of Magic",
+          "female": "Avatar of Magic"
+        },
+        {
+          "male": "Angel of Magic",
+          "female": "Angel of Magic"
+        },
+        {
+          "male": "Demigod of Magic",
+          "female": "Demigoddess of Magic"
+        },
+        {
+          "male": "Immortal of Magic",
+          "female": "Immortal of Magic"
+        },
+        {
+          "male": "God of Magic",
+          "female": "Goddess of Magic"
+        },
+        {
+          "male": "Deity of Magic",
+          "female": "Deity of Magic"
+        },
+        {
+          "male": "Supremity of Magic",
+          "female": "Supremity of Magic"
+        },
+        {
+          "male": "Creator",
+          "female": "Creator"
+        },
+        {
+          "male": "Implementor",
+          "female": "Implementress"
+        }
+      ]
+    }
+  },
+  {
+    "class": {
+      "name": "cleric",
+      "who_name": "Cle",
+      "primary_stat": "wis",
+      "weapon": 3700,
+      "guild": [
+        3003,
+        9619
+      ],
+      "skill_adept": 75,
+      "thac0_00": 20,
+      "thac0_32": 2,
+      "hp_gain_min": 7,
+      "hp_gain_max": 10,
+      "gains_mana": true,
+      "base_group": "cleric basics",
+      "default_group": "cleric default",
+      "can_sneak_away": false,
+      "titles": [
+        {
+          "male": "Man",
+          "female": "Woman"
+        },
+        {
+          "male": "Believer",
+          "female": "Believer"
+        },
+        {
+          "male": "Attendant",
+          "female": "Attendant"
+        },
+        {
+          "male": "Acolyte",
+          "female": "Acolyte"
+        },
+        {
+          "male": "Novice",
+          "female": "Novice"
+        },
+        {
+          "male": "Missionary",
+          "female": "Missionary"
+        },
+        {
+          "male": "Adept",
+          "female": "Adept"
+        },
+        {
+          "male": "Deacon",
+          "female": "Deaconess"
+        },
+        {
+          "male": "Vicar",
+          "female": "Vicaress"
+        },
+        {
+          "male": "Priest",
+          "female": "Priestess"
+        },
+        {
+          "male": "Minister",
+          "female": "Lady Minister"
+        },
+        {
+          "male": "Canon",
+          "female": "Canon"
+        },
+        {
+          "male": "Levite",
+          "female": "Levitess"
+        },
+        {
+          "male": "Curate",
+          "female": "Curess"
+        },
+        {
+          "male": "Monk",
+          "female": "Nun"
+        },
+        {
+          "male": "Healer",
+          "female": "Healess"
+        },
+        {
+          "male": "Chaplain",
+          "female": "Chaplain"
+        },
+        {
+          "male": "Expositor",
+          "female": "Expositress"
+        },
+        {
+          "male": "Bishop",
+          "female": "Bishop"
+        },
+        {
+          "male": "Arch Bishop",
+          "female": "Arch Lady of the Church"
+        },
+        {
+          "male": "Patriarch",
+          "female": "Matriarch"
+        },
+        {
+          "male": "Elder Patriarch",
+          "female": "Elder Matriarch"
+        },
+        {
+          "male": "Grand Patriarch",
+          "female": "Grand Matriarch"
+        },
+        {
+          "male": "Great Patriarch",
+          "female": "Great Matriarch"
+        },
+        {
+          "male": "Demon Killer",
+          "female": "Demon Killer"
+        },
+        {
+          "male": "Greater Demon Killer",
+          "female": "Greater Demon Killer"
+        },
+        {
+          "male": "Cardinal of the Sea",
+          "female": "Cardinal of the Sea"
+        },
+        {
+          "male": "Cardinal of the Earth",
+          "female": "Cardinal of the Earth"
+        },
+        {
+          "male": "Cardinal of the Air",
+          "female": "Cardinal of the Air"
+        },
+        {
+          "male": "Cardinal of the Ether",
+          "female": "Cardinal of the Ether"
+        },
+        {
+          "male": "Cardinal of the Heavens",
+          "female": "Cardinal of the Heavens"
+        },
+        {
+          "male": "Avatar of an Immortal",
+          "female": "Avatar of an Immortal"
+        },
+        {
+          "male": "Avatar of a Deity",
+          "female": "Avatar of a Deity"
+        },
+        {
+          "male": "Avatar of a Supremity",
+          "female": "Avatar of a Supremity"
+        },
+        {
+          "male": "Avatar of an Implementor",
+          "female": "Avatar of an Implementor"
+        },
+        {
+          "male": "Master of all Divinity",
+          "female": "Mistress of all Divinity"
+        },
+        {
+          "male": "Master Cleric",
+          "female": "Master Cleric"
+        },
+        {
+          "male": "Master Cleric",
+          "female": "Master Cleric"
+        },
+        {
+          "male": "Master Cleric",
+          "female": "Master Cleric"
+        },
+        {
+          "male": "Master Cleric",
+          "female": "Master Cleric"
+        },
+        {
+          "male": "Master Cleric",
+          "female": "Master Cleric"
+        },
+        {
+          "male": "Master Cleric",
+          "female": "Master Cleric"
+        },
+        {
+          "male": "Master Cleric",
+          "female": "Master Cleric"
+        },
+        {
+          "male": "Master Cleric",
+          "female": "Master Cleric"
+        },
+        {
+          "male": "Master Cleric",
+          "female": "Master Cleric"
+        },
+        {
+          "male": "Master Cleric",
+          "female": "Master Cleric"
+        },
+        {
+          "male": "Master Cleric",
+          "female": "Master Cleric"
+        },
+        {
+          "male": "Master Cleric",
+          "female": "Master Cleric"
+        },
+        {
+          "male": "Master Cleric",
+          "female": "Master Cleric"
+        },
+        {
+          "male": "Master Cleric",
+          "female": "Master Cleric"
+        },
+        {
+          "male": "Master Cleric",
+          "female": "Master Cleric"
+        },
+        {
+          "male": "Holy Hero",
+          "female": "Holy Heroine"
+        },
+        {
+          "male": "Holy Avatar",
+          "female": "Holy Avatar"
+        },
+        {
+          "male": "Angel",
+          "female": "Angel"
+        },
+        {
+          "male": "Demigod",
+          "female": "Demigoddess"
+        },
+        {
+          "male": "Immortal",
+          "female": "Immortal"
+        },
+        {
+          "male": "God",
+          "female": "Goddess"
+        },
+        {
+          "male": "Deity",
+          "female": "Deity"
+        },
+        {
+          "male": "Supreme Master",
+          "female": "Supreme Mistress"
+        },
+        {
+          "male": "Creator",
+          "female": "Creator"
+        },
+        {
+          "male": "Implementor",
+          "female": "Implementress"
+        }
+      ]
+    }
+  },
+  {
+    "class": {
+      "name": "thief",
+      "who_name": "Thi",
+      "primary_stat": "dex",
+      "weapon": 3701,
+      "guild": [
+        3028,
+        9639
+      ],
+      "skill_adept": 75,
+      "thac0_00": 20,
+      "thac0_32": -4,
+      "hp_gain_min": 8,
+      "hp_gain_max": 13,
+      "gains_mana": false,
+      "base_group": "thief basics",
+      "default_group": "thief default",
+      "can_sneak_away": true,
+      "titles": [
+        {
+          "male": "Man",
+          "female": "Woman"
+        },
+        {
+          "male": "Pilferer",
+          "female": "Pilferess"
+        },
+        {
+          "male": "Footpad",
+          "female": "Footpad"
+        },
+        {
+          "male": "Filcher",
+          "female": "Filcheress"
+        },
+        {
+          "male": "Pick-Pocket",
+          "female": "Pick-Pocket"
+        },
+        {
+          "male": "Sneak",
+          "female": "Sneak"
+        },
+        {
+          "male": "Pincher",
+          "female": "Pincheress"
+        },
+        {
+          "male": "Cut-Purse",
+          "female": "Cut-Purse"
+        },
+        {
+          "male": "Snatcher",
+          "female": "Snatcheress"
+        },
+        {
+          "male": "Sharper",
+          "female": "Sharpress"
+        },
+        {
+          "male": "Rogue",
+          "female": "Rogue"
+        },
+        {
+          "male": "Robber",
+          "female": "Robber"
+        },
+        {
+          "male": "Magsman",
+          "female": "Magswoman"
+        },
+        {
+          "male": "Highwayman",
+          "female": "Highwaywoman"
+        },
+        {
+          "male": "Burglar",
+          "female": "Burglaress"
+        },
+        {
+          "male": "Thief",
+          "female": "Thief"
+        },
+        {
+          "male": "Knifer",
+          "female": "Knifer"
+        },
+        {
+          "male": "Quick-Blade",
+          "female": "Quick-Blade"
+        },
+        {
+          "male": "Killer",
+          "female": "Murderess"
+        },
+        {
+          "male": "Brigand",
+          "female": "Brigand"
+        },
+        {
+          "male": "Cut-Throat",
+          "female": "Cut-Throat"
+        },
+        {
+          "male": "Spy",
+          "female": "Spy"
+        },
+        {
+          "male": "Grand Spy",
+          "female": "Grand Spy"
+        },
+        {
+          "male": "Master Spy",
+          "female": "Master Spy"
+        },
+        {
+          "male": "Assassin",
+          "female": "Assassin"
+        },
+        {
+          "male": "Greater Assassin",
+          "female": "Greater Assassin"
+        },
+        {
+          "male": "Master of Vision",
+          "female": "Mistress of Vision"
+        },
+        {
+          "male": "Master of Hearing",
+          "female": "Mistress of Hearing"
+        },
+        {
+          "male": "Master of Smell",
+          "female": "Mistress of Smell"
+        },
+        {
+          "male": "Master of Taste",
+          "female": "Mistress of Taste"
+        },
+        {
+          "male": "Master of Touch",
+          "female": "Mistress of Touch"
+        },
+        {
+          "male": "Crime Lord",
+          "female": "Crime Mistress"
+        },
+        {
+          "male": "Infamous Crime Lord",
+          "female": "Infamous Crime Mistress"
+        },
+        {
+          "male": "Greater Crime Lord",
+          "female": "Greater Crime Mistress"
+        },
+        {
+          "male": "Master Crime Lord",
+          "female": "Master Crime Mistress"
+        },
+        {
+          "male": "Godfather",
+          "female": "Godmother"
+        },
+        {
+          "male": "Master Thief",
+          "female": "Master Thief"
+        },
+        {
+          "male": "Master Thief",
+          "female": "Master Thief"
+        },
+        {
+          "male": "Master Thief",
+          "female": "Master Thief"
+        },
+        {
+          "male": "Master Thief",
+          "female": "Master Thief"
+        },
+        {
+          "male": "Master Thief",
+          "female": "Master Thief"
+        },
+        {
+          "male": "Master Thief",
+          "female": "Master Thief"
+        },
+        {
+          "male": "Master Thief",
+          "female": "Master Thief"
+        },
+        {
+          "male": "Master Thief",
+          "female": "Master Thief"
+        },
+        {
+          "male": "Master Thief",
+          "female": "Master Thief"
+        },
+        {
+          "male": "Master Thief",
+          "female": "Master Thief"
+        },
+        {
+          "male": "Master Thief",
+          "female": "Master Thief"
+        },
+        {
+          "male": "Master Thief",
+          "female": "Master Thief"
+        },
+        {
+          "male": "Master Thief",
+          "female": "Master Thief"
+        },
+        {
+          "male": "Master Thief",
+          "female": "Master Thief"
+        },
+        {
+          "male": "Master Thief",
+          "female": "Master Thief"
+        },
+        {
+          "male": "Assassin Hero",
+          "female": "Assassin Heroine"
+        },
+        {
+          "male": "Avatar of Death",
+          "female": "Avatar of Death"
+        },
+        {
+          "male": "Angel of Death",
+          "female": "Angel of Death"
+        },
+        {
+          "male": "Demigod of Assassins",
+          "female": "Demigoddess of Assassins"
+        },
+        {
+          "male": "Immortal Assasin",
+          "female": "Immortal Assassin"
+        },
+        {
+          "male": "God of Assassins",
+          "female": "God of Assassins"
+        },
+        {
+          "male": "Deity of Assassins",
+          "female": "Deity of Assassins"
+        },
+        {
+          "male": "Supreme Master",
+          "female": "Supreme Mistress"
+        },
+        {
+          "male": "Creator",
+          "female": "Creator"
+        },
+        {
+          "male": "Implementor",
+          "female": "Implementress"
+        }
+      ]
+    }
+  },
+  {
+    "class": {
+      "name": "warrior",
+      "who_name": "War",
+      "primary_stat": "str",
+      "weapon": 3702,
+      "guild": [
+        3022,
+        9633
+      ],
+      "skill_adept": 75,
+      "thac0_00": 20,
+      "thac0_32": -10,
+      "hp_gain_min": 11,
+      "hp_gain_max": 15,
+      "gains_mana": false,
+      "base_group": "warrior basics",
+      "default_group": "warrior default",
+      "can_sneak_away": false,
+      "titles": [
+        {
+          "male": "Man",
+          "female": "Woman"
+        },
+        {
+          "male": "Swordpupil",
+          "female": "Swordpupil"
+        },
+        {
+          "male": "Recruit",
+          "female": "Recruit"
+        },
+        {
+          "male": "Sentry",
+          "female": "Sentress"
+        },
+        {
+          "male": "Fighter",
+          "female": "Fighter"
+        },
+        {
+          "male": "Soldier",
+          "female": "Soldier"
+        },
+        {
+          "male": "Warrior",
+          "female": "Warrior"
+        },
+        {
+          "male": "Veteran",
+          "female": "Veteran"
+        },
+        {
+          "male": "Swordsman",
+          "female": "Swordswoman"
+        },
+        {
+          "male": "Fencer",
+          "female": "Fenceress"
+        },
+        {
+          "male": "Combatant",
+          "female": "Combatess"
+        },
+        {
+          "male": "Hero",
+          "female": "Heroine"
+        },
+        {
+          "male": "Myrmidon",
+          "female": "Myrmidon"
+        },
+        {
+          "male": "Swashbuckler",
+          "female": "Swashbuckleress"
+        },
+        {
+          "male": "Mercenary",
+          "female": "Mercenaress"
+        },
+        {
+          "male": "Swordmaster",
+          "female": "Swordmistress"
+        },
+        {
+          "male": "Lieutenant",
+          "female": "Lieutenant"
+        },
+        {
+          "male": "Champion",
+          "female": "Lady Champion"
+        },
+        {
+          "male": "Dragoon",
+          "female": "Lady Dragoon"
+        },
+        {
+          "male": "Cavalier",
+          "female": "Lady Cavalier"
+        },
+        {
+          "male": "Knight",
+          "female": "Lady Knight"
+        },
+        {
+          "male": "Grand Knight",
+          "female": "Grand Knight"
+        },
+        {
+          "male": "Master Knight",
+          "female": "Master Knight"
+        },
+        {
+          "male": "Paladin",
+          "female": "Paladin"
+        },
+        {
+          "male": "Grand Paladin",
+          "female": "Grand Paladin"
+        },
+        {
+          "male": "Demon Slayer",
+          "female": "Demon Slayer"
+        },
+        {
+          "male": "Greater Demon Slayer",
+          "female": "Greater Demon Slayer"
+        },
+        {
+          "male": "Dragon Slayer",
+          "female": "Dragon Slayer"
+        },
+        {
+          "male": "Greater Dragon Slayer",
+          "female": "Greater Dragon Slayer"
+        },
+        {
+          "male": "Underlord",
+          "female": "Underlord"
+        },
+        {
+          "male": "Overlord",
+          "female": "Overlord"
+        },
+        {
+          "male": "Baron of Thunder",
+          "female": "Baroness of Thunder"
+        },
+        {
+          "male": "Baron of Storms",
+          "female": "Baroness of Storms"
+        },
+        {
+          "male": "Baron of Tornadoes",
+          "female": "Baroness of Tornadoes"
+        },
+        {
+          "male": "Baron of Hurricanes",
+          "female": "Baroness of Hurricanes"
+        },
+        {
+          "male": "Baron of Meteors",
+          "female": "Baroness of Meteors"
+        },
+        {
+          "male": "Master Warrior",
+          "female": "Master Warrior"
+        },
+        {
+          "male": "Master Warrior",
+          "female": "Master Warrior"
+        },
+        {
+          "male": "Master Warrior",
+          "female": "Master Warrior"
+        },
+        {
+          "male": "Master Warrior",
+          "female": "Master Warrior"
+        },
+        {
+          "male": "Master Warrior",
+          "female": "Master Warrior"
+        },
+        {
+          "male": "Master Warrior",
+          "female": "Master Warrior"
+        },
+        {
+          "male": "Master Warrior",
+          "female": "Master Warrior"
+        },
+        {
+          "male": "Master Warrior",
+          "female": "Master Warrior"
+        },
+        {
+          "male": "Master Warrior",
+          "female": "Master Warrior"
+        },
+        {
+          "male": "Master Warrior",
+          "female": "Master Warrior"
+        },
+        {
+          "male": "Master Warrior",
+          "female": "Master Warrior"
+        },
+        {
+          "male": "Master Warrior",
+          "female": "Master Warrior"
+        },
+        {
+          "male": "Master Warrior",
+          "female": "Master Warrior"
+        },
+        {
+          "male": "Master Warrior",
+          "female": "Master Warrior"
+        },
+        {
+          "male": "Master Warrior",
+          "female": "Master Warrior"
+        },
+        {
+          "male": "Knight Hero",
+          "female": "Knight Heroine"
+        },
+        {
+          "male": "Avatar of War",
+          "female": "Avatar of War"
+        },
+        {
+          "male": "Angel of War",
+          "female": "Angel of War"
+        },
+        {
+          "male": "Demigod of War",
+          "female": "Demigoddess of War"
+        },
+        {
+          "male": "Immortal Warlord",
+          "female": "Immortal Warlord"
+        },
+        {
+          "male": "God of War",
+          "female": "God of War"
+        },
+        {
+          "male": "Deity of War",
+          "female": "Deity of War"
+        },
+        {
+          "male": "Supreme Master of War",
+          "female": "Supreme Mistress of War"
+        },
+        {
+          "male": "Creator",
+          "female": "Creator"
+        },
+        {
+          "male": "Implementor",
+          "female": "Implementress"
+        }
+      ]
+    }
+  },
+  {
+    "class": {
+      "name": "ranger",
+      "who_name": "Ran",
+      "primary_stat": "dex",
+      "weapon": 3717,
+      "guild": [
+        3025,
+        9640
+      ],
+      "skill_adept": 75,
+      "thac0_00": 18,
+      "thac0_32": 6,
+      "hp_gain_min": 11,
+      "hp_gain_max": 15,
+      "gains_mana": true,
+      "base_group": "ranger basics",
+      "default_group": "ranger default",
+      "can_sneak_away": true,
+      "titles": [
+        {
+          "male": "Man",
+          "female": "Woman"
+        },
+        {
+          "male": "Runner",
+          "female": "Runner"
+        },
+        {
+          "male": "Strider",
+          "female": "Strider"
+        },
+        {
+          "male": "Scout",
+          "female": "Scout"
+        },
+        {
+          "male": "Scout Master",
+          "female": "Scout Master"
+        },
+        {
+          "male": "Courser",
+          "female": "Courser"
+        },
+        {
+          "male": "Tracker",
+          "female": "Tracker"
+        },
+        {
+          "male": "Guide",
+          "female": "Guidess"
+        },
+        {
+          "male": "Pathfinder",
+          "female": "Pathfinder"
+        },
+        {
+          "male": "Explorer",
+          "female": "Explorer"
+        },
+        {
+          "male": "Hunter",
+          "female": "Huntess"
+        },
+        {
+          "male": "Beastmaster",
+          "female": "Beastmistress"
+        },
+        {
+          "male": "Falconer",
+          "female": "Falconess"
+        },
+        {
+          "male": "Feralan",
+          "female": "Feralan"
+        },
+        {
+          "male": "Guardian",
+          "female": "Guardian"
+        },
+        {
+          "male": "Justifier",
+          "female": "Justifier"
+        },
+        {
+          "male": "Stalker",
+          "female": "Stalker"
+        },
+        {
+          "male": "Warden",
+          "female": "Warden"
+        },
+        {
+          "male": "Herbalist",
+          "female": "Herbalist"
+        },
+        {
+          "male": "Environmentalist",
+          "female": "Environmentalist"
+        },
+        {
+          "male": "Journeyman",
+          "female": "Journeywoman"
+        },
+        {
+          "male": "Traveller",
+          "female": "Traveller"
+        },
+        {
+          "male": "Wanderer",
+          "female": "Wanderer"
+        },
+        {
+          "male": "Ranger Squire",
+          "female": "Ranger Squiress"
+        },
+        {
+          "male": "Ranger Knight",
+          "female": "Ranger Knight"
+        },
+        {
+          "male": "Ranger Lord",
+          "female": "Ranger Lady"
+        },
+        {
+          "male": "Goblin Slayer",
+          "female": "Goblin Slayer"
+        },
+        {
+          "male": "Gnoll Slayer",
+          "female": "Gnoll Slayer"
+        },
+        {
+          "male": "Ogre Slayer",
+          "female": "Ogre Slayer"
+        },
+        {
+          "male": "Minotaur Slayer",
+          "female": "Minotaur Slayer"
+        },
+        {
+          "male": "Giant Slayer",
+          "female": "Giant Slayer"
+        },
+        {
+          "male": "Skylord",
+          "female": "Skylady"
+        },
+        {
+          "male": "Waterlord",
+          "female": "Waterlady"
+        },
+        {
+          "male": "Treelord",
+          "female": "Treelady"
+        },
+        {
+          "male": "Friend of Dryads",
+          "female": "Friend of Dryads"
+        },
+        {
+          "male": "Friend of Pixies",
+          "female": "Friend of Pixies"
+        },
+        {
+          "male": "Friend of Elves",
+          "female": "Friend of Elves"
+        },
+        {
+          "male": "Swamp Master",
+          "female": "Swamp Mistress"
+        },
+        {
+          "male": "Desert Master",
+          "female": "Desert Mistress"
+        },
+        {
+          "male": "Mountain Master",
+          "female": "Mountain Mistress"
+        },
+        {
+          "male": "Forest Master",
+          "female": "Forest Mistress"
+        },
+        {
+          "male": "Defender of Plants",
+          "female": "Defender of Plants"
+        },
+        {
+          "male": "Defender of Animals",
+          "female": "Defender of Animals"
+        },
+        {
+          "male": "Defender of the Earth",
+          "female": "Defender of the Earth"
+        },
+        {
+          "male": "Defender of Nature",
+          "female": "Defender of Nature"
+        },
+        {
+          "male": "Defender of the Realms",
+          "female": "Defender of the Realms"
+        },
+        {
+          "male": "Lord of the Plants",
+          "female": "Lady of the Plants"
+        },
+        {
+          "male": "Lord of the Animals",
+          "female": "Lady of the Animals"
+        },
+        {
+          "male": "Lord of the Earth",
+          "female": "Lady of the Earth"
+        },
+        {
+          "male": "Lord of Nature",
+          "female": "Lady of Nature"
+        },
+        {
+          "male": "Avatar",
+          "female": "Avatar"
+        },
+        {
+          "male": "Neophyte",
+          "female": "Neophyte"
+        },
+        {
+          "male": "Acolyte",
+          "female": "Acolyte"
+        },
+        {
+          "male": "Creator",
+          "female": "Creator"
+        },
+        {
+          "male": "Savior",
+          "female": "Savior"
+        },
+        {
+          "male": "Demi God",
+          "female": "Demi Goddess"
+        },
+        {
+          "male": "Immortal",
+          "female": "Immortal"
+        },
+        {
+          "male": "Lesser God",
+          "female": "Lesser Goddess"
+        },
+        {
+          "male": "God",
+          "female": "Goddess"
+        },
+        {
+          "male": "Greater God",
+          "female": "Greater Goddess"
+        },
+        {
+          "male": "Ascendant God",
+          "female": "Ascendant Goddess"
+        },
+        {
+          "male": "Exalted God",
+          "female": "Exalted Goddess"
+        },
+        {
+          "male": "Ancient One",
+          "female": "Ancient One"
+        },
+        {
+          "male": "Eternal One",
+          "female": "Eternal One"
+        },
+        {
+          "male": "Infinite One",
+          "female": "Infinite One"
+        },
+        {
+          "male": "Supreme Entity",
+          "female": "Supreme Entity"
+        }
+      ]
+    }
+  },
+  {
+    "class": {
+      "name": "druid",
+      "who_name": "Dru",
+      "primary_stat": "wis",
+      "weapon": 10315,
+      "guild": [
+        3037,
+        9641
+      ],
+      "skill_adept": 95,
+      "thac0_00": 18,
+      "thac0_32": 7,
+      "hp_gain_min": 9,
+      "hp_gain_max": 14,
+      "gains_mana": true,
+      "base_group": "druid basics",
+      "default_group": "druid default",
+      "can_sneak_away": false,
+      "titles": [
+        {
+          "male": "Man",
+          "female": "Woman"
+        },
+        {
+          "male": "Believer",
+          "female": "Believer"
+        },
+        {
+          "male": "Attendant",
+          "female": "Attendant"
+        },
+        {
+          "male": "Acolyte",
+          "female": "Acolyte"
+        },
+        {
+          "male": "Novice",
+          "female": "Novice"
+        },
+        {
+          "male": "Missionary",
+          "female": "Missionary"
+        },
+        {
+          "male": "Adept",
+          "female": "Adept"
+        },
+        {
+          "male": "Deacon",
+          "female": "Deaconess"
+        },
+        {
+          "male": "Vicar",
+          "female": "Vicaress"
+        },
+        {
+          "male": "Priest",
+          "female": "Priestess"
+        },
+        {
+          "male": "Minister",
+          "female": "Lady Minister"
+        },
+        {
+          "male": "Canon",
+          "female": "Canon"
+        },
+        {
+          "male": "Levite",
+          "female": "Levitess"
+        },
+        {
+          "male": "Curate",
+          "female": "Curess"
+        },
+        {
+          "male": "Monk",
+          "female": "Nun"
+        },
+        {
+          "male": "Healer",
+          "female": "Healess"
+        },
+        {
+          "male": "Chaplain",
+          "female": "Chaplain"
+        },
+        {
+          "male": "Expositor",
+          "female": "Expositress"
+        },
+        {
+          "male": "Bishop",
+          "female": "Bishop"
+        },
+        {
+          "male": "Arch Druid",
+          "female": "Arch Druidess"
+        },
+        {
+          "male": "Patriarch",
+          "female": "Matriarch"
+        },
+        {
+          "male": "Elder Druid",
+          "female": "Elder Druidess"
+        },
+        {
+          "male": "Grand Druid",
+          "female": "Grand Druidess"
+        },
+        {
+          "male": "Great Druid",
+          "female": "Great Druidess"
+        },
+        {
+          "male": "Demon Killer",
+          "female": "Demon Killer"
+        },
+        {
+          "male": "Greater Demon Killer",
+          "female": "Greater Demon Killer"
+        },
+        {
+          "male": "Druid of the Sea",
+          "female": "Druidess of the Sea"
+        },
+        {
+          "male": "Druid of the Earth",
+          "female": "Druidess of the Earth"
+        },
+        {
+          "male": "Druid of the Air",
+          "female": "Druidess of the Air"
+        },
+        {
+          "male": "Druid of the Ether",
+          "female": "Druidess of the Ether"
+        },
+        {
+          "male": "Druid of the Heavens",
+          "female": "Druidess of the Heavens"
+        },
+        {
+          "male": "High Druid of the Sea",
+          "female": "High Druidess of the Sea"
+        },
+        {
+          "male": "High Druid of the Earth",
+          "female": "High Druidess of the Earth"
+        },
+        {
+          "male": "High Druid of the Air",
+          "female": "High Druidess of the Air"
+        },
+        {
+          "male": "High Druid of the Ether",
+          "female": "High Druidess of the Ether"
+        },
+        {
+          "male": "High Druid of the Heavens",
+          "female": "High Druidess of the Heavens"
+        },
+        {
+          "male": "Saviour of the Sea",
+          "female": "Saviour of the Sea"
+        },
+        {
+          "male": "Saviour of the Earth",
+          "female": "Saviour of the Earth"
+        },
+        {
+          "male": "Saviour of the Air",
+          "female": "Saviour of the Air"
+        },
+        {
+          "male": "Saviour of the Ether",
+          "female": "Saviour of the Ether"
+        },
+        {
+          "male": "Saviour of the Void",
+          "female": "Saviour of the Void"
+        },
+        {
+          "male": "Supreme Druid of Virtue",
+          "female": "Supreme Druidess of Virtue"
+        },
+        {
+          "male": "Supreme Druid of Humility",
+          "female": "Supreme Druidess of Humility"
+        },
+        {
+          "male": "Supreme Druid of Light",
+          "female": "Supreme Druidess of Light"
+        },
+        {
+          "male": "Supreme Druid of Power",
+          "female": "Supreme Druidess of Power"
+        },
+        {
+          "male": "Avatar of an Immortal",
+          "female": "Avatar of an Immortal"
+        },
+        {
+          "male": "Avatar of a Deity",
+          "female": "Avatar of a Deity"
+        },
+        {
+          "male": "Avatar of a Supremity",
+          "female": "Avatar of a Supremity"
+        },
+        {
+          "male": "Avatar of an Implementor",
+          "female": "Avatar of an Implementor"
+        },
+        {
+          "male": "Master of all Divinity",
+          "female": "Mistress of all Divinity"
+        },
+        {
+          "male": "Avatar",
+          "female": "Avatar"
+        },
+        {
+          "male": "Neophyte",
+          "female": "Neophyte"
+        },
+        {
+          "male": "Acolyte",
+          "female": "Acolyte"
+        },
+        {
+          "male": "Creator",
+          "female": "Creator"
+        },
+        {
+          "male": "Savior",
+          "female": "Savior"
+        },
+        {
+          "male": "Demi God",
+          "female": "Demi Goddess"
+        },
+        {
+          "male": "Immortal",
+          "female": "Immortal"
+        },
+        {
+          "male": "Lesser God",
+          "female": "Lesser Goddess"
+        },
+        {
+          "male": "God",
+          "female": "Goddess"
+        },
+        {
+          "male": "Greater God",
+          "female": "Greater Goddess"
+        },
+        {
+          "male": "Ascendant God",
+          "female": "Ascendant Goddess"
+        },
+        {
+          "male": "Exalted God",
+          "female": "Exalted Goddess"
+        },
+        {
+          "male": "Ancient One",
+          "female": "Ancient One"
+        },
+        {
+          "male": "Eternal One",
+          "female": "Eternal One"
+        },
+        {
+          "male": "Infinite One",
+          "female": "Infinite One"
+        },
+        {
+          "male": "Supreme Entity",
+          "female": "Supreme Entity"
+        }
+      ]
+    }
+  },
+  {
+    "class": {
+      "name": "paladin",
+      "who_name": "Pal",
+      "primary_stat": "str",
+      "weapon": 10313,
+      "guild": [
+        3013,
+        9642
+      ],
+      "skill_adept": 91,
+      "thac0_00": 18,
+      "thac0_32": 6,
+      "hp_gain_min": 12,
+      "hp_gain_max": 15,
+      "gains_mana": true,
+      "base_group": "paladin basics",
+      "default_group": "paladin default",
+      "can_sneak_away": false,
+      "titles": [
+        {
+          "male": "Man",
+          "female": "Woman"
+        },
+        {
+          "male": "Keeper",
+          "female": "Keeper"
+        },
+        {
+          "male": "Keeper of Purity",
+          "female": "Keeper of Purity"
+        },
+        {
+          "male": "Keeper of Valor",
+          "female": "Keeper of Valor"
+        },
+        {
+          "male": "Keeper of Loyalty",
+          "female": "Keeper of Loyalty"
+        },
+        {
+          "male": "Keeper of Truth",
+          "female": "Keeper of Truth"
+        },
+        {
+          "male": "Keeper of Justice",
+          "female": "Keeper of Justice"
+        },
+        {
+          "male": "Keeper of the Faith",
+          "female": "Keeper of the Faith"
+        },
+        {
+          "male": "Protector of Purity",
+          "female": "Protector of Purity"
+        },
+        {
+          "male": "Protector of Valor",
+          "female": "Protector of Valor"
+        },
+        {
+          "male": "Protector of Loyalty",
+          "female": "Protector of Loyalty"
+        },
+        {
+          "male": "Protector of Truth",
+          "female": "Protector of Truth"
+        },
+        {
+          "male": "Protector of Justice",
+          "female": "Protector of Justice"
+        },
+        {
+          "male": "Protector of the Faith",
+          "female": "Protector of the Faith"
+        },
+        {
+          "male": "Defender of Purity",
+          "female": "Defender of Purity"
+        },
+        {
+          "male": "Defender of Valor",
+          "female": "Defender of Valor"
+        },
+        {
+          "male": "Defender of Loyalty",
+          "female": "Defender of Loyalty"
+        },
+        {
+          "male": "Defender of Truth",
+          "female": "Defender of Truth"
+        },
+        {
+          "male": "Defender of Justice",
+          "female": "Defender of Justice"
+        },
+        {
+          "male": "Defender of the Faith",
+          "female": "Defender of the Faith"
+        },
+        {
+          "male": "Warder of Purity",
+          "female": "Warder of Purity"
+        },
+        {
+          "male": "Warder of Valor",
+          "female": "Warder of Valor"
+        },
+        {
+          "male": "Warder of Loyalty",
+          "female": "Warder of Loyalty"
+        },
+        {
+          "male": "Warder of Truth",
+          "female": "Warder of Truth"
+        },
+        {
+          "male": "Warder of Justice",
+          "female": "Warder of Justice"
+        },
+        {
+          "male": "Warder of the Faith",
+          "female": "Warder of the Faith"
+        },
+        {
+          "male": "Justiciar of Purity",
+          "female": "Justiciar of Purity"
+        },
+        {
+          "male": "Justiciar of Valor",
+          "female": "Justiciar of Valor"
+        },
+        {
+          "male": "Justiciar of Loyalty",
+          "female": "Justiciar of Loyalty"
+        },
+        {
+          "male": "Justiciar of Truth",
+          "female": "Justiciar of Truth"
+        },
+        {
+          "male": "Justiciar of Justice",
+          "female": "Justiciar of Justice"
+        },
+        {
+          "male": "Justiciar of the Faith",
+          "female": "Justiciar of the Faith"
+        },
+        {
+          "male": "Chevalier of Purity",
+          "female": "Chevalier of Purity"
+        },
+        {
+          "male": "Chevalier of Valor",
+          "female": "Chevalier of Valor"
+        },
+        {
+          "male": "Chevalier of Loyalty",
+          "female": "Chevalier of Loyalty"
+        },
+        {
+          "male": "Chevalier of Truth",
+          "female": "Chevalier of Truth"
+        },
+        {
+          "male": "Chevalier of Justice",
+          "female": "Chevalier of Justice"
+        },
+        {
+          "male": "Chevalier of the Faith",
+          "female": "Chevalier of the Faith"
+        },
+        {
+          "male": "Guardian of Purity",
+          "female": "Guardian of Purity"
+        },
+        {
+          "male": "Guardian of Valor",
+          "female": "Guardian of Valor"
+        },
+        {
+          "male": "Guardian of Loyalty",
+          "female": "Guardian of Loyalty"
+        },
+        {
+          "male": "Guardian of Truth",
+          "female": "Guardian of Truth"
+        },
+        {
+          "male": "Guardian of Justice",
+          "female": "Guardian of Justice"
+        },
+        {
+          "male": "Guardian of the Faith",
+          "female": "Guardian of the Faith"
+        },
+        {
+          "male": "Knight Templar",
+          "female": "Knight Templar"
+        },
+        {
+          "male": "Neophyte",
+          "female": "Neophyte"
+        },
+        {
+          "male": "Acolyte",
+          "female": "Acolyte"
+        },
+        {
+          "male": "Creator",
+          "female": "Creator"
+        },
+        {
+          "male": "Savior",
+          "female": "Savior"
+        },
+        {
+          "male": "Demi God",
+          "female": "Demi Goddess"
+        },
+        {
+          "male": "Immortal",
+          "female": "Immortal"
+        },
+        {
+          "male": "Lesser God",
+          "female": "Lesser Goddess"
+        },
+        {
+          "male": "God",
+          "female": "Goddess"
+        },
+        {
+          "male": "Greater God",
+          "female": "Greater Goddess"
+        },
+        {
+          "male": "Ascendant God",
+          "female": "Ascendant Goddess"
+        },
+        {
+          "male": "Exalted God",
+          "female": "Exalted Goddess"
+        },
+        {
+          "male": "Ancient One",
+          "female": "Ancient One"
+        },
+        {
+          "male": "Eternal One",
+          "female": "Eternal One"
+        },
+        {
+          "male": "Infinite One",
+          "female": "Infinite One"
+        },
+        {
+          "male": "Supreme Entity",
+          "female": "Supreme Entity"
+        }
+      ]
+    }
+  },
+  {
+    "class": {
+      "name": "vampire",
+      "who_name": "Vam",
+      "primary_stat": "dex",
+      "weapon": 10312,
+      "guild": [
+        3036,
+        9643
+      ],
+      "skill_adept": 95,
+      "thac0_00": 18,
+      "thac0_32": 7,
+      "hp_gain_min": 9,
+      "hp_gain_max": 14,
+      "gains_mana": true,
+      "base_group": "vampire basics",
+      "default_group": "vampire default",
+      "can_sneak_away": true,
+      "titles": [
+        {
+          "male": "Vampire",
+          "female": "Vampiress"
+        },
+        {
+          "male": "Apprentice of Blood",
+          "female": "Apprentice of Blood"
+        },
+        {
+          "male": "Blood Student",
+          "female": "Blood Student"
+        },
+        {
+          "male": "Scholar of Blood",
+          "female": "Scholar of Blood"
+        },
+        {
+          "male": "Delver in Blood",
+          "female": "Delveress in Blood"
+        },
+        {
+          "male": "Medium of Blood",
+          "female": "Medium of Blood"
+        },
+        {
+          "male": "Scribe of Blood",
+          "female": "Scribess of Blood"
+        },
+        {
+          "male": "Seer of Blood",
+          "female": "Seeress of Blood"
+        },
+        {
+          "male": "Blood Sage",
+          "female": "Blood Sage"
+        },
+        {
+          "male": "Illusionist",
+          "female": "Illusionist"
+        },
+        {
+          "male": "Abjurer",
+          "female": "Abjuress"
+        },
+        {
+          "male": "Invoker",
+          "female": "Invoker"
+        },
+        {
+          "male": "Enchanter",
+          "female": "Enchantress"
+        },
+        {
+          "male": "Conjurer",
+          "female": "Conjuress"
+        },
+        {
+          "male": "Magician",
+          "female": "Witch"
+        },
+        {
+          "male": "Maker",
+          "female": "Maker"
+        },
+        {
+          "male": "Savant",
+          "female": "Savant"
+        },
+        {
+          "male": "Magus",
+          "female": "Craftess"
+        },
+        {
+          "male": "Warlock",
+          "female": "War Witch"
+        },
+        {
+          "male": "Demi-Sorcerer",
+          "female": "Demi-Sorceress"
+        },
+        {
+          "male": "Sorcerer",
+          "female": "Sorceress"
+        },
+        {
+          "male": "Elder Sorcerer",
+          "female": "Elder Sorceress"
+        },
+        {
+          "male": "Grand Sorcerer",
+          "female": "Grand Sorceress"
+        },
+        {
+          "male": "Great Sorcerer",
+          "female": "Great Sorceress"
+        },
+        {
+          "male": "Zombie Maker",
+          "female": "Zombie Maker"
+        },
+        {
+          "male": "Greater Zombie Maker",
+          "female": "Greater Zombie Maker"
+        },
+        {
+          "male": "Maker of Stones",
+          "female": "Maker of Stones"
+        },
+        {
+          "male": "Maker of Poisons",
+          "female": "Maker of Poisons"
+        },
+        {
+          "male": "Maker of Slaves",
+          "female": "Maker of Slaves"
+        },
+        {
+          "male": "Green Wizard",
+          "female": "Green Wizard"
+        },
+        {
+          "male": "Brown Wizard",
+          "female": "Brown Wizard"
+        },
+        {
+          "male": "Blue Wizard",
+          "female": "Blue Wizard"
+        },
+        {
+          "male": "Red Wizard",
+          "female": "Red Wizard"
+        },
+        {
+          "male": "Grey Wizard",
+          "female": "Grey Wizard"
+        },
+        {
+          "male": "White Wizard",
+          "female": "White Wizard"
+        },
+        {
+          "male": "Silver Wizard",
+          "female": "Silver Wizard"
+        },
+        {
+          "male": "Gold Wizard",
+          "female": "Gold Wizard"
+        },
+        {
+          "male": "Platinum Wizard",
+          "female": "Platinum Wizard"
+        },
+        {
+          "male": "Diamond Wizard",
+          "female": "Diamond Wizard"
+        },
+        {
+          "male": "Archmage of Rods",
+          "female": "Archmage of Rods"
+        },
+        {
+          "male": "Archmage of Wands",
+          "female": "Archmage of Wands"
+        },
+        {
+          "male": "Archmage of Staves",
+          "female": "Archmage of Staves"
+        },
+        {
+          "male": "Archmage of Orbs",
+          "female": "Archmage of Orbs"
+        },
+        {
+          "male": "Demon Summoner",
+          "female": "Demon Summoner"
+        },
+        {
+          "male": "Greater Demon Summoner",
+          "female": "Greater Demon Summoner"
+        },
+        {
+          "male": "Dragon Charmer",
+          "female": "Dragon Charmer"
+        },
+        {
+          "male": "Greater Dragon Charmer",
+          "female": "Greater Dragon Charmer"
+        },
+        {
+          "male": "Master of Demons",
+          "female": "Mistress of Demons"
+        },
+        {
+          "male": "Master of Dragons",
+          "female": "Mistress of Dragons"
+        },
+        {
+          "male": "Master of all Magic",
+          "female": "Mistress of all Magic"
+        },
+        {
+          "male": "Avatar",
+          "female": "Avatar"
+        },
+        {
+          "male": "Neophyte",
+          "female": "Neophyte"
+        },
+        {
+          "male": "Acolyte",
+          "female": "Acolyte"
+        },
+        {
+          "male": "Creator",
+          "female": "Creator"
+        },
+        {
+          "male": "Savior",
+          "female": "Savior"
+        },
+        {
+          "male": "Demi God",
+          "female": "Demi Goddess"
+        },
+        {
+          "male": "Immortal",
+          "female": "Immortal"
+        },
+        {
+          "male": "Lesser God",
+          "female": "Lesser Goddess"
+        },
+        {
+          "male": "God",
+          "female": "Goddess"
+        },
+        {
+          "male": "Greater God",
+          "female": "Greater Goddess"
+        },
+        {
+          "male": "Ascendant God",
+          "female": "Ascendant Goddess"
+        },
+        {
+          "male": "Exalted God",
+          "female": "Exalted Goddess"
+        },
+        {
+          "male": "Ancient One",
+          "female": "Ancient One"
+        },
+        {
+          "male": "Eternal One",
+          "female": "Eternal One"
+        },
+        {
+          "male": "Infinite One",
+          "female": "Infinite One"
+        },
+        {
+          "male": "Supreme Entity",
+          "female": "Supreme Entity"
+        }
+      ]
+    }
+  }
 ]

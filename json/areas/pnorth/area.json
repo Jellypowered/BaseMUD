@@ -1,0 +1,14 @@
+[
+  {
+    "area": {
+      "name": "pnorth",
+      "filename": "",
+      "title": "Northern Mountains",
+      "credits": "{ All } Lelana  Northern Mountains",
+      "min_vnum": 14500,
+      "max_vnum": 14599,
+      "builders": "Lelana",
+      "security": 9
+    }
+  }
+]
