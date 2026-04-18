@@ -254,7 +254,7 @@
     "name": "floating2",
     "phrase": "floating nearby (2)",
     "look_msg": "<floating nearby 2>",
-    "wear_flag": "wearfloat2",
+    "wear_flag": "wearfloat",
     "ac_bonus": 0,
     "wear_msg_self": "You release {C$p{x and it floats near you.",
     "wear_msg_room": "$n releases $p to float near $m."
