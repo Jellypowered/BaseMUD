@@ -156,7 +156,7 @@
           "command": "equip",
           "values": {
             "obj": 13,
-            "wear_loc": "arms",
+            "wear_loc": "lwrist",
             "global_limit": 10
           }
         },
