@@ -8,9 +8,9 @@
       "settable": true
     },
     {
-      "name": "unused_room_1",
+      "name": "deathtrap",
       "value": 1,
-      "settable": false
+      "settable": true
     },
     {
       "name": "no_mob",
@@ -23,14 +23,14 @@
       "settable": true
     },
     {
-      "name": "unused_room_2",
+      "name": "teleport",
       "value": 4,
-      "settable": false
+      "settable": true
     },
     {
-      "name": "unused_room_3",
+      "name": "falling_objects",
       "value": 5,
-      "settable": false
+      "settable": true
     },
     {
       "name": "unused_room_4",
@@ -47,6 +47,7 @@
       "value": 8,
       "settable": false
     },
+
     {
       "name": "private",
       "value": 9,

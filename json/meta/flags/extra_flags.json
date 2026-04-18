@@ -88,9 +88,9 @@
       "settable": true
     },
     {
-      "name": "unused_extra_1",
+      "name": "reward",
       "value": 17,
-      "settable": false
+      "settable": true
     },
     {
       "name": "nonmetal",
@@ -118,9 +118,9 @@
       "settable": true
     },
     {
-      "name": "unused_extra_2",
+      "name": "hidden",
       "value": 23,
-      "settable": false
+      "settable": true
     },
     {
       "name": "burnproof",
@@ -135,6 +135,11 @@
     {
       "name": "corroded",
       "value": 26,
+      "settable": true
+    },
+    {
+      "name": "unidentified",
+      "value": 27,
       "settable": true
     }
   ]

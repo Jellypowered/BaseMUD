@@ -1,0 +1,8 @@
+[
+    {
+        "help":  {
+                     "keyword":  "LUNGE NOLUNGE",
+                     "text":     "|{T Lunge{x\n|Syntax: lunge <target>\n|\n|Lunge is a swift impaling attack available to paladins and vampires. The\n|attacker drives their weapon forward in a powerful thrusting motion,\n|attempting to pierce the opponent's defenses.\n|\n|Requires a {Wsword{x, {Wspear{x, or {Wpolearm{x to be wielded. Success\n|chance is influenced by size difference, encumbrance, dexterity, haste,\n|and the level difference between attacker and target.\n|\n|Damage scales with weapon dice and skill proficiency. The Enhanced Damage\n|skill improves the strike further when it triggers.\n|\n|Available to: {Wpaladin{x (level 18), {Wvampire{x (level 20)\n|"
+                 }
+    }
+]

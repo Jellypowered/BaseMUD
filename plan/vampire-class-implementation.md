@@ -41,9 +41,6 @@ The Vampire class has been successfully implemented into BaseMUD as a dexterity-
 
 ### NOT in BaseMUD (❌)
 - Vampire-specific abilities: bite, bloodlet, broach, dominate, feed, mistform, mistwalk, occulutus visum, shriek, vomica pravus, grasp suspiria
-- Combat enhancements: berserk style, evasive style, standard style
-- Advanced attacks: elbow, knee, leap, fourth attack
-- Specialized skills: aid, cook, climb, search, scan, steal, control weather
 
 ## Build Result
 - **Binary Size**: ~4.0MB

@@ -917,3 +917,108 @@ DEFINE_DO_FUN(do_bandage)
         player_try_skill_improve(ch, SN(BANDAGE), FALSE, 1);
     }
 }
+
+/* Lunge skill -- a quick impaling attack for paladins and vampires. */
+DEFINE_DO_FUN(do_lunge)
+{
+    CHAR_T *victim;
+    int chance, dam;
+    char arg[MAX_INPUT_LENGTH];
+    OBJ_T *wield;
+
+    dam = 0;
+    one_argument(argument, arg);
+
+    chance = char_get_skill(ch, SN(LUNGE));
+    if (chance == 0)
+    {
+        send_to_char("Lunging? What's that?\n\r", ch);
+        return;
+    }
+
+    if (arg[0] == '\0')
+    {
+        victim = ch->fighting;
+        if (victim == NULL)
+        {
+            send_to_char("But you aren't fighting anyone!\n\r", ch);
+            return;
+        }
+    }
+    else if ((victim = find_char_same_room(ch, arg)) == NULL)
+    {
+        send_to_char("They aren't here.\n\r", ch);
+        return;
+    }
+
+    if (victim == ch)
+    {
+        send_to_char("You can't lunge at yourself!\n\r", ch);
+        return;
+    }
+
+    wield = char_get_eq_by_wear_loc(ch, WEAR_LOC_WIELD);
+    if (wield == NULL
+        || (wield->v.weapon.weapon_type != WEAPON_SWORD
+        &&  wield->v.weapon.weapon_type != WEAPON_SPEAR
+        &&  wield->v.weapon.weapon_type != WEAPON_POLEARM))
+    {
+        send_to_char("You must be wielding a sword, spear or polearm to lunge.\n\r", ch);
+        return;
+    }
+
+    if (do_filter_can_attack(ch, victim))
+        return;
+
+    chance += ch->carry_weight / 25;
+    chance -= victim->carry_weight / 20;
+    chance += (ch->size - victim->size) * 20;
+    chance -= char_get_curr_stat(victim, STAT_DEX);
+    chance += char_get_curr_stat(ch, STAT_STR) / 3;
+    chance += char_get_curr_stat(ch, STAT_DEX) / 2;
+    if (IS_AFFECTED(ch, AFF_HASTE))
+        chance += 10;
+    if (IS_AFFECTED(victim, AFF_HASTE))
+        chance = 20;
+    chance += ch->level - victim->level;
+
+    act3("You attempt to impale $N with a quick lunge!",
+         "$n attempts to impale you with a quick lunge!",
+         "$n attempts to impale $N with a quick lunge!",
+         ch, NULL, victim, 0, POS_RESTING);
+
+    check_killer(ch, victim);
+    if (number_percent() < chance)
+    {
+        player_try_skill_improve(ch, SN(LUNGE), TRUE, 1);
+        WAIT_STATE(ch, skill_table[SN(LUNGE)].beats);
+
+        if (wield->obj_index->new_format)
+            dam = dice(wield->v.weapon.dice_num, wield->v.weapon.dice_size);
+        else
+            dam = number_range(wield->v.weapon.dice_num, wield->v.weapon.dice_size);
+
+        if (char_get_skill(ch, SN(ENHANCED_DAMAGE)) > 0)
+        {
+            if (number_percent() <= char_get_skill(ch, SN(ENHANCED_DAMAGE)))
+            {
+                player_try_skill_improve(ch, SN(ENHANCED_DAMAGE), TRUE, 1);
+                dam += dam * number_range(50, 100) / 100
+                     * ch->pcdata->learned[SN(LUNGE)] / 100;
+            }
+        }
+
+        dam += GET_DAMROLL(ch);
+        dam = dam * ch->pcdata->learned[SN(LUNGE)] / 100;
+
+        if (dam <= 0)
+            dam = 1;
+        damage_visible(ch, victim, dam, SN(LUNGE), DAM_PIERCE, NULL);
+    }
+    else
+    {
+        damage_visible(ch, victim, 0, SN(LUNGE), DAM_PIERCE, NULL);
+        player_try_skill_improve(ch, SN(LUNGE), FALSE, 1);
+        WAIT_STATE(ch, skill_table[SN(LUNGE)].beats);
+    }
+}

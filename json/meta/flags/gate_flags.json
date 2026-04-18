@@ -26,6 +26,11 @@
       "name": "random",
       "value": 4,
       "settable": true
+    },
+    {
+      "name": "permanent",
+      "value": 5,
+      "settable": true
     }
   ]
 }}

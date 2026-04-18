@@ -4481,5 +4481,27 @@
                   "usage_beats":  0
               }
 
+},
+{
+    "skill":  {
+                  "name":  "lunge",
+                  "classes":  {
+                                  "paladin":  {
+                                                  "level":  18,
+                                                  "effort":  3
+                                              },
+                                  "vampire":  {
+                                                  "level":  20,
+                                                  "effort":  3
+                                              }
+                              },
+                  "target":  "ignore",
+                  "min_position":  "fighting",
+                  "slot":  556,
+                  "min_mana":  0,
+                  "usage_beats":  18,
+                  "damage_noun":  "lunge"
+              }
+
 }
 ]

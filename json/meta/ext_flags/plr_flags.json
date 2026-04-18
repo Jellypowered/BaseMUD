@@ -136,6 +136,16 @@
       "name": "killer",
       "value": 26,
       "settable": false
+    },
+    {
+      "name": "questor",
+      "value": 27,
+      "settable": false
+    },
+    {
+      "name": "noexp",
+      "value": 28,
+      "settable": false
     }
   ]
 }}

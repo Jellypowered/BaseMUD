@@ -58,9 +58,9 @@
       "settable": true
     },
     {
-      "name": "unused_aff_1",
+      "name": "silence",
       "value": 11,
-      "settable": false
+      "settable": true
     },
     {
       "name": "poison",
@@ -150,6 +150,11 @@
     {
       "name": "slow",
       "value": 29,
+      "settable": true
+    },
+    {
+      "name": "deter",
+      "value": 30,
       "settable": true
     }
   ]

@@ -58,19 +58,19 @@
       "settable": true
     },
     {
-      "name": "unused_act_3",
+      "name": "noquest",
       "value": 11,
-      "settable": false
+      "settable": true
     },
     {
-      "name": "unused_act_4",
+      "name": "banker",
       "value": 12,
-      "settable": false
+      "settable": true
     },
     {
-      "name": "unused_act_5",
+      "name": "atm",
       "value": 13,
-      "settable": false
+      "settable": true
     },
     {
       "name": "undead",
@@ -128,9 +128,9 @@
       "settable": true
     },
     {
-      "name": "unused_act_8",
+      "name": "restringer",
       "value": 25,
-      "settable": false
+      "settable": true
     },
     {
       "name": "healer",
@@ -150,6 +150,11 @@
     {
       "name": "changer",
       "value": 29,
+      "settable": true
+    },
+    {
+      "name": "cursed",
+      "value": 30,
       "settable": true
     }
   ]
