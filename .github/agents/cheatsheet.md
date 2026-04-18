@@ -29,6 +29,7 @@ Verified findings from actual integrations. Update this file as new patterns are
 - Restrictions: Fails if `ch->fighting != NULL` (cannot bandage in combat); fails if `COND_BLEEDING <= 0` (no wounds).
 - Action: Success reduces `COND_BLEEDING` by 1 via `player_change_condition()`.
 - Registered in `src/interp.c` command table: `{"bandage", do_bandage, POS_SITTING, ...}` — allows bandage while sitting or standing.
+- `json/config/skills.json` no longer accepts `cmd_fun` in `skill` objects. Command-based skills still map by `name` through `skill_map_table[]`; keep the command binding in `src/interp.c` and omit `cmd_fun` from skill JSON.
 
 ### Help and Documentation
 - Help entry: `json/help/bandage.json` with dual keywords (BANDAGE + BLEEDING).

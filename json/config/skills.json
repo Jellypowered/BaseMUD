@@ -4459,8 +4459,7 @@
                   "classes":  {},
                   "target":  "ignore",
                   "min_position":  "sitting",
-                  "usage_beats":  12,
-                  "cmd_fun":  "do_bandage"
+                  "usage_beats":  12
               }
 
 },
