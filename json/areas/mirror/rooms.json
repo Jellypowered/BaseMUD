@@ -2213,10 +2213,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 27,
-            "wear_loc": "cloak",
             "global_limit": 10
           }
         },
