@@ -831,7 +831,9 @@
       "level": 0,
       "weight": 10,
       "cost": 10,
-      "wear_flags": "take"
+      "wear_flags": "take hold",
+      "affects": [],
+      "extra_description": []
     }
   },
   {
