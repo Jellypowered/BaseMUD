@@ -472,6 +472,8 @@ char *obj_format_to_char (const OBJ_T *obj, const CHAR_T *ch, bool is_short) {
         strcat (buf, "({wHumming{x) ");
     if (IS_OBJ_STAT (obj, ITEM_CORRODED))
         strcat (buf, "({yCorroded{x) ");
+    if (IS_OBJ_STAT (obj, ITEM_SHARP))
+        strcat (buf, "({YSharp{x) ");
 #else
     if (IS_OBJ_STAT (obj, ITEM_INVIS))
         strcat (buf, "(Invis) ");
@@ -487,6 +489,8 @@ char *obj_format_to_char (const OBJ_T *obj, const CHAR_T *ch, bool is_short) {
         strcat (buf, "(Humming) ");
     if (IS_OBJ_STAT (obj, ITEM_CORRODED))
         strcat (buf, "(Corroded) ");
+    if (IS_OBJ_STAT (obj, ITEM_SHARP))
+        strcat (buf, "(Sharp) ");
 #endif
 
     if (IS_SET (ch->comm, COMM_MATERIALS))

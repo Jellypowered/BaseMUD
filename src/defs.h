@@ -282,6 +282,7 @@
 #define OBJ_VNUM_STEAK 24
 #define OBJ_VNUM_PORTAL 25
 #define OBJ_VNUM_PROTOPLASM 26
+#define OBJ_VNUM_STONE 38
 
 #define OBJ_VNUM_ROSE 1001
 
@@ -713,7 +714,8 @@
 #define SKILL_MAP_BANDAGE   54
 #define SKILL_MAP_DUAL_WIELD 55
 #define SKILL_MAP_LUNGE     56
-#define SKILL_MAP_MAX       57
+#define SKILL_MAP_SHARPEN   57
+#define SKILL_MAP_MAX       58
 
 /* B6: Compile-time assertion to catch skill registration misalignments */
 #if SKILL_MAP_SEARCH >= SKILL_MAP_MAX

@@ -1,0 +1,12 @@
+[{"help": {
+  "area": null,
+  "name": "sharpen",
+  "filename": "sharpen.are",
+  "pages": [
+    {
+      "keyword": "SHARPEN NOSHARPEN",
+      "text": "Syntax: sharpen <weapon>\n|\n|The SHARPEN skill allows warriors to hone the edge of a weapon using a\n|sharpening stone, temporarily boosting its damage.\n|\n|To use this skill, you must be carrying a sharpening stone in your\n|inventory (sold at many smiths and weapon shops). The target weapon\n|must be in your inventory and not already sharpened.\n|\n|On success, the weapon gains a bonus to damage rolls and is marked\n|as (Sharp). The edge lasts for a limited time before dulling.\n|\n|On failure, you risk cutting your finger on the blade.\n|\n|Sharpened weapons display the (Sharp) tag in your inventory and\n|when examined.\n|\n|Warriors learn this skill at level 12.\n|",
+      "hide_keywords": true
+    }
+  ]
+}}]

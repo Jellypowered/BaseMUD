@@ -4503,5 +4503,22 @@
                   "damage_noun":  "lunge"
               }
 
+},
+{
+    "skill":  {
+                  "name":  "sharpen",
+                  "classes":  {
+                                  "warrior":  {
+                                                  "level":  12,
+                                                  "effort":  3
+                                              }
+                              },
+                  "target":  "ignore",
+                  "min_position":  "standing",
+                  "slot":  557,
+                  "min_mana":  0,
+                  "usage_beats":  24
+              }
+
 }
 ]

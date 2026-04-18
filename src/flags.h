@@ -248,6 +248,7 @@
 #define ITEM_NOUNCURSE (BIT_26)
 #define ITEM_CORRODED (BIT_27)
 #define ITEM_UNIDENTIFIED (BIT_28)
+#define ITEM_SHARP (BIT_29)
 
 /* Wear flags.
  * Used in #OBJECTS. */

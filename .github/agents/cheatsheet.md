@@ -17,6 +17,18 @@ Verified findings from actual integrations. Update this file as new patterns are
 - Skill_map_table entry: `{SKILL_MAP_BANDAGE, "bandage"}` maps to JSON skill entry.
 - Global default skill: initialized to 50% in `player_set_default_skills()` (players.c) and `save.c` for new characters.
 
+## Sharpen Skill (warrior weapon-honing)
+
+- SKILL_MAP_SHARPEN = slot 57, SKILL_MAP_MAX = 58.
+- JSON skill slot: 557 (next after lunge = 556).
+- New extra flag: `ITEM_SHARP` = BIT_29, added to `flags.h` and `flags.c`.
+- New OBJ_VNUM constant: `OBJ_VNUM_STONE = 38` (limbo anum 38).
+- Sharpening stone object added at `json/areas/limbo/objects.json` anum 38.
+- `obj_format_to_char` in `objs.c` shows `(Sharp)` (and `({YSharp{x)` in color mode).
+- Affect pattern (same as pd_loot): `affect_new()` + `affect_init(af, AFF_TO_OBJECT, -1, level, -1, APPLY_DAMROLL, mod, 0)` + `affect_to_obj_back(af, obj)` + `affect_modify_obj(af, obj)`.
+- Object carrying iteration: `ch->content_first` / `content_next`.
+- Find carried object by name: `find_obj_own_inventory(ch, arg)` (from find.h).
+
 ### Bleeding Mechanics
 - **Trigger 1 (melee):** `one_hit()` in fight.c: 10% chance on successful damage_visible() call when `dt >= ATTACK_FIGHTING`.
 - **Trigger 2 (HP threshold):** Also in one_hit(): automatic trigger when `victim->hp < max_hp/4`.

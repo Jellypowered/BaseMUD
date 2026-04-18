@@ -46,6 +46,7 @@ DECLARE_DO_FUN(do_butcher);
 DECLARE_DO_FUN(do_spit_acid);
 DECLARE_DO_FUN(do_bandage);
 DECLARE_DO_FUN(do_lunge);
+DECLARE_DO_FUN(do_sharpen);
 
 /* Types of stats gainable via 'train'. */
 DECLARE_TRAIN_STAT_FUN(train_stat_cost_stat);

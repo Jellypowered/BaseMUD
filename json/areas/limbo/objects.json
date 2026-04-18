@@ -362,5 +362,19 @@
     "level": 0,
     "weight": 0,
     "cost": 0
+  }},
+  {"object": {
+    "area": "limbo",
+    "anum": 38,
+    "name": "sharpening stone whetstone",
+    "short_descr": "a sharpening stone",
+    "description": "A sharpening stone has been left here.",
+    "material": "stone",
+    "item_type": "trash",
+    "values": {},
+    "level": 1,
+    "weight": 3,
+    "cost": 50,
+    "wear_flags": "take"
   }}
 ]

@@ -295,6 +295,7 @@ const CMD_T cmd_table[] = {
     {"enter", do_enter, POS_STANDING, 0, LOG_NORMAL, 1},
     {"follow", do_follow, POS_RESTING, 0, LOG_NORMAL, 1},
     {"butcher", do_butcher, POS_STANDING, 0, LOG_NORMAL, 1},
+    {"sharpen", do_sharpen, POS_STANDING, 0, LOG_NORMAL, 1},
     {"gain", do_gain, POS_STANDING, 0, LOG_NORMAL, 1},
     {"go", do_enter, POS_STANDING, 0, LOG_NORMAL, 0},
     /*  { "group",      do_group,       POS_SLEEPING, 0,  LOG_NORMAL, 1 }, */

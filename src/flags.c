@@ -361,6 +361,7 @@ const FLAG_T extra_flags[] = {
     {"nouncurse", ITEM_NOUNCURSE, TRUE},
     {"corroded", ITEM_CORRODED, TRUE},
     {"unidentified", ITEM_UNIDENTIFIED, TRUE},
+    {"sharp", ITEM_SHARP, TRUE},
     {0}};
 
 const FLAG_T wear_flags[] = {

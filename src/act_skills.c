@@ -27,6 +27,7 @@
 
 #include "act_skills.h"
 
+#include "affects.h"
 #include "chars.h"
 #include "comm.h"
 #include "db.h"
@@ -1021,4 +1022,97 @@ DEFINE_DO_FUN(do_lunge)
         player_try_skill_improve(ch, SN(LUNGE), FALSE, 1);
         WAIT_STATE(ch, skill_table[SN(LUNGE)].beats);
     }
+}
+
+/* Sharpen skill -- allows warriors to sharpen a weapon using a whetstone.
+ * Snippet by Froboz. Adapted for BaseMUD. */
+DEFINE_DO_FUN(do_sharpen)
+{
+    OBJ_T *obj;
+    OBJ_T *sobj;
+    AFFECT_T *af;
+    char arg[MAX_INPUT_LENGTH];
+    int skill, percent;
+
+    one_argument(argument, arg);
+
+    skill = char_get_skill(ch, SN(SHARPEN));
+    if (skill == 0)
+    {
+        send_to_char("You don't know how to sharpen weapons.\n\r", ch);
+        return;
+    }
+
+    if (arg[0] == '\0')
+    {
+        send_to_char("What are you trying to sharpen?\n\r", ch);
+        return;
+    }
+
+    if (ch->fighting != NULL)
+    {
+        send_to_char("You can't sharpen a weapon while fighting!\n\r", ch);
+        return;
+    }
+
+    if (!(obj = find_obj_own_inventory(ch, arg)))
+    {
+        send_to_char("You do not have that weapon.\n\r", ch);
+        return;
+    }
+
+    if (obj->item_type != ITEM_WEAPON)
+    {
+        send_to_char("That item is not a weapon.\n\r", ch);
+        return;
+    }
+
+    if (IS_OBJ_STAT(obj, ITEM_SHARP))
+    {
+        send_to_char("That weapon is already sharpened.\n\r", ch);
+        return;
+    }
+
+    /* Require a sharpening stone in inventory. */
+    sobj = NULL;
+    for (sobj = ch->content_first; sobj != NULL; sobj = sobj->content_next)
+    {
+        if (sobj->obj_index->vnum == OBJ_VNUM_STONE)
+            break;
+    }
+    if (sobj == NULL)
+    {
+        send_to_char("You need a sharpening stone to sharpen a weapon.\n\r", ch);
+        return;
+    }
+
+    WAIT_STATE(ch, skill_table[SN(SHARPEN)].beats);
+
+    percent = number_percent();
+    if (skill < percent)
+    {
+        act("You fumble with the stone and slice your finger. Ouch!",
+            ch, NULL, NULL, TO_CHAR);
+        act("$n fumbles with a sharpening stone and slices $s finger.",
+            ch, NULL, NULL, TO_NOTCHAR);
+        damage_visible(ch, ch, number_range(1, ch->level / 4 + 1),
+            SN(SHARPEN), DAM_SLASH, NULL);
+        player_try_skill_improve(ch, SN(SHARPEN), FALSE, 1);
+        return;
+    }
+
+    /* Apply the sharpening affect to the weapon. */
+    af = affect_new();
+    affect_init(af, AFF_TO_OBJECT, -1, ch->level, -1, APPLY_DAMROLL,
+        number_fuzzy(3), 0);
+    affect_to_obj_back(af, obj);
+    affect_modify_obj(af, obj);
+
+    SET_BIT(obj->extra_flags, ITEM_SHARP);
+    obj->timer = 10 + ch->level;
+
+    act("You carefully sharpen $p with your whetstone.", ch, obj, NULL, TO_CHAR);
+    act("$n pulls out a sharpening stone and carefully hones $p.",
+        ch, obj, NULL, TO_NOTCHAR);
+    player_try_skill_improve(ch, SN(SHARPEN), TRUE, 1);
 }
