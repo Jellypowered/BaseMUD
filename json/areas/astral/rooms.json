@@ -4154,10 +4154,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 24,
-            "wear_loc": "hold",
             "global_limit": -1
           }
         },

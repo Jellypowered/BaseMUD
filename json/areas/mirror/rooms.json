@@ -216,10 +216,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 27,
-            "wear_loc": "cloak",
             "global_limit": 10
           }
         },
@@ -930,10 +929,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 27,
-            "wear_loc": "cloak",
             "global_limit": 10
           }
         },
@@ -1178,13 +1176,12 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": {
               "area": "thalos",
               "anum": 39
             },
-            "wear_loc": "hold",
             "global_limit": 1
           }
         }
@@ -1751,13 +1748,12 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": {
               "area": "thalos",
               "anum": 24
             },
-            "wear_loc": "hold",
             "global_limit": 9
           }
         },
@@ -2115,10 +2111,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 27,
-            "wear_loc": "cloak",
             "global_limit": 10
           }
         },
@@ -2171,10 +2166,9 @@
           }
         },
         {
-          "command": "equip",
+          "command": "give",
           "values": {
             "obj": 27,
-            "wear_loc": "cloak",
             "global_limit": 10
           }
         },
@@ -4164,7 +4158,7 @@
               "area": "midgaard",
               "anum": 365
             },
-            "wear_loc": "light",
+            "wear_loc": "hold",
             "global_limit": 10
           }
         },
@@ -4326,7 +4320,7 @@
               "area": "midgaard",
               "anum": 365
             },
-            "wear_loc": "light",
+            "wear_loc": "hold",
             "global_limit": 10
           }
         },
