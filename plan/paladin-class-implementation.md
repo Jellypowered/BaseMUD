@@ -39,7 +39,6 @@ The Paladin class has been successfully implemented into BaseMUD as a strength-b
 - Languages: all (common, dwarven, elvish, etc.)
 
 ### NOT in BaseMUD (❌)
-- ROM-specific techniques: berserk style, evasive style, standard style
 - Advanced attacks: fourth/fifth attacks, lunge, punt
 - Paladin-only skills: benefic aura, bethsaidean touch, expurgation, hezekiahs cure, fortify, resilience, sacral divinity, solomonic invocation, tend
 - Specialized combat: dual wield, mount, climb

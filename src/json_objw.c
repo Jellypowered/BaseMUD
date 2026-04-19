@@ -523,6 +523,9 @@ JSON_T *json_objw_reset(const char *name, const RESET_T *reset)
     case 'P':
         command = "put";
         break;
+    case 'D':
+        command = "door";
+        break;
     case 'R':
         command = "randomize";
         break;
@@ -570,6 +573,18 @@ JSON_T *json_objw_reset(const char *name, const RESET_T *reset)
         json_prop_integer(sub, "put_count", v->put.put_count);
         break;
 
+    case 'D': {
+        const char *state_name;
+        if (v->door.locks == RESET_DOOR_LOCKED)
+            state_name = "locked";
+        else if (v->door.locks == RESET_DOOR_CLOSED)
+            state_name = "closed";
+        else
+            state_name = "open";
+        json_prop_string(sub, "dir", door_get_name(v->door.dir));
+        json_prop_string(sub, "state", state_name);
+        break;
+    }
     case 'R':
         json_prop_integer(sub, "dir_count", v->randomize.dir_count);
         break;

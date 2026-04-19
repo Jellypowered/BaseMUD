@@ -239,6 +239,8 @@ RESET_T *json_objr_reset(const JSON_T *json, ROOM_INDEX_T *room)
         command = 'P';
     else if (strcmp(buf, "randomize") == 0)
         command = 'R';
+    else if (strcmp(buf, "door") == 0)
+        command = 'D';
     else
     {
         json_logf(json, "json_objr_reset(): Unknown command '%s'.\n",
@@ -324,6 +326,23 @@ void json_objr_reset_values(const JSON_T *json, RESET_VALUE_T *v,
                        ANUM_OBJ, &(v->put.into_vnum), backup_area);
         READ_PROP_INT(v->put.global_limit, "global_limit");
         READ_PROP_INT(v->put.put_count, "put_count");
+        break;
+
+    case 'D':
+        if (!json_import_expect("reset.door", json,
+                                "dir", "state", NULL))
+            return;
+
+        READ_PROP_STR(buf, "dir");
+        v->door.dir = door_lookup(buf);
+        READ_PROP_STR(buf, "state");
+        if (strcmp(buf, "locked") == 0)
+            v->door.locks = RESET_DOOR_LOCKED;
+        else if (strcmp(buf, "closed") == 0)
+            v->door.locks = RESET_DOOR_CLOSED;
+        else
+            v->door.locks = RESET_DOOR_NONE;
+        room_vnum = &(v->door.room_vnum);
         break;
 
     case 'R':

@@ -42,7 +42,6 @@ The Druid class has been successfully implemented into BaseMUD as a wisdom-based
 - Techniques: parry, second attack, third attack, dodge, enhanced damage, disarm
 
 ### NOT in BaseMUD (❌)
-- ROM-specific enhancements: berserk style, evasive style, aggression styles
 - Specialized spells: dream, kindred strength, plant pass, scry, true sight
 - Advanced shields: fireshield, iceshield, shockshield
 - Exotic attacks: swipe, spurn, fourth/fifth attacks
