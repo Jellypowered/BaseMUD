@@ -6,25 +6,29 @@
       "name": "club",
       "short_descr": "a club",
       "description": "A giant club rests here.",
-      "action_descr": "wood",
       "item_type": "weapon",
       "values": {
-        "v0": 4,
-        "v1": 11,
-        "v2": "pound",
-        "v3": "B"
+        "weapon_type": "mace",
+        "dice_num": 4,
+        "dice_size": 11,
+        "attack_type": "pound",
+        "flags": "frost"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 50,
-      "cost": 23,
+      "level": 50,
+      "material": "wood",
+      "extra_flags": "",
+      "wear_flags": "take wield",
+      "weight": 23,
+      "cost": 0,
       "affects": [
         {
-          "apply": "18",
+          "level": 50,
+          "apply": "hit roll",
           "modifier": 4
         },
         {
-          "apply": "19",
+          "level": 50,
+          "apply": "damage roll",
           "modifier": 2
         }
       ]
@@ -37,25 +41,28 @@
       "name": "big rock",
       "short_descr": "a big rock",
       "description": "A big rock is here.",
-      "action_descr": "stone",
       "item_type": "weapon",
       "values": {
-        "v0": 4,
-        "v1": 11,
-        "v2": "pound",
-        "v3": "B"
+        "weapon_type": "exotic",
+        "dice_num": 4,
+        "dice_size": 11,
+        "attack_type": "pound",
+        "flags": "frost"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
+      "level": 50,
+      "extra_flags": "",
+      "wear_flags": "take wield",
       "weight": 50,
-      "cost": 50,
+      "cost": 0,
       "affects": [
         {
-          "apply": "18",
+          "level": 50,
+          "apply": "hit roll",
           "modifier": 4
         },
         {
-          "apply": "19",
+          "level": 50,
+          "apply": "damage roll",
           "modifier": 2
         }
       ]
@@ -68,28 +75,31 @@
       "name": "black hole",
       "short_descr": "a black hole",
       "description": "A black hole is here, distorting space and time.",
-      "action_descr": "air",
       "item_type": "armor",
       "values": {
-        "v0": "BCD",
-        "v1": "BCD",
-        "v2": "BD",
-        "v3": 0
+        "vs_pierce": 14,
+        "vs_bash": 14,
+        "vs_slash": 14,
+        "vs_magic": 10
       },
-      "extra_flags": "glow lock",
-      "wear_flags": "finger neck body",
-      "weight": 51,
-      "cost": 1,
+      "level": 51,
+      "extra_flags": "noremove",
+      "wear_flags": "take body hold",
+      "weight": 1,
+      "cost": 0,
       "affects": [
         {
-          "apply": "17",
+          "level": 51,
+          "apply": "armor class",
           "modifier": -10
         },
         {
-          "apply": "2",
+          "level": 51,
+          "apply": "dexterity",
           "modifier": 2
         }
-      ]
+      ],
+      "extra_description": []
     }
   }
 ]

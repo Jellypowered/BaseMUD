@@ -12,12 +12,22 @@
       "mob_flags": "npc",
       "affected_by": "detect_evil detect_invis detect_magic detect_hidden infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "10d10+1000",
       "mana_dice": "5d5+1000",
       "damage_dice": "6d4+9",
+      "ac": {
+        "pierce": -100,
+        "bash": -100,
+        "slash": -100,
+        "magic": 30
+      },
+      "offense": "disarm dodge",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none"
+      "sex": "neutral",
+      "wealth": 0,
+      "size": "medium"
     }
   },
   {
@@ -33,12 +43,22 @@
       "mob_flags": "npc",
       "affected_by": "detect_invis infrared",
       "alignment": -350,
+      "hitroll": 0,
       "hit_dice": "3d9+283",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d7+4",
+      "ac": {
+        "pierce": -30,
+        "bash": -30,
+        "slash": -30,
+        "magic": 60
+      },
+      "offense": "disarm dodge",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none"
+      "sex": "neutral",
+      "wealth": 0,
+      "size": "medium"
     }
   },
   {
@@ -54,12 +74,25 @@
       "mob_flags": "npc sentinel",
       "affected_by": "detect_evil infrared",
       "alignment": -200,
+      "hitroll": 0,
       "hit_dice": "3d9+283",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d7+4",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -30,
+        "bash": -30,
+        "slash": -30,
+        "magic": 60
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -75,12 +108,22 @@
       "mob_flags": "npc",
       "affected_by": "detect_evil detect_invis detect_magic detect_hidden infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "25d10+2500",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d12+15",
+      "ac": {
+        "pierce": -150,
+        "bash": -150,
+        "slash": -150,
+        "magic": 20
+      },
+      "offense": "disarm dodge",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none",
+      "sex": "neutral",
+      "wealth": 0,
+      "size": "medium",
       "spec_fun": "spec_cast_mage"
     }
   },
@@ -97,12 +140,23 @@
       "mob_flags": "npc sentinel",
       "affected_by": "detect_evil detect_invis detect_magic detect_hidden infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "50d10+4250",
       "mana_dice": "5d5+5000",
       "damage_dice": "5d8+19",
+      "attack_type": "bite",
+      "ac": {
+        "pierce": -200,
+        "bash": -200,
+        "slash": -200,
+        "magic": 0
+      },
+      "offense": "disarm dodge",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none",
+      "sex": "neutral",
+      "wealth": 0,
+      "size": "medium",
       "spec_fun": "spec_cast_mage"
     }
   },
@@ -119,12 +173,23 @@
       "mob_flags": "npc sentinel scavenger",
       "affected_by": "detect_evil detect_invis detect_magic detect_hidden sanctuary infrared",
       "alignment": -1000,
+      "hitroll": 0,
       "hit_dice": "50d10+4000",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d10+18",
+      "attack_type": "charge",
+      "ac": {
+        "pierce": -190,
+        "bash": -190,
+        "slash": -190,
+        "magic": 10
+      },
+      "offense": "disarm dodge",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none",
+      "sex": "neutral",
+      "wealth": 0,
+      "size": "medium",
       "spec_fun": "spec_cast_mage"
     }
   },
@@ -141,12 +206,23 @@
       "mob_flags": "npc scavenger",
       "affected_by": "detect_magic",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "3d9+308",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d7+5",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -40,
+        "bash": -40,
+        "slash": -40,
+        "magic": 50
+      },
+      "offense": "disarm kick parry assist_race",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "size": "medium"
     }
   },
   {
@@ -162,12 +238,25 @@
       "mob_flags": "npc",
       "affected_by": "detect_invis infrared",
       "alignment": -750,
+      "hitroll": 0,
       "hit_dice": "3d9+233",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d6+4",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -20,
+        "bash": -20,
+        "slash": -20,
+        "magic": 60
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -183,12 +272,27 @@
       "mob_flags": "npc",
       "affected_by": "detect_evil infrared",
       "alignment": -600,
+      "hitroll": 0,
       "hit_dice": "4d10+360",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d4+5",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -50,
+        "bash": -50,
+        "slash": -50,
+        "magic": 50
+      },
+      "offense": "disarm kick parry",
+      "resist": "poison disease",
+      "vulnerable": "drowning",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -204,12 +308,25 @@
       "mob_flags": "npc sentinel",
       "affected_by": "detect_invis infrared",
       "alignment": -150,
+      "hitroll": 0,
       "hit_dice": "25d10+2500",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d12+15",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -150,
+        "bash": -150,
+        "slash": -150,
+        "magic": 20
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "female"
+      "sex": "female",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -225,12 +342,28 @@
       "mob_flags": "npc sentinel",
       "affected_by": "detect_invis infrared",
       "alignment": -100,
+      "hitroll": 0,
       "hit_dice": "10d10+1600",
       "mana_dice": "5d5+1000",
       "damage_dice": "5d6+12",
+      "attack_type": "bite",
+      "ac": {
+        "pierce": -130,
+        "bash": -130,
+        "slash": -130,
+        "magic": 30
+      },
+      "offense": "disarm dodge",
+      "immune": "poison",
+      "resist": "poison",
+      "vulnerable": "cold",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none"
+      "sex": "neutral",
+      "wealth": 0,
+      "form": "edible animal reptile snake",
+      "parts": "head heart brains guts eye long_tongue tail fangs scales",
+      "size": "medium"
     }
   },
   {
@@ -246,12 +379,25 @@
       "mob_flags": "npc sentinel warrior",
       "affected_by": "detect_evil infrared",
       "alignment": -750,
+      "hitroll": 0,
       "hit_dice": "25d10+2500",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d12+15",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -150,
+        "bash": -150,
+        "slash": -150,
+        "magic": 20
+      },
+      "offense": "bash disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -267,12 +413,25 @@
       "mob_flags": "npc sentinel",
       "affected_by": "detect_evil detect_invis detect_magic detect_hidden sanctuary infrared",
       "alignment": -666,
+      "hitroll": 0,
       "hit_dice": "25d10+2500",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d12+15",
+      "attack_type": "slap",
+      "ac": {
+        "pierce": -150,
+        "bash": -150,
+        "slash": -150,
+        "magic": 20
+      },
+      "offense": "disarm dodge trip assist_vnum",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_cast_cleric"
     }
   },
@@ -289,12 +448,27 @@
       "mob_flags": "npc",
       "affected_by": "detect_invis infrared",
       "alignment": -600,
+      "hitroll": 0,
       "hit_dice": "3d9+233",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d6+4",
+      "attack_type": "bite",
+      "ac": {
+        "pierce": -20,
+        "bash": -20,
+        "slash": -20,
+        "magic": 60
+      },
+      "offense": "disarm kick parry assist_race",
+      "resist": "poison",
+      "vulnerable": "cold",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible animal reptile",
+      "parts": "head legs heart brains guts feet eye tail fangs",
+      "size": "medium"
     }
   },
   {
@@ -310,12 +484,24 @@
       "mob_flags": "npc sentinel aggressive",
       "affected_by": "sanctuary infrared hide",
       "alignment": -100,
+      "hitroll": 0,
       "hit_dice": "25d10+2750",
       "mana_dice": "5d5+1000",
       "damage_dice": "8d4+15",
+      "ac": {
+        "pierce": -150,
+        "bash": -150,
+        "slash": -150,
+        "magic": 20
+      },
+      "offense": "disarm dodge assist_vnum",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none"
+      "sex": "neutral",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -331,12 +517,25 @@
       "mob_flags": "npc sentinel aggressive",
       "affected_by": "sanctuary infrared hide",
       "alignment": -250,
+      "hitroll": 0,
       "hit_dice": "25d10+3750",
       "mana_dice": "5d5+1000",
       "damage_dice": "6d6+18",
+      "attack_type": "bite",
+      "ac": {
+        "pierce": -180,
+        "bash": -180,
+        "slash": -180,
+        "magic": 10
+      },
+      "offense": "disarm dodge assist_vnum",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none"
+      "sex": "neutral",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -352,12 +551,25 @@
       "mob_flags": "npc stay_area",
       "affected_by": "detect_invis detect_hidden infrared",
       "alignment": -750,
+      "hitroll": 0,
       "hit_dice": "25d10+2500",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d12+15",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -150,
+        "bash": -150,
+        "slash": -150,
+        "magic": 20
+      },
+      "offense": "disarm dodge",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none"
+      "sex": "neutral",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -373,12 +585,25 @@
       "mob_flags": "npc stay_area",
       "affected_by": "detect_invis detect_hidden infrared",
       "alignment": -850,
+      "hitroll": 0,
       "hit_dice": "25d10+3250",
       "mana_dice": "5d5+1000",
       "damage_dice": "6d6+16",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -160,
+        "bash": -160,
+        "slash": -160,
+        "magic": 20
+      },
+      "offense": "disarm dodge",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_cast_mage"
     }
   },
@@ -395,12 +620,25 @@
       "mob_flags": "npc sentinel",
       "affected_by": "detect_invis detect_hidden infrared",
       "alignment": -900,
+      "hitroll": 0,
       "hit_dice": "25d10+3750",
       "mana_dice": "5d5+1000",
       "damage_dice": "6d6+18",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -180,
+        "bash": -180,
+        "slash": -180,
+        "magic": 10
+      },
+      "offense": "disarm dodge",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_cast_mage"
     }
   },
@@ -417,12 +655,24 @@
       "mob_flags": "npc sentinel aggressive",
       "affected_by": "sanctuary infrared",
       "alignment": -750,
+      "hitroll": 0,
       "hit_dice": "25d10+3250",
       "mana_dice": "5d5+1000",
       "damage_dice": "6d6+16",
+      "ac": {
+        "pierce": -160,
+        "bash": -160,
+        "slash": -160,
+        "magic": 20
+      },
+      "offense": "dodge",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none"
+      "sex": "neutral",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -438,12 +688,25 @@
       "mob_flags": "npc sentinel warrior",
       "affected_by": "detect_evil detect_invis infrared protect_evil",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "50d10+22500",
       "mana_dice": "5d5+5000",
       "damage_dice": "12d15+68",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -710,
+        "bash": -710,
+        "slash": -710,
+        "magic": -370
+      },
+      "offense": "disarm dodge kick parry trip",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "shop": {
         "trades": [
           "weapon"
@@ -468,12 +731,25 @@
       "mob_flags": "npc stay_area",
       "affected_by": "detect_magic infrared",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "2d8+134",
       "mana_dice": "5d5+100",
       "damage_dice": "1d10+2",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": 10,
+        "bash": 10,
+        "slash": 10,
+        "magic": 70
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -489,12 +765,25 @@
       "mob_flags": "npc sentinel",
       "affected_by": "detect_invis infrared",
       "alignment": -600,
+      "hitroll": 0,
       "hit_dice": "2d10+170",
       "mana_dice": "5d5+100",
       "damage_dice": "2d5+3",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -10,
+        "bash": -10,
+        "slash": -10,
+        "magic": 60
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -510,12 +799,25 @@
       "mob_flags": "npc stay_area",
       "affected_by": "detect_magic infrared",
       "alignment": -250,
+      "hitroll": -1,
       "hit_dice": "2d10+190",
       "mana_dice": "5d5+100",
       "damage_dice": "1d12+3",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -10,
+        "bash": -10,
+        "slash": -10,
+        "magic": 60
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -531,12 +833,25 @@
       "mob_flags": "npc sentinel",
       "affected_by": "detect_magic infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "5d10+400",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d4+6",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -50,
+        "bash": -50,
+        "slash": -50,
+        "magic": 50
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_cast_mage"
     }
   },
@@ -553,12 +868,25 @@
       "mob_flags": "npc sentinel",
       "affected_by": "detect_magic infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "5d10+400",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d4+6",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -50,
+        "bash": -50,
+        "slash": -50,
+        "magic": 50
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_cast_mage"
     }
   },
@@ -575,12 +903,25 @@
       "mob_flags": "npc scavenger stay_area",
       "affected_by": "infrared sneak hide",
       "alignment": -50,
+      "hitroll": 0,
       "hit_dice": "3d9+258",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d4+4",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -30,
+        "bash": -30,
+        "slash": -30,
+        "magic": 60
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none",
+      "sex": "neutral",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_thief"
     }
   },
@@ -597,12 +938,25 @@
       "mob_flags": "npc stay_area",
       "affected_by": "infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "3d9+333",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d8+5",
+      "attack_type": "magic",
+      "ac": {
+        "pierce": -40,
+        "bash": -40,
+        "slash": -40,
+        "magic": 50
+      },
+      "offense": "disarm dodge",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none"
+      "sex": "neutral",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -618,12 +972,25 @@
       "mob_flags": "npc stay_area",
       "affected_by": "infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "3d9+308",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d7+5",
+      "attack_type": "charge",
+      "ac": {
+        "pierce": -40,
+        "bash": -40,
+        "slash": -40,
+        "magic": 50
+      },
+      "offense": "disarm dodge",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none"
+      "sex": "neutral",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -639,12 +1006,25 @@
       "mob_flags": "npc scavenger stay_area",
       "affected_by": "infrared sneak hide",
       "alignment": -400,
+      "hitroll": 0,
       "hit_dice": "5d10+400",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d4+6",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -50,
+        "bash": -50,
+        "slash": -50,
+        "magic": 50
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none",
+      "sex": "neutral",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_thief"
     }
   },
@@ -661,12 +1041,25 @@
       "mob_flags": "npc scavenger stay_area",
       "affected_by": "infrared sneak",
       "alignment": -600,
+      "hitroll": 0,
       "hit_dice": "4d10+360",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d4+5",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -50,
+        "bash": -50,
+        "slash": -50,
+        "magic": 50
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none",
+      "sex": "neutral",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_thief"
     }
   },
@@ -683,12 +1076,25 @@
       "mob_flags": "npc sentinel",
       "affected_by": "detect_invis detect_hidden sanctuary infrared",
       "alignment": -999,
+      "hitroll": 0,
       "hit_dice": "25d10+3000",
       "mana_dice": "5d5+1000",
       "damage_dice": "8d4+16",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -150,
+        "bash": -150,
+        "slash": -150,
+        "magic": 20
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none",
+      "sex": "neutral",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_cast_mage"
     }
   },
@@ -705,12 +1111,25 @@
       "mob_flags": "npc sentinel aggressive",
       "affected_by": "detect_invis",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "10d10+1600",
       "mana_dice": "5d5+1000",
       "damage_dice": "5d6+12",
+      "attack_type": "magic",
+      "ac": {
+        "pierce": -130,
+        "bash": -130,
+        "slash": -130,
+        "magic": 30
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_cast_mage"
     }
   },
@@ -727,12 +1146,23 @@
       "mob_flags": "npc sentinel",
       "affected_by": "detect_invis infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "15d10+1850",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d8+13",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -130,
+        "bash": -130,
+        "slash": -130,
+        "magic": 30
+      },
+      "offense": "disarm dodge trip assist_vnum",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none"
+      "sex": "neutral",
+      "wealth": 0,
+      "size": "medium"
     }
   },
   {
@@ -748,12 +1178,23 @@
       "mob_flags": "npc sentinel",
       "affected_by": "detect_invis infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "15d10+1700",
       "mana_dice": "5d5+1000",
       "damage_dice": "5d6+13",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -130,
+        "bash": -130,
+        "slash": -130,
+        "magic": 30
+      },
+      "offense": "disarm dodge trip assist_vnum",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none"
+      "sex": "neutral",
+      "wealth": 0,
+      "size": "medium"
     }
   },
   {
@@ -769,12 +1210,25 @@
       "mob_flags": "npc sentinel",
       "affected_by": "infrared protect_evil",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "25d10+2250",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d12+14",
+      "attack_type": "slap",
+      "ac": {
+        "pierce": -140,
+        "bash": -140,
+        "slash": -140,
+        "magic": 30
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -790,12 +1244,25 @@
       "mob_flags": "npc sentinel stay_area",
       "affected_by": "invisible detect_invis detect_hidden infrared sneak hide",
       "alignment": -750,
+      "hitroll": 0,
       "hit_dice": "15d10+1700",
       "mana_dice": "5d5+1000",
       "damage_dice": "5d6+13",
+      "attack_type": "charge",
+      "ac": {
+        "pierce": -130,
+        "bash": -130,
+        "slash": -130,
+        "magic": 30
+      },
+      "offense": "disarm dodge",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_thief"
     }
   },
@@ -812,12 +1279,23 @@
       "mob_flags": "npc scavenger aggressive",
       "affected_by": "infrared",
       "alignment": -1000,
+      "hitroll": 0,
       "hit_dice": "15d10+1850",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d8+13",
+      "attack_type": "slash",
+      "ac": {
+        "pierce": -130,
+        "bash": -130,
+        "slash": -130,
+        "magic": 30
+      },
+      "offense": "disarm parry trip assist_vnum",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none",
+      "sex": "neutral",
+      "wealth": 0,
+      "size": "medium",
       "spec_fun": "spec_cast_cleric"
     }
   },
@@ -834,12 +1312,25 @@
       "mob_flags": "npc sentinel stay_area",
       "affected_by": "infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "2d7+121",
       "mana_dice": "5d5+100",
       "damage_dice": "2d4+2",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": 10,
+        "bash": 10,
+        "slash": 10,
+        "magic": 70
+      },
+      "offense": "disarm kick",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -855,12 +1346,23 @@
       "mob_flags": "npc scavenger aggressive",
       "affected_by": "invisible detect_magic infrared hide",
       "alignment": -1000,
+      "hitroll": 0,
       "hit_dice": "25d10+2000",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d8+14",
+      "attack_type": "charge",
+      "ac": {
+        "pierce": -140,
+        "bash": -140,
+        "slash": -140,
+        "magic": 30
+      },
+      "offense": "disarm dodge",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none"
+      "sex": "neutral",
+      "wealth": 0,
+      "size": "medium"
     }
   },
   {
@@ -876,12 +1378,25 @@
       "mob_flags": "npc scavenger",
       "affected_by": "infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "2d10+150",
       "mana_dice": "5d5+100",
       "damage_dice": "1d10+3",
+      "attack_type": "slap",
+      "ac": {
+        "pierce": 0,
+        "bash": 0,
+        "slash": 0,
+        "magic": 70
+      },
+      "offense": "disarm parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "female"
+      "sex": "female",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -897,12 +1412,25 @@
       "mob_flags": "npc scavenger",
       "affected_by": "infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "2d10+170",
       "mana_dice": "5d5+100",
       "damage_dice": "2d5+3",
+      "attack_type": "slap",
+      "ac": {
+        "pierce": -10,
+        "bash": -10,
+        "slash": -10,
+        "magic": 60
+      },
+      "offense": "disarm parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "female"
+      "sex": "female",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -918,12 +1446,24 @@
       "mob_flags": "npc scavenger",
       "affected_by": "infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "2d8+134",
       "mana_dice": "5d5+100",
       "damage_dice": "1d10+2",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": 10,
+        "bash": 10,
+        "slash": 10,
+        "magic": 70
+      },
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -939,12 +1479,23 @@
       "mob_flags": "npc scavenger",
       "affected_by": "infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "2d10+190",
       "mana_dice": "5d5+100",
       "damage_dice": "1d12+3",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -10,
+        "bash": -10,
+        "slash": -10,
+        "magic": 60
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "size": "medium"
     }
   },
   {
@@ -960,12 +1511,25 @@
       "mob_flags": "npc scavenger",
       "affected_by": "infrared",
       "alignment": -1000,
+      "hitroll": 0,
       "hit_dice": "3d9+233",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d6+4",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -20,
+        "bash": -20,
+        "slash": -20,
+        "magic": 60
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -981,12 +1545,25 @@
       "mob_flags": "npc sentinel",
       "affected_by": "infrared",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "2d10+170",
       "mana_dice": "5d5+100",
       "damage_dice": "2d5+3",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -10,
+        "bash": -10,
+        "slash": -10,
+        "magic": 60
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1002,12 +1579,27 @@
       "mob_flags": "npc sentinel",
       "affected_by": "infrared",
       "alignment": -900,
+      "hitroll": 0,
       "hit_dice": "2d8+134",
       "mana_dice": "5d5+100",
       "damage_dice": "1d10+2",
+      "attack_type": "claw",
+      "ac": {
+        "pierce": 10,
+        "bash": 10,
+        "slash": 10,
+        "magic": 70
+      },
+      "offense": "disarm kick parry",
+      "resist": "disease",
+      "vulnerable": "light",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1023,12 +1615,25 @@
       "mob_flags": "npc sentinel",
       "affected_by": "infrared",
       "alignment": -750,
+      "hitroll": 0,
       "hit_dice": "2d10+150",
       "mana_dice": "5d5+100",
       "damage_dice": "1d10+3",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": 0,
+        "bash": 0,
+        "slash": 0,
+        "magic": 70
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1044,12 +1649,25 @@
       "mob_flags": "npc sentinel warrior",
       "affected_by": "infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "50d10+22500",
       "mana_dice": "5d5+5000",
       "damage_dice": "16d15+68",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -710,
+        "bash": -710,
+        "slash": -710,
+        "magic": -370
+      },
+      "offense": "bash berserk disarm dodge kick dirt_kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "shop": {
         "trades": [
           "armor"
@@ -1074,12 +1692,25 @@
       "mob_flags": "npc sentinel",
       "affected_by": "infrared",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "10d10+1100",
       "mana_dice": "5d5+1000",
       "damage_dice": "6d4+10",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -110,
+        "bash": -110,
+        "slash": -110,
+        "magic": 30
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1095,12 +1726,25 @@
       "mob_flags": "npc sentinel",
       "affected_by": "infrared",
       "alignment": -600,
+      "hitroll": 0,
       "hit_dice": "6d12+853",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d6+8",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -90,
+        "bash": -90,
+        "slash": -90,
+        "magic": 30
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1116,12 +1760,25 @@
       "mob_flags": "npc sentinel warrior",
       "affected_by": "infrared",
       "alignment": -999,
+      "hitroll": 0,
       "hit_dice": "6d12+928",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d6+9",
+      "attack_type": "slash",
+      "ac": {
+        "pierce": -100,
+        "bash": -100,
+        "slash": -100,
+        "magic": 30
+      },
+      "offense": "disarm dodge kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1137,12 +1794,27 @@
       "mob_flags": "npc sentinel warrior",
       "affected_by": "infrared",
       "alignment": -999,
+      "hitroll": 0,
       "hit_dice": "6d12+853",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d6+8",
+      "attack_type": "slash",
+      "ac": {
+        "pierce": -90,
+        "bash": -90,
+        "slash": -90,
+        "magic": 30
+      },
+      "offense": "disarm dodge kick parry",
+      "resist": "disease",
+      "vulnerable": "light",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1158,12 +1830,25 @@
       "mob_flags": "npc sentinel",
       "affected_by": "infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "2d10+170",
       "mana_dice": "5d5+100",
       "damage_dice": "2d5+3",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -10,
+        "bash": -10,
+        "slash": -10,
+        "magic": 60
+      },
+      "offense": "disarm kick",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "female"
+      "sex": "female",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1179,12 +1864,25 @@
       "mob_flags": "npc sentinel warrior",
       "affected_by": "infrared",
       "alignment": -1000,
+      "hitroll": 0,
       "hit_dice": "50d10+22500",
       "mana_dice": "5d5+5000",
       "damage_dice": "15d15+68",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -710,
+        "bash": -710,
+        "slash": -710,
+        "magic": -370
+      },
+      "offense": "bash disarm dodge kick dirt_kick parry assist_vnum",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "shop": {
         "trades": [],
         "profit_buy": 100,
@@ -1207,12 +1905,25 @@
       "mob_flags": "npc scavenger",
       "affected_by": "infrared",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "5d10+450",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d6+6",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -60,
+        "bash": -60,
+        "slash": -60,
+        "magic": 40
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1228,12 +1939,25 @@
       "mob_flags": "npc scavenger",
       "affected_by": "infrared",
       "alignment": -900,
+      "hitroll": 0,
       "hit_dice": "4d10+360",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d4+5",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -50,
+        "bash": -50,
+        "slash": -50,
+        "magic": 50
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1249,12 +1973,27 @@
       "mob_flags": "npc sentinel scavenger",
       "affected_by": "infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "3d9+283",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d7+4",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -30,
+        "bash": -30,
+        "slash": -30,
+        "magic": 60
+      },
+      "offense": "disarm kick parry",
+      "resist": "disease",
+      "vulnerable": "light",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1270,12 +2009,27 @@
       "mob_flags": "npc sentinel scavenger",
       "affected_by": "infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "3d9+233",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d6+4",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -20,
+        "bash": -20,
+        "slash": -20,
+        "magic": 60
+      },
+      "offense": "disarm kick parry",
+      "resist": "disease",
+      "vulnerable": "magic",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1291,12 +2045,25 @@
       "mob_flags": "npc sentinel scavenger",
       "affected_by": "infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "3d9+308",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d7+5",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -40,
+        "bash": -40,
+        "slash": -40,
+        "magic": 50
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1312,12 +2079,25 @@
       "mob_flags": "npc sentinel scavenger",
       "affected_by": "infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "2d8+134",
       "mana_dice": "5d5+100",
       "damage_dice": "1d10+2",
+      "attack_type": "slap",
+      "ac": {
+        "pierce": 10,
+        "bash": 10,
+        "slash": 10,
+        "magic": 70
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1333,12 +2113,26 @@
       "mob_flags": "npc sentinel scavenger warrior",
       "affected_by": "infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "3d9+333",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d8+5",
+      "attack_type": "slash",
+      "ac": {
+        "pierce": -40,
+        "bash": -40,
+        "slash": -40,
+        "magic": 50
+      },
+      "resist": "poison",
+      "vulnerable": "magic",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible poison other sentient undead mist biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye tail",
+      "size": "medium"
     }
   },
   {
@@ -1354,12 +2148,27 @@
       "mob_flags": "npc sentinel scavenger",
       "affected_by": "infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "5d10+500",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d10+6",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -60,
+        "bash": -60,
+        "slash": -60,
+        "magic": 40
+      },
+      "offense": "disarm kick parry assist_race",
+      "resist": "charm",
+      "vulnerable": "iron",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1375,12 +2184,27 @@
       "mob_flags": "npc sentinel scavenger",
       "affected_by": "infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "5d10+600",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d7+7",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -70,
+        "bash": -70,
+        "slash": -70,
+        "magic": 40
+      },
+      "offense": "disarm kick parry assist_race",
+      "resist": "poison disease",
+      "vulnerable": "drowning",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1396,12 +2220,25 @@
       "mob_flags": "npc sentinel warrior",
       "affected_by": "detect_evil infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "50d10+22500",
       "mana_dice": "5d5+5000",
       "damage_dice": "12d15+68",
+      "attack_type": "slash",
+      "ac": {
+        "pierce": -710,
+        "bash": -710,
+        "slash": -710,
+        "magic": -370
+      },
+      "offense": "bash disarm dodge kick dirt_kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "shop": {
         "trades": [],
         "profit_buy": 120,
@@ -1424,12 +2261,25 @@
       "mob_flags": "npc sentinel",
       "affected_by": "detect_invis infrared",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "6d12+703",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d12+8",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -80,
+        "bash": -80,
+        "slash": -80,
+        "magic": 40
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_cast_mage"
     }
   },
@@ -1446,12 +2296,25 @@
       "mob_flags": "npc sentinel warrior",
       "affected_by": "infrared",
       "alignment": -600,
+      "hitroll": 0,
       "hit_dice": "5d10+600",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d7+7",
+      "attack_type": "slash",
+      "ac": {
+        "pierce": -70,
+        "bash": -70,
+        "slash": -70,
+        "magic": 40
+      },
+      "offense": "disarm kick dirt_kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1467,12 +2330,25 @@
       "mob_flags": "npc sentinel thief",
       "affected_by": "infrared",
       "alignment": -600,
+      "hitroll": 0,
       "hit_dice": "5d10+600",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d7+7",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -70,
+        "bash": -70,
+        "slash": -70,
+        "magic": 40
+      },
+      "offense": "disarm kick parry trip",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_thief"
     }
   },
@@ -1489,12 +2365,25 @@
       "mob_flags": "npc sentinel mage",
       "affected_by": "detect_invis infrared",
       "alignment": -600,
+      "hitroll": 0,
       "hit_dice": "3d9+233",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d6+4",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -20,
+        "bash": -20,
+        "slash": -20,
+        "magic": 60
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "female",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_cast_mage"
     }
   },
@@ -1511,12 +2400,25 @@
       "mob_flags": "npc sentinel thief",
       "affected_by": "infrared",
       "alignment": -700,
+      "hitroll": 0,
       "hit_dice": "3d9+233",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d6+4",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -20,
+        "bash": -20,
+        "slash": -20,
+        "magic": 60
+      },
+      "offense": "disarm kick parry trip",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1532,12 +2434,25 @@
       "mob_flags": "npc sentinel warrior",
       "affected_by": "infrared",
       "alignment": -800,
+      "hitroll": 0,
       "hit_dice": "3d9+258",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d4+4",
+      "attack_type": "slash",
+      "ac": {
+        "pierce": -30,
+        "bash": -30,
+        "slash": -30,
+        "magic": 60
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1553,12 +2468,25 @@
       "mob_flags": "npc sentinel thief",
       "affected_by": "infrared",
       "alignment": -700,
+      "hitroll": 0,
       "hit_dice": "3d9+233",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d6+4",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -20,
+        "bash": -20,
+        "slash": -20,
+        "magic": 60
+      },
+      "offense": "disarm kick parry trip",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_thief"
     }
   },
@@ -1575,12 +2503,25 @@
       "mob_flags": "npc sentinel mage",
       "affected_by": "detect_invis infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "50d10+4250",
       "mana_dice": "5d5+5000",
       "damage_dice": "5d8+19",
+      "attack_type": "magic",
+      "ac": {
+        "pierce": -200,
+        "bash": -200,
+        "slash": -200,
+        "magic": 0
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_cast_mage",
       "shop": {
         "trades": [
@@ -1609,12 +2550,25 @@
       "mob_flags": "npc sentinel warrior",
       "affected_by": "detect_invis infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "50d10+22500",
       "mana_dice": "5d5+5000",
       "damage_dice": "12d15+68",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -710,
+        "bash": -710,
+        "slash": -710,
+        "magic": -370
+      },
+      "offense": "bash berserk disarm dodge kick dirt_kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "shop": {
         "trades": [
           "weapon"
@@ -1639,12 +2593,25 @@
       "mob_flags": "npc sentinel warrior",
       "affected_by": "detect_invis infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "50d10+22500",
       "mana_dice": "5d5+5000",
       "damage_dice": "12d15+68",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -710,
+        "bash": -710,
+        "slash": -710,
+        "magic": -370
+      },
+      "offense": "bash berserk disarm dodge kick dirt_kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "shop": {
         "trades": [
           "armor"
@@ -1669,12 +2636,25 @@
       "mob_flags": "npc sentinel warrior",
       "affected_by": "detect_invis infrared",
       "alignment": -999,
+      "hitroll": 0,
       "hit_dice": "15d10+1850",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d8+13",
+      "attack_type": "slash",
+      "ac": {
+        "pierce": -130,
+        "bash": -130,
+        "slash": -130,
+        "magic": 30
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "female",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "shop": {
         "trades": [
           "treasure",
@@ -1700,12 +2680,25 @@
       "mob_flags": "npc sentinel",
       "affected_by": "detect_invis infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "50d10+4000",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d10+18",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -190,
+        "bash": -190,
+        "slash": -190,
+        "magic": 10
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "shop": {
         "trades": [
           "food",
@@ -1731,12 +2724,25 @@
       "mob_flags": "npc stay_area",
       "affected_by": "infrared",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "3d9+258",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d4+4",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -30,
+        "bash": -30,
+        "slash": -30,
+        "magic": 60
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1752,12 +2758,25 @@
       "mob_flags": "npc stay_area",
       "affected_by": "infrared",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "3d9+233",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d6+4",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -20,
+        "bash": -20,
+        "slash": -20,
+        "magic": 60
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1773,12 +2792,25 @@
       "mob_flags": "npc sentinel",
       "affected_by": "infrared",
       "alignment": -700,
+      "hitroll": 0,
       "hit_dice": "3d9+258",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d4+4",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -30,
+        "bash": -30,
+        "slash": -30,
+        "magic": 60
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -1794,12 +2826,25 @@
       "mob_flags": "npc",
       "affected_by": "infrared hide",
       "alignment": -450,
+      "hitroll": 0,
       "hit_dice": "3d9+233",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d6+4",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -20,
+        "bash": -20,
+        "slash": -20,
+        "magic": 60
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_thief"
     }
   },
@@ -1816,12 +2861,25 @@
       "mob_flags": "npc wimpy",
       "affected_by": "infrared hide",
       "alignment": -600,
+      "hitroll": 0,
       "hit_dice": "3d9+258",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d4+4",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -30,
+        "bash": -30,
+        "slash": -30,
+        "magic": 60
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_thief"
     }
   },
@@ -1838,12 +2896,25 @@
       "mob_flags": "npc wimpy",
       "affected_by": "detect_invis infrared",
       "alignment": -600,
+      "hitroll": 0,
       "hit_dice": "3d9+283",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d7+4",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -30,
+        "bash": -30,
+        "slash": -30,
+        "magic": 60
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_thief"
     }
   },
@@ -1860,12 +2931,25 @@
       "mob_flags": "npc wimpy thief",
       "affected_by": "detect_invis infrared hide",
       "alignment": -700,
+      "hitroll": 0,
       "hit_dice": "3d9+308",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d7+5",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -40,
+        "bash": -40,
+        "slash": -40,
+        "magic": 50
+      },
+      "offense": "disarm kick parry trip",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_thief"
     }
   },
@@ -1882,12 +2966,25 @@
       "mob_flags": "npc sentinel aggressive thief",
       "affected_by": "detect_invis",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "4d10+360",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d4+5",
+      "attack_type": "slash",
+      "ac": {
+        "pierce": -50,
+        "bash": -50,
+        "slash": -50,
+        "magic": 50
+      },
+      "offense": "disarm kick parry trip",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_thief"
     }
   },
@@ -1904,12 +3001,25 @@
       "mob_flags": "npc sentinel thief",
       "affected_by": "detect_invis infrared",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "5d10+450",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d6+6",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -60,
+        "bash": -60,
+        "slash": -60,
+        "magic": 40
+      },
+      "offense": "disarm kick parry trip",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_thief"
     }
   },
@@ -1926,12 +3036,25 @@
       "mob_flags": "npc sentinel thief",
       "affected_by": "detect_invis detect_magic detect_hidden",
       "alignment": -700,
+      "hitroll": 0,
       "hit_dice": "5d10+550",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d10+7",
+      "attack_type": "slap",
+      "ac": {
+        "pierce": -70,
+        "bash": -70,
+        "slash": -70,
+        "magic": 40
+      },
+      "offense": "disarm kick parry trip",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_thief"
     }
   },
@@ -1948,12 +3071,25 @@
       "mob_flags": "npc sentinel thief",
       "affected_by": "detect_invis detect_magic detect_hidden",
       "alignment": -1000,
+      "hitroll": 0,
       "hit_dice": "25d10+3500",
       "mana_dice": "5d5+1000",
       "damage_dice": "6d6+17",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -170,
+        "bash": -170,
+        "slash": -170,
+        "magic": 20
+      },
+      "offense": "disarm dodge kick parry trip",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_thief"
     }
   },
@@ -1970,12 +3106,25 @@
       "mob_flags": "npc sentinel mage",
       "affected_by": "detect_invis detect_magic detect_hidden sanctuary infrared",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "15d10+1850",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d8+13",
+      "attack_type": "magic",
+      "ac": {
+        "pierce": -130,
+        "bash": -130,
+        "slash": -130,
+        "magic": 30
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_cast_mage"
     }
   },
@@ -1992,12 +3141,25 @@
       "mob_flags": "npc sentinel practice thief",
       "affected_by": "detect_invis protect_evil",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "50d10+4250",
       "mana_dice": "5d5+5000",
       "damage_dice": "5d8+19",
+      "attack_type": "slash",
+      "ac": {
+        "pierce": -200,
+        "bash": -200,
+        "slash": -200,
+        "magic": 0
+      },
+      "offense": "disarm kick parry trip",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -2013,12 +3175,25 @@
       "mob_flags": "npc stay_area",
       "affected_by": "infrared hide",
       "alignment": -900,
+      "hitroll": 0,
       "hit_dice": "3d9+333",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d8+5",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -40,
+        "bash": -40,
+        "slash": -40,
+        "magic": 50
+      },
+      "offense": "disarm kick parry trip",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -2034,12 +3209,25 @@
       "mob_flags": "npc stay_area",
       "affected_by": "detect_invis infrared sneak hide",
       "alignment": -999,
+      "hitroll": 0,
       "hit_dice": "4d10+360",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d4+5",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -50,
+        "bash": -50,
+        "slash": -50,
+        "magic": 50
+      },
+      "offense": "disarm kick parry trip",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -2055,12 +3243,25 @@
       "mob_flags": "npc stay_area",
       "affected_by": "detect_invis infrared sneak hide",
       "alignment": -999,
+      "hitroll": 0,
       "hit_dice": "5d10+400",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d4+6",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -50,
+        "bash": -50,
+        "slash": -50,
+        "magic": 50
+      },
+      "offense": "disarm kick parry trip",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -2076,12 +3277,25 @@
       "mob_flags": "npc stay_area",
       "affected_by": "detect_invis infrared hide",
       "alignment": -999,
+      "hitroll": 0,
       "hit_dice": "5d10+450",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d6+6",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -60,
+        "bash": -60,
+        "slash": -60,
+        "magic": 40
+      },
+      "offense": "disarm kick parry trip",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -2097,12 +3311,25 @@
       "mob_flags": "npc stay_area",
       "affected_by": "detect_invis infrared",
       "alignment": -999,
+      "hitroll": 0,
       "hit_dice": "5d10+550",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d10+7",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -70,
+        "bash": -70,
+        "slash": -70,
+        "magic": 40
+      },
+      "offense": "disarm kick parry trip",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -2118,12 +3345,25 @@
       "mob_flags": "npc stay_area",
       "affected_by": "detect_invis infrared",
       "alignment": -999,
+      "hitroll": 0,
       "hit_dice": "5d10+650",
       "mana_dice": "5d5+1000",
       "damage_dice": "5d4+7",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -80,
+        "bash": -80,
+        "slash": -80,
+        "magic": 40
+      },
+      "offense": "disarm kick parry trip",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -2139,12 +3379,25 @@
       "mob_flags": "npc stay_area",
       "affected_by": "detect_invis infrared",
       "alignment": -999,
+      "hitroll": 0,
       "hit_dice": "6d12+778",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d12+8",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -90,
+        "bash": -90,
+        "slash": -90,
+        "magic": 30
+      },
+      "offense": "disarm kick parry trip",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -2160,12 +3413,25 @@
       "mob_flags": "npc stay_area",
       "affected_by": "detect_invis infrared",
       "alignment": -999,
+      "hitroll": 0,
       "hit_dice": "6d12+928",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d6+9",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -100,
+        "bash": -100,
+        "slash": -100,
+        "magic": 30
+      },
+      "offense": "disarm kick parry trip",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -2181,12 +3447,25 @@
       "mob_flags": "npc stay_area",
       "affected_by": "detect_invis infrared",
       "alignment": -999,
+      "hitroll": 0,
       "hit_dice": "25d10+3250",
       "mana_dice": "5d5+1000",
       "damage_dice": "6d6+16",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -160,
+        "bash": -160,
+        "slash": -160,
+        "magic": 20
+      },
+      "offense": "disarm kick parry trip",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -2202,12 +3481,25 @@
       "mob_flags": "npc sentinel practice",
       "affected_by": "detect_invis infrared protect_evil",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "50d10+4250",
       "mana_dice": "5d5+5000",
       "damage_dice": "5d8+19",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -200,
+        "bash": -200,
+        "slash": -200,
+        "magic": 0
+      },
+      "offense": "disarm kick parry trip",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -2223,12 +3515,26 @@
       "mob_flags": "npc stay_area",
       "affected_by": "detect_hidden infrared flying dark_vision",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "25d10+2750",
       "mana_dice": "5d5+1000",
       "damage_dice": "8d4+15",
+      "attack_type": "charge",
+      "ac": {
+        "pierce": -150,
+        "bash": -150,
+        "slash": -150,
+        "magic": 20
+      },
+      "offense": "disarm dodge fast kick parry",
+      "vulnerable": "light",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none"
+      "sex": "neutral",
+      "wealth": 0,
+      "form": "edible animal mammal",
+      "parts": "head legs heart brains guts feet ear eye wings",
+      "size": "medium"
     }
   },
   {
@@ -2244,12 +3550,23 @@
       "mob_flags": "npc stay_area",
       "affected_by": "detect_hidden infrared",
       "alignment": -600,
+      "hitroll": 0,
       "hit_dice": "25d10+3000",
       "mana_dice": "5d5+1000",
       "damage_dice": "8d4+16",
+      "attack_type": "claw",
+      "ac": {
+        "pierce": -150,
+        "bash": -150,
+        "slash": -150,
+        "magic": 20
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "size": "medium"
     }
   },
   {
@@ -2265,12 +3582,23 @@
       "mob_flags": "npc stay_area",
       "affected_by": "detect_hidden infrared",
       "alignment": -800,
+      "hitroll": 0,
       "hit_dice": "25d10+3250",
       "mana_dice": "5d5+1000",
       "damage_dice": "6d6+16",
+      "attack_type": "slash",
+      "ac": {
+        "pierce": -160,
+        "bash": -160,
+        "slash": -160,
+        "magic": 20
+      },
+      "offense": "disarm dodge trip assist_vnum",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none"
+      "sex": "neutral",
+      "wealth": 0,
+      "size": "medium"
     }
   },
   {
@@ -2286,12 +3614,23 @@
       "mob_flags": "npc stay_area",
       "affected_by": "sanctuary infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "25d10+3500",
       "mana_dice": "5d5+1000",
       "damage_dice": "6d6+17",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -170,
+        "bash": -170,
+        "slash": -170,
+        "magic": 20
+      },
+      "offense": "disarm dodge trip assist_vnum",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "size": "medium",
       "spec_fun": "spec_cast_cleric"
     }
   },
@@ -2308,12 +3647,25 @@
       "mob_flags": "npc stay_area warrior",
       "affected_by": "infrared",
       "alignment": -800,
+      "hitroll": 0,
       "hit_dice": "25d10+3250",
       "mana_dice": "5d5+1000",
       "damage_dice": "6d6+16",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -160,
+        "bash": -160,
+        "slash": -160,
+        "magic": 20
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -2329,12 +3681,25 @@
       "mob_flags": "npc stay_area mage",
       "affected_by": "sanctuary infrared",
       "alignment": -999,
+      "hitroll": 0,
       "hit_dice": "25d10+3500",
       "mana_dice": "5d5+1000",
       "damage_dice": "6d6+17",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -170,
+        "bash": -170,
+        "slash": -170,
+        "magic": 20
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_cast_mage"
     }
   },
@@ -2351,12 +3716,25 @@
       "mob_flags": "npc stay_area warrior",
       "affected_by": "detect_invis sanctuary infrared",
       "alignment": 0,
+      "hitroll": 0,
       "hit_dice": "50d10+4000",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d10+18",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -190,
+        "bash": -190,
+        "slash": -190,
+        "magic": 10
+      },
+      "offense": "disarm dodge kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_cast_mage"
     }
   },
@@ -2373,12 +3751,23 @@
       "mob_flags": "npc sentinel",
       "affected_by": "detect_invis infrared",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "25d10+3750",
       "mana_dice": "5d5+1000",
       "damage_dice": "6d6+18",
+      "attack_type": "claw",
+      "ac": {
+        "pierce": -180,
+        "bash": -180,
+        "slash": -180,
+        "magic": 10
+      },
+      "offense": "disarm dodge kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none"
+      "sex": "neutral",
+      "wealth": 0,
+      "size": "medium"
     }
   },
   {
@@ -2394,12 +3783,23 @@
       "mob_flags": "npc sentinel",
       "affected_by": "detect_hidden infrared",
       "alignment": -999,
+      "hitroll": 0,
       "hit_dice": "25d10+3750",
       "mana_dice": "5d5+1000",
       "damage_dice": "6d6+18",
+      "attack_type": "charge",
+      "ac": {
+        "pierce": -180,
+        "bash": -180,
+        "slash": -180,
+        "magic": 10
+      },
+      "offense": "disarm dodge kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none",
+      "sex": "neutral",
+      "wealth": 0,
+      "size": "medium",
       "spec_fun": "spec_cast_mage"
     }
   },
@@ -2416,12 +3816,25 @@
       "mob_flags": "npc sentinel warrior",
       "affected_by": "infrared",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "5d10+550",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d10+7",
+      "attack_type": "slash",
+      "ac": {
+        "pierce": -70,
+        "bash": -70,
+        "slash": -70,
+        "magic": 40
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -2437,12 +3850,27 @@
       "mob_flags": "npc sentinel thief",
       "affected_by": "infrared",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "5d10+600",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d7+7",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -70,
+        "bash": -70,
+        "slash": -70,
+        "magic": 40
+      },
+      "offense": "disarm kick parry trip",
+      "resist": "disease",
+      "vulnerable": "light",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_thief"
     }
   },
@@ -2459,12 +3887,25 @@
       "mob_flags": "npc sentinel mage",
       "affected_by": "infrared",
       "alignment": -700,
+      "hitroll": 0,
       "hit_dice": "5d10+600",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d7+7",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -70,
+        "bash": -70,
+        "slash": -70,
+        "magic": 40
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_cast_mage"
     }
   },
@@ -2481,12 +3922,25 @@
       "mob_flags": "npc sentinel warrior",
       "affected_by": "infrared",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "5d10+500",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d10+6",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -60,
+        "bash": -60,
+        "slash": -60,
+        "magic": 40
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -2502,12 +3956,25 @@
       "mob_flags": "npc sentinel cleric",
       "affected_by": "infrared",
       "alignment": -800,
+      "hitroll": 0,
       "hit_dice": "5d10+550",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d10+7",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -70,
+        "bash": -70,
+        "slash": -70,
+        "magic": 40
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_cast_cleric"
     }
   },
@@ -2524,12 +3991,25 @@
       "mob_flags": "npc sentinel warrior",
       "affected_by": "infrared",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "5d10+600",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d7+7",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -70,
+        "bash": -70,
+        "slash": -70,
+        "magic": 40
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -2545,12 +4025,25 @@
       "mob_flags": "npc sentinel mage",
       "affected_by": "infrared",
       "alignment": -400,
+      "hitroll": 0,
       "hit_dice": "5d10+650",
       "mana_dice": "5d5+1000",
       "damage_dice": "5d4+7",
+      "attack_type": "slap",
+      "ac": {
+        "pierce": -80,
+        "bash": -80,
+        "slash": -80,
+        "magic": 40
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_cast_mage"
     }
   },
@@ -2567,12 +4060,25 @@
       "mob_flags": "npc sentinel warrior",
       "affected_by": "infrared",
       "alignment": -250,
+      "hitroll": 0,
       "hit_dice": "5d10+550",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d10+7",
+      "attack_type": "slash",
+      "ac": {
+        "pierce": -70,
+        "bash": -70,
+        "slash": -70,
+        "magic": 40
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "female"
+      "sex": "female",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -2588,12 +4094,25 @@
       "mob_flags": "npc sentinel warrior",
       "affected_by": "infrared",
       "alignment": 0,
+      "hitroll": 10,
       "hit_dice": "50d10+22500",
       "mana_dice": "5d5+5000",
       "damage_dice": "16d15+68",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -710,
+        "bash": -710,
+        "slash": -710,
+        "magic": -370
+      },
+      "offense": "disarm dodge kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "shop": {
         "trades": [],
         "profit_buy": 150,
@@ -2616,12 +4135,25 @@
       "mob_flags": "npc sentinel stay_area",
       "affected_by": "protect_evil",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "3d9+258",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d4+4",
+      "attack_type": "slap",
+      "ac": {
+        "pierce": -30,
+        "bash": -30,
+        "slash": -30,
+        "magic": 60
+      },
+      "offense": "disarm kick parry assist_vnum",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -2637,12 +4169,25 @@
       "mob_flags": "npc sentinel stay_area mage",
       "affected_by": "infrared protect_evil",
       "alignment": -600,
+      "hitroll": 0,
       "hit_dice": "4d10+360",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d4+5",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -50,
+        "bash": -50,
+        "slash": -50,
+        "magic": 50
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_cast_mage"
     }
   },
@@ -2659,12 +4204,25 @@
       "mob_flags": "npc sentinel warrior",
       "affected_by": "infrared protect_evil",
       "alignment": -900,
+      "hitroll": 0,
       "hit_dice": "5d10+450",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d6+6",
+      "attack_type": "slash",
+      "ac": {
+        "pierce": -60,
+        "bash": -60,
+        "slash": -60,
+        "magic": 40
+      },
+      "offense": "disarm kick parry assist_vnum",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -2680,12 +4238,25 @@
       "mob_flags": "npc sentinel mage",
       "affected_by": "protect_evil",
       "alignment": -600,
+      "hitroll": 0,
       "hit_dice": "5d10+650",
       "mana_dice": "5d5+1000",
       "damage_dice": "5d4+7",
+      "attack_type": "slap",
+      "ac": {
+        "pierce": -80,
+        "bash": -80,
+        "slash": -80,
+        "magic": 40
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_cast_mage"
     }
   },
@@ -2702,12 +4273,25 @@
       "mob_flags": "npc sentinel stay_area warrior",
       "affected_by": "protect_evil",
       "alignment": -999,
+      "hitroll": 0,
       "hit_dice": "6d12+853",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d6+8",
+      "attack_type": "claw",
+      "ac": {
+        "pierce": -90,
+        "bash": -90,
+        "slash": -90,
+        "magic": 30
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_breath_fire"
     }
   },
@@ -2724,12 +4308,25 @@
       "mob_flags": "npc sentinel stay_area",
       "affected_by": "protect_evil",
       "alignment": -999,
+      "hitroll": 0,
       "hit_dice": "10d10+1300",
       "mana_dice": "5d5+1000",
       "damage_dice": "4d7+11",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -110,
+        "bash": -110,
+        "slash": -110,
+        "magic": 30
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_breath_fire"
     }
   },
@@ -2746,12 +4343,25 @@
       "mob_flags": "npc sentinel warrior",
       "affected_by": "sanctuary protect_evil",
       "alignment": -999,
+      "hitroll": 0,
       "hit_dice": "10d10+1500",
       "mana_dice": "5d5+1000",
       "damage_dice": "3d10+12",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -120,
+        "bash": -120,
+        "slash": -120,
+        "magic": 30
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium",
       "spec_fun": "spec_cast_mage"
     }
   },
@@ -2768,12 +4378,23 @@
       "mob_flags": "npc sentinel aggressive",
       "affected_by": "",
       "alignment": -999,
+      "hitroll": 0,
       "hit_dice": "5d10+550",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d10+7",
+      "attack_type": "slash",
+      "ac": {
+        "pierce": -70,
+        "bash": -70,
+        "slash": -70,
+        "magic": 40
+      },
+      "offense": "disarm dodge trip assist_vnum",
       "start_pos": "stand",
       "default_pos": "stand",
       "sex": "male",
+      "wealth": 0,
+      "size": "medium",
       "spec_fun": "spec_breath_acid"
     }
   },
@@ -2790,12 +4411,23 @@
       "mob_flags": "npc sentinel stay_area",
       "affected_by": "infrared",
       "alignment": -999,
+      "hitroll": 0,
       "hit_dice": "5d10+550",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d10+7",
+      "attack_type": "slash",
+      "ac": {
+        "pierce": -70,
+        "bash": -70,
+        "slash": -70,
+        "magic": 40
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "size": "medium"
     }
   },
   {
@@ -2811,12 +4443,25 @@
       "mob_flags": "npc sentinel stay_area",
       "affected_by": "infrared",
       "alignment": -500,
+      "hitroll": 0,
       "hit_dice": "5d10+550",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d10+7",
+      "attack_type": "punch",
+      "ac": {
+        "pierce": -70,
+        "bash": -70,
+        "slash": -70,
+        "magic": 40
+      },
+      "offense": "disarm kick parry",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -2832,12 +4477,28 @@
       "mob_flags": "npc sentinel stay_area",
       "affected_by": "infrared",
       "alignment": -700,
+      "hitroll": 0,
       "hit_dice": "5d10+500",
       "mana_dice": "5d5+1000",
       "damage_dice": "2d10+6",
+      "attack_type": "charge",
+      "ac": {
+        "pierce": -60,
+        "bash": -60,
+        "slash": -60,
+        "magic": 40
+      },
+      "offense": "disarm dodge",
+      "immune": "poison",
+      "resist": "poison",
+      "vulnerable": "cold",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none"
+      "sex": "neutral",
+      "wealth": 0,
+      "form": "edible animal reptile snake",
+      "parts": "head heart brains guts eye long_tongue tail fangs scales",
+      "size": "medium"
     }
   }
 ]

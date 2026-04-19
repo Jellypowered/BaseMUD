@@ -4027,8 +4027,7 @@
           "portal": "sewer-north-1"
         },
         {
-          "dir": "up",
-          "portal": "sewer-up-2"
+          "dir": "up"
         }
       ],
       "extra_description": [

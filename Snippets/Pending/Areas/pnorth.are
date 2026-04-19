@@ -1,0 +1,1706 @@
+#AREADATA
+Name        Northern Mountains~
+Builders    Lelana~
+VNUMs       14500 14599
+Security    9
+Credits     { All } Lelana  Northern Mountains~
+End
+
+
+
+#MOBILES
+#0
+
+
+
+#OBJECTS
+#0
+
+
+
+#ROOMS
+#14500
+The Gathic Range road~
+You travel upon a road that stretches from Midgaard to the towering
+mountains of the north.  The road is worn, scattered with rocks, and not
+easy to travel.  The shadows of the mountains fill this road each day,
+leaving everything nearby in a sort of twilight.  
+~
+0 4 0
+D0
+~
+~
+0 0 14501
+D2
+~
+~
+0 0 14800
+S
+#14501
+The Gathic Range road~
+You travel upon a road that stretches from Midgaard to the towering
+mountains of the north.  The road is worn, scattered with rocks, and not
+easy to travel.  The shadows of the mountains fill this road each day,
+leaving everything nearby in a sort of twilight.  
+To the east is a forge, and a rather grand one at that.
+~
+0 0 0
+D0
+~
+~
+0 0 14502
+D1
+~
+~
+0 0 50
+D2
+~
+~
+0 0 14500
+S
+#14502
+The Gathic Range road~
+You travel upon a road that stretches from Midgaard to the towering
+mountains of the north.  The road is worn, scattered with rocks, and not
+easy to travel.  The shadows of the mountains fill this road each day,
+leaving everything nearby in a sort of twilight.  
+~
+0 0 0
+D0
+~
+~
+0 0 14503
+D2
+~
+~
+0 0 14501
+S
+#14503
+The Gathic Range road~
+You travel upon a road that stretches from Midgaard to the towering
+mountains of the north.  The road is worn, scattered with rocks, and not
+easy to travel.  The shadows of the mountains fill this road each day,
+leaving everything nearby in a sort of twilight.  
+~
+0 0 0
+D0
+~
+~
+0 0 14504
+D2
+~
+~
+0 0 14502
+S
+#14504
+The Gathic Range road~
+You travel upon a road that stretches from Midgaard to the towering
+mountains of the north.  The road is worn, scattered with rocks, and not
+easy to travel.  The shadows of the mountains fill this road each day,
+leaving everything nearby in a sort of twilight.  
+~
+0 0 0
+D0
+~
+~
+0 0 14505
+D2
+~
+~
+0 0 14503
+S
+#14505
+The Gathic Range road~
+You travel upon a road that stretches from Midgaard to the towering
+mountains of the north.  The road is worn, scattered with rocks, and not
+easy to travel.  The shadows of the mountains fill this road each day,
+leaving everything nearby in a sort of twilight.  
+~
+0 0 0
+D0
+~
+~
+0 0 14506
+D2
+~
+~
+0 0 14504
+S
+#14506
+The Gathic Range road~
+You travel upon a road that stretches from Midgaard to the towering
+mountains of the north.  The road is worn, scattered with rocks, and not
+easy to travel.  The shadows of the mountains fill this road each day,
+leaving everything nearby in a sort of twilight.  
+~
+0 0 0
+D0
+~
+~
+0 0 14507
+D2
+~
+~
+0 0 14505
+S
+#14507
+The Gathic Range road~
+You travel upon a road that stretches from Midgaard to the towering
+mountains of the north.  The road is worn, scattered with rocks, and not
+easy to travel.  The shadows of the mountains fill this road each day,
+leaving everything nearby in a sort of twilight.  
+~
+0 0 0
+D0
+~
+~
+0 0 14508
+D2
+~
+~
+0 0 14506
+S
+#14508
+The Gathic Range road~
+You travel upon a road that stretches from Midgaard to the towering
+mountains of the north.  The road is worn, scattered with rocks, and not
+easy to travel.  The shadows of the mountains fill this road each day,
+leaving everything nearby in a sort of twilight.  
+To the west you can see a dry river bed that has become a road of sorts.
+~
+0 0 0
+D0
+~
+~
+0 0 14509
+D2
+~
+~
+0 0 14507
+D3
+~
+~
+0 0 14514
+S
+#14509
+The Gathic Range road~
+You travel upon a road that stretches from Midgaard to the towering
+mountains of the north.  The road is worn, scattered with rocks, and not
+easy to travel.  The shadows of the mountains fill this road each day,
+leaving everything nearby in a sort of twilight.  
+~
+0 0 0
+D0
+~
+~
+0 0 14510
+D2
+~
+~
+0 0 14508
+S
+#14510
+The Gathic Range road~
+You travel upon a road that stretches from Midgaard to the towering
+mountains of the north.  The road is worn, scattered with rocks, and not
+easy to travel.  The shadows of the mountains fill this road each day,
+leaving everything nearby in a sort of twilight.  
+~
+0 0 0
+D0
+~
+~
+0 0 14511
+D2
+~
+~
+0 0 14509
+S
+#14511
+The Gathic Range road~
+You travel upon a road that stretches from Midgaard to the towering
+mountains of the north.  The road is worn, scattered with rocks, and not
+easy to travel.  The shadows of the mountains fill this road each day,
+leaving everything nearby in a sort of twilight.  
+~
+0 0 0
+D0
+~
+~
+0 0 14512
+D2
+~
+~
+0 0 14510
+S
+#14512
+The Gathic Range road~
+You travel upon a road that stretches from Midgaard to the towering
+mountains of the north.  The road is worn, scattered with rocks, and not
+easy to travel.  The shadows of the mountains fill this road each day,
+leaving everything nearby in a sort of twilight.  
+~
+0 0 0
+D0
+~
+~
+0 0 14513
+D2
+~
+~
+0 0 14511
+S
+#14513
+The Gathic Range road~
+You travel upon a road that stretches from Midgaard to the towering
+mountains of the north.  The road is worn, scattered with rocks, and not
+easy to travel.  The shadows of the mountains fill this road each day,
+leaving everything nearby in a sort of twilight.  
+Here at the base of the mountains, they seem much taller.
+To the east is a well-taken care of path, maintained by the dwarves.
+To climb the mountains, you must go up.
+~
+0 0 0
+D1
+~
+~
+0 0 14523
+D2
+~
+~
+0 0 14512
+D4
+~
+~
+0 0 14528
+S
+#14514
+A dry riverbed~
+This dry riverbed has been travelled, but not by many.  It is apparent
+that this is no trade route, or game path, but a difficult journey even for
+a hardy adventurer.  The path is not impossible, however difficult.  
+~
+0 0 0
+D1
+~
+~
+0 0 14508
+D3
+~
+~
+0 0 14515
+S
+#14515
+A dry riverbed~
+This dry riverbed has been travelled, but not by many.  It is apparent
+that this is no trade route, or game path, but a difficult journey even for
+a hardy adventurer.  The path is not impossible, however difficult.  
+~
+0 0 0
+D1
+~
+~
+0 0 14514
+D3
+~
+~
+0 0 14516
+S
+#14516
+A dry riverbed~
+This dry riverbed has been travelled, but not by many.  It is apparent
+that this is no trade route, or game path, but a difficult journey even for
+a hardy adventurer.  The path is not impossible, however difficult.  
+~
+0 0 0
+D0
+~
+~
+0 0 14517
+D1
+~
+~
+0 0 14515
+S
+#14517
+A dry riverbed~
+This dry riverbed has been travelled, but not by many.  It is apparent
+that this is no trade route, or game path, but a difficult journey even for
+a hardy adventurer.  The path is not impossible, however difficult.  
+~
+0 0 0
+D0
+~
+~
+0 0 14518
+D2
+~
+~
+0 0 14516
+S
+#14518
+A dry riverbed~
+This dry riverbed has been travelled, but not by many.  It is apparent
+that this is no trade route, or game path, but a difficult journey even for
+a hardy adventurer.  The path is not impossible, however difficult.  
+~
+0 0 0
+D2
+~
+~
+0 0 14517
+D4
+~
+~
+0 0 14519
+S
+#14519
+A dry riverbed~
+This dry riverbed has been travelled, but not by many.  It is apparent
+that this is no trade route, or game path, but a difficult journey even for
+a hardy adventurer.  The path is not impossible, however difficult.  
+~
+0 0 0
+D3
+~
+~
+0 0 14520
+D5
+~
+~
+0 0 14518
+S
+#14520
+A dry riverbed~
+This dry riverbed has been travelled, but not by many.  It is apparent
+that this is no trade route, or game path, but a difficult journey even for
+a hardy adventurer.  The path is not impossible, however difficult.  
+~
+0 0 0
+D1
+~
+~
+0 0 14519
+D4
+~
+~
+0 0 14521
+S
+#14521
+A dry riverbed~
+This dry riverbed has been travelled, but not by many.  It is apparent
+that this is no trade route, or game path, but a difficult journey even for
+a hardy adventurer.  The path is not impossible, however difficult.  
+~
+0 0 0
+D3
+~
+~
+0 0 14522
+D5
+~
+~
+0 0 14520
+S
+#14522
+A dry riverbed~
+This dry riverbed has been travelled, but not by many.  It is apparent
+that this is no trade route, or game path, but a difficult journey even for
+a hardy adventurer.  The path is not impossible, however difficult.  
+To the north, the first of the many tall mountains stands.
+~
+0 0 0
+D0
+~
+~
+0 0 9201
+D1
+~
+~
+0 0 14521
+S
+#14523
+Dwarven trail~
+This well-maintained path is heavily used by the dwarves that mine and
+shape their ore.  It is used just as heavily by those seeking out the
+wonderful items the dwarves can make.  Adventures seeking a fight should
+certainly do so carefully.  
+~
+0 0 0
+D1
+~
+~
+0 0 14524
+D3
+~
+~
+0 0 14513
+S
+#14524
+Dwarven trail~
+This well-maintained path is heavily used by the dwarves that mine and
+shape their ore.  It is used just as heavily by those seeking out the
+wonderful items the dwarves can make.  Adventures seeking a fight should
+certainly do so carefully.  
+~
+0 0 0
+D3
+~
+~
+0 0 14523
+D5
+~
+~
+0 0 14525
+S
+#14525
+Dwarven trail~
+This well-maintained path is heavily used by the dwarves that mine and
+shape their ore.  It is used just as heavily by those seeking out the
+wonderful items the dwarves can make.  Adventures seeking a fight should
+certainly do so carefully.  
+~
+0 0 0
+D1
+~
+~
+0 0 14526
+D4
+~
+~
+0 0 14524
+S
+#14526
+Dwarven trail~
+This well-maintained path is heavily used by the dwarves that mine and
+shape their ore.  It is used just as heavily by those seeking out the
+wonderful items the dwarves can make.  Adventures seeking a fight should
+certainly do so carefully.  
+~
+0 0 0
+D1
+~
+~
+0 0 14527
+D3
+~
+~
+0 0 14525
+S
+#14527
+Dwarven trail~
+This well-maintained path is heavily used by the dwarves that mine and
+shape their ore.  It is used just as heavily by those seeking out the
+wonderful items the dwarves can make.  Adventures seeking a fight should
+certainly do so carefully.  
+~
+0 0 0
+D0
+~
+~
+0 0 4000
+D3
+~
+~
+0 0 14526
+S
+#14528
+A steep mountain trail~
+Even those hardy enough to regularly climb the mighty Gothic Range for
+sport have a difficult time on this path.  It is steep enough that at times,
+those walking this path must use their hands as well as their feet.  Rocks
+scatter and slide with every misplaced step, and loud noises cause small
+landslides.  
+~
+0 0 0
+D4
+~
+~
+0 0 14529
+D5
+~
+~
+0 0 14513
+S
+#14529
+A steep mountain trail~
+Even those hardy enough to regularly climb the mighty Gothic Range for
+sport have a difficult time on this path.  It is steep enough that at times,
+those walking this path must use their hands as well as their feet.  Rocks
+scatter and slide with every misplaced step, and loud noises cause small
+landslides.  
+~
+0 0 0
+D0
+~
+~
+0 0 14530
+D5
+~
+~
+0 0 14528
+S
+#14530
+A steep mountain trail~
+Even those hardy enough to regularly climb the mighty Gothic Range for
+sport have a difficult time on this path.  It is steep enough that at times,
+those walking this path must use their hands as well as their feet.  Rocks
+scatter and slide with every misplaced step, and loud noises cause small
+landslides.  
+~
+0 0 0
+D0
+~
+~
+0 0 14531
+D2
+~
+~
+0 0 14529
+S
+#14531
+A steep mountain trail~
+Even those hardy enough to regularly climb the mighty Gothic Range for
+sport have a difficult time on this path.  It is steep enough that at times,
+those walking this path must use their hands as well as their feet.  Rocks
+scatter and slide with every misplaced step, and loud noises cause small
+landslides.  
+~
+0 0 0
+D1
+~
+~
+0 0 14532
+D2
+~
+~
+0 0 14530
+S
+#14532
+A steep mountain trail~
+Even those hardy enough to regularly climb the mighty Gothic Range for
+sport have a difficult time on this path.  It is steep enough that at times,
+those walking this path must use their hands as well as their feet.  Rocks
+scatter and slide with every misplaced step, and loud noises cause small
+landslides.  
+~
+0 0 0
+D1
+~
+~
+0 0 14533
+D3
+~
+~
+0 0 14531
+S
+#14533
+A steep mountain trail~
+Even those hardy enough to regularly climb the mighty Gothic Range for
+sport have a difficult time on this path.  It is steep enough that at times,
+those walking this path must use their hands as well as their feet.  Rocks
+scatter and slide with every misplaced step, and loud noises cause small
+landslides.  
+~
+0 0 0
+D0
+~
+~
+0 0 14534
+D3
+~
+~
+0 0 14532
+S
+#14534
+A steep mountain trail~
+Even those hardy enough to regularly climb the mighty Gothic Range for
+sport have a difficult time on this path.  It is steep enough that at times,
+those walking this path must use their hands as well as their feet.  Rocks
+scatter and slide with every misplaced step, and loud noises cause small
+landslides.  
+~
+0 0 0
+D2
+~
+~
+0 0 14533
+D4
+~
+~
+0 0 14535
+S
+#14535
+A steep mountain trail~
+Even those hardy enough to regularly climb the mighty Gothic Range for
+sport have a difficult time on this path.  It is steep enough that at times,
+those walking this path must use their hands as well as their feet.  Rocks
+scatter and slide with every misplaced step, and loud noises cause small
+landslides.  
+~
+0 0 0
+D0
+~
+~
+0 0 14536
+D5
+~
+~
+0 0 14534
+S
+#14536
+A steep mountain trail~
+Even those hardy enough to regularly climb the mighty Gothic Range for
+sport have a difficult time on this path.  It is steep enough that at times,
+those walking this path must use their hands as well as their feet.  Rocks
+scatter and slide with every misplaced step, and loud noises cause small
+landslides.  
+To the east is a long, wide canyon that stretches far into the distance.
+~
+0 0 0
+D0
+~
+~
+0 0 14537
+D1
+~
+~
+0 0 14541
+D2
+~
+~
+0 0 14535
+S
+#14537
+A steep mountain trail~
+Even those hardy enough to regularly climb the mighty Gothic Range for
+sport have a difficult time on this path.  It is steep enough that at times,
+those walking this path must use their hands as well as their feet.  Rocks
+scatter and slide with every misplaced step, and loud noises cause small
+landslides.  
+~
+0 0 0
+D0
+~
+~
+0 0 14538
+D2
+~
+~
+0 0 14536
+S
+#14538
+A steep mountain trail~
+Even those hardy enough to regularly climb the mighty Gothic Range for
+sport have a difficult time on this path.  It is steep enough that at times,
+those walking this path must use their hands as well as their feet.  Rocks
+scatter and slide with every misplaced step, and loud noises cause small
+landslides.  
+~
+0 0 0
+D0
+~
+~
+0 0 14539
+D2
+~
+~
+0 0 14537
+S
+#14539
+A steep mountain trail~
+Even those hardy enough to regularly climb the mighty Gothic Range for
+sport have a difficult time on this path.  It is steep enough that at times,
+those walking this path must use their hands as well as their feet.  Rocks
+scatter and slide with every misplaced step, and loud noises cause small
+landslides.  
+~
+0 0 0
+D0
+~
+~
+0 0 14540
+D2
+~
+~
+0 0 14538
+S
+#14540
+A steep mountain trail~
+Even those hardy enough to regularly climb the mighty Gothic Range for
+sport have a difficult time on this path.  It is steep enough that at times,
+those walking this path must use their hands as well as their feet.  Rocks
+scatter and slide with every misplaced step, and loud noises cause small
+landslides.  
+~
+0 0 0
+D2
+~
+~
+0 0 14539
+D3
+~
+~
+0 0 9999
+D4
+~
+~
+0 0 14563
+S
+#14541
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+~
+0 0 0
+D1
+~
+~
+0 0 14542
+D3
+~
+~
+0 0 14536
+S
+#14542
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+~
+0 0 0
+D1
+~
+~
+0 0 14543
+D3
+~
+~
+0 0 14541
+S
+#14543
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+~
+0 0 0
+D1
+~
+~
+0 0 14545
+D3
+~
+~
+0 0 14542
+S
+#14544
+~
+~
+0 0 0
+D3
+~
+~
+0 0 14543
+S
+#14545
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+~
+0 0 0
+D3
+~
+~
+0 0 14543
+D4
+~
+~
+0 0 14546
+S
+#14546
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+Strait above is the Aarakocran city, if you can but fly.
+~
+0 0 0
+D1
+~
+~
+0 0 14547
+D4
+~
+~
+0 0 5600
+D5
+~
+~
+0 0 14545
+S
+#14547
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+~
+0 0 0
+D1
+~
+~
+0 0 14548
+D3
+~
+~
+0 0 14546
+S
+#14548
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+~
+0 0 0
+D1
+~
+~
+0 0 14549
+D3
+~
+~
+0 0 14547
+S
+#14549
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+~
+0 0 0
+D3
+~
+~
+0 0 14548
+D4
+~
+~
+0 0 14550
+S
+#14550
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+~
+0 0 0
+D1
+~
+~
+0 0 14551
+D5
+~
+~
+0 0 14549
+S
+#14551
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+~
+0 0 0
+D1
+~
+~
+0 0 14552
+D3
+~
+~
+0 0 14550
+S
+#14552
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+~
+0 0 0
+D1
+~
+~
+0 0 14553
+D3
+~
+~
+0 0 14551
+S
+#14553
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+~
+0 0 0
+D1
+~
+~
+0 0 14554
+D3
+~
+~
+0 0 14552
+S
+#14554
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+~
+0 0 0
+D1
+~
+~
+0 0 14555
+D3
+~
+~
+0 0 14553
+S
+#14555
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+A large set of doors bar the entrance to a cave to the south.
+~
+0 0 0
+D1
+~
+~
+0 0 14556
+D2
+~
+~
+1 0 29001
+D3
+~
+~
+0 0 14554
+S
+#14556
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+~
+0 0 0
+D1
+~
+~
+0 0 14557
+D3
+~
+~
+0 0 14555
+S
+#14557
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+~
+0 0 0
+D1
+~
+~
+0 0 14558
+D3
+~
+~
+0 0 14556
+S
+#14558
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+~
+0 0 0
+D1
+~
+~
+0 0 14559
+D3
+~
+~
+0 0 14557
+S
+#14559
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+~
+0 0 0
+D1
+~
+~
+0 0 14560
+D3
+~
+~
+0 0 14558
+S
+#14560
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+~
+0 0 0
+D1
+~
+~
+0 0 14561
+D3
+~
+~
+0 0 14559
+S
+#14561
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+~
+0 0 0
+D1
+~
+~
+0 0 14562
+D3
+~
+~
+0 0 14560
+S
+#14562
+A long canyon road~
+The walls of this canyon are impossible to climb.  They seem to be walls
+for a huge house, while the clouds make up the roof.  The canyon itself
+stretches as far as you can see, promising a long journey wherever you are
+bound.  
+Here the canyon ends, but a path leads away, if you brave the climb down.
+~
+0 0 0
+D3
+~
+~
+0 0 14561
+D5
+~
+~
+0 0 1620
+S
+#14563
+A steep mountain trail~
+Even those hardy enough to regularly climb the mighty Gothic Range for
+sport have a difficult time on this path.  It is steep enough that at times,
+those walking this path must use their hands as well as their feet.  Rocks
+scatter and slide with every misplaced step, and loud noises cause small
+landslides.  
+~
+0 0 0
+D4
+~
+~
+0 0 14564
+D5
+~
+~
+0 0 14540
+S
+#14564
+A steep mountain trail~
+Even those hardy enough to regularly climb the mighty Gothic Range for
+sport have a difficult time on this path.  It is steep enough that at times,
+those walking this path must use their hands as well as their feet.  Rocks
+scatter and slide with every misplaced step, and loud noises cause small
+landslides.  
+~
+0 0 0
+D4
+~
+~
+0 0 14565
+D5
+~
+~
+0 0 14563
+S
+#14565
+A steep mountain trail~
+Even those hardy enough to regularly climb the mighty Gothic Range for
+sport have a difficult time on this path.  It is steep enough that at times,
+those walking this path must use their hands as well as their feet.  Rocks
+scatter and slide with every misplaced step, and loud noises cause small
+landslides.  
+~
+0 0 0
+D0
+~
+~
+0 0 14566
+D5
+~
+~
+0 0 14564
+S
+#14566
+A steep mountain trail~
+Even those hardy enough to regularly climb the mighty Gothic Range for
+sport have a difficult time on this path.  It is steep enough that at times,
+those walking this path must use their hands as well as their feet.  Rocks
+scatter and slide with every misplaced step, and loud noises cause small
+landslides.  
+~
+0 0 0
+D0
+~
+~
+0 0 14567
+D2
+~
+~
+0 0 14565
+S
+#14567
+The Gathic range~
+You stand atop the tallest mountain range of the realms - The Gathic
+Range.  Named for a fearless adventurer that came to the realms long ago,
+coming down from these very mountains and telling tales of strange lands,
+impossible to find these days.  From here, you can nearly see the entire
+realm.  
+~
+0 0 0
+D1
+~
+~
+0 0 14568
+D2
+~
+~
+0 0 14566
+D3
+~
+~
+0 0 14574
+D4
+~
+~
+0 0 20101
+S
+#14568
+The Gathic range~
+You stand atop the tallest mountain range of the realms - The Gathic
+Range.  Named for a fearless adventurer that came to the realms long ago,
+coming down from these very mountains and telling tales of strange lands,
+impossible to find these days.  From here, you can nearly see the entire
+realm.  
+~
+0 0 0
+D1
+~
+~
+0 0 14569
+D3
+~
+~
+0 0 14567
+S
+#14569
+The Gathic range~
+You stand atop the tallest mountain range of the realms - The Gathic
+Range.  Named for a fearless adventurer that came to the realms long ago,
+coming down from these very mountains and telling tales of strange lands,
+impossible to find these days.  From here, you can nearly see the entire
+realm.  
+~
+0 0 0
+D1
+~
+~
+0 0 14570
+D3
+~
+~
+0 0 14568
+S
+#14570
+The Gathic range~
+You stand atop the tallest mountain range of the realms - The Gathic
+Range.  Named for a fearless adventurer that came to the realms long ago,
+coming down from these very mountains and telling tales of strange lands,
+impossible to find these days.  From here, you can nearly see the entire
+realm.  
+~
+0 0 0
+D1
+~
+~
+0 0 14571
+D3
+~
+~
+0 0 14569
+S
+#14571
+The Gathic range~
+You stand atop the tallest mountain range of the realms - The Gathic
+Range.  Named for a fearless adventurer that came to the realms long ago,
+coming down from these very mountains and telling tales of strange lands,
+impossible to find these days.  From here, you can nearly see the entire
+realm.  
+~
+0 0 0
+D1
+~
+~
+0 0 14572
+D3
+~
+~
+0 0 14570
+S
+#14572
+The Gathic range~
+You stand atop the tallest mountain range of the realms - The Gathic
+Range.  Named for a fearless adventurer that came to the realms long ago,
+coming down from these very mountains and telling tales of strange lands,
+impossible to find these days.  From here, you can nearly see the entire
+realm.  
+~
+0 0 0
+D1
+~
+~
+0 0 14573
+D3
+~
+~
+0 0 14571
+S
+#14573
+The base of The Hub~
+To the north lies a tall mountain, one of the tallest of the Gathic
+Range.  It is known only as The Hub, and according to legend was simply
+placed here by the gods, unlike normal mountains, which grow slowly like
+plants made of rock.  Few have dared climb this mountain, for the fear of
+angering the gods of old.  
+~
+0 0 0
+D0
+~
+~
+0 0 901
+D3
+~
+~
+0 0 14572
+D5
+~
+~
+0 0 16000
+S
+#14574
+The Gathic range~
+You stand atop the tallest mountain range of the realms - The Gathic
+Range.  Named for a fearless adventurer that came to the realms long ago,
+coming down from these very mountains and telling tales of strange lands,
+impossible to find these days.  From here, you can nearly see the entire
+realm.  
+~
+0 0 0
+D1
+~
+~
+0 0 14567
+D3
+~
+~
+0 0 14575
+S
+#14575
+The Gathic range~
+You stand atop the tallest mountain range of the realms - The Gathic
+Range.  Named for a fearless adventurer that came to the realms long ago,
+coming down from these very mountains and telling tales of strange lands,
+impossible to find these days.  From here, you can nearly see the entire
+realm.  
+~
+0 0 0
+D1
+~
+~
+0 0 14574
+D3
+~
+~
+0 0 14576
+S
+#14576
+The Gathic range~
+You stand atop the tallest mountain range of the realms - The Gathic
+Range.  Named for a fearless adventurer that came to the realms long ago,
+coming down from these very mountains and telling tales of strange lands,
+impossible to find these days.  From here, you can nearly see the entire
+realm.  
+~
+0 0 0
+D1
+~
+~
+0 0 14575
+D5
+~
+~
+0 0 14577
+S
+#14577
+The Gathic range~
+You stand atop the tallest mountain range of the realms - The Gathic
+Range.  Named for a fearless adventurer that came to the realms long ago,
+coming down from these very mountains and telling tales of strange lands,
+impossible to find these days.  From here, you can nearly see the entire
+realm.  
+~
+0 0 0
+D3
+~
+~
+0 0 14578
+D4
+~
+~
+0 0 14576
+S
+#14578
+The Gathic range~
+You stand atop the tallest mountain range of the realms - The Gathic
+Range.  Named for a fearless adventurer that came to the realms long ago,
+coming down from these very mountains and telling tales of strange lands,
+impossible to find these days.  From here, you can nearly see the entire
+realm.  
+~
+0 0 0
+D1
+~
+~
+0 0 14577
+D3
+~
+~
+0 0 14579
+S
+#14579
+Mount Filthy~
+The tallest of the tall mountains, is of course, Mount Filthy.  Somewhere
+on the impassible side of this peak, the mighty yet disgusting Filthy River
+begins, so yes, this mountain is the one to blame.  Why from this vantage
+point, you can see the entire path of the Filthy River, and how it's almost
+reached the ocean.  Give it another hundred years, it may get there.  
+~
+0 0 0
+D1
+~
+~
+0 0 14578
+D4
+~
+~
+0 0 14580
+S
+#14580
+Mount Filthy~
+The tallest of the tall mountains, is of course, Mount Filthy.  Somewhere
+on the impassible side of this peak, the mighty yet disgusting Filthy River
+begins, so yes, this mountain is the one to blame.  Why from this vantage
+point, you can see the entire path of the Filthy River, and how it's almost
+reached the ocean.  Give it another hundred years, it may get there.  
+~
+0 0 0
+D3
+~
+~
+0 0 14581
+D5
+~
+~
+0 0 14579
+S
+#14581
+Mount Filthy~
+The tallest of the tall mountains, is of course, Mount Filthy.  Somewhere
+on the impassible side of this peak, the mighty yet disgusting Filthy River
+begins, so yes, this mountain is the one to blame.  Why from this vantage
+point, you can see the entire path of the Filthy River, and how it's almost
+reached the ocean.  Give it another hundred years, it may get there.  
+~
+0 0 0
+D1
+~
+~
+0 0 14580
+D4
+~
+~
+0 0 14582
+S
+#14582
+Mount Filthy~
+The tallest of the tall mountains, is of course, Mount Filthy.  Somewhere
+on the impassible side of this peak, the mighty yet disgusting Filthy River
+begins, so yes, this mountain is the one to blame.  Why from this vantage
+point, you can see the entire path of the Filthy River, and how it's almost
+reached the ocean.  Give it another hundred years, it may get there.  
+~
+0 0 0
+D3
+~
+~
+0 0 14583
+D5
+~
+~
+0 0 14581
+S
+#14583
+The peak of Mount Filthy~
+Here, on top of the world itself, you should stop and marvel.  Before you
+stretches the entire realms, and all of it is there for you to view.  For
+this is the peak of Mount Filthy, believed to be the tallest mountain in the
+entire world.  Only one person has ever claimed otherwise, an adventurer,
+like you, that came from lands so far away that they can't smell the stench
+of the Filthy River.  
+Which is a VERY far way away indeed.
+~
+0 0 0
+D1
+~
+~
+0 0 14582
+D3
+~
+~
+0 0 14584
+S
+#14584
+Mount Filthy~
+The tallest of the tall mountains, is of course, Mount Filthy.  Somewhere
+on the impassible side of this peak, the mighty yet disgusting Filthy River
+begins, so yes, this mountain is the one to blame.  Why from this vantage
+point, you can see the entire path of the Filthy River, and how it's almost
+reached the ocean.  Give it another hundred years, it may get there.  
+~
+0 0 0
+D1
+~
+~
+0 0 14583
+D3
+~
+~
+0 0 14585
+S
+#14585
+Mount Filthy~
+The tallest of the tall mountains, is of course, Mount Filthy.  Somewhere
+on the impassible side of this peak, the mighty yet disgusting Filthy River
+begins, so yes, this mountain is the one to blame.  Why from this vantage
+point, you can see the entire path of the Filthy River, and how it's almost
+reached the ocean.  Give it another hundred years, it may get there.  
+To the north leads into what is believed to be The Abyss.
+~
+0 0 0
+D0
+~
+~
+0 0 25000
+D1
+~
+~
+0 0 14584
+D5
+~
+~
+0 0 14586
+S
+#14586
+Mount Filthy~
+The tallest of the tall mountains, is of course, Mount Filthy.  Somewhere
+on the impassible side of this peak, the mighty yet disgusting Filthy River
+begins, so yes, this mountain is the one to blame.  Why from this vantage
+point, you can see the entire path of the Filthy River, and how it's almost
+reached the ocean.  Give it another hundred years, it may get there.  
+~
+0 0 0
+D4
+~
+~
+0 0 14585
+D5
+~
+~
+0 0 14587
+S
+#14587
+Mount Filthy~
+The tallest of the tall mountains, is of course, Mount Filthy.  Somewhere
+on the impassible side of this peak, the mighty yet disgusting Filthy River
+begins, so yes, this mountain is the one to blame.  Why from this vantage
+point, you can see the entire path of the Filthy River, and how it's almost
+reached the ocean.  Give it another hundred years, it may get there.  
+~
+0 0 0
+D4
+~
+~
+0 0 14586
+D5
+~
+~
+0 0 14588
+S
+#14588
+Mount Filthy~
+The tallest of the tall mountains, is of course, Mount Filthy.  Somewhere
+on the impassible side of this peak, the mighty yet disgusting Filthy River
+begins, so yes, this mountain is the one to blame.  Why from this vantage
+point, you can see the entire path of the Filthy River, and how it's almost
+reached the ocean.  Give it another hundred years, it may get there.  
+~
+0 0 0
+D4
+~
+~
+0 0 14587
+D5
+~
+~
+0 0 14589
+S
+#14589
+The base of Mount Filthy~
+The tallest of the tall mountains, is of course, Mount Filthy.  Here at
+the base of the mountain, all that can be seen is...  Well...  A very damn
+tall mountain, of course!  
+~
+0 0 0
+D3
+~
+~
+0 0 14590
+D4
+~
+~
+0 0 14588
+S
+#14590
+The Low Steppe hills~
+Here the mountains end, only some hills remain - the Low Steppe hills. 
+This seldom-used path you currently walk leads up into the mountains, and
+down into the plains.  It is rumored that the entrance to the strangest land
+of the realms is around here...  Somewhere.  
+~
+0 0 0
+D1
+~
+~
+0 0 14589
+D3
+~
+~
+0 0 14591
+S
+#14591
+The Low Steppe hills~
+Here the mountains end, only some hills remain - the Low Steppe hills. 
+This seldom-used path you currently walk leads up into the mountains, and
+down into the plains.  It is rumored that the entrance to the strangest land
+of the realms is around here...  Somewhere.  
+~
+0 0 0
+D1
+~
+~
+0 0 14590
+D3
+~
+~
+0 0 14592
+S
+#14592
+The Low Steppe hills~
+Here the mountains end, only some hills remain - the Low Steppe hills. 
+This seldom-used path you currently walk leads up into the mountains, and
+down into the plains.  It is rumored that the entrance to the strangest land
+of the realms is around here...  Somewhere.  
+~
+0 0 0
+D1
+~
+~
+0 0 14591
+D3
+~
+~
+0 0 14862
+S
+#14599
+Last room of north path~
+~
+0 4 0
+S
+#0
+
+
+
+#SPECIALS
+S
+
+
+
+#RESETS
+D 0 14555 2 1
+S
+
+
+
+#SHOPS
+0
+
+
+
+#$

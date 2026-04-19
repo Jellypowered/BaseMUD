@@ -285,5 +285,12 @@
       "color_char": "g",
       "type": 40
     }
+  },
+  {
+    "material": {
+      "name": "stone",
+      "color_char": "w",
+      "type": 41
+    }
   }
 ]

@@ -5,7 +5,7 @@
       "anum": 0,
       "name": "Darkness",
       "description": "Your head swirls and you cannot breath.  The darkness is like a blanket\nover your body, and seems to try to prevent your movement.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -13,7 +13,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 4
         },
         {
@@ -21,7 +21,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 3
         },
         {
@@ -29,7 +29,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 5
         },
         {
@@ -37,7 +37,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 1
         },
         {
@@ -45,14 +45,16 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 21
         }
       ],
       "resets": [
         {
           "command": "randomize",
-          "values": {}
+          "values": {
+            "dir_count": 4
+          }
         }
       ]
     }
@@ -63,7 +65,7 @@
       "anum": 1,
       "name": "Outside the Darkness",
       "description": "To the south of you is an impenetrable mass of darkness that lights\ndoes not escape.  Dare you traverse into it?",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -71,7 +73,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 2
         },
         {
@@ -79,7 +81,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 0
         }
       ]
@@ -91,7 +93,7 @@
       "anum": 2,
       "name": "Approaching Darkness",
       "description": "You see a tunnel of darkness further to your south.  A terrible feeling\nof foreboding comes over you, and an incredible sense of danger and fear\nfills your bones.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -99,7 +101,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 17
         },
         {
@@ -107,7 +109,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 1
         }
       ]
@@ -119,7 +121,7 @@
       "anum": 3,
       "name": "Outside of Darkness",
       "description": "To the west of you is an impenetrable mass of darkness that lights\ndoes not escape.  Dare you traverse into it?",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -127,7 +129,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 6
         },
         {
@@ -135,7 +137,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 0
         }
       ]
@@ -147,7 +149,7 @@
       "anum": 4,
       "name": "Outside of Darkness",
       "description": "To the north of you is an impenetrable mass of darkness that lights\ndoes not escape.  Dare you traverse into it?",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -155,7 +157,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 0
         },
         {
@@ -163,7 +165,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 7
         }
       ]
@@ -175,7 +177,7 @@
       "anum": 5,
       "name": "Outside of Darkness",
       "description": "To the east of you is an impenetrable mass of darkness that lights\ndoes not escape.  Dare you traverse into it?",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -183,7 +185,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 0
         },
         {
@@ -191,7 +193,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 8
         }
       ]
@@ -203,7 +205,7 @@
       "anum": 6,
       "name": "Approaching Darkness",
       "description": "You see a funnel of darkness further to your west.  A terrible feeling\nof foreboding comes over you, and an incredible sense of danger and fear\nfills your bones.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -211,7 +213,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 18
         },
         {
@@ -219,7 +221,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 3
         }
       ]
@@ -231,7 +233,7 @@
       "anum": 7,
       "name": "Appraoching the Darkness",
       "description": "You see a funnel of darkness further to your north.  A terrible feeling\nof foreboding comes over you, and an incredible sense of danger and fear\nfills your bones.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -239,7 +241,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 4
         },
         {
@@ -247,7 +249,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 19
         }
       ]
@@ -259,7 +261,7 @@
       "anum": 8,
       "name": "Approaching the Darkness",
       "description": "You see a funnel of darkness further to your east.  A terrible feeling\nof foreboding comes over you, and an incredible sense of danger and fear\nfills your bones.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -267,7 +269,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 5
         },
         {
@@ -275,7 +277,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 20
         }
       ]
@@ -287,7 +289,7 @@
       "anum": 9,
       "name": "Void",
       "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -295,7 +297,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 13
         },
         {
@@ -303,7 +305,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 12
         },
         {
@@ -311,7 +313,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 11
         },
         {
@@ -319,7 +321,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 10
         },
         {
@@ -327,14 +329,16 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 14
         }
       ],
       "resets": [
         {
           "command": "randomize",
-          "values": {}
+          "values": {
+            "dir_count": 5
+          }
         }
       ]
     }
@@ -345,7 +349,7 @@
       "anum": 10,
       "name": "Void",
       "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -353,7 +357,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 9
         },
         {
@@ -361,7 +365,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 15
         },
         {
@@ -369,7 +373,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 17
         },
         {
@@ -377,14 +381,16 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 16
         }
       ],
       "resets": [
         {
           "command": "randomize",
-          "values": {}
+          "values": {
+            "dir_count": 5
+          }
         }
       ]
     }
@@ -395,7 +401,7 @@
       "anum": 11,
       "name": "Void",
       "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -403,14 +409,16 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 9
         }
       ],
       "resets": [
         {
           "command": "randomize",
-          "values": {}
+          "values": {
+            "dir_count": 5
+          }
         }
       ]
     }
@@ -421,7 +429,7 @@
       "anum": 12,
       "name": "Void",
       "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -429,14 +437,16 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 9
         }
       ],
       "resets": [
         {
           "command": "randomize",
-          "values": {}
+          "values": {
+            "dir_count": 5
+          }
         }
       ]
     }
@@ -447,7 +457,7 @@
       "anum": 13,
       "name": "Void",
       "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -455,14 +465,16 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 9
         }
       ],
       "resets": [
         {
           "command": "randomize",
-          "values": {}
+          "values": {
+            "dir_count": 5
+          }
         }
       ]
     }
@@ -473,7 +485,7 @@
       "anum": 14,
       "name": "Void",
       "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -481,14 +493,16 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 9
         }
       ],
       "resets": [
         {
           "command": "randomize",
-          "values": {}
+          "values": {
+            "dir_count": 5
+          }
         }
       ]
     }
@@ -499,7 +513,7 @@
       "anum": 15,
       "name": "Void",
       "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -507,7 +521,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 19
         },
         {
@@ -515,7 +529,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 10
         },
         {
@@ -523,14 +537,16 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 18
         }
       ],
       "resets": [
         {
           "command": "randomize",
-          "values": {}
+          "values": {
+            "dir_count": 5
+          }
         }
       ]
     }
@@ -541,7 +557,7 @@
       "anum": 16,
       "name": "Void",
       "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -549,14 +565,16 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 10
         }
       ],
       "resets": [
         {
           "command": "randomize",
-          "values": {}
+          "values": {
+            "dir_count": 5
+          }
         }
       ]
     }
@@ -567,7 +585,7 @@
       "anum": 17,
       "name": "Void",
       "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -575,7 +593,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 2
         },
         {
@@ -583,14 +601,16 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 10
         }
       ],
       "resets": [
         {
           "command": "randomize",
-          "values": {}
+          "values": {
+            "dir_count": 5
+          }
         }
       ]
     }
@@ -601,7 +621,7 @@
       "anum": 18,
       "name": "Void",
       "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -609,7 +629,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 15
         },
         {
@@ -617,14 +637,16 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 6
         }
       ],
       "resets": [
         {
           "command": "randomize",
-          "values": {}
+          "values": {
+            "dir_count": 5
+          }
         }
       ]
     }
@@ -635,7 +657,7 @@
       "anum": 19,
       "name": "Void",
       "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -643,7 +665,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 20
         },
         {
@@ -651,7 +673,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 7
         },
         {
@@ -659,14 +681,16 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 15
         }
       ],
       "resets": [
         {
           "command": "randomize",
-          "values": {}
+          "values": {
+            "dir_count": 5
+          }
         }
       ]
     }
@@ -677,7 +701,7 @@
       "anum": 20,
       "name": "Void",
       "description": "You are suspended in cool electric space above a translucent plain.  You feel\nsynesthesia invading your nerves and reshuffling your senses.  The sky is the\nsame obsidian color as the ground and you can't find a horizon.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -685,7 +709,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 19
         },
         {
@@ -693,14 +717,16 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 8
         }
       ],
       "resets": [
         {
           "command": "randomize",
-          "values": {}
+          "values": {
+            "dir_count": 5
+          }
         }
       ]
     }
@@ -711,7 +737,7 @@
       "anum": 21,
       "name": "Darkness",
       "description": "Your head swirls and you cannot breath.  The darkness is like a blanket\nover your body, and seems to try to prevent your movement.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -719,7 +745,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 24
         },
         {
@@ -727,7 +753,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 22
         },
         {
@@ -735,7 +761,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 23
         },
         {
@@ -743,7 +769,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 25
         },
         {
@@ -751,7 +777,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "door",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 26
         },
         {
@@ -759,7 +785,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 0
         }
       ],
@@ -773,7 +799,9 @@
         },
         {
           "command": "randomize",
-          "values": {}
+          "values": {
+            "dir_count": 4
+          }
         }
       ]
     }
@@ -784,7 +812,7 @@
       "anum": 22,
       "name": "North",
       "description": "You are standing in a cold region at the northern tip of Domina,\nand shiver in the cold.  A blizzard is raging, and snow is being\nblown miles in seconds.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -792,7 +820,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 21
         }
       ],
@@ -810,7 +838,7 @@
           "values": {
             "obj": 0,
             "global_limit": 0,
-            "wear_loc": "rwrist"
+            "wear_loc": "wielded"
           }
         }
       ]
@@ -822,7 +850,7 @@
       "anum": 23,
       "name": "East",
       "description": "Your feet dip into the east river, off the eastern coast of Domina,\nand the warm water sifts up between your toes, comforting you and\nwarming your body.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -830,7 +858,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 21
         }
       ],
@@ -852,7 +880,7 @@
       "anum": 24,
       "name": "South",
       "description": "The air is hot and humid here, and the sun beats down on you like\nthere is no tomorrow.  Heat waves make you see mirages, but since\nyou are still in a good state of mind there is no problem\ndistinguishing between real and unreal, right?",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -860,7 +888,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 21
         }
       ],
@@ -882,7 +910,7 @@
       "anum": 25,
       "name": "West",
       "description": "You are standing on top of a high mountain, looking down\nat the continent of Domina.  It is hard to see anything except\nvegetation, but it looks like you can see the city of\nAnon far to the east.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -890,7 +918,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 21
         }
       ],
@@ -908,7 +936,7 @@
           "values": {
             "obj": 1,
             "global_limit": 0,
-            "wear_loc": "rwrist"
+            "wear_loc": "wielded"
           }
         }
       ]
@@ -920,7 +948,7 @@
       "anum": 26,
       "name": "Tower",
       "description": "You stand in a furnished, yet charred, library.  The desks are\nburnt at the edges, and the books are mostly dust.  Nothing\ncan be seen through the windows, and there is no source of\nlight.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -928,15 +956,15 @@
           "description": "",
           "keyword": "",
           "exit_flags": "door",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 27
         },
         {
           "dir": "down",
           "description": "",
           "keyword": "",
-          "exit_flags": "closed",
-          "key": -11401,
+          "exit_flags": "door closed",
+          "key": "nokeyhole",
           "to": 21
         }
       ],
@@ -972,7 +1000,7 @@
       "anum": 27,
       "name": "Rift",
       "description": "You are standing at the opening to a giant rift, where incantations\nfrom evil creatures are performed.  It is watched very closely, and\nso are you.",
-      "sector_type": "0",
+      "sector_type": "inside",
       "room_flags": "",
       "doors": [
         {
@@ -980,7 +1008,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "door",
-          "key": -11401,
+          "key": "nokeyhole",
           "to": 26
         }
       ],
@@ -1005,10 +1033,11 @@
           "values": {
             "obj": 2,
             "global_limit": 0,
-            "wear_loc": "rwrist"
+            "wear_loc": "hold"
           }
         }
-      ]
+      ],
+      "extra_description": []
     }
   }
 ]

@@ -13,7 +13,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 1
         },
         {
@@ -21,7 +21,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "portal": "pnorth-south-1"
         }
       ]
@@ -41,7 +41,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 2
         },
         {
@@ -49,7 +49,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "portal": "pnorth-east-1"
         },
         {
@@ -57,7 +57,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 0
         }
       ]
@@ -77,7 +77,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 3
         },
         {
@@ -85,7 +85,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 1
         }
       ]
@@ -105,7 +105,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 4
         },
         {
@@ -113,7 +113,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 2
         }
       ]
@@ -133,7 +133,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 5
         },
         {
@@ -141,7 +141,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 3
         }
       ]
@@ -161,7 +161,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 6
         },
         {
@@ -169,7 +169,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 4
         }
       ]
@@ -189,7 +189,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 7
         },
         {
@@ -197,7 +197,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 5
         }
       ]
@@ -217,7 +217,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 8
         },
         {
@@ -225,7 +225,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 6
         }
       ]
@@ -245,7 +245,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 9
         },
         {
@@ -253,7 +253,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 7
         },
         {
@@ -261,7 +261,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 14
         }
       ]
@@ -281,7 +281,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 10
         },
         {
@@ -289,7 +289,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 8
         }
       ]
@@ -309,7 +309,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 11
         },
         {
@@ -317,7 +317,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 9
         }
       ]
@@ -337,7 +337,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 12
         },
         {
@@ -345,7 +345,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 10
         }
       ]
@@ -365,7 +365,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 13
         },
         {
@@ -373,7 +373,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 11
         }
       ]
@@ -393,7 +393,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 23
         },
         {
@@ -401,7 +401,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 12
         },
         {
@@ -409,7 +409,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 28
         }
       ]
@@ -429,7 +429,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 8
         },
         {
@@ -437,7 +437,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 15
         }
       ]
@@ -457,7 +457,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 14
         },
         {
@@ -465,7 +465,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 16
         }
       ]
@@ -485,7 +485,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 17
         },
         {
@@ -493,7 +493,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 15
         }
       ]
@@ -513,7 +513,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 18
         },
         {
@@ -521,7 +521,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 16
         }
       ]
@@ -541,7 +541,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 17
         },
         {
@@ -549,7 +549,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 19
         }
       ]
@@ -569,7 +569,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 20
         },
         {
@@ -577,7 +577,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 18
         }
       ]
@@ -597,7 +597,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 19
         },
         {
@@ -605,7 +605,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 21
         }
       ]
@@ -625,7 +625,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 22
         },
         {
@@ -633,7 +633,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 20
         }
       ]
@@ -653,7 +653,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "portal": "pnorth-north-1"
         },
         {
@@ -661,7 +661,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 21
         }
       ]
@@ -681,7 +681,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 24
         },
         {
@@ -689,7 +689,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 13
         }
       ]
@@ -709,7 +709,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 23
         },
         {
@@ -717,7 +717,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 25
         }
       ]
@@ -737,7 +737,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 26
         },
         {
@@ -745,7 +745,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 24
         }
       ]
@@ -765,7 +765,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 27
         },
         {
@@ -773,7 +773,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 25
         }
       ]
@@ -793,7 +793,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "portal": "pnorth-north-4"
         },
         {
@@ -801,7 +801,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 26
         }
       ]
@@ -821,7 +821,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 29
         },
         {
@@ -829,7 +829,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 13
         }
       ]
@@ -849,7 +849,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 30
         },
         {
@@ -857,7 +857,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 28
         }
       ]
@@ -877,7 +877,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 31
         },
         {
@@ -885,7 +885,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 29
         }
       ]
@@ -905,7 +905,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 32
         },
         {
@@ -913,7 +913,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 30
         }
       ]
@@ -933,7 +933,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 33
         },
         {
@@ -941,7 +941,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 31
         }
       ]
@@ -961,7 +961,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 34
         },
         {
@@ -969,7 +969,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 32
         }
       ]
@@ -989,7 +989,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 33
         },
         {
@@ -997,7 +997,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 35
         }
       ]
@@ -1017,7 +1017,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 36
         },
         {
@@ -1025,7 +1025,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 34
         }
       ]
@@ -1045,7 +1045,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 37
         },
         {
@@ -1053,7 +1053,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 41
         },
         {
@@ -1061,7 +1061,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 35
         }
       ]
@@ -1081,7 +1081,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 38
         },
         {
@@ -1089,7 +1089,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 36
         }
       ]
@@ -1109,7 +1109,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 39
         },
         {
@@ -1117,7 +1117,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 37
         }
       ]
@@ -1137,7 +1137,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 40
         },
         {
@@ -1145,7 +1145,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 38
         }
       ]
@@ -1165,7 +1165,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 39
         },
         {
@@ -1173,7 +1173,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "portal": "pnorth-west-1"
         },
         {
@@ -1181,7 +1181,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 63
         }
       ]
@@ -1201,7 +1201,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 42
         },
         {
@@ -1209,7 +1209,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 36
         }
       ]
@@ -1229,7 +1229,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 43
         },
         {
@@ -1237,7 +1237,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 41
         }
       ]
@@ -1257,7 +1257,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 45
         },
         {
@@ -1265,7 +1265,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 42
         }
       ]
@@ -1285,7 +1285,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 43
         }
       ]
@@ -1305,7 +1305,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 43
         },
         {
@@ -1313,7 +1313,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 46
         }
       ]
@@ -1333,7 +1333,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 47
         },
         {
@@ -1341,7 +1341,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "portal": "pnorth-up-1"
         },
         {
@@ -1349,7 +1349,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 45
         }
       ]
@@ -1369,7 +1369,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 48
         },
         {
@@ -1377,7 +1377,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 46
         }
       ]
@@ -1397,7 +1397,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 49
         },
         {
@@ -1405,7 +1405,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 47
         }
       ]
@@ -1425,7 +1425,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 48
         },
         {
@@ -1433,7 +1433,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 50
         }
       ]
@@ -1453,7 +1453,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 51
         },
         {
@@ -1461,7 +1461,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 49
         }
       ]
@@ -1481,7 +1481,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 52
         },
         {
@@ -1489,7 +1489,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 50
         }
       ]
@@ -1509,7 +1509,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 53
         },
         {
@@ -1517,7 +1517,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 51
         }
       ]
@@ -1537,7 +1537,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 54
         },
         {
@@ -1545,7 +1545,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 52
         }
       ]
@@ -1565,7 +1565,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 55
         },
         {
@@ -1573,7 +1573,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 53
         }
       ]
@@ -1593,7 +1593,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 56
         },
         {
@@ -1601,7 +1601,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "door",
-          "key": -14500,
+          "key": "nokey",
           "portal": "pnorth-south-2"
         },
         {
@@ -1609,7 +1609,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 54
         }
       ],
@@ -1638,7 +1638,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 57
         },
         {
@@ -1646,7 +1646,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 55
         }
       ]
@@ -1666,7 +1666,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 58
         },
         {
@@ -1674,7 +1674,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 56
         }
       ]
@@ -1694,7 +1694,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 59
         },
         {
@@ -1702,7 +1702,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 57
         }
       ]
@@ -1722,7 +1722,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 60
         },
         {
@@ -1730,7 +1730,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 58
         }
       ]
@@ -1750,7 +1750,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 61
         },
         {
@@ -1758,7 +1758,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 59
         }
       ]
@@ -1778,7 +1778,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 62
         },
         {
@@ -1786,7 +1786,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 60
         }
       ]
@@ -1806,7 +1806,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 61
         },
         {
@@ -1814,7 +1814,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "portal": "pnorth-down-1"
         }
       ]
@@ -1834,7 +1834,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 64
         },
         {
@@ -1842,7 +1842,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 40
         }
       ]
@@ -1862,7 +1862,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 65
         },
         {
@@ -1870,7 +1870,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 63
         }
       ]
@@ -1890,7 +1890,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 66
         },
         {
@@ -1898,7 +1898,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 64
         }
       ]
@@ -1918,7 +1918,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 67
         },
         {
@@ -1926,7 +1926,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 65
         }
       ]
@@ -1946,7 +1946,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 68
         },
         {
@@ -1954,7 +1954,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 66
         },
         {
@@ -1962,7 +1962,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 74
         },
         {
@@ -1970,7 +1970,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "portal": "pnorth-up-2"
         }
       ]
@@ -1990,7 +1990,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 69
         },
         {
@@ -1998,7 +1998,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 67
         }
       ]
@@ -2018,7 +2018,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 70
         },
         {
@@ -2026,7 +2026,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 68
         }
       ]
@@ -2046,7 +2046,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 71
         },
         {
@@ -2054,7 +2054,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 69
         }
       ]
@@ -2074,7 +2074,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 72
         },
         {
@@ -2082,7 +2082,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 70
         }
       ]
@@ -2102,7 +2102,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 73
         },
         {
@@ -2110,7 +2110,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 71
         }
       ]
@@ -2130,7 +2130,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "portal": "pnorth-north-5"
         },
         {
@@ -2138,7 +2138,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 72
         },
         {
@@ -2146,8 +2146,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
-          "portal": "pnorth-down-2"
+          "key": "nokey"
         }
       ]
     }
@@ -2166,7 +2165,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 67
         },
         {
@@ -2174,7 +2173,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 75
         }
       ]
@@ -2194,7 +2193,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 74
         },
         {
@@ -2202,7 +2201,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 76
         }
       ]
@@ -2222,7 +2221,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 75
         },
         {
@@ -2230,7 +2229,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 77
         }
       ]
@@ -2250,7 +2249,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 78
         },
         {
@@ -2258,7 +2257,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 76
         }
       ]
@@ -2278,7 +2277,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 77
         },
         {
@@ -2286,7 +2285,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 79
         }
       ]
@@ -2306,7 +2305,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 78
         },
         {
@@ -2314,7 +2313,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 80
         }
       ]
@@ -2334,7 +2333,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 81
         },
         {
@@ -2342,7 +2341,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 79
         }
       ]
@@ -2362,7 +2361,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 80
         },
         {
@@ -2370,7 +2369,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 82
         }
       ]
@@ -2390,7 +2389,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 83
         },
         {
@@ -2398,7 +2397,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 81
         }
       ]
@@ -2418,7 +2417,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 82
         },
         {
@@ -2426,7 +2425,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 84
         }
       ]
@@ -2446,7 +2445,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 83
         },
         {
@@ -2454,7 +2453,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 85
         }
       ]
@@ -2474,7 +2473,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "portal": "pnorth-north-6"
         },
         {
@@ -2482,7 +2481,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 84
         },
         {
@@ -2490,7 +2489,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 86
         }
       ]
@@ -2510,7 +2509,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 85
         },
         {
@@ -2518,7 +2517,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 87
         }
       ]
@@ -2538,7 +2537,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 86
         },
         {
@@ -2546,7 +2545,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 88
         }
       ]
@@ -2566,7 +2565,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 87
         },
         {
@@ -2574,7 +2573,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 89
         }
       ]
@@ -2594,7 +2593,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 90
         },
         {
@@ -2602,7 +2601,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 88
         }
       ]
@@ -2622,7 +2621,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 89
         },
         {
@@ -2630,7 +2629,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 91
         }
       ]
@@ -2650,7 +2649,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 90
         },
         {
@@ -2658,7 +2657,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 92
         }
       ]
@@ -2678,7 +2677,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "to": 91
         },
         {
@@ -2686,7 +2685,7 @@
           "description": "",
           "keyword": "",
           "exit_flags": "",
-          "key": -14500,
+          "key": "nokey",
           "portal": "pnorth-west-2"
         }
       ]

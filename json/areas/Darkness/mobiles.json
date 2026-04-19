@@ -12,12 +12,28 @@
       "mob_flags": "npc sentinel aggressive stay_area",
       "affected_by": "detect_invis detect_hidden infrared protect_evil",
       "alignment": -450,
+      "hitroll": 1,
       "hit_dice": "50d10+4500",
       "mana_dice": "1d1+114",
       "damage_dice": "5d8+19",
-      "start_pos": "D",
-      "default_pos": "I",
-      "sex": "HI"
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -210,
+        "bash": -210,
+        "slash": -210,
+        "magic": 120
+      },
+      "offense": "berserk",
+      "immune": "cold",
+      "resist": "fire cold",
+      "vulnerable": "fire lightning holy mental",
+      "start_pos": "stand",
+      "default_pos": "stand",
+      "sex": "male",
+      "wealth": 67,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "huge"
     }
   },
   {
@@ -33,12 +49,25 @@
       "mob_flags": "npc sentinel aggressive stay_area",
       "affected_by": "detect_invis detect_hidden infrared protect_evil",
       "alignment": -120,
+      "hitroll": 1,
       "hit_dice": "6d12+900",
       "mana_dice": "1d1+114",
       "damage_dice": "4d6+8",
+      "attack_type": "shock",
+      "ac": {
+        "pierce": -90,
+        "bash": -90,
+        "slash": -90,
+        "magic": 0
+      },
+      "offense": "fast dirt_kick",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none"
+      "sex": "neutral",
+      "wealth": 0,
+      "form": "edible poison animal sentient biped crustacean mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye eyestalks tentacles fins tail",
+      "size": "medium"
     }
   },
   {
@@ -54,12 +83,25 @@
       "mob_flags": "npc sentinel aggressive stay_area",
       "affected_by": "detect_invis detect_hidden infrared protect_evil",
       "alignment": -200,
+      "hitroll": 6,
       "hit_dice": "50d10+7000",
       "mana_dice": "1d1+114",
       "damage_dice": "8d6+28",
+      "attack_type": "sting",
+      "ac": {
+        "pierce": -190,
+        "bash": -190,
+        "slash": -190,
+        "magic": -20
+      },
+      "offense": "fast tail",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "male"
+      "sex": "male",
+      "wealth": 0,
+      "form": "edible poison animal sentient biped spider mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "medium"
     }
   },
   {
@@ -75,12 +117,28 @@
       "mob_flags": "npc sentinel aggressive stay_area",
       "affected_by": "detect_invis detect_hidden infrared protect_evil",
       "alignment": -450,
+      "hitroll": 1,
       "hit_dice": "50d10+4500",
       "mana_dice": "1d1+114",
       "damage_dice": "5d8+19",
-      "start_pos": "D",
-      "default_pos": "I",
-      "sex": "HI"
+      "attack_type": "pound",
+      "ac": {
+        "pierce": -210,
+        "bash": -210,
+        "slash": -210,
+        "magic": 120
+      },
+      "offense": "berserk",
+      "immune": "cold",
+      "resist": "fire cold",
+      "vulnerable": "fire lightning holy mental",
+      "start_pos": "stand",
+      "default_pos": "stand",
+      "sex": "male",
+      "wealth": 67,
+      "form": "edible sentient biped mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye",
+      "size": "huge"
     }
   },
   {
@@ -96,12 +154,25 @@
       "mob_flags": "npc sentinel aggressive stay_area mage",
       "affected_by": "",
       "alignment": -900,
+      "hitroll": 1,
       "hit_dice": "50d10+7100",
       "mana_dice": "1d1+114",
       "damage_dice": "10d4+23",
+      "attack_type": "drain",
+      "ac": {
+        "pierce": -250,
+        "bash": -250,
+        "slash": -250,
+        "magic": 250
+      },
+      "immune": "summon charm magic",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none"
+      "sex": "neutral",
+      "wealth": 0,
+      "form": "edible sentient mist biped blob mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye claws fangs horns scales tusks",
+      "size": "medium"
     }
   },
   {
@@ -117,12 +188,28 @@
       "mob_flags": "npc sentinel aggressive stay_area cleric",
       "affected_by": "",
       "alignment": -1000,
+      "hitroll": 0,
       "hit_dice": "0d0+0",
       "mana_dice": "0d0+0",
       "damage_dice": "0d0+0",
+      "attack_type": "pound",
+      "ac": {
+        "pierce": 0,
+        "bash": 0,
+        "slash": 0,
+        "magic": 0
+      },
+      "offense": "area_attack backstab berserk disarm dodge fade fast",
+      "immune": "summon charm negative",
+      "resist": "magic poison",
+      "vulnerable": "fire lightning holy light",
       "start_pos": "stand",
       "default_pos": "stand",
-      "sex": "none"
+      "sex": "neutral",
+      "wealth": 0,
+      "form": "edible instant_decay sentient mist biped blob mammal",
+      "parts": "head arms legs heart brains guts hands feet fingers ear eye claws fangs horns scales tusks",
+      "size": "medium"
     }
   }
 ]

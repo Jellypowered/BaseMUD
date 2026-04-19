@@ -4,11 +4,13 @@
       "name": "under2",
       "filename": "",
       "title": "UnderDark",
-      "credits": "Silence UnderDark",
+      "credits": "{13 50} Silence UnderDark",
       "min_vnum": 16000,
       "max_vnum": 16499,
       "builders": "",
-      "security": 9
+      "security": 9,
+      "low_range": 13,
+      "high_range": 50
     }
   }
 ]

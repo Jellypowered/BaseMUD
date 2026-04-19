@@ -714,7 +714,17 @@ DEFINE_JSON_READ_FUN(json_tblr_pc_race)
         pc_race->max_stats[stat] = json_value_as_int(sub);
     }
 
-    READ_PROP_INT(pc_race->bonus_max, "bonus_max_stat");
+    READ_PROP_STR(buf, "bonus_max_stat");
+    if (buf[0] != '\0') {
+        int bm = type_lookup_exact(stat_types, buf);
+        /* Legacy JSON may have stored an integer index directly. */
+        if (bm < 0 && buf[0] >= '0' && buf[0] <= '9')
+            bm = atoi(buf);
+        if (bm >= 0 && bm < STAT_MAX)
+            pc_race->bonus_max = bm;
+        else if (bm < 0)
+            json_logf(json, "Unknown stat '%s' for bonus_max_stat", buf);
+    }
 
     READ_PROP_STR(buf, "size");
     pc_race->size = lookup_func_backup(size_lookup_exact, buf,

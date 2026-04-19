@@ -6,25 +6,28 @@
       "name": "scale eye",
       "short_descr": "Scale of the enforcer",
       "description": "A brown scale glitters somewhat in the lighting",
-      "action_descr": "cloth",
       "item_type": "armor",
       "values": {
-        "v0": "AD",
-        "v1": "AD",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 9,
+        "vs_bash": 9,
+        "vs_slash": 9,
+        "vs_magic": 0
       },
-      "extra_flags": "glow lock",
+      "level": 30,
+      "material": "cloth",
+      "extra_flags": "dark",
       "wear_flags": "take body",
-      "weight": 30,
-      "cost": 5,
+      "weight": 5,
+      "cost": 10,
       "affects": [
         {
-          "apply": "13",
+          "level": 30,
+          "apply": "hp",
           "modifier": 1
         },
         {
-          "apply": "1",
+          "level": 30,
+          "apply": "strength",
           "modifier": 1
         }
       ]
@@ -37,18 +40,19 @@
       "name": "blood eye",
       "short_descr": "Blood shot eye",
       "description": "A blood shot eye that looks half mad",
-      "action_descr": "wood",
       "item_type": "wand",
       "values": {
-        "v0": 2,
-        "v1": 2,
-        "v2": "'flamestrike'",
-        "v3": 0
+        "level": 22,
+        "recharge": 2,
+        "charges": 2,
+        "skill": "flamestrike"
       },
-      "extra_flags": "glow nopurge",
-      "wear_flags": "finger neck head",
-      "weight": 15,
-      "cost": 3
+      "level": 15,
+      "material": "wood",
+      "extra_flags": "glow",
+      "wear_flags": "take hold",
+      "weight": 3,
+      "cost": 0
     }
   },
   {
@@ -58,18 +62,16 @@
       "name": "eye slime",
       "short_descr": "Slime of the enforcing eye",
       "description": "Brown putrid slime",
-      "action_descr": "glass",
       "item_type": "potion",
       "values": {
-        "v0": 19,
-        "v1": 28,
-        "v2": 20,
-        "v3": 0
+        "level": 23
       },
-      "extra_flags": "glow",
-      "wear_flags": "take finger neck head",
-      "weight": 10,
-      "cost": 1
+      "level": 10,
+      "material": "glass",
+      "extra_flags": "magic",
+      "wear_flags": "take",
+      "weight": 1,
+      "cost": 1000
     }
   },
   {
@@ -79,19 +81,19 @@
       "name": "eye justice",
       "short_descr": "A huge eye of justice",
       "description": "The ripped out eye of the enforcer beholder",
-      "action_descr": "wood",
       "item_type": "staff",
       "values": {
-        "v0": 2,
-        "v1": 2,
-        "v2": "'lightning",
-        "v3": "bolt'",
-        "v4": 0
+        "level": 20,
+        "recharge": 2,
+        "charges": 2,
+        "skill": "lightning bolt"
       },
-      "extra_flags": "glow nopurge",
-      "wear_flags": "neck head",
-      "weight": 20,
-      "cost": 3
+      "level": 20,
+      "material": "wood",
+      "extra_flags": "glow",
+      "wear_flags": "take hold",
+      "weight": 3,
+      "cost": 10000
     }
   },
   {
@@ -101,19 +103,19 @@
       "name": "eye stalk beholder",
       "short_descr": "Beholder's eyestalk",
       "description": "An eyestalk of a beholder",
-      "action_descr": "wood",
       "item_type": "staff",
       "values": {
-        "v0": 2,
-        "v1": 2,
-        "v2": "'energy",
-        "v3": "drain'",
-        "v4": 0
+        "level": 20,
+        "recharge": 2,
+        "charges": 2,
+        "skill": "energy drain"
       },
-      "extra_flags": "glow nopurge",
-      "wear_flags": "neck head",
-      "weight": 15,
-      "cost": 3
+      "level": 15,
+      "material": "wood",
+      "extra_flags": "glow",
+      "wear_flags": "take hold",
+      "weight": 3,
+      "cost": 1500
     }
   },
   {
@@ -123,29 +125,33 @@
       "name": "gnome mace",
       "short_descr": "Glinting gnome mace",
       "description": "A dull greyish mace of gnomish design",
-      "action_descr": "wood",
       "item_type": "weapon",
       "values": {
-        "v0": 4,
-        "v1": 5,
-        "v2": "pound",
-        "v3": 0
+        "weapon_type": "mace",
+        "dice_num": 4,
+        "dice_size": 5,
+        "attack_type": "pound"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 17,
-      "cost": 4,
+      "level": 17,
+      "material": "wood",
+      "extra_flags": "bless",
+      "wear_flags": "take wield",
+      "weight": 4,
+      "cost": 10,
       "affects": [
         {
-          "apply": "19",
+          "level": 17,
+          "apply": "damage roll",
           "modifier": 5
         },
         {
-          "apply": "18",
+          "level": 17,
+          "apply": "hit roll",
           "modifier": 1
         },
         {
-          "apply": "13",
+          "level": 17,
+          "apply": "hp",
           "modifier": 1
         }
       ]
@@ -158,29 +164,33 @@
       "name": "drow sword darkness",
       "short_descr": "Sword of darkness",
       "description": "A drow blade seems to cast a shadow of darkness around it",
-      "action_descr": "steel",
       "item_type": "weapon",
       "values": {
-        "v0": 4,
-        "v1": 4,
-        "v2": "slice",
-        "v3": 0
+        "weapon_type": "sword",
+        "dice_num": 4,
+        "dice_size": 4,
+        "attack_type": "slice"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 15,
-      "cost": 4,
+      "level": 15,
+      "material": "steel",
+      "extra_flags": "dark",
+      "wear_flags": "take wield",
+      "weight": 4,
+      "cost": 10,
       "affects": [
         {
-          "apply": "19",
+          "level": 15,
+          "apply": "damage roll",
           "modifier": 3
         },
         {
-          "apply": "18",
+          "level": 15,
+          "apply": "hit roll",
           "modifier": 3
         },
         {
-          "apply": "1",
+          "level": 15,
+          "apply": "strength",
           "modifier": 1
         }
       ]
@@ -193,25 +203,28 @@
       "name": "grey helm",
       "short_descr": "Dark grey helm",
       "description": "A helm of duergar make lies abandoned off to the side",
-      "action_descr": "steel",
       "item_type": "armor",
       "values": {
-        "v0": "AC",
-        "v1": "AC",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 5,
+        "vs_bash": 5,
+        "vs_slash": 5,
+        "vs_magic": 0
       },
-      "extra_flags": "glow evil",
-      "wear_flags": "take neck",
-      "weight": 20,
-      "cost": 3,
+      "level": 20,
+      "material": "steel",
+      "extra_flags": "magic",
+      "wear_flags": "take head",
+      "weight": 3,
+      "cost": 10,
       "affects": [
         {
-          "apply": "19",
+          "level": 20,
+          "apply": "damage roll",
           "modifier": 2
         },
         {
-          "apply": "1",
+          "level": 20,
+          "apply": "strength",
           "modifier": 1
         }
       ]
@@ -224,25 +237,28 @@
       "name": "sleeves knowledge",
       "short_descr": "Sleeves of knowledge",
       "description": "Sleeves that bear many arcane signs rest here",
-      "action_descr": "steel",
       "item_type": "armor",
       "values": {
-        "v0": "BCD",
-        "v1": "ACD",
-        "v2": "BD",
-        "v3": 0
+        "vs_pierce": 14,
+        "vs_bash": 14,
+        "vs_slash": 13,
+        "vs_magic": 10
       },
-      "extra_flags": "glow bless",
-      "wear_flags": "finger neck body",
-      "weight": 43,
-      "cost": 3,
+      "level": 43,
+      "material": "steel",
+      "extra_flags": "invis magic",
+      "wear_flags": "take arms",
+      "weight": 3,
+      "cost": 110,
       "affects": [
         {
-          "apply": "12",
+          "level": 43,
+          "apply": "mana",
           "modifier": 15
         },
         {
-          "apply": "3",
+          "level": 43,
+          "apply": "intelligence",
           "modifier": 2
         }
       ]
@@ -255,17 +271,12 @@
       "name": "blood stone",
       "short_descr": "A piece of polished blood stone",
       "description": "A small polished stone that has flecks of red in a dark green base",
-      "action_descr": "stone",
       "item_type": "treasure",
-      "values": {
-        "v0": 0,
-        "v1": 0,
-        "v2": 0,
-        "v3": 0
-      },
-      "extra_flags": "glow",
-      "wear_flags": "",
-      "weight": 1,
+      "values": {},
+      "level": 1,
+      "extra_flags": "dark",
+      "wear_flags": "take",
+      "weight": 0,
       "cost": 0
     }
   },
@@ -276,33 +287,37 @@
       "name": "breast plate",
       "short_descr": "Breast plate of strength",
       "description": "A breast plate emits an aura of power",
-      "action_descr": "unknown",
       "item_type": "armor",
       "values": {
-        "v0": "ADE",
-        "v1": "ADE",
-        "v2": "CE",
-        "v3": 0
+        "vs_pierce": 25,
+        "vs_bash": 25,
+        "vs_slash": 25,
+        "vs_magic": 20
       },
-      "extra_flags": "glow lock",
-      "wear_flags": "take body head",
-      "weight": 43,
-      "cost": 4,
+      "level": 43,
+      "extra_flags": "glow magic",
+      "wear_flags": "take body",
+      "weight": 4,
+      "cost": 100,
       "affects": [
         {
-          "apply": "19",
+          "level": 43,
+          "apply": "damage roll",
           "modifier": 7
         },
         {
-          "apply": "18",
+          "level": 43,
+          "apply": "hit roll",
           "modifier": 5
         },
         {
-          "apply": "13",
+          "level": 43,
+          "apply": "hp",
           "modifier": 50
         },
         {
-          "apply": "1",
+          "level": 43,
+          "apply": "strength",
           "modifier": 5
         }
       ]
@@ -315,21 +330,23 @@
       "name": "holy symbol xevior",
       "short_descr": "A shining holy symbol of Xevior",
       "description": "A holy symbol of Xevior floats above the ground",
-      "action_descr": "gold",
       "item_type": "armor",
       "values": {
-        "v0": 0,
-        "v1": 0,
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 0,
+        "vs_bash": 0,
+        "vs_slash": 0,
+        "vs_magic": 0
       },
-      "extra_flags": "glow nopurge",
-      "wear_flags": "",
-      "weight": 43,
-      "cost": 3,
+      "level": 43,
+      "material": "gold",
+      "extra_flags": "nodrop bless antigood",
+      "wear_flags": "take hold",
+      "weight": 3,
+      "cost": 1100,
       "affects": [
         {
-          "apply": "4",
+          "level": 43,
+          "apply": "wisdom",
           "modifier": 2
         }
       ]
@@ -342,18 +359,19 @@
       "name": "leather pants",
       "short_descr": "Ripped leather pants",
       "description": "A pair of dirty ripped leather pants lies abandoned on the floor",
-      "action_descr": "leather",
       "item_type": "armor",
       "values": {
-        "v0": "AC",
-        "v1": "AC",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 5,
+        "vs_bash": 5,
+        "vs_slash": 5,
+        "vs_magic": 0
       },
-      "extra_flags": "glow invis",
-      "wear_flags": "take neck",
-      "weight": 16,
-      "cost": 3
+      "level": 16,
+      "material": "leather",
+      "extra_flags": "dark",
+      "wear_flags": "take legs",
+      "weight": 3,
+      "cost": 0
     }
   },
   {
@@ -363,25 +381,28 @@
       "name": "purple worm scale",
       "short_descr": "Small purple worm scale",
       "description": "A small scale from a purple looks as if it can be worn on the arm",
-      "action_descr": "cloth",
       "item_type": "armor",
       "values": {
-        "v0": "ABCD",
-        "v1": "ACD",
-        "v2": "BC",
-        "v3": 0
+        "vs_pierce": 14,
+        "vs_bash": 15,
+        "vs_slash": 13,
+        "vs_magic": 6
       },
-      "extra_flags": "glow noremove",
-      "wear_flags": "finger neck body",
-      "weight": 44,
-      "cost": 3,
+      "level": 44,
+      "material": "cloth",
+      "extra_flags": "bless",
+      "wear_flags": "take wrist",
+      "weight": 3,
+      "cost": 220,
       "affects": [
         {
-          "apply": "18",
+          "level": 44,
+          "apply": "hit roll",
           "modifier": 4
         },
         {
-          "apply": "13",
+          "level": 44,
+          "apply": "hp",
           "modifier": 25
         }
       ]
@@ -394,29 +415,33 @@
       "name": "huge purple worm scale",
       "short_descr": "Huge purple worm scale",
       "description": "A huge purple worm scale lies discarded off to the side",
-      "action_descr": "cloth",
       "item_type": "armor",
       "values": {
-        "v0": "ABCD",
-        "v1": "E",
-        "v2": "AC",
-        "v3": 0
+        "vs_pierce": 15,
+        "vs_bash": 15,
+        "vs_slash": 16,
+        "vs_magic": 5
       },
-      "extra_flags": "glow antigood",
-      "wear_flags": "take finger neck body",
-      "weight": 46,
-      "cost": 4,
+      "level": 46,
+      "material": "cloth",
+      "extra_flags": "dark",
+      "wear_flags": "take shield",
+      "weight": 4,
+      "cost": 10,
       "affects": [
         {
-          "apply": "19",
+          "level": 46,
+          "apply": "damage roll",
           "modifier": 4
         },
         {
-          "apply": "13",
+          "level": 46,
+          "apply": "hp",
           "modifier": 15
         },
         {
-          "apply": "12",
+          "level": 46,
+          "apply": "mana",
           "modifier": 20
         }
       ]
@@ -429,25 +454,28 @@
       "name": "gauntlet eye",
       "short_descr": "Gauntlets of the eye",
       "description": "A pair of gauntlets with the design of an eye on them rest here",
-      "action_descr": "gold amethyst",
       "item_type": "armor",
       "values": {
-        "v0": "ACD",
-        "v1": "BCD",
-        "v2": "AC",
-        "v3": 0
+        "vs_pierce": 14,
+        "vs_bash": 13,
+        "vs_slash": 14,
+        "vs_magic": 5
       },
-      "extra_flags": "glow nodrop",
-      "wear_flags": "finger neck body",
-      "weight": 43,
-      "cost": 3,
+      "level": 43,
+      "material": "gem",
+      "extra_flags": "glow",
+      "wear_flags": "take hands",
+      "weight": 3,
+      "cost": 1000,
       "affects": [
         {
-          "apply": "18",
+          "level": 43,
+          "apply": "hit roll",
           "modifier": 4
         },
         {
-          "apply": "13",
+          "level": 43,
+          "apply": "hp",
           "modifier": 30
         }
       ]
@@ -460,37 +488,43 @@
       "name": "helm eye",
       "short_descr": "Helm of the eye",
       "description": "A helm lies here with a huge eye centred on it",
-      "action_descr": "steel",
       "item_type": "armor",
       "values": {
-        "v0": "BCD",
-        "v1": "BCD",
-        "v2": "BC",
-        "v3": 0
+        "vs_pierce": 15,
+        "vs_bash": 14,
+        "vs_slash": 14,
+        "vs_magic": 6
       },
-      "extra_flags": "glow evil",
-      "wear_flags": "take finger neck body",
-      "weight": 46,
-      "cost": 4,
+      "level": 46,
+      "material": "steel",
+      "extra_flags": "glow",
+      "wear_flags": "take head",
+      "weight": 4,
+      "cost": 100,
       "affects": [
         {
-          "apply": "24",
+          "level": 46,
+          "apply": "save vs spell",
           "modifier": -2
         },
         {
-          "apply": "17",
+          "level": 46,
+          "apply": "armor class",
           "modifier": -5
         },
         {
-          "apply": "13",
+          "level": 46,
+          "apply": "hp",
           "modifier": 15
         },
         {
-          "apply": "12",
+          "level": 46,
+          "apply": "mana",
           "modifier": 15
         },
         {
-          "apply": "5",
+          "level": 46,
+          "apply": "constitution",
           "modifier": 2
         }
       ]
@@ -503,33 +537,38 @@
       "name": "pin",
       "short_descr": "A very sharp large pin",
       "description": "A small pin glints in the light",
-      "action_descr": "steel",
       "item_type": "weapon",
       "values": {
-        "v0": 5,
-        "v1": 5,
-        "v2": "pierce",
-        "v3": 0
+        "weapon_type": "dagger",
+        "dice_num": 5,
+        "dice_size": 5,
+        "attack_type": "pierce"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 22,
-      "cost": 1,
+      "level": 22,
+      "material": "steel",
+      "extra_flags": "invis",
+      "wear_flags": "take wield",
+      "weight": 1,
+      "cost": 10,
       "affects": [
         {
-          "apply": "19",
+          "level": 22,
+          "apply": "damage roll",
           "modifier": 2
         },
         {
-          "apply": "18",
+          "level": 22,
+          "apply": "hit roll",
           "modifier": 2
         },
         {
-          "apply": "13",
+          "level": 22,
+          "apply": "hp",
           "modifier": -15
         },
         {
-          "apply": "1",
+          "level": 22,
+          "apply": "strength",
           "modifier": -3
         }
       ]
@@ -542,29 +581,32 @@
       "name": "muck branch",
       "short_descr": "Very muddy branch",
       "description": "A branch covered in muck lies discarded off to the side",
-      "action_descr": "unknown",
       "item_type": "weapon",
       "values": {
-        "v0": 5,
-        "v1": 5,
-        "v2": "blast",
-        "v3": 0
+        "weapon_type": "mace",
+        "dice_num": 5,
+        "dice_size": 5,
+        "attack_type": "blast"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 21,
-      "cost": 15,
+      "level": 21,
+      "extra_flags": "hum nodrop antineutral",
+      "wear_flags": "take wield",
+      "weight": 15,
+      "cost": 0,
       "affects": [
         {
-          "apply": "19",
+          "level": 21,
+          "apply": "damage roll",
           "modifier": 2
         },
         {
-          "apply": "18",
+          "level": 21,
+          "apply": "hit roll",
           "modifier": -5
         },
         {
-          "apply": "2",
+          "level": 21,
+          "apply": "dexterity",
           "modifier": -2
         }
       ]
@@ -577,29 +619,32 @@
       "name": "dart",
       "short_descr": "A small deadly dart",
       "description": "A little dart lies on the ground",
-      "action_descr": "unknown",
       "item_type": "weapon",
       "values": {
-        "v0": 1,
-        "v1": 1,
-        "v2": "slash",
-        "v3": 0
+        "weapon_type": "exotic",
+        "dice_num": 1,
+        "dice_size": 1,
+        "attack_type": "slash"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 1,
+      "level": 1,
+      "extra_flags": "invis",
+      "wear_flags": "take wield",
+      "weight": 0,
       "cost": 0,
       "affects": [
         {
-          "apply": "18",
+          "level": 1,
+          "apply": "hit roll",
           "modifier": 2
         },
         {
-          "apply": "3",
+          "level": 1,
+          "apply": "intelligence",
           "modifier": 1
         },
         {
-          "apply": "1",
+          "level": 1,
+          "apply": "strength",
           "modifier": -2
         }
       ]
@@ -612,19 +657,19 @@
       "name": "wand",
       "short_descr": "A black wand inlaid with gold symbols",
       "description": "A small black wand waits to be tested",
-      "action_descr": "wood",
       "item_type": "wand",
       "values": {
-        "v0": 10,
-        "v1": 10,
-        "v2": "'faerie",
-        "v3": "fog'",
-        "v4": 0
+        "level": 30,
+        "recharge": 10,
+        "charges": 10,
+        "skill": "faerie fog"
       },
-      "extra_flags": "glow nopurge",
-      "wear_flags": "finger neck body head",
-      "weight": 20,
-      "cost": 2
+      "level": 20,
+      "material": "wood",
+      "extra_flags": "hum",
+      "wear_flags": "take hold",
+      "weight": 2,
+      "cost": 1000
     }
   },
   {
@@ -634,25 +679,28 @@
       "name": "girth",
       "short_descr": "Girth of protection",
       "description": "A girth lies here glowing softly with power",
-      "action_descr": "mithril",
       "item_type": "armor",
       "values": {
-        "v0": "BCD",
-        "v1": "ABCD",
-        "v2": "BC",
-        "v3": 0
+        "vs_pierce": 15,
+        "vs_bash": 14,
+        "vs_slash": 15,
+        "vs_magic": 6
       },
-      "extra_flags": "glow antineutral",
-      "wear_flags": "take finger neck body",
-      "weight": 45,
-      "cost": 2,
+      "level": 45,
+      "material": "mithril",
+      "extra_flags": "glow magic noremove",
+      "wear_flags": "take waist",
+      "weight": 2,
+      "cost": 100,
       "affects": [
         {
-          "apply": "17",
+          "level": 45,
+          "apply": "armor class",
           "modifier": -10
         },
         {
-          "apply": "13",
+          "level": 45,
+          "apply": "hp",
           "modifier": 20
         }
       ]
@@ -665,21 +713,22 @@
       "name": "eyes",
       "short_descr": "Dull eyes",
       "description": "Two small eyes that have lost their shine wait to be used",
-      "action_descr": "unknown",
       "item_type": "armor",
       "values": {
-        "v0": "CD",
-        "v1": "ABD",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 11,
+        "vs_bash": 12,
+        "vs_slash": 11,
+        "vs_magic": 0
       },
-      "extra_flags": "glow evil",
-      "wear_flags": "take finger body",
-      "weight": 38,
-      "cost": 1,
+      "level": 38,
+      "extra_flags": "glow hum nodrop noremove",
+      "wear_flags": "take head",
+      "weight": 1,
+      "cost": 100,
       "affects": [
         {
-          "apply": "4",
+          "level": 38,
+          "apply": "wisdom",
           "modifier": -3
         }
       ]
@@ -692,33 +741,38 @@
       "name": "iron sword",
       "short_descr": "An Iron Sword",
       "description": "A very large sword made out of iron lies ready",
-      "action_descr": "iron",
       "item_type": "weapon",
       "values": {
-        "v0": 5,
-        "v1": 8,
-        "v2": "slash",
-        "v3": 0
+        "weapon_type": "sword",
+        "dice_num": 5,
+        "dice_size": 8,
+        "attack_type": "slash"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 40,
-      "cost": 45,
+      "level": 40,
+      "material": "iron",
+      "extra_flags": "hum",
+      "wear_flags": "take wield",
+      "weight": 45,
+      "cost": 1000,
       "affects": [
         {
-          "apply": "19",
+          "level": 40,
+          "apply": "damage roll",
           "modifier": 4
         },
         {
-          "apply": "18",
+          "level": 40,
+          "apply": "hit roll",
           "modifier": 2
         },
         {
-          "apply": "13",
+          "level": 40,
+          "apply": "hp",
           "modifier": 10
         },
         {
-          "apply": "1",
+          "level": 40,
+          "apply": "strength",
           "modifier": 2
         }
       ]
@@ -731,29 +785,32 @@
       "name": "stone mace",
       "short_descr": "A Huge Stone Mace",
       "description": "A large mace made completely of stone waits to be used",
-      "action_descr": "stone",
       "item_type": "weapon",
       "values": {
-        "v0": 4,
-        "v1": 10,
-        "v2": "pound",
-        "v3": 0
+        "weapon_type": "mace",
+        "dice_num": 4,
+        "dice_size": 10,
+        "attack_type": "pound"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 38,
-      "cost": 25,
+      "level": 38,
+      "extra_flags": "hum",
+      "wear_flags": "take wield",
+      "weight": 25,
+      "cost": 1000,
       "affects": [
         {
-          "apply": "19",
+          "level": 38,
+          "apply": "damage roll",
           "modifier": 5
         },
         {
-          "apply": "18",
+          "level": 38,
+          "apply": "hit roll",
           "modifier": 2
         },
         {
-          "apply": "1",
+          "level": 38,
+          "apply": "strength",
           "modifier": 1
         }
       ]
@@ -766,21 +823,23 @@
       "name": "shield",
       "short_descr": "Black Shield of Protection",
       "description": "A black shield waits to protect it's owner",
-      "action_descr": "steel",
       "item_type": "armor",
       "values": {
-        "v0": "BCD",
-        "v1": "BCD",
-        "v2": "BC",
-        "v3": 0
+        "vs_pierce": 14,
+        "vs_bash": 14,
+        "vs_slash": 14,
+        "vs_magic": 6
       },
-      "extra_flags": "glow antigood",
-      "wear_flags": "finger neck body",
-      "weight": 42,
-      "cost": 4,
+      "level": 42,
+      "material": "steel",
+      "extra_flags": "hum bless noremove",
+      "wear_flags": "take shield",
+      "weight": 4,
+      "cost": 100,
       "affects": [
         {
-          "apply": "17",
+          "level": 42,
+          "apply": "armor class",
           "modifier": -15
         }
       ]
@@ -793,37 +852,42 @@
       "name": "stone",
       "short_descr": "A small black stone",
       "description": "A very small black stone almost escapes your notice",
-      "action_descr": "stone",
       "item_type": "armor",
       "values": {
-        "v0": 0,
-        "v1": 0,
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 0,
+        "vs_bash": 0,
+        "vs_slash": 0,
+        "vs_magic": 0
       },
-      "extra_flags": "glow nopurge",
-      "wear_flags": "",
-      "weight": 39,
-      "cost": 1,
+      "level": 39,
+      "extra_flags": "dark invis magic antineutral noremove",
+      "wear_flags": "take hold",
+      "weight": 1,
+      "cost": 0,
       "affects": [
         {
-          "apply": "19",
+          "level": 39,
+          "apply": "damage roll",
           "modifier": -5
         },
         {
-          "apply": "18",
+          "level": 39,
+          "apply": "hit roll",
           "modifier": -5
         },
         {
-          "apply": "14",
+          "level": 39,
+          "apply": "moves",
           "modifier": -150
         },
         {
-          "apply": "5",
+          "level": 39,
+          "apply": "constitution",
           "modifier": -3
         },
         {
-          "apply": "1",
+          "level": 39,
+          "apply": "strength",
           "modifier": -3
         }
       ]
@@ -836,29 +900,33 @@
       "name": "horn",
       "short_descr": "Demon Horn",
       "description": "A glowing demon horn waits to be wielded",
-      "action_descr": "bone",
       "item_type": "weapon",
       "values": {
-        "v0": 4,
-        "v1": 10,
-        "v2": "stab",
-        "v3": 0
+        "weapon_type": "exotic",
+        "dice_num": 4,
+        "dice_size": 10,
+        "attack_type": "stab"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 40,
-      "cost": 4,
+      "level": 40,
+      "material": "ivory",
+      "extra_flags": "glow antigood",
+      "wear_flags": "take wield",
+      "weight": 4,
+      "cost": 0,
       "affects": [
         {
-          "apply": "19",
+          "level": 40,
+          "apply": "damage roll",
           "modifier": 4
         },
         {
-          "apply": "18",
+          "level": 40,
+          "apply": "hit roll",
           "modifier": 1
         },
         {
-          "apply": "17",
+          "level": 40,
+          "apply": "armor class",
           "modifier": -10
         }
       ]
@@ -871,25 +939,28 @@
       "name": "translucent robe",
       "short_descr": "Translucent Robe",
       "description": "A semi-transparent robe lies on the floor",
-      "action_descr": "cloth",
       "item_type": "armor",
       "values": {
-        "v0": "C",
-        "v1": "C",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 4,
+        "vs_bash": 4,
+        "vs_slash": 4,
+        "vs_magic": 0
       },
-      "extra_flags": "glow antievil",
-      "wear_flags": "neck",
-      "weight": 13,
-      "cost": 2,
+      "level": 13,
+      "material": "cloth",
+      "extra_flags": "bless",
+      "wear_flags": "take about",
+      "weight": 2,
+      "cost": 0,
       "affects": [
         {
-          "apply": "13",
+          "level": 13,
+          "apply": "hp",
           "modifier": 10
         },
         {
-          "apply": "5",
+          "level": 13,
+          "apply": "constitution",
           "modifier": 1
         }
       ]
@@ -902,21 +973,23 @@
       "name": "belt",
       "short_descr": "Belt of pleasure",
       "description": "A thin belt lies on the ground offering you much joy",
-      "action_descr": "leather",
       "item_type": "armor",
       "values": {
-        "v0": "C",
-        "v1": "C",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 4,
+        "vs_bash": 4,
+        "vs_slash": 4,
+        "vs_magic": 0
       },
-      "extra_flags": "glow antineutral",
-      "wear_flags": "neck",
-      "weight": 11,
-      "cost": 1,
+      "level": 11,
+      "material": "leather",
+      "extra_flags": "bless",
+      "wear_flags": "take waist",
+      "weight": 1,
+      "cost": 0,
       "affects": [
         {
-          "apply": "2",
+          "level": 11,
+          "apply": "dexterity",
           "modifier": 1
         }
       ]
@@ -929,29 +1002,28 @@
       "name": "noble ring",
       "short_descr": "Ring of nobility",
       "description": "A small beautiful ring is ready to worn",
-      "action_descr": "silver",
       "item_type": "treasure",
-      "values": {
-        "v0": 0,
-        "v1": 0,
-        "v2": 0,
-        "v3": 0
-      },
-      "extra_flags": "glow hum",
-      "wear_flags": "",
-      "weight": 14,
-      "cost": 1,
+      "values": {},
+      "level": 14,
+      "material": "silver",
+      "extra_flags": "bless",
+      "wear_flags": "take finger",
+      "weight": 1,
+      "cost": 100,
       "affects": [
         {
-          "apply": "19",
+          "level": 14,
+          "apply": "damage roll",
           "modifier": 1
         },
         {
-          "apply": "13",
+          "level": 14,
+          "apply": "hp",
           "modifier": 5
         },
         {
-          "apply": "3",
+          "level": 14,
+          "apply": "intelligence",
           "modifier": -2
         }
       ]
@@ -964,25 +1036,28 @@
       "name": "gold teeth",
       "short_descr": "Gold Teeth",
       "description": "A couple golden teeth wait to be used",
-      "action_descr": "gold",
       "item_type": "armor",
       "values": {
-        "v0": "C",
-        "v1": "C",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 4,
+        "vs_bash": 4,
+        "vs_slash": 4,
+        "vs_magic": 0
       },
-      "extra_flags": "glow evil",
-      "wear_flags": "neck",
-      "weight": 16,
-      "cost": 1,
+      "level": 16,
+      "material": "gold",
+      "extra_flags": "bless",
+      "wear_flags": "take head",
+      "weight": 1,
+      "cost": 0,
       "affects": [
         {
-          "apply": "19",
+          "level": 16,
+          "apply": "damage roll",
           "modifier": 2
         },
         {
-          "apply": "1",
+          "level": 16,
+          "apply": "strength",
           "modifier": -1
         }
       ]
@@ -995,25 +1070,28 @@
       "name": "broken bottle",
       "short_descr": "A broken bottle",
       "description": "A broken bottle lies on the ground",
-      "action_descr": "glass",
       "item_type": "weapon",
       "values": {
-        "v0": 3,
-        "v1": 3,
-        "v2": "slash",
-        "v3": 0
+        "weapon_type": "exotic",
+        "dice_num": 3,
+        "dice_size": 3,
+        "attack_type": "slash"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 11,
-      "cost": 2,
+      "level": 11,
+      "material": "glass",
+      "extra_flags": "dark",
+      "wear_flags": "take wield",
+      "weight": 2,
+      "cost": 0,
       "affects": [
         {
-          "apply": "19",
+          "level": 11,
+          "apply": "damage roll",
           "modifier": 2
         },
         {
-          "apply": "2",
+          "level": 11,
+          "apply": "dexterity",
           "modifier": -1
         }
       ]
@@ -1026,29 +1104,33 @@
       "name": "dusty boots",
       "short_descr": "A pair of dusty boots",
       "description": "A pair of dusty boots lie forgotten on the ground",
-      "action_descr": "leather",
       "item_type": "armor",
       "values": {
-        "v0": "D",
-        "v1": "D",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 8,
+        "vs_bash": 8,
+        "vs_slash": 8,
+        "vs_magic": 0
       },
-      "extra_flags": "glow magic",
-      "wear_flags": "body",
-      "weight": 33,
-      "cost": 2,
+      "level": 33,
+      "material": "leather",
+      "extra_flags": "dark noremove",
+      "wear_flags": "take feet",
+      "weight": 2,
+      "cost": 600,
       "affects": [
         {
-          "apply": "19",
+          "level": 33,
+          "apply": "damage roll",
           "modifier": -3
         },
         {
-          "apply": "14",
+          "level": 33,
+          "apply": "moves",
           "modifier": -50
         },
         {
-          "apply": "2",
+          "level": 33,
+          "apply": "dexterity",
           "modifier": -3
         }
       ]
@@ -1061,25 +1143,28 @@
       "name": "gnome hat",
       "short_descr": "A gnome hat",
       "description": "A gnome hat rests here just waiting to be taken",
-      "action_descr": "steel",
       "item_type": "armor",
       "values": {
-        "v0": "BD",
-        "v1": "BD",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 10,
+        "vs_bash": 10,
+        "vs_slash": 10,
+        "vs_magic": 0
       },
-      "extra_flags": "glow evil",
-      "wear_flags": "finger body",
-      "weight": 30,
-      "cost": 2,
+      "level": 30,
+      "material": "steel",
+      "extra_flags": "hum",
+      "wear_flags": "take head",
+      "weight": 2,
+      "cost": 2300,
       "affects": [
         {
-          "apply": "18",
+          "level": 30,
+          "apply": "hit roll",
           "modifier": 3
         },
         {
-          "apply": "2",
+          "level": 30,
+          "apply": "dexterity",
           "modifier": 2
         }
       ]
@@ -1092,25 +1177,27 @@
       "name": "boots of flying",
       "short_descr": "Boots of flying",
       "description": "A pair of boots hover just above the ground",
-      "action_descr": "unknown",
       "item_type": "armor",
       "values": {
-        "v0": "BE",
-        "v1": "BE",
-        "v2": "AD",
-        "v3": 0
+        "vs_pierce": 18,
+        "vs_bash": 18,
+        "vs_slash": 18,
+        "vs_magic": 9
       },
-      "extra_flags": "glow magic",
-      "wear_flags": "finger head",
-      "weight": 31,
-      "cost": 2,
+      "level": 31,
+      "extra_flags": "invis magic noremove",
+      "wear_flags": "take feet",
+      "weight": 2,
+      "cost": 1000,
       "affects": [
         {
-          "apply": "2",
+          "level": 31,
+          "apply": "dexterity",
           "modifier": 4
         },
         {
-          "apply": "14",
+          "level": 31,
+          "apply": "moves",
           "modifier": 200
         }
       ]
@@ -1123,28 +1210,32 @@
       "name": "bracer strength",
       "short_descr": "Bracer of strength",
       "description": "A very powerful looking bracer hums on the ground",
-      "action_descr": "platinum",
       "item_type": "armor",
       "values": {
-        "v0": "CE",
-        "v1": "ACE",
-        "v2": "CD",
-        "v3": 0
+        "vs_pierce": 21,
+        "vs_bash": 20,
+        "vs_slash": 21,
+        "vs_magic": 12
       },
-      "extra_flags": "glow antineutral",
-      "wear_flags": "take neck head",
-      "weight": 30,
-      "cost": 3,
+      "level": 30,
+      "material": "platinum",
+      "extra_flags": "hum magic",
+      "wear_flags": "take wrist",
+      "weight": 3,
+      "cost": 0,
       "affects": [
         {
-          "apply": "19",
+          "level": 30,
+          "apply": "damage roll",
           "modifier": 3
         },
         {
-          "apply": "1",
+          "level": 30,
+          "apply": "strength",
           "modifier": 4
         }
-      ]
+      ],
+      "extra_description": []
     }
   },
   {
@@ -1154,33 +1245,38 @@
       "name": "slaver whip",
       "short_descr": "Slaver's Whip",
       "description": "A long dangerous looking whip waits to used against a slave",
-      "action_descr": "leather",
       "item_type": "weapon",
       "values": {
-        "v0": 4,
-        "v1": 7,
-        "v2": "whip",
-        "v3": 0
+        "weapon_type": "whip",
+        "dice_num": 4,
+        "dice_size": 7,
+        "attack_type": "whip"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 23,
-      "cost": 4,
+      "level": 23,
+      "material": "leather",
+      "extra_flags": "hum",
+      "wear_flags": "take wield",
+      "weight": 4,
+      "cost": 900,
       "affects": [
         {
-          "apply": "19",
+          "level": 23,
+          "apply": "damage roll",
           "modifier": 5
         },
         {
-          "apply": "18",
+          "level": 23,
+          "apply": "hit roll",
           "modifier": -4
         },
         {
-          "apply": "5",
+          "level": 23,
+          "apply": "constitution",
           "modifier": -2
         },
         {
-          "apply": "4",
+          "level": 23,
+          "apply": "wisdom",
           "modifier": -4
         }
       ]
@@ -1193,29 +1289,33 @@
       "name": "manacles",
       "short_descr": "A pair of manacles",
       "description": "A pair of manacles waits to be worn",
-      "action_descr": "iron",
       "item_type": "armor",
       "values": {
-        "v0": 0,
-        "v1": 0,
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 0,
+        "vs_bash": 0,
+        "vs_slash": 0,
+        "vs_magic": 0
       },
-      "extra_flags": "glow nodrop",
-      "wear_flags": "",
-      "weight": 20,
-      "cost": 4,
+      "level": 20,
+      "material": "iron",
+      "extra_flags": "hum noremove",
+      "wear_flags": "take hands",
+      "weight": 4,
+      "cost": 1000,
       "affects": [
         {
-          "apply": "13",
+          "level": 20,
+          "apply": "hp",
           "modifier": -25
         },
         {
-          "apply": "5",
+          "level": 20,
+          "apply": "constitution",
           "modifier": -3
         },
         {
-          "apply": "1",
+          "level": 20,
+          "apply": "strength",
           "modifier": -3
         }
       ]
@@ -1228,21 +1328,23 @@
       "name": "cloak",
       "short_descr": "A mage cloak",
       "description": "A long flowing cloak that glows lies here",
-      "action_descr": "cloth",
       "item_type": "armor",
       "values": {
-        "v0": "AD",
-        "v1": "AD",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 9,
+        "vs_bash": 9,
+        "vs_slash": 9,
+        "vs_magic": 0
       },
-      "extra_flags": "glow dark",
-      "wear_flags": "take body",
-      "weight": 28,
-      "cost": 2,
+      "level": 28,
+      "material": "cloth",
+      "extra_flags": "glow",
+      "wear_flags": "take neck",
+      "weight": 2,
+      "cost": 600,
       "affects": [
         {
-          "apply": "12",
+          "level": 28,
+          "apply": "mana",
           "modifier": 25
         }
       ]
@@ -1255,25 +1357,28 @@
       "name": "sword jagged long",
       "short_descr": "a jagged long sword",
       "description": "A jagged long sword rests on the ground",
-      "action_descr": "steel",
       "item_type": "weapon",
       "values": {
-        "v0": 6,
-        "v1": 5,
-        "v2": "slash",
-        "v3": 0
+        "weapon_type": "sword",
+        "dice_num": 6,
+        "dice_size": 5,
+        "attack_type": "slash"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 26,
-      "cost": 5,
+      "level": 26,
+      "material": "steel",
+      "extra_flags": "hum",
+      "wear_flags": "take wield",
+      "weight": 5,
+      "cost": 1000,
       "affects": [
         {
-          "apply": "18",
+          "level": 26,
+          "apply": "hit roll",
           "modifier": 4
         },
         {
-          "apply": "17",
+          "level": 26,
+          "apply": "armor class",
           "modifier": -10
         }
       ]
@@ -1286,29 +1391,33 @@
       "name": "ebony dagger",
       "short_descr": "an ebony dagger",
       "description": "An ebony dagger lies off to your side",
-      "action_descr": "ebony",
       "item_type": "weapon",
       "values": {
-        "v0": 6,
-        "v1": 5,
-        "v2": "pierce",
-        "v3": 0
+        "weapon_type": "dagger",
+        "dice_num": 6,
+        "dice_size": 5,
+        "attack_type": "pierce"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 26,
-      "cost": 4,
+      "level": 26,
+      "material": "wood",
+      "extra_flags": "hum",
+      "wear_flags": "take wield",
+      "weight": 4,
+      "cost": 4900,
       "affects": [
         {
-          "apply": "19",
+          "level": 26,
+          "apply": "damage roll",
           "modifier": 3
         },
         {
-          "apply": "18",
+          "level": 26,
+          "apply": "hit roll",
           "modifier": 3
         },
         {
-          "apply": "17",
+          "level": 26,
+          "apply": "armor class",
           "modifier": -10
         }
       ]
@@ -1321,24 +1430,23 @@
       "name": "glowing sphere",
       "short_descr": "A glowing sphere",
       "description": "A glowing sphere lights up the room",
-      "action_descr": "unknown",
       "item_type": "light",
       "values": {
-        "v0": 0,
-        "v1": 999,
-        "v2": 0,
-        "v3": 0
+        "duration": 999
       },
-      "extra_flags": "glow nopurge",
-      "wear_flags": "",
-      "weight": 3,
+      "level": 3,
+      "extra_flags": "glow",
+      "wear_flags": "take hold wearlight",
+      "weight": 0,
       "cost": 0,
       "affects": [
         {
-          "apply": "12",
+          "level": 3,
+          "apply": "mana",
           "modifier": 20
         }
-      ]
+      ],
+      "extra_description": []
     }
   },
   {
@@ -1348,21 +1456,23 @@
       "name": "blue bracer",
       "short_descr": "A midnight blue bracer",
       "description": "A dark blue bracer lies on the ground",
-      "action_descr": "bronze",
       "item_type": "armor",
       "values": {
-        "v0": "AC",
-        "v1": "AC",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 4,
+        "vs_bash": 5,
+        "vs_slash": 5,
+        "vs_magic": 0
       },
-      "extra_flags": "glow noremove",
-      "wear_flags": "neck",
-      "weight": 16,
-      "cost": 3,
+      "level": 16,
+      "material": "bronze",
+      "extra_flags": "hum",
+      "wear_flags": "take wrist",
+      "weight": 3,
+      "cost": 1900,
       "affects": [
         {
-          "apply": "2",
+          "level": 16,
+          "apply": "dexterity",
           "modifier": 1
         }
       ]
@@ -1375,29 +1485,33 @@
       "name": "ebony morning star",
       "short_descr": "An ebony morning star",
       "description": "An ebony morning star rests on the ground",
-      "action_descr": "ebony",
       "item_type": "weapon",
       "values": {
-        "v0": 4,
-        "v1": 5,
-        "v2": "blast",
-        "v3": 0
+        "weapon_type": "mace",
+        "dice_num": 4,
+        "dice_size": 5,
+        "attack_type": "blast"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 17,
-      "cost": 6,
+      "level": 17,
+      "material": "wood",
+      "extra_flags": "hum",
+      "wear_flags": "take wield",
+      "weight": 6,
+      "cost": 1000,
       "affects": [
         {
-          "apply": "19",
+          "level": 17,
+          "apply": "damage roll",
           "modifier": 4
         },
         {
-          "apply": "18",
+          "level": 17,
+          "apply": "hit roll",
           "modifier": 2
         },
         {
-          "apply": "5",
+          "level": 17,
+          "apply": "constitution",
           "modifier": 1
         }
       ]
@@ -1410,25 +1524,28 @@
       "name": "drow chainmail",
       "short_descr": "Black drow chainmail",
       "description": "A black suit of chainmail lies ready to be taken",
-      "action_descr": "iron",
       "item_type": "armor",
       "values": {
-        "v0": "AC",
-        "v1": "AC",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 5,
+        "vs_bash": 5,
+        "vs_slash": 5,
+        "vs_magic": 0
       },
-      "extra_flags": "glow lock",
-      "wear_flags": "take neck",
-      "weight": 16,
-      "cost": 5,
+      "level": 16,
+      "material": "iron",
+      "extra_flags": "hum",
+      "wear_flags": "take body",
+      "weight": 5,
+      "cost": 120,
       "affects": [
         {
-          "apply": "13",
+          "level": 16,
+          "apply": "hp",
           "modifier": 4
         },
         {
-          "apply": "2",
+          "level": 16,
+          "apply": "dexterity",
           "modifier": 1
         }
       ]
@@ -1441,25 +1558,28 @@
       "name": "drow sword",
       "short_descr": "A drow sword",
       "description": "A dark sword lies on the ground",
-      "action_descr": "steel",
       "item_type": "weapon",
       "values": {
-        "v0": 3,
-        "v1": 4,
-        "v2": "slice",
-        "v3": 0
+        "weapon_type": "sword",
+        "dice_num": 3,
+        "dice_size": 4,
+        "attack_type": "slice"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 10,
-      "cost": 5,
+      "level": 10,
+      "material": "steel",
+      "extra_flags": "magic",
+      "wear_flags": "take wield",
+      "weight": 5,
+      "cost": 1200,
       "affects": [
         {
-          "apply": "19",
+          "level": 10,
+          "apply": "damage roll",
           "modifier": 1
         },
         {
-          "apply": "18",
+          "level": 10,
+          "apply": "hit roll",
           "modifier": 1
         }
       ]
@@ -1472,25 +1592,28 @@
       "name": "drow dagger",
       "short_descr": "A drow dagger",
       "description": "A dark dagger lies on the ground",
-      "action_descr": "steel",
       "item_type": "weapon",
       "values": {
-        "v0": 3,
-        "v1": 3,
-        "v2": "pierce",
-        "v3": 0
+        "weapon_type": "dagger",
+        "dice_num": 3,
+        "dice_size": 3,
+        "attack_type": "pierce"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 11,
-      "cost": 3,
+      "level": 11,
+      "material": "steel",
+      "extra_flags": "magic",
+      "wear_flags": "take wield",
+      "weight": 3,
+      "cost": 1200,
       "affects": [
         {
-          "apply": "19",
+          "level": 11,
+          "apply": "damage roll",
           "modifier": 1
         },
         {
-          "apply": "18",
+          "level": 11,
+          "apply": "hit roll",
           "modifier": 2
         }
       ]
@@ -1503,25 +1626,28 @@
       "name": "drow mace",
       "short_descr": "A drow mace",
       "description": "A dark mace lies on the ground",
-      "action_descr": "wood",
       "item_type": "weapon",
       "values": {
-        "v0": 3,
-        "v1": 3,
-        "v2": "pound",
-        "v3": 0
+        "weapon_type": "mace",
+        "dice_num": 3,
+        "dice_size": 3,
+        "attack_type": "pound"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 11,
-      "cost": 4,
+      "level": 11,
+      "material": "wood",
+      "extra_flags": "magic",
+      "wear_flags": "take wield",
+      "weight": 4,
+      "cost": 1200,
       "affects": [
         {
-          "apply": "19",
+          "level": 11,
+          "apply": "damage roll",
           "modifier": 2
         },
         {
-          "apply": "18",
+          "level": 11,
+          "apply": "hit roll",
           "modifier": 1
         }
       ]
@@ -1534,21 +1660,23 @@
       "name": "duergar breastplate",
       "short_descr": "Duergar breastplate",
       "description": "A breastplate of duergar make lies ready",
-      "action_descr": "brass",
       "item_type": "armor",
       "values": {
-        "v0": "AC",
-        "v1": "AC",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 5,
+        "vs_bash": 5,
+        "vs_slash": 5,
+        "vs_magic": 0
       },
-      "extra_flags": "glow lock",
-      "wear_flags": "take neck",
-      "weight": 12,
-      "cost": 4,
+      "level": 12,
+      "material": "brass",
+      "extra_flags": "magic",
+      "wear_flags": "take body",
+      "weight": 4,
+      "cost": 1180,
       "affects": [
         {
-          "apply": "17",
+          "level": 12,
+          "apply": "armor class",
           "modifier": -5
         }
       ]
@@ -1561,21 +1689,23 @@
       "name": "duergar helm",
       "short_descr": "A duergar helm",
       "description": "A helm of duergar make lies ready",
-      "action_descr": "brass",
       "item_type": "armor",
       "values": {
-        "v0": "AB",
-        "v1": "AB",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 3,
+        "vs_bash": 3,
+        "vs_slash": 3,
+        "vs_magic": 0
       },
-      "extra_flags": "glow evil",
-      "wear_flags": "take finger",
-      "weight": 6,
-      "cost": 2,
+      "level": 6,
+      "material": "brass",
+      "extra_flags": "magic",
+      "wear_flags": "take head",
+      "weight": 2,
+      "cost": 420,
       "affects": [
         {
-          "apply": "17",
+          "level": 6,
+          "apply": "armor class",
           "modifier": -3
         }
       ]
@@ -1588,21 +1718,23 @@
       "name": "duergar shield",
       "short_descr": "A duergar shield",
       "description": "A shield of duergar designs lies ready",
-      "action_descr": "brass",
       "item_type": "armor",
       "values": {
-        "v0": "AB",
-        "v1": "AB",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 3,
+        "vs_bash": 3,
+        "vs_slash": 3,
+        "vs_magic": 0
       },
-      "extra_flags": "glow antigood",
-      "wear_flags": "take finger",
-      "weight": 6,
-      "cost": 3,
+      "level": 6,
+      "material": "brass",
+      "extra_flags": "magic",
+      "wear_flags": "take shield",
+      "weight": 3,
+      "cost": 420,
       "affects": [
         {
-          "apply": "17",
+          "level": 6,
+          "apply": "armor class",
           "modifier": -2
         }
       ]
@@ -1615,21 +1747,23 @@
       "name": "duergar leggings",
       "short_descr": "Duergar leggings",
       "description": "A pair of leggings lie ready",
-      "action_descr": "brass",
       "item_type": "armor",
       "values": {
-        "v0": "AC",
-        "v1": "AC",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 5,
+        "vs_bash": 5,
+        "vs_slash": 5,
+        "vs_magic": 0
       },
-      "extra_flags": "glow invis",
-      "wear_flags": "take neck",
-      "weight": 12,
-      "cost": 4,
+      "level": 12,
+      "material": "brass",
+      "extra_flags": "magic",
+      "wear_flags": "take legs",
+      "weight": 4,
+      "cost": 1800,
       "affects": [
         {
-          "apply": "17",
+          "level": 12,
+          "apply": "armor class",
           "modifier": -2
         }
       ]
@@ -1642,21 +1776,23 @@
       "name": "duergar bracer",
       "short_descr": "A duergar bracer",
       "description": "A bracer of duergar design lies ready",
-      "action_descr": "silver",
       "item_type": "armor",
       "values": {
-        "v0": "BC",
-        "v1": "BC",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 6,
+        "vs_bash": 6,
+        "vs_slash": 6,
+        "vs_magic": 0
       },
-      "extra_flags": "glow noremove",
-      "wear_flags": "finger neck",
-      "weight": 11,
-      "cost": 3,
+      "level": 11,
+      "material": "silver",
+      "extra_flags": "magic",
+      "wear_flags": "take wrist",
+      "weight": 3,
+      "cost": 1800,
       "affects": [
         {
-          "apply": "17",
+          "level": 11,
+          "apply": "armor class",
           "modifier": -2
         }
       ]
@@ -1669,18 +1805,17 @@
       "name": "brown mushroom",
       "short_descr": "A brown mushroom",
       "description": "A brown mushroom lies here looking tasty",
-      "action_descr": "food",
       "item_type": "food",
       "values": {
-        "v0": "CD",
-        "v1": 0,
-        "v2": 0,
-        "v3": 0
+        "hunger": 12,
+        "fullness": 12
       },
-      "extra_flags": "glow",
-      "wear_flags": "neck body",
-      "weight": 1,
-      "cost": 2
+      "level": 1,
+      "material": "food",
+      "extra_flags": "bless",
+      "wear_flags": "take",
+      "weight": 2,
+      "cost": 0
     }
   },
   {
@@ -1690,18 +1825,17 @@
       "name": "large mushroom",
       "short_descr": "A large mushroom",
       "description": "A large mushroom lies on the ground",
-      "action_descr": "food",
       "item_type": "food",
       "values": {
-        "v0": "ADE",
-        "v1": 0,
-        "v2": 0,
-        "v3": 0
+        "hunger": 25,
+        "fullness": 25
       },
-      "extra_flags": "glow",
-      "wear_flags": "take body head",
-      "weight": 1,
-      "cost": 5
+      "level": 1,
+      "material": "food",
+      "extra_flags": "bless",
+      "wear_flags": "take",
+      "weight": 5,
+      "cost": 0
     }
   },
   {
@@ -1711,18 +1845,16 @@
       "name": "red moss",
       "short_descr": "Red moss",
       "description": "Some red moss lies on the ground",
-      "action_descr": "food",
       "item_type": "pill",
       "values": {
-        "v0": 15,
-        "v1": 15,
-        "v2": 39,
-        "v3": 0
+        "level": 12
       },
-      "extra_flags": "glow",
-      "wear_flags": "neck body",
-      "weight": 5,
-      "cost": 2
+      "level": 5,
+      "material": "food",
+      "extra_flags": "bless",
+      "wear_flags": "take",
+      "weight": 2,
+      "cost": 100
     }
   },
   {
@@ -1732,18 +1864,16 @@
       "name": "dirty root",
       "short_descr": "a dirty root",
       "description": "A dirty root lies on the ground.",
-      "action_descr": "food",
       "item_type": "pill",
       "values": {
-        "v0": 1,
-        "v1": 67,
-        "v2": 66,
-        "v3": 0
+        "level": 15
       },
-      "extra_flags": "glow",
-      "wear_flags": "take finger neck body",
-      "weight": 5,
-      "cost": 1
+      "level": 5,
+      "material": "food",
+      "extra_flags": "bless",
+      "wear_flags": "take",
+      "weight": 1,
+      "cost": 100
     }
   },
   {
@@ -1753,18 +1883,16 @@
       "name": "scroll reveal",
       "short_descr": "Scroll of reveal",
       "description": "A scroll lies on the ground",
-      "action_descr": "vellum",
       "item_type": "scroll",
       "values": {
-        "v0": 73,
-        "v1": 0,
-        "v2": 0,
-        "v3": 0
+        "level": 15
       },
-      "extra_flags": "glow",
-      "wear_flags": "take finger neck body",
-      "weight": 5,
-      "cost": 1
+      "level": 5,
+      "material": "vellum",
+      "extra_flags": "",
+      "wear_flags": "take",
+      "weight": 1,
+      "cost": 0
     }
   },
   {
@@ -1774,18 +1902,19 @@
       "name": "hand shocking grasp",
       "short_descr": "Hand of shocking grasp",
       "description": "A hand lies on the ground",
-      "action_descr": "wood",
       "item_type": "wand",
       "values": {
-        "v0": 4,
-        "v1": 4,
-        "v2": "'identify'",
-        "v3": 0
+        "level": 55,
+        "recharge": 4,
+        "charges": 4,
+        "skill": "identify"
       },
-      "extra_flags": "glow nopurge",
-      "wear_flags": "take finger neck head legs",
-      "weight": 20,
-      "cost": 2
+      "level": 20,
+      "material": "wood",
+      "extra_flags": "glow",
+      "wear_flags": "take hold",
+      "weight": 2,
+      "cost": 100
     }
   },
   {
@@ -1795,18 +1924,16 @@
       "name": "potion detection",
       "short_descr": "Potion of detection",
       "description": "A potion of detection waits to be used",
-      "action_descr": "glass",
       "item_type": "potion",
       "values": {
-        "v0": 19,
-        "v1": 44,
-        "v2": 20,
-        "v3": 0
+        "level": 15
       },
-      "extra_flags": "glow",
-      "wear_flags": "take finger neck body",
-      "weight": 10,
-      "cost": 2
+      "level": 10,
+      "material": "glass",
+      "extra_flags": "",
+      "wear_flags": "take",
+      "weight": 2,
+      "cost": 155
     }
   },
   {
@@ -1816,25 +1943,28 @@
       "name": "svirfneblin leggings",
       "short_descr": "Svirfneblin leggings",
       "description": "A pair of svirfneblin leggings lies on the ground waiting to be taken",
-      "action_descr": "steel",
       "item_type": "armor",
       "values": {
-        "v0": "BC",
-        "v1": "BC",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 6,
+        "vs_bash": 6,
+        "vs_slash": 6,
+        "vs_magic": 0
       },
-      "extra_flags": "glow invis",
-      "wear_flags": "finger neck",
-      "weight": 17,
-      "cost": 3,
+      "level": 17,
+      "material": "steel",
+      "extra_flags": "magic",
+      "wear_flags": "take legs",
+      "weight": 3,
+      "cost": 110,
       "affects": [
         {
-          "apply": "17",
+          "level": 17,
+          "apply": "armor class",
           "modifier": -5
         },
         {
-          "apply": "1",
+          "level": 17,
+          "apply": "strength",
           "modifier": 1
         }
       ]
@@ -1847,37 +1977,44 @@
       "name": "necklace nobility",
       "short_descr": "Necklace of nobility",
       "description": "A beautiful necklace waits to be worn",
-      "action_descr": "cloth",
       "item_type": "armor",
       "values": {
-        "v0": "AC",
-        "v1": "AC",
-        "v2": 0,
-        "v3": "P"
+        "vs_pierce": 5,
+        "vs_bash": 5,
+        "vs_slash": 5,
+        "vs_magic": 0,
+        "value4": 32768
       },
-      "extra_flags": "glow dark",
+      "level": 16,
+      "material": "cloth",
+      "extra_flags": "magic",
       "wear_flags": "take neck",
-      "weight": 16,
-      "cost": 3,
+      "weight": 3,
+      "cost": 100,
       "affects": [
         {
-          "apply": "17",
+          "level": 16,
+          "apply": "armor class",
           "modifier": -4
         },
         {
-          "apply": "5",
+          "level": 16,
+          "apply": "constitution",
           "modifier": 1
         },
         {
-          "apply": "4",
+          "level": 16,
+          "apply": "wisdom",
           "modifier": -1
         },
         {
-          "apply": "3",
+          "level": 16,
+          "apply": "intelligence",
           "modifier": -1
         },
         {
-          "apply": "1",
+          "level": 16,
+          "apply": "strength",
           "modifier": 1
         }
       ]
@@ -1890,33 +2027,38 @@
       "name": "broadsword vision",
       "short_descr": "A broadsword named 'Vision'",
       "description": "A beautifully crafted broadsword lies on the ground",
-      "action_descr": "steel",
       "item_type": "weapon",
       "values": {
-        "v0": 4,
-        "v1": 4,
-        "v2": "slice",
-        "v3": 0
+        "weapon_type": "sword",
+        "dice_num": 4,
+        "dice_size": 4,
+        "attack_type": "slice"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 17,
-      "cost": 4,
+      "level": 17,
+      "material": "steel",
+      "extra_flags": "glow hum",
+      "wear_flags": "take wield",
+      "weight": 4,
+      "cost": 1000,
       "affects": [
         {
-          "apply": "19",
+          "level": 17,
+          "apply": "damage roll",
           "modifier": 2
         },
         {
-          "apply": "18",
+          "level": 17,
+          "apply": "hit roll",
           "modifier": 2
         },
         {
-          "apply": "13",
+          "level": 17,
+          "apply": "hp",
           "modifier": 10
         },
         {
-          "apply": "1",
+          "level": 17,
+          "apply": "strength",
           "modifier": 1
         }
       ]
@@ -1929,25 +2071,28 @@
       "name": "thieve's patch",
       "short_descr": "Thieve's patch",
       "description": "A small patch lies on the ground",
-      "action_descr": "cloth",
       "item_type": "armor",
       "values": {
-        "v0": "AC",
-        "v1": "AC",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 5,
+        "vs_bash": 5,
+        "vs_slash": 5,
+        "vs_magic": 0
       },
-      "extra_flags": "glow noremove",
-      "wear_flags": "take neck",
-      "weight": 16,
-      "cost": 2,
+      "level": 16,
+      "material": "cloth",
+      "extra_flags": "invis",
+      "wear_flags": "take wrist",
+      "weight": 2,
+      "cost": 1000,
       "affects": [
         {
-          "apply": "18",
+          "level": 16,
+          "apply": "hit roll",
           "modifier": 5
         },
         {
-          "apply": "2",
+          "level": 16,
+          "apply": "dexterity",
           "modifier": 2
         }
       ]
@@ -1960,25 +2105,28 @@
       "name": "thieve's gloves",
       "short_descr": "Thieve's gloves",
       "description": "A pair of thin leather gloves rests on the ground",
-      "action_descr": "leather",
       "item_type": "armor",
       "values": {
-        "v0": "AC",
-        "v1": "AC",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 5,
+        "vs_bash": 5,
+        "vs_slash": 5,
+        "vs_magic": 0
       },
-      "extra_flags": "glow nodrop",
-      "wear_flags": "take neck",
-      "weight": 18,
-      "cost": 2,
+      "level": 18,
+      "material": "leather",
+      "extra_flags": "magic",
+      "wear_flags": "take hands",
+      "weight": 2,
+      "cost": 1100,
       "affects": [
         {
-          "apply": "18",
+          "level": 18,
+          "apply": "hit roll",
           "modifier": 3
         },
         {
-          "apply": "2",
+          "level": 18,
+          "apply": "dexterity",
           "modifier": 2
         }
       ]
@@ -1991,41 +2139,48 @@
       "name": "gold chain",
       "short_descr": "A gold chain",
       "description": "A gold chain glints in the light",
-      "action_descr": "gold",
       "item_type": "armor",
       "values": {
-        "v0": "AC",
-        "v1": "BC",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 5,
+        "vs_bash": 5,
+        "vs_slash": 6,
+        "vs_magic": 0
       },
-      "extra_flags": "glow dark",
+      "level": 19,
+      "material": "gold",
+      "extra_flags": "magic",
       "wear_flags": "take neck",
-      "weight": 19,
-      "cost": 2,
+      "weight": 2,
+      "cost": 11,
       "affects": [
         {
-          "apply": "24",
+          "level": 19,
+          "apply": "save vs spell",
           "modifier": -2
         },
         {
-          "apply": "23",
+          "level": 19,
+          "apply": "save vs breath",
           "modifier": -1
         },
         {
-          "apply": "22",
+          "level": 19,
+          "apply": "save vs petrification",
           "modifier": -2
         },
         {
-          "apply": "21",
+          "level": 19,
+          "apply": "save vs rod",
           "modifier": -2
         },
         {
-          "apply": "20",
+          "level": 19,
+          "apply": "saves",
           "modifier": -1
         },
         {
-          "apply": "18",
+          "level": 19,
+          "apply": "hit roll",
           "modifier": 1
         }
       ]
@@ -2038,45 +2193,53 @@
       "name": "lucky dice",
       "short_descr": "Lucky dice",
       "description": "A pair of dice glow softly",
-      "action_descr": "bone",
       "item_type": "armor",
       "values": {
-        "v0": "AC",
-        "v1": "AC",
-        "v2": "AC",
-        "v3": 0
+        "vs_pierce": 5,
+        "vs_bash": 5,
+        "vs_slash": 5,
+        "vs_magic": 5
       },
-      "extra_flags": "glow visdeath",
-      "wear_flags": "take neck",
-      "weight": 20,
-      "cost": 2,
+      "level": 20,
+      "material": "ivory",
+      "extra_flags": "glow magic",
+      "wear_flags": "take wearfloat",
+      "weight": 2,
+      "cost": 1110,
       "affects": [
         {
-          "apply": "24",
+          "level": 20,
+          "apply": "save vs spell",
           "modifier": -1
         },
         {
-          "apply": "23",
+          "level": 20,
+          "apply": "save vs breath",
           "modifier": -2
         },
         {
-          "apply": "22",
+          "level": 20,
+          "apply": "save vs petrification",
           "modifier": -1
         },
         {
-          "apply": "21",
+          "level": 20,
+          "apply": "save vs rod",
           "modifier": -1
         },
         {
-          "apply": "20",
+          "level": 20,
+          "apply": "saves",
           "modifier": -1
         },
         {
-          "apply": "18",
+          "level": 20,
+          "apply": "hit roll",
           "modifier": 1
         },
         {
-          "apply": "13",
+          "level": 20,
+          "apply": "hp",
           "modifier": 20
         }
       ]
@@ -2089,29 +2252,33 @@
       "name": "dark cloak",
       "short_descr": "A dark cloak",
       "description": "A very dark cloak lies in the shadows",
-      "action_descr": "cloth",
       "item_type": "armor",
       "values": {
-        "v0": "BC",
-        "v1": "BC",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 7,
+        "vs_bash": 6,
+        "vs_slash": 6,
+        "vs_magic": 0
       },
-      "extra_flags": "glow dark",
-      "wear_flags": "take finger neck",
-      "weight": 23,
-      "cost": 3,
+      "level": 23,
+      "material": "cloth",
+      "extra_flags": "dark magic",
+      "wear_flags": "take neck",
+      "weight": 3,
+      "cost": 1000,
       "affects": [
         {
-          "apply": "18",
+          "level": 23,
+          "apply": "hit roll",
           "modifier": 3
         },
         {
-          "apply": "17",
+          "level": 23,
+          "apply": "armor class",
           "modifier": -4
         },
         {
-          "apply": "2",
+          "level": 23,
+          "apply": "dexterity",
           "modifier": 2
         }
       ]
@@ -2124,29 +2291,33 @@
       "name": "golden earring",
       "short_descr": "Golden earring",
       "description": "A small golden earring glints softly in the light",
-      "action_descr": "gold",
       "item_type": "armor",
       "values": {
-        "v0": "D",
-        "v1": "D",
-        "v2": "AC",
-        "v3": 0
+        "vs_pierce": 8,
+        "vs_bash": 8,
+        "vs_slash": 8,
+        "vs_magic": 5
       },
-      "extra_flags": "glow visdeath",
-      "wear_flags": "body",
-      "weight": 25,
-      "cost": 1,
+      "level": 25,
+      "material": "gold",
+      "extra_flags": "magic",
+      "wear_flags": "take wearfloat",
+      "weight": 1,
+      "cost": 1000,
       "affects": [
         {
-          "apply": "13",
+          "level": 25,
+          "apply": "hp",
           "modifier": 10
         },
         {
-          "apply": "3",
+          "level": 25,
+          "apply": "intelligence",
           "modifier": 1
         },
         {
-          "apply": "2",
+          "level": 25,
+          "apply": "dexterity",
           "modifier": 1
         }
       ]
@@ -2159,33 +2330,39 @@
       "name": "jewelled dagger",
       "short_descr": "A jewelled dagger",
       "description": "A jewelled dagger looks as if it could cut through anything",
-      "action_descr": "steel",
       "item_type": "weapon",
       "values": {
-        "v0": 4,
-        "v1": 11,
-        "v2": "pierce",
-        "v3": "D"
+        "weapon_type": "dagger",
+        "dice_num": 4,
+        "dice_size": 11,
+        "attack_type": "pierce",
+        "flags": "sharp"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 47,
-      "cost": 3,
+      "level": 47,
+      "material": "steel",
+      "extra_flags": "hum magic",
+      "wear_flags": "take wield",
+      "weight": 3,
+      "cost": 30000,
       "affects": [
         {
-          "apply": "19",
+          "level": 47,
+          "apply": "damage roll",
           "modifier": 2
         },
         {
-          "apply": "18",
+          "level": 47,
+          "apply": "hit roll",
           "modifier": 8
         },
         {
-          "apply": "17",
+          "level": 47,
+          "apply": "armor class",
           "modifier": -5
         },
         {
-          "apply": "2",
+          "level": 47,
+          "apply": "dexterity",
           "modifier": 2
         }
       ]
@@ -2198,28 +2375,28 @@
       "name": "hand",
       "short_descr": "A hand grasping an orb",
       "description": "A hand grasping an orb lies on the ground",
-      "action_descr": "unknown",
       "item_type": "light",
       "values": {
-        "v0": 0,
-        "v1": 999,
-        "v2": 0,
-        "v3": 0
+        "duration": 999
       },
-      "extra_flags": "glow nopurge",
-      "wear_flags": "",
-      "weight": 15,
-      "cost": 3,
+      "level": 15,
+      "extra_flags": "glow magic",
+      "wear_flags": "take hold wearlight",
+      "weight": 3,
+      "cost": 0,
       "affects": [
         {
-          "apply": "19",
+          "level": 15,
+          "apply": "damage roll",
           "modifier": 1
         },
         {
-          "apply": "12",
+          "level": 15,
+          "apply": "mana",
           "modifier": 50
         }
-      ]
+      ],
+      "extra_description": []
     }
   },
   {
@@ -2229,25 +2406,28 @@
       "name": "robe",
       "short_descr": "A long flowing robe",
       "description": "A beautiful robe lies pooled on the ground",
-      "action_descr": "leather",
       "item_type": "armor",
       "values": {
-        "v0": "ACD",
-        "v1": "ACD",
-        "v2": "BC",
-        "v3": 0
+        "vs_pierce": 13,
+        "vs_bash": 13,
+        "vs_slash": 13,
+        "vs_magic": 6
       },
-      "extra_flags": "glow antievil",
-      "wear_flags": "take neck body",
-      "weight": 40,
-      "cost": 4,
+      "level": 40,
+      "material": "leather",
+      "extra_flags": "magic",
+      "wear_flags": "take about",
+      "weight": 4,
+      "cost": 5000,
       "affects": [
         {
-          "apply": "3",
+          "level": 40,
+          "apply": "intelligence",
           "modifier": 2
         },
         {
-          "apply": "12",
+          "level": 40,
+          "apply": "mana",
           "modifier": 50
         }
       ]
@@ -2260,25 +2440,29 @@
       "name": "blade of poison",
       "short_descr": "A blade of poison",
       "description": "A dark blade rests here humming quietly",
-      "action_descr": "iron",
       "item_type": "weapon",
       "values": {
-        "v0": 4,
-        "v1": 5,
-        "v2": "pierce",
-        "v3": "H"
+        "weapon_type": "dagger",
+        "dice_num": 4,
+        "dice_size": 5,
+        "attack_type": "pierce",
+        "flags": "poison"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 20,
-      "cost": 3,
+      "level": 20,
+      "material": "iron",
+      "extra_flags": "hum dark magic",
+      "wear_flags": "take wield",
+      "weight": 3,
+      "cost": 100,
       "affects": [
         {
-          "apply": "19",
+          "level": 20,
+          "apply": "damage roll",
           "modifier": 3
         },
         {
-          "apply": "18",
+          "level": 20,
+          "apply": "hit roll",
           "modifier": 1
         }
       ]
@@ -2291,25 +2475,28 @@
       "name": "assassin's sleeves",
       "short_descr": "Assassin's sleeves",
       "description": "A pair of black sleeves rests here",
-      "action_descr": "cloth",
       "item_type": "armor",
       "values": {
-        "v0": "BC",
-        "v1": "ABC",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 6,
+        "vs_bash": 6,
+        "vs_slash": 7,
+        "vs_magic": 0
       },
-      "extra_flags": "glow bless",
-      "wear_flags": "finger neck",
-      "weight": 22,
-      "cost": 3,
+      "level": 22,
+      "material": "cloth",
+      "extra_flags": "dark magic",
+      "wear_flags": "take arms",
+      "weight": 3,
+      "cost": 100,
       "affects": [
         {
-          "apply": "19",
+          "level": 22,
+          "apply": "damage roll",
           "modifier": 2
         },
         {
-          "apply": "18",
+          "level": 22,
+          "apply": "hit roll",
           "modifier": 1
         }
       ]
@@ -2322,28 +2509,32 @@
       "name": "skull tattoo",
       "short_descr": "Skull tattoo",
       "description": "A weird glimmer lies on the ground, shaped like a skull",
-      "action_descr": "bone",
       "item_type": "armor",
       "values": {
-        "v0": 0,
-        "v1": 0,
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 0,
+        "vs_bash": 0,
+        "vs_slash": 0,
+        "vs_magic": 0
       },
-      "extra_flags": "glow noremove",
-      "wear_flags": "",
-      "weight": 23,
-      "cost": 1,
+      "level": 23,
+      "material": "ivory",
+      "extra_flags": "magic",
+      "wear_flags": "take weartattoo",
+      "weight": 1,
+      "cost": 0,
       "affects": [
         {
-          "apply": "19",
+          "level": 23,
+          "apply": "damage roll",
           "modifier": 2
         },
         {
-          "apply": "13",
+          "level": 23,
+          "apply": "hp",
           "modifier": 5
         }
-      ]
+      ],
+      "extra_description": []
     }
   },
   {
@@ -2353,25 +2544,27 @@
       "name": "choke wire",
       "short_descr": "A choke wire",
       "description": "A thin wire lies on the ground humming",
-      "action_descr": "unknown",
       "item_type": "weapon",
       "values": {
-        "v0": 5,
-        "v1": 5,
-        "v2": "crush",
-        "v3": 0
+        "weapon_type": "exotic",
+        "dice_num": 5,
+        "dice_size": 5,
+        "attack_type": "crush"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 25,
-      "cost": 1,
+      "level": 25,
+      "extra_flags": "hum dark",
+      "wear_flags": "take wield",
+      "weight": 1,
+      "cost": 0,
       "affects": [
         {
-          "apply": "19",
+          "level": 25,
+          "apply": "damage roll",
           "modifier": 4
         },
         {
-          "apply": "18",
+          "level": 25,
+          "apply": "hit roll",
           "modifier": -5
         }
       ]
@@ -2384,29 +2577,33 @@
       "name": "assassin's mask",
       "short_descr": "An assassin's mask",
       "description": "A mask keep changing on the ground",
-      "action_descr": "cloth",
       "item_type": "armor",
       "values": {
-        "v0": "AD",
-        "v1": "ABC",
-        "v2": "AC",
-        "v3": 0
+        "vs_pierce": 9,
+        "vs_bash": 9,
+        "vs_slash": 7,
+        "vs_magic": 5
       },
-      "extra_flags": "glow evil",
-      "wear_flags": "take body",
-      "weight": 27,
-      "cost": 3,
+      "level": 27,
+      "material": "cloth",
+      "extra_flags": "dark magic",
+      "wear_flags": "take head",
+      "weight": 3,
+      "cost": 100,
       "affects": [
         {
-          "apply": "13",
+          "level": 27,
+          "apply": "hp",
           "modifier": 20
         },
         {
-          "apply": "5",
+          "level": 27,
+          "apply": "constitution",
           "modifier": -1
         },
         {
-          "apply": "1",
+          "level": 27,
+          "apply": "strength",
           "modifier": 1
         }
       ]
@@ -2419,24 +2616,26 @@
       "name": "flaming dagger tattoo",
       "short_descr": "Flaming dagger tattoo",
       "description": "A weird glimmer lies on the ground, shaped like a dagger",
-      "action_descr": "unknown",
       "item_type": "armor",
       "values": {
-        "v0": "AD",
-        "v1": "D",
-        "v2": "C",
-        "v3": 0
+        "vs_pierce": 9,
+        "vs_bash": 9,
+        "vs_slash": 8,
+        "vs_magic": 4
       },
-      "extra_flags": "glow noremove",
-      "wear_flags": "take body",
-      "weight": 29,
-      "cost": 1,
+      "level": 29,
+      "extra_flags": "magic",
+      "wear_flags": "take weartattoo",
+      "weight": 1,
+      "cost": 10,
       "affects": [
         {
-          "apply": "19",
+          "level": 29,
+          "apply": "damage roll",
           "modifier": 2
         }
-      ]
+      ],
+      "extra_description": []
     }
   },
   {
@@ -2446,28 +2645,31 @@
       "name": "wyvern tattoo",
       "short_descr": "Wyvern tattoo",
       "description": "A weird glimmer lies on the ground, shaped like a wyvern",
-      "action_descr": "ink",
       "item_type": "armor",
       "values": {
-        "v0": "ABC",
-        "v1": "ABC",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 7,
+        "vs_bash": 7,
+        "vs_slash": 7,
+        "vs_magic": 0
       },
-      "extra_flags": "glow noremove",
-      "wear_flags": "take finger neck",
-      "weight": 31,
-      "cost": 1,
+      "level": 31,
+      "extra_flags": "magic",
+      "wear_flags": "take weartattoo",
+      "weight": 1,
+      "cost": 100,
       "affects": [
         {
-          "apply": "19",
+          "level": 31,
+          "apply": "damage roll",
           "modifier": 3
         },
         {
-          "apply": "18",
+          "level": 31,
+          "apply": "hit roll",
           "modifier": 1
         }
-      ]
+      ],
+      "extra_description": []
     }
   },
   {
@@ -2477,28 +2679,31 @@
       "name": "dragon tattoo",
       "short_descr": "Dragon tattoo",
       "description": "A weird glimmer lies on the ground, shaped like a dragon",
-      "action_descr": "unknown",
       "item_type": "armor",
       "values": {
-        "v0": "ABE",
-        "v1": "ABE",
-        "v2": "ABC",
-        "v3": 0
+        "vs_pierce": 19,
+        "vs_bash": 19,
+        "vs_slash": 19,
+        "vs_magic": 7
       },
-      "extra_flags": "glow noremove",
-      "wear_flags": "take finger head",
-      "weight": 46,
-      "cost": 1,
+      "level": 46,
+      "extra_flags": "magic",
+      "wear_flags": "take weartattoo",
+      "weight": 1,
+      "cost": 100,
       "affects": [
         {
-          "apply": "19",
+          "level": 46,
+          "apply": "damage roll",
           "modifier": 5
         },
         {
-          "apply": "18",
+          "level": 46,
+          "apply": "hit roll",
           "modifier": 5
         }
-      ]
+      ],
+      "extra_description": []
     }
   },
   {
@@ -2508,25 +2713,28 @@
       "name": "diamond helm",
       "short_descr": "A diamond helm",
       "description": "A helm sparkles and glints in the light",
-      "action_descr": "diamond",
       "item_type": "armor",
       "values": {
-        "v0": "E",
-        "v1": "ABCD",
-        "v2": "D",
-        "v3": 0
+        "vs_pierce": 15,
+        "vs_bash": 16,
+        "vs_slash": 15,
+        "vs_magic": 8
       },
-      "extra_flags": "glow evil",
-      "wear_flags": "take finger neck body",
-      "weight": 47,
-      "cost": 2,
+      "level": 47,
+      "material": "diamond",
+      "extra_flags": "magic",
+      "wear_flags": "take head",
+      "weight": 2,
+      "cost": 1000,
       "affects": [
         {
-          "apply": "19",
+          "level": 47,
+          "apply": "damage roll",
           "modifier": 3
         },
         {
-          "apply": "13",
+          "level": 47,
+          "apply": "hp",
           "modifier": 25
         }
       ]
@@ -2539,37 +2747,42 @@
       "name": "keeper's shield",
       "short_descr": "The keeper's shield",
       "description": "A large shield that looks as if it were made of stone lies here",
-      "action_descr": "stone",
       "item_type": "armor",
       "values": {
-        "v0": "ABCD",
-        "v1": "E",
-        "v2": "D",
-        "v3": 0
+        "vs_pierce": 16,
+        "vs_bash": 15,
+        "vs_slash": 16,
+        "vs_magic": 8
       },
-      "extra_flags": "glow antigood",
-      "wear_flags": "head",
-      "weight": 49,
-      "cost": 10,
+      "level": 49,
+      "extra_flags": "magic",
+      "wear_flags": "take shield",
+      "weight": 10,
+      "cost": 1000,
       "affects": [
         {
-          "apply": "23",
+          "level": 49,
+          "apply": "save vs breath",
           "modifier": -2
         },
         {
-          "apply": "21",
+          "level": 49,
+          "apply": "save vs rod",
           "modifier": -2
         },
         {
-          "apply": "20",
+          "level": 49,
+          "apply": "saves",
           "modifier": -2
         },
         {
-          "apply": "17",
+          "level": 49,
+          "apply": "armor class",
           "modifier": -15
         },
         {
-          "apply": "13",
+          "level": 49,
+          "apply": "hp",
           "modifier": 50
         }
       ]
@@ -2582,29 +2795,28 @@
       "name": "clan ring",
       "short_descr": "A demon clan signet ring",
       "description": "A red and black ring glows and hums softly on the ground",
-      "action_descr": "gold",
       "item_type": "treasure",
-      "values": {
-        "v0": 0,
-        "v1": 0,
-        "v2": 0,
-        "v3": 0
-      },
-      "extra_flags": "glow hum",
-      "wear_flags": "",
-      "weight": 17,
-      "cost": 1,
+      "values": {},
+      "level": 17,
+      "material": "gold",
+      "extra_flags": "glow hum evil magic",
+      "wear_flags": "take finger",
+      "weight": 1,
+      "cost": 100,
       "affects": [
         {
-          "apply": "18",
+          "level": 17,
+          "apply": "hit roll",
           "modifier": 1
         },
         {
-          "apply": "13",
+          "level": 17,
+          "apply": "hp",
           "modifier": 15
         },
         {
-          "apply": "12",
+          "level": 17,
+          "apply": "mana",
           "modifier": 10
         }
       ]
@@ -2617,21 +2829,23 @@
       "name": "demon bracer",
       "short_descr": "Demon bracer",
       "description": "A black and red bracer lies on the ground",
-      "action_descr": "steel",
       "item_type": "armor",
       "values": {
-        "v0": "ABC",
-        "v1": "AC",
-        "v2": 0,
-        "v3": 0
+        "vs_pierce": 7,
+        "vs_bash": 7,
+        "vs_slash": 5,
+        "vs_magic": 0
       },
-      "extra_flags": "glow noremove",
-      "wear_flags": "take finger neck",
-      "weight": 21,
-      "cost": 3,
+      "level": 21,
+      "material": "steel",
+      "extra_flags": "glow hum evil magic",
+      "wear_flags": "take wrist",
+      "weight": 3,
+      "cost": 500,
       "affects": [
         {
-          "apply": "12",
+          "level": 21,
+          "apply": "mana",
           "modifier": 15
         }
       ]
@@ -2644,29 +2858,33 @@
       "name": "demon blade",
       "short_descr": "A demon blade",
       "description": "A black blade hums on the ground",
-      "action_descr": "steel",
       "item_type": "weapon",
       "values": {
-        "v0": 5,
-        "v1": 6,
-        "v2": "slash",
-        "v3": 0
+        "weapon_type": "dagger",
+        "dice_num": 5,
+        "dice_size": 6,
+        "attack_type": "slash"
       },
-      "extra_flags": "glow inventory",
-      "wear_flags": "",
-      "weight": 23,
-      "cost": 6,
+      "level": 23,
+      "material": "steel",
+      "extra_flags": "hum evil magic antigood",
+      "wear_flags": "take wield",
+      "weight": 6,
+      "cost": 1000,
       "affects": [
         {
-          "apply": "19",
+          "level": 23,
+          "apply": "damage roll",
           "modifier": 3
         },
         {
-          "apply": "18",
+          "level": 23,
+          "apply": "hit roll",
           "modifier": 3
         },
         {
-          "apply": "17",
+          "level": 23,
+          "apply": "armor class",
           "modifier": -5
         }
       ]
@@ -2679,18 +2897,19 @@
       "name": "gem gate",
       "short_descr": "Gem of gate",
       "description": "A large black gem lies on the ground",
-      "action_descr": "wood",
       "item_type": "wand",
       "values": {
-        "v0": 5,
-        "v1": 5,
-        "v2": "'bless'",
-        "v3": 0
+        "level": 35,
+        "recharge": 5,
+        "charges": 5,
+        "skill": "bless"
       },
-      "extra_flags": "glow nopurge",
-      "wear_flags": "take finger legs",
-      "weight": 25,
-      "cost": 3
+      "level": 25,
+      "material": "wood",
+      "extra_flags": "hum evil magic",
+      "wear_flags": "take hold",
+      "weight": 3,
+      "cost": 100
     }
   },
   {
@@ -2700,25 +2919,28 @@
       "name": "demon plate",
       "short_descr": "Demon Plate",
       "description": "A black suite of plate mail rests on the ground",
-      "action_descr": "steel",
       "item_type": "armor",
       "values": {
-        "v0": "BD",
-        "v1": "BD",
-        "v2": "C",
-        "v3": 0
+        "vs_pierce": 10,
+        "vs_bash": 10,
+        "vs_slash": 10,
+        "vs_magic": 4
       },
-      "extra_flags": "glow lock",
-      "wear_flags": "finger body",
-      "weight": 30,
-      "cost": 9,
+      "level": 30,
+      "material": "steel",
+      "extra_flags": "hum evil magic antigood",
+      "wear_flags": "take body",
+      "weight": 9,
+      "cost": 1000,
       "affects": [
         {
-          "apply": "19",
+          "level": 30,
+          "apply": "damage roll",
           "modifier": 2
         },
         {
-          "apply": "17",
+          "level": 30,
+          "apply": "armor class",
           "modifier": -5
         }
       ]
@@ -2731,25 +2953,28 @@
       "name": "demon fire",
       "short_descr": "{RDemon Fire{x",
       "description": "A strange flame burns here.",
-      "action_descr": "fire",
       "item_type": "armor",
       "values": {
-        "v0": "CE",
-        "v1": "CE",
-        "v2": "CD",
-        "v3": 0
+        "vs_pierce": 22,
+        "vs_bash": 20,
+        "vs_slash": 20,
+        "vs_magic": 12
       },
-      "extra_flags": "glow antigood",
-      "wear_flags": "finger neck head",
-      "weight": 37,
-      "cost": 0,
+      "level": 37,
+      "material": "energy",
+      "extra_flags": "hum evil magic",
+      "wear_flags": "take shield",
+      "weight": 0,
+      "cost": 1000,
       "affects": [
         {
-          "apply": "19",
+          "level": 37,
+          "apply": "damage roll",
           "modifier": 6
         },
         {
-          "apply": "17",
+          "level": 37,
+          "apply": "armor class",
           "modifier": -15
         }
       ]
@@ -2762,18 +2987,19 @@
       "name": "fire gem",
       "short_descr": "A fire gem",
       "description": "A large red gem seems to be on fire",
-      "action_descr": "fire",
       "item_type": "wand",
       "values": {
-        "v0": 5,
-        "v1": 5,
-        "v2": "'fireball'",
-        "v3": 0
+        "level": 35,
+        "recharge": 5,
+        "charges": 5,
+        "skill": "fireball"
       },
-      "extra_flags": "glow nopurge",
-      "wear_flags": "take finger legs",
-      "weight": 30,
-      "cost": 3
+      "level": 30,
+      "material": "energy",
+      "extra_flags": "glow magic",
+      "wear_flags": "take hold",
+      "weight": 3,
+      "cost": 1000
     }
   },
   {
@@ -2783,17 +3009,17 @@
       "name": "stealth",
       "short_descr": "Statue of the a God",
       "description": "A statue of a god stands off to the side",
-      "action_descr": "wood",
       "item_type": "container",
       "values": {
-        "v0": "C",
-        "v1": 0,
-        "v2": 0,
-        "v3": 0
+        "capacity": 1000,
+        "max_weight": 0,
+        "weight_mult": 0
       },
+      "level": 1,
+      "material": "wood",
       "extra_flags": "",
-      "wear_flags": "body legs feet hands arms shield",
-      "weight": 1,
+      "wear_flags": "",
+      "weight": 0,
       "cost": 0
     }
   },
@@ -2804,18 +3030,13 @@
       "name": "brains",
       "short_descr": "brains of the god",
       "description": "A foul greyish mush sits here",
-      "action_descr": "unknown",
       "item_type": "money",
-      "values": {
-        "v0": 0,
-        "v1": 0,
-        "v2": 0,
-        "v3": 0
-      },
+      "values": {},
+      "level": 1,
       "extra_flags": "glow",
-      "wear_flags": "",
+      "wear_flags": "take",
       "weight": 1,
-      "cost": 1
+      "cost": 1000
     }
   },
   {
@@ -2825,18 +3046,14 @@
       "name": "gold pile merchants",
       "short_descr": "merchant's gold",
       "description": "Merchant's gold sits here in a pile",
-      "action_descr": "gold",
       "item_type": "money",
-      "values": {
-        "v0": 0,
-        "v1": 0,
-        "v2": 0,
-        "v3": 0
-      },
-      "extra_flags": "glow",
-      "wear_flags": "",
+      "values": {},
+      "level": 1,
+      "material": "gold",
+      "extra_flags": "",
+      "wear_flags": "take",
       "weight": 1,
-      "cost": 1
+      "cost": 10000
     }
   },
   {
@@ -2846,18 +3063,14 @@
       "name": "gold pile",
       "short_descr": "not so rich merchant gold",
       "description": "A small pile of gold",
-      "action_descr": "gold",
       "item_type": "money",
-      "values": {
-        "v0": 0,
-        "v1": 0,
-        "v2": 0,
-        "v3": 0
-      },
-      "extra_flags": "glow",
-      "wear_flags": "",
+      "values": {},
+      "level": 1,
+      "material": "gold",
+      "extra_flags": "",
+      "wear_flags": "take",
       "weight": 1,
-      "cost": 1
+      "cost": 1000
     }
   }
 ]

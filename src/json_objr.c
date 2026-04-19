@@ -194,6 +194,8 @@ EXIT_T *json_objr_exit(const JSON_T *json, ROOM_INDEX_T *room)
     {
         if (sub->type == JSON_STRING && strcmp((char *)sub->value, "nokey") == 0)
             exit->key = KEY_NOKEY;
+        else if (sub->type == JSON_STRING && strcmp((char *)sub->value, "nokeyhole") == 0)
+            exit->key = KEY_NOKEYHOLE;
         else
             json_objr_anum(sub, ANUM_OBJ, &(exit->key), room->area_str);
     }

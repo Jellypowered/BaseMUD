@@ -575,37 +575,23 @@
   },
   {
     "portal": {
-      "two-way": true,
-      "from": "pnorth-north-2",
-      "to": "moria-south-1-2"
-    }
-  },
-  {
-    "portal": {
-      "two-way": true,
-      "from": "pnorth-north-3",
-      "to": "olympus-south-1-2"
-    }
-  },
-  {
-    "portal": {
-      "two-way": true,
+      "two-way": false,
       "from": "pnorth-north-4",
-      "to": "moria-south-1-2-2"
+      "to": "moria-south-1"
     }
   },
   {
     "portal": {
-      "two-way": true,
+      "two-way": false,
       "from": "pnorth-north-5",
-      "to": "olympus-south-1-2-2"
+      "to": "olympus-south-1"
     }
   },
   {
     "portal": {
       "two-way": true,
       "from": "under2-up-1",
-      "to": "pnorth-down-2"
+      "to": "pnorth-down-1"
     }
   },
   {

@@ -233,7 +233,7 @@ DEFINE_JSON_WRITE_FUN(json_tblw_pc_race)
         json_prop_integer(sub, type_get_name(stat_types, i), pc_race->max_stats[i]);
 
     if (pc_race->bonus_max != 0)
-        json_prop_integer(new, "bonus_max_stat", pc_race->bonus_max);
+        json_prop_string(new, "bonus_max_stat", type_get_name(stat_types, pc_race->bonus_max));
 
     json_prop_string(new, "size", type_get_name(size_types, pc_race->size));
 
