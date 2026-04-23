@@ -340,9 +340,6 @@
       "classes": {
         "cleric": {
           "cost": 4
-        },
-        "warrior": {
-          "cost": 0
         }
       },
       "skills": [
