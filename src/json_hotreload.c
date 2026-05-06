@@ -20,6 +20,7 @@
 #include "json_import.h"
 #include "lookup.h"
 #include "objs.h"
+#include "portals.h"
 #include "recycle.h"
 #include "resets.h"
 #include "rooms.h"
@@ -261,6 +262,12 @@ static void hotreload_execute(HOTRELOAD_ENTRY_T *entry)
     json_import_link_one_area(new_area);
     reset_commit_area(new_area);
     area_reset(new_area);
+
+    /* Keep runtime portal topology aligned with JSON after hot-reload.
+     * This mirrors boot-time safety passes and prevents stale links
+     * when cross-area exits changed in the reloaded area. */
+    portal_create_missing_all();
+    portal_link_unassigned_by_names();
 
     /* ---- Re-validate displaced PC room positions ---- */
     for (int i = 0; i < displaced_count; i++)
