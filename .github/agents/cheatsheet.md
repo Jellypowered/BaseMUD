@@ -59,6 +59,8 @@ Verified findings from actual integrations. Update this file as new patterns are
 - Quit text is emitted in `do_quit` inside `src/act_player.c`; replacing the single `send_to_char(...)` call with a `number_range(...)` switch is the minimal pattern for randomized logoff lines.
 - Colorized quit lines should use `{X` tokens and end with `{x` reset before `\n\r`.
 - `do_remove` in `src/act_obj.c` supports `remove all` and `remove all.<keyword>`; parse with `do_obj_parse_arg(...)` and iterate `ch->content_first` with `obj_next` captured before `char_remove_obj(...)`.
+- `do_areas` in `src/act_info.c` now supports symbolic range tags from area credits: `{ All }` displays first, numeric ranges display next (sorted by low/high), and `{ Hero }` displays last; `{None}` is hidden. Keep range text fixed-width with `%-7.7s` to preserve two-column spacing.
+- `do_areas` shows the `[vnum]` column to immortals only; mortal output omits vnums.
 - `MOB_RESTRINGER` is bit 25 (replacing `MOB_UNUSED_FLAG_8`). Used for `do_restring` service NPC check.
 - `fix_resets()` in `src/db.c` scans all 'E' resets and corrects invalid wear locations to valid ones for each object using `obj_index_can_wear_flag()` and `wear_loc_get_flag()`. Logs warnings and marks areas as `AREA_CHANGED`.
 

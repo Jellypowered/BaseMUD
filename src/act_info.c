@@ -1640,6 +1640,137 @@ static int area_level_cmp(const void *a, const void *b)
     return a1->high_range - a2->high_range;
 }
 
+typedef enum {
+    AREA_RANGE_NONE = 0,
+    AREA_RANGE_ALL,
+    AREA_RANGE_NUMERIC,
+    AREA_RANGE_HERO
+} AREA_RANGE_KIND;
+
+static AREA_RANGE_KIND area_get_range_kind(const AREA_T *area)
+{
+    const char *lbrace;
+    const char *rbrace;
+    const char *start;
+    char token[16];
+    int len = 0;
+
+    if (area->credits != NULL)
+    {
+        lbrace = strchr(area->credits, '{');
+        if (lbrace != NULL)
+        {
+            rbrace = strchr(lbrace + 1, '}');
+            if (rbrace != NULL)
+            {
+                start = lbrace + 1;
+                while (start < rbrace && isspace((unsigned char)*start))
+                    start++;
+                while (rbrace > start && isspace((unsigned char)*(rbrace - 1)))
+                    rbrace--;
+
+                len = (int)(rbrace - start);
+                if (len > 0 && len < (int)sizeof(token))
+                {
+                    memcpy(token, start, len);
+                    token[len] = '\0';
+
+                    if (!str_cmp(token, "all"))
+                        return AREA_RANGE_ALL;
+                    if (!str_cmp(token, "hero"))
+                        return AREA_RANGE_HERO;
+                    if (!str_cmp(token, "none"))
+                        return AREA_RANGE_NONE;
+                }
+            }
+        }
+    }
+
+    if (area->low_range == 0 && area->high_range == 0)
+        return AREA_RANGE_NONE;
+
+    return AREA_RANGE_NUMERIC;
+}
+
+static bool area_matches_filter(const AREA_T *area,
+                                AREA_RANGE_KIND kind,
+                                bool is_immortal,
+                                int lo_level,
+                                int hi_level)
+{
+    if (!is_immortal && IS_SET(area->area_flags, AREA_HIDDEN))
+        return FALSE;
+
+    switch (kind)
+    {
+    case AREA_RANGE_NONE:
+        return FALSE;
+    case AREA_RANGE_ALL:
+        return TRUE;
+    case AREA_RANGE_HERO:
+        return hi_level >= LEVEL_HERO;
+    case AREA_RANGE_NUMERIC:
+    default:
+        if (area->low_range > hi_level && area->low_range != 0)
+            return FALSE;
+        if (area->high_range < lo_level && area->high_range != 0)
+            return FALSE;
+        return TRUE;
+    }
+}
+
+static void area_format_range(const AREA_T *area,
+                              AREA_RANGE_KIND kind,
+                              char *out,
+                              int out_size)
+{
+    int width = 9;
+    int text_len;
+    int pad_left;
+    int i;
+
+    switch (kind)
+    {
+    case AREA_RANGE_ALL:
+        memset(out, ' ', out_size);
+        if (out_size > 0)
+            out[out_size - 1] = '\0';
+        text_len = 3;
+        pad_left = (width - text_len) / 2;
+        for (i = 0; i < text_len && (pad_left + i) < out_size - 1; i++)
+            out[pad_left + i] = "ALL"[i];
+        break;
+    case AREA_RANGE_HERO:
+        memset(out, ' ', out_size);
+        if (out_size > 0)
+            out[out_size - 1] = '\0';
+        text_len = 4;
+        pad_left = (width - text_len) / 2;
+        for (i = 0; i < text_len && (pad_left + i) < out_size - 1; i++)
+            out[pad_left + i] = "HERO"[i];
+        break;
+    case AREA_RANGE_NUMERIC:
+    default:
+        snprintf(out, out_size, "%-3d - %3d", area->low_range, area->high_range);
+        break;
+    }
+}
+
+static void area_format_display_name(const char *name, char *out, int out_size)
+{
+    if (out_size <= 0)
+        return;
+
+    if (name == NULL || name[0] == '\0')
+    {
+        out[0] = '\0';
+        return;
+    }
+
+    snprintf(out, out_size, "%s", name);
+    out[0] = (char)toupper((unsigned char)out[0]);
+}
+
 /*
  * do_areas: sorted area list with optional level-range filter.
  *   areas           - all areas (mortals capped at LEVEL_IMMORTAL-1)
@@ -1651,12 +1782,19 @@ static int area_level_cmp(const void *a, const void *b)
 DEFINE_DO_FUN(do_areas)
 {
     char buf[MAX_STRING_LENGTH];
+    char range_buf[16];
+    char area_name_buf[MAX_INPUT_LENGTH];
     char arg1[MAX_INPUT_LENGTH];
     char arg2[MAX_INPUT_LENGTH];
+    AREA_RANGE_KIND kind;
     AREA_T *area;
+    AREA_T **all_areas;
     AREA_T **sorted;
-    int count, lo_level, hi_level, col, i;
-    bool found;
+    AREA_T **hero_areas;
+    int count_all, count_sorted, count_hero;
+    int lo_level, hi_level, col, i;
+    int idx_all, idx_sorted, idx_hero;
+    int total;
     bool is_immortal = (!IS_NPC(ch) && ch->level >= LEVEL_IMMORTAL);
 
     argument = one_argument(argument, arg1);
@@ -1677,62 +1815,132 @@ DEFINE_DO_FUN(do_areas)
                    ? MAX_LEVEL
                    : LEVEL_IMMORTAL - 1;
 
-    /* Collect matching areas (skip hidden unless immortal). */
-    count = 0;
+    /* Count matching areas into display buckets: All, numeric, Hero. */
+    count_all = 0;
+    count_sorted = 0;
+    count_hero = 0;
     for (area = area_first; area; area = area->global_next)
     {
-        if (!is_immortal && IS_SET(area->area_flags, AREA_HIDDEN))
+        kind = area_get_range_kind(area);
+        if (!area_matches_filter(area, kind, is_immortal, lo_level, hi_level))
             continue;
-        if (area->low_range  > hi_level && area->low_range  != 0)
-            continue;
-        if (area->high_range < lo_level && area->high_range != 0)
-            continue;
-        count++;
+
+        if (kind == AREA_RANGE_ALL)
+            count_all++;
+        else if (kind == AREA_RANGE_HERO)
+            count_hero++;
+        else
+            count_sorted++;
     }
 
-    if (count == 0)
+    total = count_all + count_sorted + count_hero;
+    if (total == 0)
     {
         send_to_char("{RNo areas meeting those criteria.{x\n\r", ch);
         return;
     }
 
-    sorted = calloc(count, sizeof(AREA_T *));
-    i = 0;
+    all_areas = count_all > 0 ? calloc(count_all, sizeof(AREA_T *)) : NULL;
+    sorted = count_sorted > 0 ? calloc(count_sorted, sizeof(AREA_T *)) : NULL;
+    hero_areas = count_hero > 0 ? calloc(count_hero, sizeof(AREA_T *)) : NULL;
+
+    if ((count_all > 0 && all_areas == NULL)
+        || (count_sorted > 0 && sorted == NULL)
+        || (count_hero > 0 && hero_areas == NULL))
+    {
+        free(all_areas);
+        free(sorted);
+        free(hero_areas);
+        send_to_char("{RMemory allocation failed.{x\n\r", ch);
+        return;
+    }
+
+    idx_all = 0;
+    idx_sorted = 0;
+    idx_hero = 0;
     for (area = area_first; area; area = area->global_next)
     {
-        if (!is_immortal && IS_SET(area->area_flags, AREA_HIDDEN))
+        kind = area_get_range_kind(area);
+        if (!area_matches_filter(area, kind, is_immortal, lo_level, hi_level))
             continue;
-        if (area->low_range  > hi_level && area->low_range  != 0)
-            continue;
-        if (area->high_range < lo_level && area->high_range != 0)
-            continue;
-        sorted[i++] = area;
+
+        if (kind == AREA_RANGE_ALL)
+            all_areas[idx_all++] = area;
+        else if (kind == AREA_RANGE_HERO)
+            hero_areas[idx_hero++] = area;
+        else
+            sorted[idx_sorted++] = area;
     }
-    qsort(sorted, count, sizeof(AREA_T *), area_level_cmp);
+    if (count_sorted > 1)
+        qsort(sorted, count_sorted, sizeof(AREA_T *), area_level_cmp);
 
     col = 0;
-    found = FALSE;
-    for (i = 0; i < count; i++)
+    for (i = 0; i < count_all; i++)
     {
-        area = sorted[i];
-        found = TRUE;
-        sprintf(buf, "{C[{M%3d{C] {C({G%-3d{W-{G%3d{C) {W%-18.18s {x",
-                area->vnum,
-                area->low_range,
-                area->high_range,
-                area->name);
+        area = all_areas[i];
+        area_format_range(area, AREA_RANGE_ALL, range_buf, sizeof(range_buf));
+        area_format_display_name(area->name, area_name_buf, sizeof(area_name_buf));
+        if (is_immortal)
+            sprintf(buf, "{C[{M%3d{C] {C({G%-9.9s{C) {W%-18.18s {x",
+                    area->vnum,
+                    range_buf,
+                    area_name_buf);
+        else
+            sprintf(buf, "{C({G%-9.9s{C) {W%-18.18s {x",
+                    range_buf,
+                    area_name_buf);
         send_to_char(buf, ch);
         if (col)
             send_to_char_bw("\n\r", ch);
         col = !col;
     }
+
+    for (i = 0; i < count_sorted; i++)
+    {
+        area = sorted[i];
+        area_format_range(area, AREA_RANGE_NUMERIC, range_buf, sizeof(range_buf));
+        area_format_display_name(area->name, area_name_buf, sizeof(area_name_buf));
+        if (is_immortal)
+            sprintf(buf, "{C[{M%3d{C] {C({G%-9.9s{C) {W%-18.18s {x",
+                    area->vnum,
+                    range_buf,
+                    area_name_buf);
+        else
+            sprintf(buf, "{C({G%-9.9s{C) {W%-18.18s {x",
+                    range_buf,
+                    area_name_buf);
+        send_to_char(buf, ch);
+        if (col)
+            send_to_char_bw("\n\r", ch);
+        col = !col;
+    }
+
+    for (i = 0; i < count_hero; i++)
+    {
+        area = hero_areas[i];
+        area_format_range(area, AREA_RANGE_HERO, range_buf, sizeof(range_buf));
+        area_format_display_name(area->name, area_name_buf, sizeof(area_name_buf));
+        if (is_immortal)
+            sprintf(buf, "{C[{M%3d{C] {C({G%-9.9s{C) {W%-18.18s {x",
+                    area->vnum,
+                    range_buf,
+                    area_name_buf);
+        else
+            sprintf(buf, "{C({G%-9.9s{C) {W%-18.18s {x",
+                    range_buf,
+                    area_name_buf);
+        send_to_char(buf, ch);
+        if (col)
+            send_to_char_bw("\n\r", ch);
+        col = !col;
+    }
+
     if (col)
         send_to_char("\n\r", ch);
 
+    free(all_areas);
     free(sorted);
-
-    if (!found)
-        send_to_char("{RNo areas meeting those criteria.{x\n\r", ch);
+    free(hero_areas);
 }
 
 DEFINE_DO_FUN(do_scan_short)
