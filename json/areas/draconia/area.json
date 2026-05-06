@@ -1,10 +1,16 @@
-[{"area": {
-  "name": "draconia",
-  "filename": "draconia.are",
-  "title": "Dragon Tower",
-  "credits": "{ 5 30} Wench   Dragon Tower",
-  "min_vnum": 2200,
-  "max_vnum": 2299,
-  "builders": "None",
-  "security": 9
-}}]
+[
+  {
+    "area": {
+      "name": "draconia",
+      "filename": "draconia.are",
+      "title": "Dragon Tower",
+      "credits": "{ 5 30} Wench   Dragon Tower",
+      "min_vnum": 2200,
+      "max_vnum": 2299,
+      "builders": "None",
+      "security": 9,
+      "low_range": 5,
+      "high_range": 30
+    }
+  }
+]

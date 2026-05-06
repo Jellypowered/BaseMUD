@@ -1,11 +1,17 @@
-[{"area": {
-  "name": "quest",
-  "filename": "quest.are",
-  "title": "Quest Items",
-  "credits": "{ 1 60} Quest System",
-  "min_vnum": 200,
-  "max_vnum": 299,
-  "builders": "None",
-  "security": 9,
-  "hidden": true
-}}]
+[
+  {
+    "area": {
+      "name": "quest",
+      "filename": "quest.are",
+      "title": "Quest Items",
+      "credits": "{ 1 60} Quest System",
+      "min_vnum": 200,
+      "max_vnum": 299,
+      "builders": "None",
+      "security": 9,
+      "hidden": true,
+      "low_range": 1,
+      "high_range": 60
+    }
+  }
+]

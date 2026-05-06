@@ -1,10 +1,16 @@
-[{"area": {
-  "name": "thalos",
-  "filename": "thalos.are",
-  "title": "Thalos",
-  "credits": "{10 25} Drkside Thalos",
-  "min_vnum": 5200,
-  "max_vnum": 5299,
-  "builders": "None",
-  "security": 9
-}}]
+[
+  {
+    "area": {
+      "name": "thalos",
+      "filename": "thalos.are",
+      "title": "Thalos",
+      "credits": "{10 25} Drkside Thalos",
+      "min_vnum": 5200,
+      "max_vnum": 5299,
+      "builders": "None",
+      "security": 9,
+      "low_range": 10,
+      "high_range": 25
+    }
+  }
+]
