@@ -63,6 +63,7 @@ Verified findings from actual integrations. Update this file as new patterns are
 - `do_areas` shows the `[vnum]` column to immortals only; mortal output omits vnums.
 - `MOB_RESTRINGER` is bit 25 (replacing `MOB_UNUSED_FLAG_8`). Used for `do_restring` service NPC check.
 - `fix_resets()` in `src/db.c` scans all 'E' resets and corrects invalid wear locations to valid ones for each object using `obj_index_can_wear_flag()` and `wear_loc_get_flag()`. Logs warnings and marks areas as `AREA_CHANGED`.
+- Prompt persistence: `fwrite_char()` in `src/save.c` must write `Prom` for any non-empty `ch->prompt`. A past condition combined mutually exclusive prompt strings with `&&`, which prevented `Prom` from being written and caused all prompt variants (`all`, `bot`, custom) to reset to default on relog.
 
 ## Idle Command
 

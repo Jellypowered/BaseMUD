@@ -149,7 +149,7 @@ void fwrite_char(CHAR_T *ch, FILE *fp)
         fprintf(fp, "LnD  %s~\n", ch->long_descr);
     if (ch->description[0] != '\0')
         fprintf(fp, "Desc %s~\n", ch->description);
-    if (ch->prompt != NULL && !str_cmp(ch->prompt, DEFAULT_PROMPT) && !str_cmp(ch->prompt, "{c" DEFAULT_PROMPT "{x "))
+    if (ch->prompt != NULL && ch->prompt[0] != '\0')
         fprintf(fp, "Prom %s~\n", ch->prompt);
     fprintf(fp, "Race %s~\n", pc_race->name);
     if (ch->clan)
