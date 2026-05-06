@@ -53,6 +53,7 @@ Verified findings from actual integrations. Update this file as new patterns are
 
 - `make` will fail with `-Werror` if a new helper is left unused in a build target; the pocket dungeon mobprog module initially hit `pd_build_random_idle_behavior` until the dead helper was removed.
 - The workspace build task is the right verification path for BaseMUD changes; it catches warnings that the lightweight editor diagnostics can miss.
+- Boot portal linking now reapplies links by portal exit name for all portal records, not only unassigned ones. This repairs stale in-memory links where exits (including `up`/`down`) exist in JSON but fail to appear as connected in-game.
 
 ## Player Command Notes
 

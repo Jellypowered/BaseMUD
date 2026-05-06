@@ -84,8 +84,6 @@ void portal_link_unassigned_by_names (void) {
     link_count = 0;
     fail_count = 0;
     for (p = portal_get_first(); p; p = portal_get_next (p)) {
-        if (p->from && p->to)
-            continue;
         if (portal_to_portal_exits_by_name (p))
             link_count++;
         else
@@ -93,9 +91,9 @@ void portal_link_unassigned_by_names (void) {
     }
 
     if (link_count > 0)
-        log_f ("%d portals successfully linked by name", link_count);
+        log_f ("%d portals successfully (re)linked by name", link_count);
     if (fail_count > 0)
-        bugf ("%d portals failed to link by name", fail_count);
+        bugf ("%d portals failed to (re)link by name", fail_count);
 }
 
 bool portal_to_portal_exits_by_name (PORTAL_T *portal) {
