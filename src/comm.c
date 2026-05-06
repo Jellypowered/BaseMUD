@@ -254,6 +254,16 @@ void bust_a_prompt(CHAR_T *ch)
                 i = " ";
             break;
 
+        case 'q':
+            if (ch->in_room != NULL)
+            {
+                sprintf(buf2, "Anum: %d/ Vnum: %d", ch->in_room->anum, ch->in_room->vnum);
+                i = buf2;
+            }
+            else
+                i = " ";
+            break;
+
         case 'z':
             if (IS_IMMORTAL(ch) && ch->in_room != NULL)
                 sprintf(buf2, "%s", ch->in_room->area->title);

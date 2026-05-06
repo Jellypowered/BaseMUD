@@ -591,6 +591,14 @@ DEFINE_DO_FUN (do_prompt) {
         return;
     }
 
+    if (!strcmp (argument, "bot")) {
+        snprintf (buf, sizeof(buf), "%s {D%%q{x", DEFAULT_PROMPT);
+        str_free (&(ch->prompt));
+        ch->prompt = str_dup (buf);
+        printf_to_char (ch, "Prompt set to %s\n\r", ch->prompt);
+        return;
+    }
+
     if (!strcmp (argument, "all"))
         strcpy (buf, DEFAULT_PROMPT);
     else {
