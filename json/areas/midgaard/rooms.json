@@ -801,6 +801,11 @@
           "dir": "west",
           "to": 13,
           "description": "You see the main street."
+        },
+        {
+          "dir": "northwest",
+          "to": 36,
+          "description": "You see the entrance to the Paladin's Guild."
         }
       ],
       "extra_description": [
@@ -6490,6 +6495,43 @@
           "description": "The stairs lead back down to the pub."
         }
       ]
+    }
+  },
+  {
+    "room": {
+      "area": "midgaard",
+      "anum": 36,
+      "name": "Entrance to the Paladin's Guild",
+      "description": "What you think we pay writers here? \n\nThis is the entrance to the paladin's guild. That's it. ",
+      "sector_type": "city",
+      "doors": [
+        {
+          "dir": "southeast",
+          "to": 14
+        },
+        {
+          "dir": "north",
+          "to": 37,
+          "description": "You see the Paladin's Guild. "
+        }
+      ],
+      "extra_description": []
+    }
+  },
+  {
+    "room": {
+      "area": "midgaard",
+      "anum": 37,
+      "name": "The Paladin's Guild. ",
+      "description": "It's what you think. Yep. Practice here. I think. ",
+      "sector_type": "city",
+      "doors": [
+        {
+          "dir": "south",
+          "to": 36
+        }
+      ],
+      "extra_description": []
     }
   }
 ]
