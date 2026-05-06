@@ -39,6 +39,7 @@
 #include "lookup.h"
 #include "memory.h"
 #include "players.h"
+#include "save.h"
 #include "tables.h"
 #include "utils.h"
 
@@ -595,6 +596,8 @@ DEFINE_DO_FUN (do_prompt) {
         snprintf (buf, sizeof(buf), "%s {D%%q{x", DEFAULT_PROMPT);
         str_free (&(ch->prompt));
         ch->prompt = str_dup (buf);
+        if (!IS_NPC(ch))
+            save_char_obj(ch);
         printf_to_char (ch, "Prompt set to %s\n\r", ch->prompt);
         return;
     }
@@ -612,6 +615,8 @@ DEFINE_DO_FUN (do_prompt) {
 
     str_free (&(ch->prompt));
     ch->prompt = str_dup (buf);
+    if (!IS_NPC(ch))
+        save_char_obj(ch);
     printf_to_char (ch, "Prompt set to %s\n\r", ch->prompt);
 }
 
