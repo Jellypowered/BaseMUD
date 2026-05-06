@@ -25,6 +25,12 @@
           "description": "You see the Temple of Midgaard.",
           "portal": "school-down-1"
         }
+      ],
+      "extra_description": [
+        {
+          "keyword": "sign",
+          "description": "Once you're level 5, this area will be of no use to you anymore, you've learned all the basics at that point. \n\nType 'north' to enter Mud School."
+        }
       ]
     }
   },
